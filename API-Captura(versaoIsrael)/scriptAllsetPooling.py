@@ -5,10 +5,10 @@ from mysql.connector import pooling, Error
 from statistics import mean
 
 dbconfig = {
-    "host": "127.0.0.1",
-    "user": "root",
-    "password": "MyAdmin@Israel11",
-    "database": "allsetPython"
+    "host": "10.18.32.97",
+    "user": "insertAllSet", 
+    "password": "Insert123",
+    "database": "allsetpython"
 }
 cnxpool = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=5, **dbconfig)
 

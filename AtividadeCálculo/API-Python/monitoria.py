@@ -1,4 +1,4 @@
-import mysql.connector
+from mysql.connector import connection
 from mysql.connector import errorcode
 
 print("Seja bem vindo a API - AllSet \n")
@@ -101,8 +101,8 @@ def tipoMedida():
     
 def puxarDados(computador, componente, metrica, medida):
 
-    mydb = mysql.connector.connect(
-        host="localhost",
+    mydb = connection.MySQLConnection( 
+        host="10.18.32.182",
         user="selectAllSet",
         password="Select123",
         database="allSetPython"

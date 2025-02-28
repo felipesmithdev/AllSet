@@ -1,5 +1,5 @@
 import psutil  
-import mysql.connector
+from mysql.connector import connection
 import time
 from mysql.connector import errorcode, Error
 
@@ -26,13 +26,11 @@ def iniciacao():
 
 def bancoDeDados(infinito):
 
-    mydb = mysql.connector.connect(
-        host="localhost",
+    mydb = connection.MySQLConnection ( 
+        host="10.18.32.182",
         user="insertAllSet",
-        password="insert123",
-        database="allSetPython"
-    )
-
+        password="Insert123",
+        database="allSetPython")
     mycursor = mydb.cursor()
 
     print("Database connection made!")
@@ -51,7 +49,7 @@ def bancoDeDados(infinito):
         novaMetrica = (
             "INSERT INTO medicao "
             "(cpuPercentual, memoria1Bytes, memoria1Percentual, ramPercentual, ramBytes, bateriaPercentual, dtHora, fkComputador)" 
-            "VALUES ( %(numero)s, %(armTotal)s, %(armUsado)s, %(RAMtotal)s, %(RAMusado)s, %(bateriaSensor)s, NOW(), 1);"
+            "VALUES ( %(numero)s, %(armTotal)s, %(armUsado)s, %(RAMtotal)s, %(RAMusado)s, %(bateriaSensor)s, NOW(), 4);"
         )
 
         dadosMetrica = {

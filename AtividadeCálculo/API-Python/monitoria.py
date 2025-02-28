@@ -103,8 +103,8 @@ def puxarDados(computador, componente, metrica, medida):
 
     mydb = mysql.connector.connect(
         host="localhost",
-        user="admin",
-        password="14042005",
+        user="selectAllSet",
+        password="Select123",
         database="allSetPython"
     )
 
@@ -116,12 +116,12 @@ def puxarDados(computador, componente, metrica, medida):
         if(componente == "todos"):
 
             if(medida == "máquinaAtual"):
-                sql = "SELECT AVG(cpuPercentual), AVG(ramPercentual), AVG(bateriaPorcentagem), AVG(memoria1Percentual) FROM medicao WHERE fkComputador = %s;"
+                sql = "SELECT AVG(cpuPercentual), AVG(ramPercentual), AVG(bateriaPercentual), AVG(memoria1Percentual) FROM medicao WHERE fkComputador = %s;"
                 valores = (
                     computador,
                 )
             else:
-                    sql = "SELECT AVG(cpuPercentual), AVG(ramPercentual), AVG(bateriaPorcentagem), AVG(memoria1Percentual) FROM medicao group by fkComputador;"
+                    sql = "SELECT AVG(cpuPercentual), AVG(ramPercentual), AVG(bateriaPercentual), AVG(memoria1Percentual) FROM medicao group by fkComputador;"
 
         else :
             coluna = componente + metrica

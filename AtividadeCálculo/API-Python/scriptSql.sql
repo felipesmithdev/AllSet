@@ -46,9 +46,11 @@ CREATE TABLE criticos (
 
 INSERT INTO computador (apelido, dono, cpu, ram, TipoMemoria, tipoMemoria2, qtdMemoria, qtdMemoria2)
 VALUES
-('Computador1', 'João', 'Intel Core i7', 16, 'DDR4', 'SSD', 512, 256),
-('Computador2', 'Maria', 'AMD Ryzen 5', 8, 'DDR4', 'HDD', 1000, 0),
-('Computador3', 'Pedro', 'Intel Core i5', 8, 'DDR3', 'SSD', 256, 128);
+('Computador1', 'Diniz', 'Intel Core i7', 16, 'DDR4', 'SSD', 512, 256),
+('Computador2', 'Amanda', 'AMD Ryzen 5', 8, 'DDR4', 'HDD', 1000, 0),
+('Computador3', 'Israel', 'Intel Core i5', 8, 'DDR3', 'SSD', 256, 128),
+('Computador4', 'Gui', 'Intel Core i5', 8, 'DDR3', 'SSD', 256, 128),
+('Servidor', 'Robert', 'Intel Core i5', 8, 'DDR3', 'SSD', 256, 128);
 
 INSERT INTO medicao (cpuPercentual, ramPercentual, ramBytes, bateriaPorcentagem, memoria1Bytes, memoria2Bytes, memoria1Percentual, memoria2Percentual, dataHora, fkComputador)
 VALUES

@@ -5,6 +5,12 @@ from mysql.connector import errorcode, Error
 
 print("Bom dia, bem vindo a API da AllSet")
 
+def converter_bytes(bytes):
+    if(bytes <= 0):
+        return 0;
+    conversao = round(float((bytes)/ (1024 ** 3)), 2)
+    return conversao
+
 def iniciacao():
         
         while True:
@@ -39,11 +45,11 @@ def bancoDeDados(infinito):
 
         porcentagem = psutil.cpu_percent(interval=1)
         discoUso = psutil.disk_usage('C:\\')
-        armTotal = discoUso.total / 1000000000
-        armUsado = discoUso.used / 1000000000
+        armTotal = converter_bytes(discoUso.total)
+        armUsado = converter_bytes(discoUso.used)
         memoriaVirtual = psutil.virtual_memory()
-        RAMtotal = memoriaVirtual.total / 1000000000
-        RAMusado = memoriaVirtual.used / 1000000000
+        RAMtotal = converter_bytes(memoriaVirtual.total)
+        RAMusado = converter_bytes(memoriaVirtual.used)
         bateriaSensor = psutil.sensors_battery()
 
         novaMetrica = (
@@ -51,7 +57,7 @@ def bancoDeDados(infinito):
             "(cpuPercentual, memoria1Bytes, memoria1Percentual, ramPercentual, ramBytes, bateriaPercentual, dtHora, fkComputador)" 
             "VALUES ( %(numero)s, %(armTotal)s, %(armUsado)s, %(RAMtotal)s, %(RAMusado)s, %(bateriaSensor)s, NOW(), 4);"
         )
-
+        
         dadosMetrica = {
         'numero': porcentagem,
         'armTotal': armTotal,
@@ -60,7 +66,7 @@ def bancoDeDados(infinito):
         'RAMusado': RAMusado,
         'bateriaSensor': bateriaSensor.percent
         }
-
+        print(dadosMetrica)
         try:
             mycursor.execute(novaMetrica, dadosMetrica)
             mydb.commit()

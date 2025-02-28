@@ -1,7 +1,7 @@
 import psutil  
 import mysql.connector
 import time
-from mysql.connector import errorcode
+from mysql.connector import errorcode, Error
 
 print("Bom dia, bem vindo a API da AllSet")
 
@@ -28,8 +28,8 @@ def bancoDeDados(infinito):
 
     mydb = mysql.connector.connect(
         host="localhost",
-        user="selectAllSet",
-        password="select123",
+        user="insertAllSet",
+        password="insert123",
         database="allSetPython"
     )
 
@@ -67,8 +67,8 @@ def bancoDeDados(infinito):
             mycursor.execute(novaMetrica, dadosMetrica)
             mydb.commit()
             print("Dados inseridos com sucesso!")
-        except:
-            print(f"Erro ao inserir dados")
+        except Error as e:
+            print(f"Erro ao inserir dados: {e}")
         
         if infinito == False:
             break

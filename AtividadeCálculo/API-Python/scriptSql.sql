@@ -19,7 +19,7 @@ CREATE TABLE medicao (
     cpuPercentual FLOAT,
     ramPercentual FLOAT,
     ramBytes INT,
-    bateriaPorcentual FLOAT,
+    bateriaPercentual FLOAT,
     memoria1Bytes INT,
     memoria2Bytes INT,
     memoria1Percentual FLOAT,
@@ -56,5 +56,4 @@ VALUES
 (30.0, 50.0, 4096, 75.0, 51200, 0, 15.0, 0.0, '2025-02-28 13:00:00', 2),
 (60.0, 70.0, 8192, 90.0, 102400, 51200, 40.0, 20.0, '2025-02-28 14:00:00', 3);
 
-
-
+DROP DATABASE allsetPython;

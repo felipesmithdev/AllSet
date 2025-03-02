@@ -1,6 +1,7 @@
 from mysql.connector import connection
 from mysql.connector import errorcode
 
+componentes = []
 print("Seja bem vindo a API - AllSet \n")
 
 def iniciacao():
@@ -116,7 +117,8 @@ def puxarDados(computador, componente, metrica, medida):
         if(componente == "todos"):
 
             if(medida == "máquinaAtual"):
-                sql = "SELECT AVG(cpuPercentual), AVG(ramPercentual), AVG(bateriaPercentual), AVG(memoria1Percentual) FROM medicao WHERE fkComputador = %s;"
+                componentes = ["Percentual da CPU: ", "Percentual da Memória RAM: ", "Percentual da bateria: ", "Percentual do disco: "]
+                sql = "SELECT AVG(cpuPercentual) as mediaCPUPercentual, AVG(ramPercentual) as mediaRAMPercentual, AVG(bateriaPercentual) as mediaBateriaPercentual, AVG(memoria1Percentual) as mediaMemoria1Percentual FROM medicao WHERE fkComputador = %s;"
                 valores = (
                     computador,
                 )
@@ -165,13 +167,14 @@ def puxarDados(computador, componente, metrica, medida):
                 sql = "SELECT AVG(%s) FROM medicao GROUP BY fkComputador;" % (coluna,)
     
     mycursor.execute(sql, valores)
-    resultados = mycursor.fetchall() 
+    resultados = mycursor.fetchall()
     for linha in resultados:
         print(linha)
     
     mydb.commit()
 
 
+ 
     mycursor.close()
     mydb.close()
 

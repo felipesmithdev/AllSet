@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+body {
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    font-family: "Alata", sans-serif;
+    background-color: #051D34;
+
+}
+
+.voltar{
+    color: #fff;
+    align-self: self-start;
+    font-size: 1.5rem;
+}
+
+.voltar:hover{
+    color: #61B0FF;
+}
+
+
+.titulo{
+    color: #051D34;
+    font-size: 40px;
+    font-weight: lighter;
+    align-self: center;
+    margin: 2%;
+    
+
+}
+
+.titulo-form{
+    align-self: center;
+    font-size: 60px;
+    font-weight: bold;
+    color: #61B0FF;
+    margin: 0;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    color: #1f2a44;
+    background-color: rgb(227, 227, 227);
+    justify-content: space-around;
+    height: fit-content;
+    width: 35%;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 2%;
+    border: solid 2px #1f2a44;
+    margin-top: 5%;
+
+
+}
+
+.campo{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+input {
+    height: 25px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    border: solid 2px #1f2a44;
+}
+
+.botao {
+    width: fit-content;
+    border-radius: 7px;
+    font-size: 20px;
+    border: solid 2px #1f2a44;
+    background-color: #1f2a44;
+    color: white;
+    margin-top: 5%;
+    align-self: center;
+}
+
+.botao:hover {
+    background-color:#61B0FF; 
+}
+
+.texto-link{
+    margin-top: 2%;
+    font-size: 20px;
+    align-self: center;
+    text-decoration: none;
+    color: #051D34
+
+}
+
+a:hover{
+    color:#61B0FF; 
+}
+
+
+.alerta_erro{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #ED145B 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+  }
+  
+  .card_erro #mensagem_erro{
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .loading-div {
+    width: 50px;
+    margin: auto;
+    display: none;
+  }
+  
+  .loading-div img {
+    height: 100px;
+    width: 100px;
+  }

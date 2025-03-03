@@ -1,101 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>AquaTech | Cadastro</title>
-
-  <script src="./js/sessao.js"></script>
-
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/mobile-login.css">
+    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
+    <script src="./js/sessao.js"></script>
+    <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
+    <title>AllSet - Cadastro Funcionário</title>
 </head>
 
-<body onload="listar()">
-  <!--header inicio-->
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!--header fim-->
+<body>
 
-  <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" oninput="validarCodigo()" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
+    <!-- <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
+        </div> -->
+    <!-- </div> -->
+   <a href="index.html" class="voltar"> <i class="fa-solid fa-arrow-left"></i></a>
+   <h1 class="titulo-form">AllSet</h1>
+
+   
+    <div class="formulario">
+      <span class="titulo">Cadastro - Funcionário</span>
+        <div class="campo">
             <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
+            <input id="nome_input" type="text" placeholder="Digite seu nome">
+        </div>
+
+        <div class="campo">
             <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="number" placeholder="Apenas números no CPF" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+            <input id="email_input" type="text" placeholder="exemplo@gmail.com">
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
-        </div>
+
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="senha_input" type="password" placeholder="******">
+      </div>
+
+      <div class="campo">
+        <span>Confirme sua senha:</span>
+        <input id="confirmacaoSenha_input" type="password" placeholder="******">
+    </div>
 
         <div id="div_erros_login"></div>
-      </div>
+        <button class="botao" onclick="entrar()">Cadastrar</button>
+        <a href="./login.html" class="texto-link">Já possui uma conta? Faça login</a>
     </div>
-  </div>
 
-  <!--footer inicio-->
-  <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
+    
+    <div id="div_aguardar" class="loading-div">
+        <img src="./assets/gifazul.gif" id="loading-gif" />
     </div>
-  </div>
-  <!--footer fim-->
+
+
+
 </body>
 
 </html>

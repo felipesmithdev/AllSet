@@ -1,16 +1,5 @@
 
 
-@keyframes float{
-	0%, 100%{
-		transform: translateY(0rem);
-	}
-	50%{
-		transform: translateY(3rem);
-	}
-}
-
-
-
 
 
 /* media queries 991px */
@@ -63,7 +52,7 @@
 		}
 
 		.home{
-			background-image: url(../img/carro-autonomo\ -corte.jpg);
+			background-image: url(../assets/img/carro-autonomo\ -corte.jpg);
 		}
 
 		.quem-proposito{

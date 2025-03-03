@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/mobile-login.css">
+    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
+    <script src="./js/sessao.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" ></script>
+    <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
+    <title>AllSet - Cadastro Empresa</title>
+</head>
+
+<body>
+    <!-- <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
+        </div> -->
+    <!-- </div> -->
+
+
+   <a href="index.html" class="voltar"> <i class="fa-solid fa-arrow-left"></i></a>
+   <h1 class="titulo-form">AllSet</h1>
+   
+    <div class="formulario">
+      <span class="titulo">Cadastro - Empresa</span>
+   
+        <div class="campo">
+            <span>Nome da Empresa:</span>
+            <input id="nome_input" type="text" placeholder="AllSet">
+        </div>
+
+        <div class="campo">
+            <span>CNPJ:</span>
+            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00">
+        </div>
+        <div id="div_erros_login"></div>
+        <button class="botao" onclick="entrar()">Continuar</button>
+        <a href="./login.html" class="texto-link">Já possui uma conta? Faça login</a>
+    </div>
+
+    
+    <div id="div_aguardar" class="loading-div">
+        <img src="./assets/gifazul.gif" id="loading-gif" />
+    </div>
+
+
+
+</body>
+
+</html>
+
+<script>
+
+  // Máscara para o campo CNPJ
+  const cnpjInput = document.getElementById('cnpj_input');
+  Inputmask("99.999.999/9999-99").mask(cnpjInput);
+
+  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  let listaEmpresasCadastradas = [];
+
+  function cadastrar() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var cpfVar = cpf_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var codigoVar = codigo_input.value;
+    var nomeValido = (nomeVar.length > 1);
+    var emailValido = (emailVar.includes('@') && emailVar.includes('.'));
+    var senhaValida = (senhaVar.length > 6);
+    var confirmacaoValida = (senhaVar == confirmacaoSenhaVar);
+    var cpfValido = (cpfVar.length == 11);
+    var idEmpresaVincular
+
+    // Verificando se há algum campo em branco
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      cpfVar == "" ||
+      confirmacaoSenhaVar == "" ||
+      codigoVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "Preencha todos os campos para continuar";
+
+      finalizarAguardar();
+      return false;
+    }
+    else if (
+      nomeValido == false
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "O nome do usuário tem de ser maior de 1";
+
+      finalizarAguardar();
+      return false;
+    } else if (
+      emailValido == false
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "O Email de usuário deve conter @ e .";
+
+      finalizarAguardar();
+      return false;
+    } else if (
+      senhaValida == false
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "A senha deve ter mais de 6 caracteres";
+
+      finalizarAguardar();
+      return false;
+    } else if (
+      confirmacaoValida == false
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "A confirmação de senha deve ser igual a senha criada";
+
+      finalizarAguardar();
+      return false;
+    } else if (
+      cpfValido == false
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "O CPF deve conter apenas 11 caracteres";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    // Verificando se o código de ativação é de alguma empresa cadastrada
+    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+        idEmpresaVincular = listaEmpresasCadastradas[i].id
+        console.log("Código de ativação válido.");
+        break;
+      } else {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        finalizarAguardar();
+      }
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        cpfServer: cpfVar,
+        senhaServer: senhaVar,
+        idEmpresaVincularServer: idEmpresaVincular
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>

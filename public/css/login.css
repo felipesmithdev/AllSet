@@ -133,3 +133,9 @@ a:hover{
     height: 100px;
     width: 100px;
   }
+  #cadastro2{
+    display: none;
+  }
+  #cadastro3{
+    display: none;
+  }

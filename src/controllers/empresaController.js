@@ -25,18 +25,22 @@ function buscarPorId(req, res) {
 function cadastrar(req, res) {
   var cnpj = req.body.cnpj;
   var razaoSocial = req.body.razaoSocial;
+  var dtCadastro = req.body.dtCadastro;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    if (resultado.length > 0) {
-      res
-        .status(401)
-        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
-    } else {
-      empresaModel.cadastrar(razaoSocial, cnpj).then((resultado) => {
-        res.status(201).json(resultado);
-      });
+    if (cnpj == undefined) {
+        res.status(400).send("Seu cnpj está undefined!");
+    } else if (razaoSocial == undefined) {
+        res.status(400).send("Sua razaoSocial está undefined!");
+    }else if (dtCadastro == undefined) {
+      res.status(400).send("Seu dtCadastro está undefined!");
+    }else{
+        empresaModel.cadastrar(cnpj, razaoSocial, dtCadastro).then((resultado) => {
+                res.status(200).json(resultado);
+                res.status(200).send("Empresa cadastrada com sucesso");
+              }).catch(function(erro){
+                res.status(500).json(erro.sqlMessage);
+            })        
     }
-  });
 }
 
 module.exports = {

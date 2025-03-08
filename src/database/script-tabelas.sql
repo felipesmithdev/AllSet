@@ -1,62 +1,82 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+-- Active: 1732573765546@@127.0.0.1@3306@allset
+USE allset;
+CREATE TABLE Empresa (
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    razaoSocial VARCHAR(45),
+    cnpj VARCHAR(45),
+    dtCadastro DATE
+);
+-- Criação da tabela Unidade
+CREATE TABLE Unidade (
+    idUnidade INT PRIMARY KEY AUTO_INCREMENT,
+    fkEmpresa INT,
+    nome VARCHAR(45),
+    estado VARCHAR(45),
+    cidade VARCHAR(45),
+    bairro VARCHAR(45),
+    contato VARCHAR(45),
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+-- Criação da tabela Carro
+CREATE TABLE Carro (
+    idCarro INT PRIMARY KEY AUTO_INCREMENT,
+    fkUnidade INT,
+    modelo VARCHAR(45),
+    marca VARCHAR(45),
+    ano VARCHAR(45),
+    identificador VARCHAR(45),
+    sistemaOperacional VARCHAR(45),
+    FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+-- Criação da tabela Componente
+CREATE TABLE Componente (
+    idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    fkCarro INT,
+    nome VARCHAR(45),
+    medida VARCHAR(45),
+    limiarAlerta DOUBLE,
+    FOREIGN KEY (fkCarro) REFERENCES Carro(idCarro)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+-- Criação da tabela Usuario
+CREATE TABLE Usuario (
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    fkUnidade INT,
+    nome VARCHAR(45),
+    senha VARCHAR(45),
+    cpf VARCHAR(45),
+    email VARCHAR(45),
+    perfil VARCHAR(45),
+    ativo TINYINT(1),
+    FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+-- Criação da tabela EventoAlerta
+CREATE TABLE EventoAlerta (
+    idEventoAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    fkComponente INT,
+    dataHora VARCHAR(45),
+    valor DOUBLE,
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+-- Criação da tabela MediaRegistros
+CREATE TABLE MediaRegistros (
+    idMediaRegistros INT PRIMARY KEY AUTO_INCREMENT,
+    fkComponente INT,
+    qtdRegistros INT,
+    valor DOUBLE,
+    unidadeTempo VARCHAR(45),
+    tempo VARCHAR(45),
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
+);
+
+INSERT INTO Empresa (idEmpresa, razaoSocial, cnpj, dtCadastro)
+VALUES (DEFAULT, 'Empresa Exemplo Ltda', '12.345.678/0001-99', '2023-04-07');
+
+select * from unidade;
+select * from usuario;
+select * from empresa;
+

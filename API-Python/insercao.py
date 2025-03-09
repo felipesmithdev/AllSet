@@ -36,7 +36,7 @@ def bancoDeDados(infinito):
         host="10.18.32.182",
         user="insertAllSet",
         password="Insert123",
-        database="allSetPython")
+        database="allset")
     mycursor = mydb.cursor()
 
     print("Database connection made!")

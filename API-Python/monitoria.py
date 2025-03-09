@@ -106,7 +106,7 @@ def puxarDados(computador, componente, metrica, medida):
         host="10.18.32.182",
         user="selectAllSet",
         password="Select123",
-        database="allSetPython"
+        database="allset"
     )
 
     mycursor = mydb.cursor()

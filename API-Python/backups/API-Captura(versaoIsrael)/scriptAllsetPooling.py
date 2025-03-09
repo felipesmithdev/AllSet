@@ -8,7 +8,7 @@ dbconfig = {
     "host": "10.18.32.97",
     "user": "insertAllSet", 
     "password": "Insert123",
-    "database": "allsetpython"
+    "database": "allset"
 }
 cnxpool = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=5, **dbconfig)
 

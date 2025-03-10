@@ -76,6 +76,11 @@ def bancoDeDados(infinito):
     mycursor = mydb.cursor()
 
     informacaoCarro = qualCarro()
+    
+    sql = "SELECT nome, medida, limiarAlerta FROM componente WHERE fkCarro = %s;"
+    valores = (
+        informacaoCarro,
+            )
 
     mycursor.execute()
 

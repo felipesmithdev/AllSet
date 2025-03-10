@@ -30,46 +30,58 @@
          <div id="cadastro1">
            <div class="campo">
              <span>Nome da Empresa:</span>
-            <input id="nome_input" type="text" placeholder="AllSet">
+            <input id="nomeEmpresa_input" type="text" placeholder="AllSet">
           </div>
           
           <div class="campo">
             <span>CNPJ:</span>
-            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00">
+            <small style="font-size: 15px;">Digite apenas números</small>
+            <input id="cnpj_input" type="number" placeholder="00.000.000/0000-00">
           </div>
         </div>
         <div id="cadastro2">
           <div class="campo">
             <Span> Agora é necessário cadastrar uma unidade para a sua empresa.</Span>
-            <span>Identificação:</span>
+            <span>Nome da Unidade:</span>
            <input id="unidade_input" type="text" placeholder="Unidade avenida paulista">
-         </div>
-         
+          </div>
+          <div class="campo">
+            <span>CEP:</span>
+            <input id="cep_input" type="text" placeholder=" 00000-000">
+          </div>
+          
          <div class="campo">
            <span>Estado:</span>
-           <input id="estado_input" type="text" placeholder="SP">
+           <input id="estado_input" type="text" placeholder="São Paulo">
          </div>
 
          <div class="campo">
           <span>Cidade:</span>
-          <input id="estado_input" type="text" placeholder="São Paulo">
+          <input id="cidade_input" type="text" placeholder="São Paulo">
         </div>
         <div class="campo">
           <span>Bairro:</span>
           <input id="bairro_input" type="text" placeholder="Jardim paulista">
         </div>
         <div class="campo">
+          <span>Logradouro:</span>
+          <input id="logradouro_input" type="text" placeholder="Jardim paulista">
+        </div>
+        <div class="campo">
+          <span>Complemento:</span>
+          <input id="complemento_input" type="text" placeholder="Jardim paulista">
+        </div>
+        <div class="campo">
           <span>Contato celular:</span>
-          <input id="contato_input" type="text" placeholder=" 11123456789">
+          <input id="contato_input" type="text" placeholder="11123456789">
         </div>
        </div>
        <div id="cadastro3">
         <div class="campo">
           <span>Por fim, vamos cadastrar um usuário administrativo.</span>
           <span>Nome:</span>
-         <input id="username_input" type="text" placeholder="Eloy Mosca">
+         <input id="username_input" type="text" placeholder="Usuario administrativo">
        </div>
-       
        <div class="campo">
          <span>Senha:</span>
          <input id="password_input" type="text" placeholder="xxxxxxxxxxxx">
@@ -96,14 +108,117 @@
 </html>
 
 <script>
+  var etapa_cadastro = 0
 
-  // Máscara para o campo CNPJ
-  const cnpjInput = document.getElementById('cnpj_input');
-  Inputmask("99.999.999/9999-99").mask(cnpjInput);
+
+    let nomeEmpresa = document.getElementById('nomeEmpresa_input')
+    let cnpj = document.getElementById('cnpj_input')
+    let unidade = document.getElementById('unidade_input')
+    let cep = document.getElementById('cep_input')
+    let estado = document.getElementById('estado_input')
+    let cidade = document.getElementById('cidade_input')
+    let bairro = document.getElementById('bairro_input')
+    let logradouro = document.getElementById('logradouro_input')
+    let complemento = document.getElementById('complemeto_input')
+    let contato = document.getElementById('contato_input')
+    let username = document.getElementById('username_input')
+    let password = document.getElementById('password_input')
+    let email = document.getElementById('email_input')
+
+
+  function validar() {
+  let nomeEmpresaValido = false
+  let cnpjValido = false
+  let unidadeValido = false
+  let cepValido = false
+  let estadoValido = false
+  let cidadeValido = false
+  let bairroValido = false
+  let logradouroValido = false
+  let complementoValido = false
+  let contatoValido = false
+  let usernameValido = false
+  let passwordValido = false
+  let emailValido = false
+
+    //validar empresa
+    var minCharNomeEmpresa = false
+
+      var tamanhoNomeEmpresa = (nomeEmpresa.lenght + 1)
+      if (tamanhoNomeEmpresa <=6) {
+        console.log("nome empresa curto")
+      }else{
+        minCharNomeEmpresa = true
+      }
+  
+      //validar cnpj
+      Inputmask("99.999.999/9999-99").mask(cnpjInput);
+      var tamanhoCnpj = (cnpj.lenght + 1)
+      var minCharCnpj = false
+      if (tamanhoCnpj !== 14) {
+        console.log('cnpj sem numero suficientes')
+      } else {
+        minCharCnpj = true
+      }
+
+      //validar unidade
+      var minCharUnidade = false
+      var tamanhoUnidade = unidade.lenght
+      if (tamanhoUnidade <=5) {
+        console.log("Unidade curta")
+      }else{
+        minCharUnidade = true
+      }
+      
+      //validar cpf
+      Inputmask("99.999-999").mask(cep);
+      var tamanhoCEP = (cep.lenght + 1)
+      var minCharCEP = false
+      if (tamanhoCEP !== 8) {
+        console.log('CEP sem números suficientes')
+      } else {
+        minCharCEP = true
+      }
+
+      //validar contato celular
+      Inputmask("(XX) XXXXX-XXXX").mask(contato);
+      const contatoRegex = /^\d{2}\s?9?\d{4}\s?-?\d{4}$/;
+      let minCharContato = false
+      let tamanhoContato = contato.lenght+1
+      let contatoTeste = contatoRegex.test(contato)
+
+      if (contatoTeste && tamanhoCEP == 11) {
+        minCharContato = true
+      } else {
+        console.log('erro no celular')
+      }
+
+      
+
+      //validação username
+      let minMaxCharUsername = false
+      let tamanhoUsername = username.lenght+1
+      if (tamanhoUsername < 5) {
+        console.log('username curto')
+      }else if (tamanhoUsername > 20){
+        console.log('username longo')
+      }else{
+        minMaxCharUsername = true
+      }
+
+      const regexUsernameSemEspaço = /^\S*$/;
+      let testeUsernameSemEspaco = regexUsernameSemEspaço.test(username)
+
+      if (testeUsernameSemEspaco) {
+        
+      } else {
+        
+      }
+  }
+
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 
   let listaEmpresasCadastradas = [];
-  var etapa_cadastro = 0
   function cadastrar(){
     // aguardar();
      if (etapa_cadastro == 0){
@@ -214,6 +329,7 @@
             } else {
       console.log("Armazenados dados funcionário.")
       console.log("Mandar dados para o banco")
+      console.log(etapa_cadastro)
       window.location = "\monitoramento_real.html"
               // AGORA É NECESSÁRIO FAZER O ENVIO DOS DADOS PARA O BANCO!
             }

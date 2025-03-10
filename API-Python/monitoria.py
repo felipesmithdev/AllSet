@@ -103,7 +103,7 @@ def tipoMedida():
 def puxarDados(computador, componente, metrica, medida):
 
     mydb = connection.MySQLConnection( 
-        host="10.18.32.182",
+        host="localhost",
         user="selectAllSet",
         password="Select123",
         database="allset"

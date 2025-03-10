@@ -1,5 +1,9 @@
 -- Active: 1732573765546@@127.0.0.1@3306@allset
+
+CREATE DATABASE allset:
+
 USE allset;
+
 CREATE TABLE Empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(45),

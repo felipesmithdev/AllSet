@@ -1,7 +1,6 @@
 import psutil  
-from mysql.connector import connection
+from mysql.connector import connection, errorcode, Error
 import time
-from mysql.connector import errorcode, Error
 
 print("Bom dia, bem vindo a API da AllSet")
 

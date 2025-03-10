@@ -12,7 +12,7 @@
     <title>AllSet - Login</title>
 </head>
 
-<body>
+<body onload="carregarCarros()">
 
   <div class="header">
 
@@ -47,13 +47,14 @@
     </h1>
 
   </div>
-  
-    <div class="container-dash">
 
-     <div class="dash">
+    <div class="container-dash" id="spawnpoint">
+
+    </div>
+
+    </div> 
 
 
-     </div>
 
     </div>
 
@@ -65,9 +66,110 @@
 
 </html>
 <script>
+  const carros = [
+{ placa: 'ABC1D23', cpu: 30, ram: 15 },
+{ placa: 'DEF4G56', cpu: 45, ram: 40 },
+{ placa: 'GHI7J89', cpu: 52, ram: 90 },
+{ placa: 'JKL0M12', cpu: 60, ram: 60 },
+{ placa: 'MNO3P45', cpu: 39, ram: 46 },
+{ placa: 'PQR6S78', cpu: 47, ram: 31 },
+{ placa: 'STU9V01', cpu: 55, ram: 73 },
+{ placa: 'VWX2Y34', cpu: 42, ram: 82 },
+{ placa: 'YZA5B67', cpu: 33, ram: 13 }
+];
+
+  function carregarCarros(){
+   for (i = 0; i < carros.length; i++){
+    console.log(carros[i])
+   document.getElementById("spawnpoint").innerHTML += `
+   <div class="dash">
+       <div class="dash-info">
+
+         <h1 class="fonte-dash"> ${carros[i].placa} </h1>
+         
+        </div>
+         <div class="container-colunas">
+           
+
+           <div class="grupo-componente">
+             
+             <h1 class="fonte-dash">RAM</h1>
+             
+             <div class="coluna-back">
+              
+            <div class="parametro"></div>
+            <div class="coluna-front ram" id="ram${i}" style="height: ${carros[i].ram}%;"> 
+
+            </div>
+             </div>
+             
+        </div>
+
+        <div class="grupo-componente">
+
+          <h1 class="fonte-dash">CPU</h1>
+          
+          <div class="coluna-back">
+            <div class="parametro"></div>
+            <div class="coluna-front cpu" id="cpu${i}" style="height: ${carros[i].cpu}%;"> </div>
+
+            </div>
+          </div>
+
+        </div>
+
+       </div>
+
+     </div>
+     `
+   }
+  }
  function expandir(){
   console.log("boom")
       // APAREÇEM OPÇÕES: EDITAR PERFIL E SE FOR ADMIN CADASTRO FUNCIONÁRIO E CADASTRO VEÍCULO
     
 }
 </script>
+ <!--  MODELO DE DASH  
+
+     <div class="dash">
+       <div class="dash-info">
+
+         <h1 class="fonte-dash"> ${carros[i].placa} </h1>
+         
+        </div>
+         <div class="container-colunas">
+           
+
+           <div class="grupo-componente">
+             
+             <h1 class="fonte-dash">RAM</h1>
+             
+             <div class="coluna-back">
+              
+            <div class="parametro"></div>
+            <div class="coluna-front ram" id="ram${i}" style="height: ${carros[i].ram}%;"> 
+
+            </div>
+             </div>
+             
+        </div>
+
+        <div class="grupo-componente">
+
+          <h1 class="fonte-dash">CPU</h1>
+          
+          <div class="coluna-back">
+            <div class="parametro"></div>
+            <div class="coluna-front cpu" id="cpu${i}" style="height: ${carros[i].cpu}%;"> </div>
+
+            </div>
+          </div>
+
+        </div>
+
+       </div>
+
+     </div>
+     
+     -->

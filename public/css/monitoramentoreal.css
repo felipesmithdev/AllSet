@@ -1,0 +1,89 @@
+.header{
+  height: 10%;
+  width: 100%;
+  background-color: #051D34;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(24, 24, 24);
+}
+
+.titulo-form{
+  font-size: 7.2vh;
+  cursor: pointer;
+  transition: all 2s;
+  &:hover{
+    color: white;
+  }
+}
+
+.brand{
+  margin-left: 3%;
+  text-decoration: none;
+}
+
+.fundo1{
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(24, 24, 24);
+  height: 100%;
+  width: 100%;
+}
+
+.end-header{
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;  
+}
+
+.perfil img{
+  height: 7.2vh;
+  width: auto;
+  cursor: pointer;
+}
+
+.container-dash{
+  height: 100vh;
+  width: 90vw;
+}
+
+.dash{
+  background-color: #051D34;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 30vw;
+  height: 30vh;
+  border-radius: 20px;
+}
+
+.header-dash{
+  height: 25vh;
+  width: 200vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.empresa-icone img{
+  height: 15vh;
+}
+
+.search{
+  justify-self: flex-end;
+}
+

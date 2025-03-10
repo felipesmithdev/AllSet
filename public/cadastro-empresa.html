@@ -107,7 +107,8 @@
   function cadastrar(){
     // aguardar();
      if (etapa_cadastro == 0){
-
+       // CADASTRO DA EMPRESA
+      console.log("Armazenados dados empresa.")
        //Recupere o valor da nova input pelo nome do id
        // Agora vá para o método fetch logo abaixo
     // var nomeVar = nome_input.value;
@@ -204,11 +205,16 @@
               cadastro1.style.display = 'none'
               cadastro2.style.display = 'initial'
             } else if (etapa_cadastro == 1){
-              
+      console.log("Armazenados dados unidade.")
+
+            
               cadastro2.style.display = 'none'
               cadastro3.style.display = 'initial'
 
             } else {
+      console.log("Armazenados dados funcionário.")
+      console.log("Mandar dados para o banco")
+      window.location = "\monitoramento_real.html"
               // AGORA É NECESSÁRIO FAZER O ENVIO DOS DADOS PARA O BANCO!
             }
               etapa_cadastro++

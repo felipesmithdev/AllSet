@@ -51,23 +51,23 @@
           </div>      
          <div class="campo">
            <span>Estado:</span>
-           <input id="estado_input" type="text" placeholder="São Paulo" disabled>
+           <input id="estado_input" type="text" placeholder="Estado" disabled>
          </div>
          <div class="campo">
           <span>Cidade:</span>
-          <input id="cidade_input" type="text" placeholder="São Paulo"disabled>
+          <input id="cidade_input" type="text" placeholder="Cidade"disabled>
         </div>
         <div class="campo">
           <span>Bairro:</span>
-          <input id="bairro_input" type="text" placeholder="Jardim paulista"disabled>
+          <input id="bairro_input" type="text" placeholder="Bairro"disabled>
         </div>
         <div class="campo">
           <span>Logradouro:</span>
-          <input id="logradouro_input" type="text" placeholder="Jardim paulista"disabled>
+          <input id="logradouro_input" type="text" placeholder="Rua"disabled>
         </div>
         <div class="campo">
           <span>Complemento:</span>
-          <input id="complemento_input" type="text" placeholder="Jardim paulista">
+          <input id="complemento_input" type="text" placeholder="Apt./Casa/Bloco, Andar, Referência">
         </div>
         <div class="campo">
           <span>Contato celular:</span>
@@ -146,21 +146,12 @@
       minCharNomeEmpresa = true;
     }
     if (minCharNomeEmpresa) {
-      nomeEmpresaValido = true;
+      return nomeEmpresaValido = true;
     }
 
-    Inputmask("99.999.999/9999-99").mask(cnpj);
-    let cnpjsemEspaco = cnpj.value.replace(/\D/g, '');
-    var tamanhoCnpj = cnpjsemEspaco.length;
-    var minCharCnpj = false;
-    if (tamanhoCnpj !== 14) {
-      console.log(cnpjsemEspaco);
-      console.log('\nCNPJ não tem 14 dígitos');
-    } else {
-      minCharCnpj = true;
-    }
-    if (minCharCnpj) {
-      cnpjValido = true;
+    let cnpjLimpo = cnpj.value.replace(/\D/g, '');
+      if (cnpjLimpo.length == 14) {
+         cnpjValido = true;
     }
 
     var minCharUnidade = false;
@@ -286,12 +277,26 @@
   let listaEmpresasCadastradas = [];
 
   function cadastrar() {
+    validar()
     if (etapa_cadastro == 0) {
-      console.log(nomeEmpresa.value)
-      console.log(cnpj.value)
-      console.log("Armazenados dados empresa.");
-        document.getElementById('cadastro1').style.display = 'none';
-        document.getElementById('cadastro2').style.display = 'initial';
+      console.log(nomeEmpresa)
+      console.log(cnpj)
+      if(!nomeEmpresaValido){
+        console.log("Nome empresa inválido")
+        var passarNome = false  
+      }else{
+        passarNome = true
+      }
+      if(!cnpjValido){
+        console.log("cnpj invalido")
+        var passarCnpj = false
+      }else{
+        passarCnpj = true
+      }
+
+    if (passarNome && passarCnpj) {
+      etapa_cadastro++
+    }
       
     } else if (etapa_cadastro == 1) {
       console.log("Armazenados dados unidade.");
@@ -303,7 +308,7 @@
       console.log(etapa_cadastro);
       window.location = "\monitoramento_real.html";
     }
-    etapa_cadastro++;
+    
   }
 
   function listar() {

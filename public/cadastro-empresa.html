@@ -36,7 +36,7 @@
           <div class="campo">
             <span>CNPJ:</span>
             <small style="font-size: 15px;">Digite apenas números</small>
-            <input id="cnpj_input" type="number" placeholder="00.000.000/0000-00">
+            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00">
           </div>
         </div>
         <div id="cadastro2">
@@ -47,7 +47,7 @@
           </div>
           <div class="campo">
             <span>CEP:</span>
-            <input id="cep_input" type="text" placeholder=" 00000-000">
+            <input id="cep_input" type="text" placeholder=" 00000-000" oninput="autoPreencherCep()">
           </div>
           
          <div class="campo">
@@ -144,77 +144,179 @@
     //validar empresa
     var minCharNomeEmpresa = false
 
-      var tamanhoNomeEmpresa = (nomeEmpresa.lenght + 1)
+      var tamanhoNomeEmpresa = (nomeEmpresa.lenght)
       if (tamanhoNomeEmpresa <=6) {
-        console.log("nome empresa curto")
+        console.log(nomeEmpresa)
+        console.log("\nnome empresa curto")
       }else{
         minCharNomeEmpresa = true
+      }
+
+      if (minCharNomeEmpresa) {
+        nomeEmpresaValido = true
       }
   
       //validar cnpj
       Inputmask("99.999.999/9999-99").mask(cnpjInput);
-      var tamanhoCnpj = (cnpj.lenght + 1)
+      let cnpjsemEspaço = cnpj.replace(/[^\\d]+/g, '')
+      var tamanhoCnpj = (cnpjsemEspaço.lenght)
       var minCharCnpj = false
       if (tamanhoCnpj !== 14) {
-        console.log('cnpj sem numero suficientes')
+        console.log(cnpjsemEspaço)
+        console.log('\ncnpj nao tem 14 digitos')
       } else {
         minCharCnpj = true
       }
+      
+      if (minCharCnpj) {
+        cnpjValido = true
+      }
+      
 
       //validar unidade
       var minCharUnidade = false
       var tamanhoUnidade = unidade.lenght
-      if (tamanhoUnidade <=5) {
-        console.log("Unidade curta")
+      if (tamanhoUnidade <= 5) {
+        console.log(unidade)
+        console.log("\nUnidade curta")
       }else{
         minCharUnidade = true
       }
-      
-      //validar cpf
-      Inputmask("99.999-999").mask(cep);
-      var tamanhoCEP = (cep.lenght + 1)
-      var minCharCEP = false
-      if (tamanhoCEP !== 8) {
-        console.log('CEP sem números suficientes')
-      } else {
-        minCharCEP = true
-      }
 
+      if (minCharUnidade) {
+        unidadeValido = true
+      }
+      
       //validar contato celular
       Inputmask("(XX) XXXXX-XXXX").mask(contato);
-      const contatoRegex = /^\d{2}\s?9?\d{4}\s?-?\d{4}$/;
+      let contatoLimpo = contato.replace(/\D/g, '')
       let minCharContato = false
-      let tamanhoContato = contato.lenght+1
-      let contatoTeste = contatoRegex.test(contato)
+      let tamanhoContato = contatoLimpo.lenght
 
-      if (contatoTeste && tamanhoCEP == 11) {
-        minCharContato = true
+      if (tamanhoContato !== 11) {
+        console.log(contatoLimpo)
+        console.log('\n contato nao tem 11 numeros')
       } else {
-        console.log('erro no celular')
+        minCharContato = true
       }
-
-      
+      if (minCharContato) {
+        contatoValido = true
+      }
 
       //validação username
       let minMaxCharUsername = false
-      let tamanhoUsername = username.lenght+1
+      let tamanhoUsername = username.lenght
       if (tamanhoUsername < 5) {
-        console.log('username curto')
+        console.log(username)
+        console.log('\nusername curto')
       }else if (tamanhoUsername > 20){
-        console.log('username longo')
+        console.log(username)
+        console.log('\nusername longo')
       }else{
         minMaxCharUsername = true
       }
 
-      const regexUsernameSemEspaço = /^\S*$/;
-      let testeUsernameSemEspaco = regexUsernameSemEspaço.test(username)
-
-      if (testeUsernameSemEspaco) {
+      let usernameSemEspaco = /^\S*$/.test(username)
         
-      } else {
-        
+      if (!usernameSemEspaco) {
+        console.log(username)
+        console.log('\nusername possui espaço')
       }
+      if (usernameSemEspaco && minMaxCharUsername) {
+        usernameValido = true
+      }
+
+      //validacao password
+      let minMaxCharPassword = false
+      let tamanhoPassword = password.lenght
+      if (tamanhoPassword < 8) {
+        console.log(password)
+        console.log('\nsenha muito curta')
+      } else if(tamanhoPassword > 70) {
+        console.log(password)
+        console.log('\nsenha muito longa')
+      }else {
+        minMaxCharPassword = true
+      }
+
+      let passwordTemMaiusculo = /[A-Z]/.test(password)
+      let passwordTemMinusculo = /[a-z]/.test(password)
+
+      if (!passwordTemMaiusculo) {
+        console.log(password)
+        console.log('\nsenha nao tem maiusculo')
+      }
+      if (!passwordTemMinusculo) {
+        console.log(password)
+        console.log('\nsenha nao tem minusculo')
+      }
+
+      let passwordTemCharEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+      if (!passwordTemCharEspecial) {
+        console.log(password)
+        console.log('\nsenha nao tem char especial')
+      }
+
+      let passwordTemNumero = /\d/.test(password); 
+
+      if (!passwordTemNumero) {
+        console.log(password)
+        console.log('\nsenha nao tem número')
+      }
+      if (minMaxCharPassword && passwordTemMaiusculo && passwordTemMinusculo && passwordTemNumero && passwordTemCharEspecial) {
+        passwordValido = true
+      }
+
+      //validação email
+
+      let emailTemFormatoPadrao = /^.+@.+\.com$/; /\d/.test(email); 
+      if (!emailTemFormatoPadrao) {
+        console.log(email)
+        console.log('\nemail fora do padrão xxxx@xxx.com')
+      }
+
   }
+  
+  function autoPreencherCep() {
+    let cepInput = document.getElementById('cep_input');
+    Inputmask("99.999-999").mask(cepInput);
+
+    // Remover a formatação do CEP
+    let cepLimpo = cepInput.value.replace(/\D/g, '');
+
+    // Verificar o comprimento do CEP
+    let tamanhoCEP = cepLimpo.length;
+    let minCharCEP = false;
+    let cepValido = false;
+
+    if (tamanhoCEP !== 8) {
+        console.log(cepLimpo);
+        console.log('CEP sem 8 dígitos');
+    } else {
+        minCharCEP = true;
+    }
+
+    if (minCharCEP) {
+        cepValido = true;
+    }
+
+    if (cepValido) {
+        fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+          .then(response => response.json())
+            .then(dados => {
+              document.getElementById('estado_input').value = dados.uf;
+              document.getElementById('logradouro_input').value = dados.logradouro;
+              document.getElementById('bairro_input').value = dados.bairro;
+              document.getElementById('cidade_input').value = dados.localidade;
+            })
+            .catch(error => {
+                console.log('Erro ao buscar o CEP:', error);
+            });
+    }
+}
+
+
 
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 

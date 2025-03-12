@@ -56,6 +56,7 @@ CREATE TABLE Configuracao (
     fkCarro INT NOT NULL,
     fkComponente INT NOT NULL,
     valorLimiteAlerta DOUBLE NOT NULL,
+    valorLimitePerigo DOUBLE NOT NULL,
     FOREIGN KEY (fkCarro) REFERENCES Carro(idCarro) ON DELETE CASCADE,
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE
 );

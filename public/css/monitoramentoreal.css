@@ -88,17 +88,21 @@ body{
   background-color: #535050;
 }
 
+.empresa-icone img{
+  justify-self: flex-start;
+  margin-left: 20%;
+  height: 10vh;
+}
+
 .header-dash{
-  height: 25vh;
+  background-color: #535050;
+  height: 15%;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
-}
-
-.empresa-icone img{
-  height: 15vh;
+  margin-bottom: 2%;
 }
 
 .search{
@@ -185,7 +189,7 @@ clip-path: circle();
 }
 
 #modal-background{
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   top: 0;
@@ -200,11 +204,25 @@ clip-path: circle();
   position: inherit;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  z-index: 3;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 4;
   width: 70%;
   height: 50%;
   background-color: #051D34;
   clip-path: polygon(0 22%, 11% 0, 100% 0, 100% 78%, 89% 100%, 0 100%);
+}
+/* 
+#modal-canto{
+  z-index: 3;
+  background-color: black;
+  height: fit-content;
+  width: fit-content;
+  clip-path: polygon(0 0, 0 22%, 11% 0);
+} */
+
+#header-modal{
+  height: 22%;
+  justify-content: center;
+  align-items: center;  
 }

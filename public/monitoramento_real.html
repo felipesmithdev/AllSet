@@ -14,8 +14,13 @@
 </head>
 
 <body onload="carregarCarros()">
-  <div id="modal-background" onclick="fechar(false)">
-    <div id="modal-dash" onclick="fechar(true)"></div>
+  <div id="modal-background" onclick="fecharModal(false)">
+    
+    <div id="modal-dash" onclick="fecharModal(true)">
+      <div class="header-dash" id="header-modal">
+      </div>
+      <div></div>
+    </div>
   </div>
 
 
@@ -47,7 +52,7 @@
 
     </div>
 
-    <h1>
+    <h1 style="color: black;">
       Monitoramento
     </h1>
 
@@ -95,7 +100,7 @@
       cor_bola = 'green'
     }
    document.getElementById("spawnpoint").innerHTML += `
-   <div class="dash" onclick="expandirDash(${carros[i].placa})">
+   <div class="dash" id="carro${i}" onclick="expandirDash(${i})">
        <div class="dash-info">
        <div class="dash-header">
         
@@ -145,12 +150,20 @@
     
 }
 
-function fechar(real) {
+function fecharModal(real) {
   if(real){
     event.stopPropagation()
     return
   }
+    document.getElementById("header-modal").innerHTML = ''  
     document.getElementById("modal-background").style.display= 'none'
+
+}
+
+function expandirDash(idcarro){
+  var carro = carros[idcarro]
+  document.getElementById("modal-background").style.display= 'flex'
+  document.getElementById("header-modal").innerHTML += `${carro.placa}`
 }
 </script>
  <!--  MODELO DE DASH  

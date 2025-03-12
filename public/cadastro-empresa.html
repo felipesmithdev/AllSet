@@ -30,13 +30,13 @@
          <div id="cadastro1">
            <div class="campo">
              <span>Nome da Empresa:</span>
-            <input id="nomeEmpresa_input" type="text" placeholder="AllSet">
+            <input id="nomeEmpresa_input" type="text" placeholder="AllSet Monitoramento" oninput="validarNomeEmpresa()">
           </div>
           
           <div class="campo">
             <span>CNPJ:</span>
             <small style="font-size: 15px;">Digite apenas números</small>
-            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00">
+            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00" oninput="validarCnpj()">
           </div>
         </div>
         <div id="cadastro2">
@@ -89,8 +89,8 @@
         <input id="email_input" type="text" placeholder="emailteste@email.com">
       </div>
      </div>
-        <div id="div_erros_login"></div>
-        <button class="botao" onclick="cadastrar()">Continuar</button>
+        <div id="div_erros_cadastro" style="color: red;"></div>
+        <button class="botao" onclick=" cadastroValidacao1()">Continuar</button>
         <a href="./login.html" class="texto-link">Já possui uma conta? Faça login</a>
     </div>
 
@@ -106,7 +106,6 @@
 </html>
 
 <script>
-  var etapa_cadastro = 0;
 
   let nomeEmpresa = document.getElementById('nomeEmpresa_input');
   let cnpj = document.getElementById('cnpj_input');
@@ -122,127 +121,54 @@
   let password = document.getElementById('password_input');
   let email = document.getElementById('email_input');
 
-  let nomeEmpresaValido = false;
-  let cnpjValido = false;
-  let unidadeValido = false;
-  let cepValido = false;
-  let estadoValido = false;
-  let cidadeValido = false;
-  let bairroValido = false;
-  let logradouroValido = false;
-  let complementoValido = false;
-  let contatoValido = false;
-  let usernameValido = false;
-  let passwordValido = false;
-  let emailValido = false;
-
-  function validar() {
-    var minCharNomeEmpresa = false;
-    var tamanhoNomeEmpresa = nomeEmpresa.value.length;
-    if (tamanhoNomeEmpresa <= 6) {
-      console.log(nomeEmpresa.value);
-      console.log("\nNome da empresa muito curto");
-    } else {
-      minCharNomeEmpresa = true;
-    }
-    if (minCharNomeEmpresa) {
-      return nomeEmpresaValido = true;
-    }
-
-    let cnpjLimpo = cnpj.value.replace(/\D/g, '');
-      if (cnpjLimpo.length == 14) {
-         cnpjValido = true;
-    }
-
-    var minCharUnidade = false;
-    var tamanhoUnidade = unidade.value.length;
-    if (tamanhoUnidade <= 5) {
-      console.log(unidade.value);
-      console.log("\nUnidade muito curta");
-    } else {
-      minCharUnidade = true;
-    }
-    if (minCharUnidade) {
-      unidadeValido = true;
-    }
-
-    Inputmask("(99) 99999-9999").mask(contato);
-    let contatoLimpo = contato.value.replace(/\D/g, '');
-    let minCharContato = false;
-    let tamanhoContato = contatoLimpo.length;
-    if (tamanhoContato !== 11) {
-      console.log(contatoLimpo);
-      console.log('\nContato não tem 11 dígitos');
-    } else {
-      minCharContato = true;
-    }
-    if (minCharContato) {
-      contatoValido = true;
-    }
-
-    let minMaxCharUsername = false;
-    let tamanhoUsername = username.value.length;
-    if (tamanhoUsername < 5) {
-      console.log(username.value);
-      console.log('\nUsername muito curto');
-    } else if (tamanhoUsername > 20) {
-      console.log(username.value);
-      console.log('\nUsername muito longo');
-    } else {
-      minMaxCharUsername = true;
-    }
-    let usernameSemEspaco = /^\S*$/.test(username.value);
-    if (!usernameSemEspaco) {
-      console.log(username.value);
-      console.log('\nUsername possui espaço');
-    }
-    if (usernameSemEspaco && minMaxCharUsername) {
-      usernameValido = true;
-    }
-
-    let minMaxCharPassword = false;
-    let tamanhoPassword = password.value.length;
-    if (tamanhoPassword < 8) {
-      console.log(password.value);
-      console.log('\nSenha muito curta');
-    } else if (tamanhoPassword > 70) {
-      console.log(password.value);
-      console.log('\nSenha muito longa');
-    } else {
-      minMaxCharPassword = true;
-    }
-    let passwordTemMaiusculo = /[A-Z]/.test(password.value);
-    let passwordTemMinusculo = /[a-z]/.test(password.value);
-    if (!passwordTemMaiusculo) {
-      console.log(password.value);
-      console.log('\nSenha não tem maiúscula');
-    }
-    if (!passwordTemMinusculo) {
-      console.log(password.value);
-      console.log('\nSenha não tem minúscula');
-    }
-    let passwordTemCharEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(password.value);
-    if (!passwordTemCharEspecial) {
-      console.log(password.value);
-      console.log('\nSenha não tem caractere especial');
-    }
-    let passwordTemNumero = /\d/.test(password.value);
-    if (!passwordTemNumero) {
-      console.log(password.value);
-      console.log('\nSenha não tem número');
-    }
-    if (minMaxCharPassword && passwordTemMaiusculo && passwordTemMinusculo && passwordTemNumero && passwordTemCharEspecial) {
-      passwordValido = true;
-    }
-
-    let emailTemFormatoPadrao = /^.+@.+\.com$/.test(email.value);
-    if (!emailTemFormatoPadrao) {
-      console.log(email.value);
-      console.log('\nEmail fora do padrão xxxx@xxx.com');
-    } else {
-      emailValido = true;
-    }
+  function validarNomeEmpresa() {
+  const nomeEmpresaValor = nomeEmpresa.value.trim();
+  if (!nomeEmpresaValor) {
+    div_erros_cadastro.innerHTML = "Preencha o campo Nome da Empresa";
+    return false;
+  } else if (nomeEmpresaValor.length < 3) {
+    div_erros_cadastro.innerHTML = "O campo Nome da Empresa deve possuir pelo menos 3 caracteres";
+    return false;
+  } else {
+    div_erros_cadastro.innerHTML = "";
+    return true;
   }
+}
+
+function validarCnpj() {
+  const cnpjValor = cnpj.value.trim();
+  const regexApenasNumeros = /^\d+$/;
+  if (!cnpjValor) {
+    div_erros_cadastro.innerHTML = "Preencha o campo CNPJ";
+    return false;
+  } else if (!regexApenasNumeros.test(cnpjValor)) {
+    div_erros_cadastro.innerHTML = "O CNPJ deve conter apenas números";
+    return false;
+  } else if (cnpjValor.length !== 14) {
+    div_erros_cadastro.innerHTML = "O CNPJ deve possuir 14 dígitos";
+    return false;
+  } else {
+    div_erros_cadastro.innerHTML = "";
+    return true;
+  }
+}
+
+function cadastroValidacao1() {
+  const isNomeEmpresaValido = validarNomeEmpresa();
+  const isCnpjValido = validarCnpj();
+
+  if (isNomeEmpresaValido && isCnpjValido) {
+    document.getElementById('cadastro1').style.display = 'none';
+    document.getElementById('cadastro2').style.display = 'block';
+    console.log("Cadastro válido:"); 
+    console.log(nomeEmpresa.value)
+    console.log(cnpj.value)
+  } else {
+    alert('Verifique se todos os campos estão corretos!')
+    console.log("Erro no cadastro");
+  }
+}
+
 
   function autoPreencherCep() {
     Inputmask("99.999-999").mask(cep);
@@ -272,64 +198,5 @@
           console.log('Erro ao buscar o CEP:', error);
         });
     }
-  }
-
-  let listaEmpresasCadastradas = [];
-
-  function cadastrar() {
-    validar()
-    if (etapa_cadastro == 0) {
-      console.log(nomeEmpresa)
-      console.log(cnpj)
-      if(!nomeEmpresaValido){
-        console.log("Nome empresa inválido")
-        var passarNome = false  
-      }else{
-        passarNome = true
-      }
-      if(!cnpjValido){
-        console.log("cnpj invalido")
-        var passarCnpj = false
-      }else{
-        passarCnpj = true
-      }
-
-    if (passarNome && passarCnpj) {
-      etapa_cadastro++
-    }
-      
-    } else if (etapa_cadastro == 1) {
-      console.log("Armazenados dados unidade.");
-      document.getElementById('cadastro2').style.display = 'none';
-      document.getElementById('cadastro3').style.display = 'initial';
-    } else {
-      console.log("Armazenados dados funcionário.");
-      console.log("Mandar dados para o banco");
-      console.log(etapa_cadastro);
-      window.location = "\monitoramento_real.html";
-    }
-    
-  }
-
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-            console.log("listaEmpresasCadastradas");
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao);
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
   }
 </script>

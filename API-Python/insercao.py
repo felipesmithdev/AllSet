@@ -46,7 +46,7 @@ def qualCarro():
     
     return 'NadaEncontrado'
 
-def conecao(tipo):
+def conexao(tipo):
 
     if (tipo == 'Select'):
          
@@ -74,7 +74,7 @@ def conecao(tipo):
 
 def bancoDeDados(infinito):
 
-    mydb = conecao('Select')
+    mydb = conexao('Select')
     mycursor = mydb.cursor()
 
     informacaoCarro = qualCarro()

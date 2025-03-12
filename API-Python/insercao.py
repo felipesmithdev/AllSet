@@ -39,7 +39,10 @@ def qualCarro():
         for endereco in enderecos:
             if endereco.family == psutil.AF_LINK:  # AF_LINK representa o MAC Address
                 # Aqui é o que tem que mudar pra pegar o MAC, pra pegar o IPV4 por exemplo seria: psutil.AF_INET ou colocando o 6 no final para pegar o IPV6
-                return endereco.address
+                
+                macArrumado = endereco.address.replace()(":", "")
+                
+                return macArrumado
     
     return 'NadaEncontrado'
 
@@ -76,12 +79,50 @@ def bancoDeDados(infinito):
 
     informacaoCarro = qualCarro()
     
-    sql = "SELECT nome, medida, limiarAlerta FROM componente WHERE fkCarro = %s;"
+    sql = "SELECT fkCarro, fkComponente, valorLimiteAlerta FROM configuracao JOIN carro ON fkCarro = idCarro WHERE identificador = %s;"
+    
     valores = (
         informacaoCarro,
             )
 
-    mycursor.execute()
+    mycursor.execute(sql, valores)
+    resultados = mycursor.fetchall()
+    qtdResultados = len(resultados)
+
+    if(qtdResultados == 0):
+        print("Nenhum resultado encontrado na nossa base de dados, encerrando opereação")
+        return 
+
+    fkcarro = resultados[0][0]
+    componentes = []
+    limiarAlerta = []
+    for linha in resultados:
+        componentes = linha[1]
+        limiarAlerta = linha[2]
+
+    qtdComponentes = len(componentes)
+    cont = 0
+
+    while qtdComponentes > cont:
+        componenteAtual = componentes[cont] 
+
+        if componenteAtual == 1:
+            # CPU
+            
+        elif componenteAtual == 2:
+            # RAM
+            # Processos que tá gostando mais RAM (Quando a RAM estiver alta)
+
+        elif componenteAtual == 3: 
+            # Disco
+
+        elif componenteAtual == 4:    
+            # Bateria
+
+        elif componenteAtual == 5:
+            # Velocidade da rede    
+
+    mydb.commit()
 
     while True:
 

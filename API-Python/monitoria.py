@@ -173,8 +173,6 @@ def puxarDados(computador, componente, metrica, medida):
     
     mydb.commit()
 
-
- 
     mycursor.close()
     mydb.close()
 

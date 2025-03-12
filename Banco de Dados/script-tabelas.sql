@@ -19,6 +19,7 @@ CREATE TABLE Unidade (
     estado CHAR(2),
     contato CHAR(11),
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
+    -- Quando é apagado o pai, é apagado junt0 por conta do delete cascade 
 );
 
 CREATE TABLE Usuario (

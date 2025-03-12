@@ -9,10 +9,15 @@
     <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/monitoramentoreal.css">
+    <link rel="stylesheet" href="./css/scroll.css">
     <title>AllSet - Login</title>
 </head>
 
 <body onload="carregarCarros()">
+  <div id="modal-background" onclick="fechar(false)">
+    <div id="modal-dash" onclick="fechar(true)"></div>
+  </div>
+
 
   <div class="header">
 
@@ -81,12 +86,22 @@
   function carregarCarros(){
    for (i = 0; i < carros.length; i++){
     console.log(carros[i])
+    let cor_bola
+    if (carros[i].ram > 75|| carros[i].cpu > 70 ){
+      cor_bola = 'red'
+    } else if (carros[i].ram > 50|| carros[i].cpu > 50){
+      cor_bola = 'yellow'
+    } else {
+      cor_bola = 'green'
+    }
    document.getElementById("spawnpoint").innerHTML += `
-   <div class="dash">
+   <div class="dash" onclick="expandirDash(${carros[i].placa})">
        <div class="dash-info">
-
-         <h1 class="fonte-dash"> ${carros[i].placa} </h1>
-         
+       <div class="dash-header">
+        
+        <h1 class="fonte-dash"> ${carros[i].placa} </h1>
+         <div class="bola" style="background-color: ${cor_bola};"> </div>
+        </div>
         </div>
          <div class="container-colunas">
            
@@ -128,6 +143,14 @@
   console.log("boom")
       // APAREÇEM OPÇÕES: EDITAR PERFIL E SE FOR ADMIN CADASTRO FUNCIONÁRIO E CADASTRO VEÍCULO
     
+}
+
+function fechar(real) {
+  if(real){
+    event.stopPropagation()
+    return
+  }
+    document.getElementById("modal-background").style.display= 'none'
 }
 </script>
  <!--  MODELO DE DASH  

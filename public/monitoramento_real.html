@@ -10,10 +10,10 @@
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/monitoramentoreal.css">
     <link rel="stylesheet" href="./css/scroll.css">
-    <title>AllSet - Login</title>
+    <title>AllSet - Monitoramento em tempo real</title>
 </head>
 
-<body onload="carregarCarros()">
+<body onload="ordenadoItem()">
   <div id="modal-background" onclick="fecharModal(false)">
     
     <div id="modal-dash" onclick="fecharModal(true)">
@@ -45,50 +45,51 @@
    <div class="fundo1">
 
     <div class="header-dash">
-
-    <div class="empresa-icone">
-
-      <img src="./assets/img/tesla.logo..png" alt="logo da tesla">
-
+   <div class="metade">
+     <div class="empresa-icone">
+       
+       <img src="./assets/img/tesla.logo..png" alt="logo da tesla">
+       
+      </div>
+      
+      <h1 style="color: black;">
+        Monitoramento
+      </h1>
     </div>
-
-    <h1 style="color: black;">
-      Monitoramento
-    </h1>
-
+    <div class="metade">
+      <h1>Ordenar por:</h1> 
+      <input type="checkbox" id="select_ram" class="select"> 
+      <div class="label-select" onclick="trocarOrdem('ram')">RAM</div>
+      <input type="checkbox" id="select_cpu" class="select"> 
+      <div class="label-select" onclick="trocarOrdem('cpu')">CPU</div>
+      <input type="checkbox" id="select_placa" class="select"> 
+      <div class="label-select" onclick="trocarOrdem('placa')">PLACA</div>
+ </div>
   </div>
 
     <div class="container-dash" id="spawnpoint">
-
     </div>
-
     </div> 
-
-
-
     </div>
-
-
-
-
-
-</body>
+</body>3
 
 </html>
 <script>
   const carros = [
-{ placa: 'ABC1D23', cpu: 30, ram: 15 },
-{ placa: 'DEF4G56', cpu: 45, ram: 40 },
-{ placa: 'GHI7J89', cpu: 52, ram: 90 },
-{ placa: 'JKL0M12', cpu: 60, ram: 60 },
-{ placa: 'MNO3P45', cpu: 39, ram: 46 },
-{ placa: 'PQR6S78', cpu: 47, ram: 31 },
-{ placa: 'STU9V01', cpu: 55, ram: 73 },
-{ placa: 'VWX2Y34', cpu: 42, ram: 82 },
-{ placa: 'YZA5B67', cpu: 33, ram: 13 }
+    { placa: 'DEF4G56', cpu: 45, ram: 40 },
+    { placa: 'STU9V01', cpu: 55, ram: 73 },
+    { placa: 'ABC1D23', cpu: 30, ram: 15 },
+    { placa: 'JKL0M12', cpu: 60, ram: 60 },
+    { placa: 'MNO3P45', cpu: 39, ram: 46 },
+    { placa: 'GHI7J89', cpu: 52, ram: 90 },
+    { placa: 'YZA5B67', cpu: 33, ram: 13 },
+    { placa: 'VWX2Y34', cpu: 42, ram: 82 },
+    { placa: 'PQR6S78', cpu: 47, ram: 31 }
 ];
 
+ jaCarregou = false
   function carregarCarros(){
+   document.getElementById("spawnpoint").innerHTML = ''
    for (i = 0; i < carros.length; i++){
     console.log(carros[i])
     let cor_bola
@@ -142,12 +143,12 @@
 
      </div>
      `
+    jaCarregou = true
    }
   }
  function expandir(){
   console.log("boom")
-      // APAREÇEM OPÇÕES: EDITAR PERFIL E SE FOR ADMIN CADASTRO FUNCIONÁRIO E CADASTRO VEÍCULO
-    
+  
 }
 
 function fecharModal(real) {
@@ -164,6 +165,31 @@ function expandirDash(idcarro){
   var carro = carros[idcarro]
   document.getElementById("modal-background").style.display= 'flex'
   document.getElementById("header-modal").innerHTML += `${carro.placa}`
+}
+
+function trocarOrdem(sortido){ 
+  var ordenadoItem = carros
+  console.log(carros)
+  console.log(sortido)
+   if(sortido == 'placa'){
+    ordenadoItem.sort(function(a,b){
+      bool = a[sortido].localeCompare(b[sortido]);
+      if(bool < 0){
+        // trocas++
+      }
+      return bool
+    })
+  } else {    
+    ordenadoItem.sort(function(a, b) {
+        bool= a[sortido] - b[sortido]
+        if(bool < 0){
+          // trocas++
+        }
+        return bool
+      });
+      ordenadoItem.reverse()
+  }
+  carregarCarros()
 }
 </script>
  <!--  MODELO DE DASH  

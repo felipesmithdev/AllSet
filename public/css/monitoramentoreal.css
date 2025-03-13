@@ -66,6 +66,7 @@ body{
 }
 
 .dash{
+  cursor: pointer;
   background-color: #051D34;
   display: flex;
   flex-direction: row;
@@ -91,8 +92,11 @@ body{
 .empresa-icone img{
   justify-self: flex-start;
   margin-left: 20%;
+  margin-right: 20%;
   height: 10vh;
 }
+
+
 
 .header-dash{
   background-color: #535050;
@@ -225,4 +229,44 @@ clip-path: circle();
   height: 22%;
   justify-content: center;
   align-items: center;  
+}
+.metade{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.metade ::nth-child(){
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.label-select{
+  margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  color: black;
+  width: 60px;
+  height: fit-content + 2px;
+  background-color: white;
+  border: 1px black solid;
+  border-radius: 10px;
+}
+
+.select{
+  display: none;
+}
+
+.metade h1{
+ margin-top: 10px;
+}
+.select input[type=checkbox] + label{
+  transition: 1s all;
+  &:checked{
+   size: 1.1;
+   
+  }
 }

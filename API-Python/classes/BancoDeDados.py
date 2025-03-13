@@ -65,7 +65,6 @@ class BancoDeDados:
 
         return resultados
 
-# Adicionar como uma função o Select?
 # Transformar em pacote Pythoh?
 # Ver a piscina
     

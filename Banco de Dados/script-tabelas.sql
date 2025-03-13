@@ -40,7 +40,7 @@ CREATE TABLE Carro (
     modelo VARCHAR(45) NOT NULL,
     marca VARCHAR(45) NOT NULL,
     ano YEAR NOT NULL,
-    identificador CHAR(12) NOT NULL UNIQUE,
+    enderecoMac CHAR(12) NOT NULL UNIQUE,
     sistemaOperacional VARCHAR(45),
     FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade) ON DELETE CASCADE
 );

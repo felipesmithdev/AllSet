@@ -1,202 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="./css/mobile-login.css">
-    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" href="./css/mobile-login.css" />
+    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png" />
     <script src="./js/sessao.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" ></script>
-    <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/88fed8b646.js"
+      crossorigin="anonymous"
+    ></script>
     <title>AllSet - Cadastro Empresa</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- <div class="alerta_erro">
         <div class="card_erro" id="cardErro">
             <span id="mensagem_erro"></span>
         </div> -->
     <!-- </div> -->
 
+    <a href="index.html" class="voltar">
+      <i class="fa-solid fa-arrow-left"></i
+    ></a>
+    <h1 class="titulo-form">AllSet</h1>
 
-   <a href="index.html" class="voltar"> <i class="fa-solid fa-arrow-left"></i></a>
-   <h1 class="titulo-form">AllSet</h1>
-   
     <div class="formulario">
       <span class="titulo">Cadastro - Empresa</span>
-         <div id="cadastro1">
-           <div class="campo">
-             <span>Nome da Empresa:</span>
-            <input id="nomeEmpresa_input" type="text" placeholder="AllSet Monitoramento" oninput="validarNomeEmpresa()">
-          </div>
-          
-          <div class="campo">
-            <span>CNPJ:</span>
-            <small style="font-size: 15px;">Digite apenas números</small>
-            <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00" oninput="validarCnpj()">
-          </div>
+      <div id="cadastro1">
+        <div class="campo">
+          <span>Nome da Empresa:</span>
+          <input
+            id="nomeEmpresa_input"
+            type="text"
+            placeholder="AllSet Monitoramento"
+            oninput="validarNomeEmpresa()"
+          />
         </div>
-        <div id="cadastro2">
-          <div class="campo">
-            <Span> Agora é necessário cadastrar uma unidade para a sua empresa.</Span>
-            <span>Nome da Unidade:</span>
-           <input id="unidade_input" type="text" placeholder="Unidade avenida paulista">
-          </div>
-          <div class="campo">
-            <span>CEP:</span>
-            <input id="cep_input" type="text" placeholder=" 00000-000" oninput="autoPreencherCep()">
-          </div>      
-         <div class="campo">
-           <span>Estado:</span>
-           <input id="estado_input" type="text" placeholder="Estado" disabled>
-         </div>
-         <div class="campo">
+
+        <div class="campo">
+          <span>CNPJ:</span>
+          <small style="font-size: 15px">Digite apenas números</small>
+          <input
+            id="cnpj_input"
+            oninput="validarCnpj()"
+            type="text"
+            placeholder="00.000.000/0000-00"
+          />
+        </div>
+      </div>
+      <div id="cadastro2">
+        <div class="campo">
+          <span>
+            Agora é necessário cadastrar uma unidade para a sua empresa.</span
+          >
+          <span>Nome da Unidade:</span>
+          <input
+            id="unidade_input"
+            type="text"
+            placeholder="Unidade avenida paulista"
+          />
+        </div>
+        <div class="campo">
+          <span>CEP:</span>
+          <input
+            id="cep_input"
+            type="text"
+            placeholder=" 00000-000"
+            oninput="autoPreencherCep()"
+          />
+        </div>
+        <div class="campo">
+          <span>Estado:</span>
+          <input id="estado_input" type="text" placeholder="Estado" disabled />
+        </div>
+        <div class="campo">
           <span>Cidade:</span>
-          <input id="cidade_input" type="text" placeholder="Cidade"disabled>
+          <input id="cidade_input" type="text" placeholder="Cidade" disabled />
         </div>
         <div class="campo">
           <span>Bairro:</span>
-          <input id="bairro_input" type="text" placeholder="Bairro"disabled>
+          <input id="bairro_input" type="text" placeholder="Bairro" disabled />
         </div>
         <div class="campo">
           <span>Logradouro:</span>
-          <input id="logradouro_input" type="text" placeholder="Rua"disabled>
+          <input id="logradouro_input" type="text" placeholder="Rua" disabled />
         </div>
         <div class="campo">
           <span>Complemento:</span>
-          <input id="complemento_input" type="text" placeholder="Apt./Casa/Bloco, Andar, Referência">
+          <input
+            id="complemento_input"
+            type="text"
+            placeholder="Apt./Casa/Bloco, Andar, Referência"
+          />
         </div>
         <div class="campo">
           <span>Contato celular:</span>
-          <input id="contato_input" type="text" placeholder="11123456789">
+          <input id="contato_input" type="text" placeholder="11123456789" />
         </div>
-       </div>
-       <div id="cadastro3">
+      </div>
+      <div id="cadastro3">
         <div class="campo">
           <span>Por fim, vamos cadastrar um usuário administrativo.</span>
           <span>Nome:</span>
-         <input id="username_input" type="text" placeholder="Usuario administrativo">
-       </div>
-       <div class="campo">
-         <span>Senha:</span>
-         <input id="password_input" type="text" placeholder="xxxxxxxxxxxx">
-       </div>
-       <div class="campo">
-        <span>Email:</span>
-        <input id="email_input" type="text" placeholder="emailteste@email.com">
+          <input
+            id="username_input"
+            type="text"
+            placeholder="Usuario administrativo"
+          />
+        </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="password_input" type="text" placeholder="xxxxxxxxxxxx" />
+        </div>
+        <div class="campo">
+          <span>Email:</span>
+          <input
+            id="email_input"
+            type="text"
+            placeholder="emailteste@email.com"
+          />
+        </div>
       </div>
-     </div>
-        <div id="div_erros_cadastro" style="color: red;"></div>
-        <button class="botao" onclick=" cadastroValidacao1()">Continuar</button>
-        <a href="./login.html" class="texto-link">Já possui uma conta? Faça login</a>
+      <div
+        style="display: flex; flex-direction: column"
+        id="div_erros_cadastro"
+      >
+        <span id="span_erros_nomeEmpresa"></span>
+        <span id="span_erros_cnpj"></span>
+      </div>
+      <button id="btn_cadastro1" class="botao" onclick="continuar()">
+        Continuar
+      </button>
+      <a href="./login.html" class="texto-link"
+        >Já possui uma conta? Faça login</a
+      >
     </div>
 
-    
     <div id="div_aguardar" class="loading-div">
-        <img src="./assets/gifazul.gif" id="loading-gif" />
+      <img src="./assets/gifazul.gif" id="loading-gif" />
     </div>
-
-
-
-</body>
-
+  </body>
 </html>
 
 <script>
+  let nomeEmpresa = document.getElementById("nomeEmpresa_input");
+  let cnpj = document.getElementById("cnpj_input");
+  let unidade = document.getElementById("unidade_input");
+  let cep = document.getElementById("cep_input");
+  let estado = document.getElementById("estado_input");
+  let cidade = document.getElementById("cidade_input");
+  let bairro = document.getElementById("bairro_input");
+  let logradouro = document.getElementById("logradouro_input");
+  let complemento = document.getElementById("complemento_input");
+  let contato = document.getElementById("contato_input");
+  let username = document.getElementById("username_input");
+  let password = document.getElementById("password_input");
+  let email = document.getElementById("email_input");
 
-  let nomeEmpresa = document.getElementById('nomeEmpresa_input');
-  let cnpj = document.getElementById('cnpj_input');
-  let unidade = document.getElementById('unidade_input');
-  let cep = document.getElementById('cep_input');
-  let estado = document.getElementById('estado_input');
-  let cidade = document.getElementById('cidade_input');
-  let bairro = document.getElementById('bairro_input');
-  let logradouro = document.getElementById('logradouro_input');
-  let complemento = document.getElementById('complemento_input');
-  let contato = document.getElementById('contato_input');
-  let username = document.getElementById('username_input');
-  let password = document.getElementById('password_input');
-  let email = document.getElementById('email_input');
+  let nomeEmpresa_validado = false;
+  let cnpj_validado = false;
 
   function validarNomeEmpresa() {
-  const nomeEmpresaValor = nomeEmpresa.value.trim();
-  if (!nomeEmpresaValor) {
-    div_erros_cadastro.innerHTML = "Preencha o campo Nome da Empresa";
-    return false;
-  } else if (nomeEmpresaValor.length < 3) {
-    div_erros_cadastro.innerHTML = "O campo Nome da Empresa deve possuir pelo menos 3 caracteres";
-    return false;
-  } else {
-    div_erros_cadastro.innerHTML = "";
-    return true;
+    let mensagem_erro_nome = ``;
+    let nomeEmpresaValor = nomeEmpresa.value.trim();
+    let tamanho_nomeEmpresaValor = nomeEmpresaValor.length;
+
+    if (nomeEmpresaValor) {
+      if (tamanho_nomeEmpresaValor >= 3) {
+        console.log(`Nome da Empresa tudo certo!`);
+        nomeEmpresa_validado = true;
+      } else {
+        nomeEmpresa_validado = false;
+        console.warn(`NOME DA EMPRESA COM MENOS DE 3 CARACTERES`);
+        mensagem_erro_nome = `O nome da empresa deve conter no mínimo 3 caracteres.`;
+      }
+    } else {
+      console.warn(`PREENCHA O NOME DA EMPRESA, EU ORDENO`);
+      mensagem_erro_nome = `Por favor, preencha o campo Nome.`;
+    }
+    span_erros_nomeEmpresa.innerHTML = mensagem_erro_nome;
   }
-}
 
-function validarCnpj() {
-  const cnpjValor = cnpj.value.trim();
-  const regexApenasNumeros = /^\d+$/;
-  if (!cnpjValor) {
-    div_erros_cadastro.innerHTML = "Preencha o campo CNPJ";
-    return false;
-  } else if (!regexApenasNumeros.test(cnpjValor)) {
-    div_erros_cadastro.innerHTML = "O CNPJ deve conter apenas números";
-    return false;
-  } else if (cnpjValor.length !== 14) {
-    div_erros_cadastro.innerHTML = "O CNPJ deve possuir 14 dígitos";
-    return false;
-  } else {
-    div_erros_cadastro.innerHTML = "";
-    return true;
+  function validarCnpj() {
+    let mensagem_erro_cnpj = ``;
+    let cnpjValor = cnpj.value.trim();
+    let tamanho_cnpjValor = cnpjValor.length;
+
+    if (cnpjValor) {
+      if (tamanho_cnpjValor == 14) {
+        console.log(`CNPJ com 14 dígitos. Ta suave`);
+        cnpj_validado = true;
+      } else {
+        cnpj_validado = false;
+        console.warn(`O CNPJ NÃOOOO CONTÉM 14 DÍGITOS`);
+        mensagem_erro_cnpj = `O CNPJ deve conter 14 dígitos`;
+      }
+    } else {
+      mensagem_erro_cnpj = `Por favor, preencha o campo CNPJ.`;
+      console.warn(`PREENCHA O CNPJ!!!`);
+    }
+    span_erros_cnpj.innerHTML = mensagem_erro_cnpj;
   }
-}
 
-function cadastroValidacao1() {
-  const isNomeEmpresaValido = validarNomeEmpresa();
-  const isCnpjValido = validarCnpj();
-
-  if (isNomeEmpresaValido && isCnpjValido) {
-    document.getElementById('cadastro1').style.display = 'none';
-    document.getElementById('cadastro2').style.display = 'block';
-    console.log("Cadastro válido:"); 
-    console.log(nomeEmpresa.value)
-    console.log(cnpj.value)
-  } else {
-    alert('Verifique se todos os campos estão corretos!')
-    console.log("Erro no cadastro");
+  function continuar() {
+    if (nomeEmpresa_validado && cnpj_validado) {
+      console.warn(`RLX QUE VALIDARAM TODOS`);
+      document.getElementById("cadastro1").style.display = "none";
+      document.getElementById("cadastro2").style.display = "block";
+    } else {
+      console.warn(`NÃO FORAM VALIDADOS`);
+    }
   }
-}
-
 
   function autoPreencherCep() {
     Inputmask("99.999-999").mask(cep);
-    let cepLimpo = cep.value.replace(/\D/g, '');
+    let cepLimpo = cep.value.replace(/\D/g, "");
     let tamanhoCEP = cepLimpo.length;
     let minCharCEP = false;
     let cepValido = false;
     if (tamanhoCEP !== 8) {
       console.log(cepLimpo);
-      console.log('CEP sem 8 dígitos');
+      console.log("CEP sem 8 dígitos");
     } else {
       minCharCEP = true;
-    }
-    if (minCharCEP) {
       cepValido = true;
     }
     if (cepValido) {
       fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
-        .then(response => response.json())
-        .then(dados => {
+        .then((response) => response.json())
+        .then((dados) => {
           estado.value = dados.estado;
           logradouro.value = dados.logradouro;
           bairro.value = dados.bairro;
           cidade.value = dados.localidade;
         })
-        .catch(error => {
-          console.log('Erro ao buscar o CEP:', error);
+        .catch((error) => {
+          console.log("Erro ao buscar o CEP:", error);
         });
+    } else {
+      console.warn("CEP INVÁLIDO");
     }
   }
 </script>

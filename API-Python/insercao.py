@@ -1,4 +1,5 @@
 import psutil  
+from classes.BancoDeDados import BancoDeDados
 from mysql.connector import connection, errorcode, Error
 import time
 
@@ -14,7 +15,7 @@ def iniciacao():
         
         while True:
             try:
-                oQueFazer = int(input("Deseja salvar apenas uma vez (1) ou rodar o programa infinitamente (2)? Caso deseje cancelar, digite 0: \n"))
+                oQueFazer = int(input("Deseja verificar apenas uma vez (1) ou rodar o programa infinitamente (2)? Caso deseje cancelar, digite 0: \n"))
                 if oQueFazer in [0, 1, 2]:
                     break
                 else:
@@ -25,9 +26,9 @@ def iniciacao():
         if oQueFazer == 0:
             return
         elif oQueFazer == 1:
-            bancoDeDados(False)
+            programaMonitoria(False)
         elif oQueFazer == 2:
-            bancoDeDados(True)
+            programaMonitoria(True)
 
 def qualCarro():
     
@@ -46,47 +47,24 @@ def qualCarro():
     
     return 'NadaEncontrado'
 
-def conexao(tipo):
+def programaMonitoria(infinito):
 
-    if (tipo == 'Select'):
-         
-        mydb = connection.MySQLConnection ( 
-        host="localhost",
-        user="selectAllSet",
-        password="Select123",
-        database="allset")
-                
-        print("Database select - connection made!")
+    BancoDeDados.setUsuario('Select')
+    mydb = BancoDeDados.getConexao()
 
-        return(mydb)
-
-    elif (tipo == 'Insert'):
-
-        mydb = connection.MySQLConnection ( 
-        host="localhost",
-        user="insertAllSet",
-        password="Insert123",
-        database="allset")
-
-        print("Database insert - connection made!")
-
-        return(mydb)
-
-def bancoDeDados(infinito):
-
-    mydb = conexao('Select')
-    mycursor = mydb.cursor()
-
-    informacaoCarro = qualCarro()
+    informacaoCarro = qualCarro()    
     
-    sql = "SELECT fkCarro, fkComponente, valorLimiteAlerta FROM configuracao JOIN carro ON fkCarro = idCarro WHERE identificador = %s;"
-    
+    colunas = 'fkCarro, fkComponente, valorLimiteAlerta'
+    FROM = 'configuracao JOIN carro ON fkCarro = idCarro WHERE identificador = ' + informacaoCarro
+
     valores = (
-        informacaoCarro,
+        colunas,
+        FROM,
             )
 
-    mycursor.execute(sql, valores)
-    resultados = mycursor.fetchall()
+    resultados = BancoDeDados.select(valores)
+    BancoDeDados.fecharConexao()
+    
     qtdResultados = len(resultados)
 
     if(qtdResultados == 0):
@@ -96,6 +74,7 @@ def bancoDeDados(infinito):
     fkcarro = resultados[0][0]
     componentes = []
     limiarAlerta = []
+
     for linha in resultados:
         componentes = linha[1]
         limiarAlerta = linha[2]
@@ -122,8 +101,6 @@ def bancoDeDados(infinito):
         elif componenteAtual == 5:
             # Velocidade da rede    
 
-    mydb.commit()
-
     while True:
 
         porcentagem = psutil.cpu_percent(interval=1)
@@ -140,7 +117,7 @@ def bancoDeDados(infinito):
             "(cpuPercentual, memoria1Bytes, memoria1Percentual, ramPercentual, ramBytes, bateriaPercentual, dtHora, fkComputador)" 
             "VALUES ( %(numero)s, %(armTotal)s, %(armUsado)s, %(RAMtotal)s, %(RAMusado)s, %(bateriaSensor)s, NOW(), 4);"
         )
-        
+         
         dadosMetrica = {
         'numero': porcentagem,
         'armTotal': armTotal,
@@ -163,3 +140,5 @@ def bancoDeDados(infinito):
         time.sleep(5)
 
 iniciacao()
+
+# Adicionar uma pergunta se gostaria de mudar o host do BD e exibir qual o host atual

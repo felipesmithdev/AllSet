@@ -64,7 +64,7 @@ CREATE TABLE Configuracao (
 CREATE TABLE Leitura (
     idLeitura INT AUTO_INCREMENT PRIMARY KEY,
     fkConfiguracao INT NOT NULL,
-    dataHora DATETIME NOT NULL,
+    dataHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     valor DOUBLE NOT NULL,
     FOREIGN KEY (fkConfiguracao) REFERENCES Configuracao(idConfiguracao) ON DELETE CASCADE
 );

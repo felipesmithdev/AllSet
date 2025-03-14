@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Braah+One&family=Chela+One&family=Chewy&family=Lemon&family=Lobster&family=Pattaya&family=Quando&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root{
 	--blue: #61B0FF ;
+	margin: 0;
 }
-	
+	 
 *{
 	margin: 0;
 	padding: 0;
@@ -33,16 +34,12 @@ html{
 body{
 	background: #fff;
 }
-section{
-	padding: 2rem 9%;
-}
 
 .heading {
 	text-align: center;
 	font-size: 3.5rem;
 	padding: 1rem;
 	color: #666;
-	margin-top: 3rem;
 
 
 }
@@ -132,218 +129,167 @@ header .navbar .login-hide{
 	padding: .5rem 1.5rem;
 	display: none;
 }
-
 .home{
-	display: flex;
-	flex-wrap: wrap;
-	gap:1.5rem;
-	min-height: 100vh;
-	align-items:flex-end;
-	padding-top: 8.5rem;
-	background-color: #051D34;
-	background-image: url(../assets/img/carro-autonomo.jpg);
-	background-position: center; 
-	background-repeat: no-repeat; 
-	background-size: cover;
-	width: 100%;	
-}
-
-
-.home .content{
-	flex: 1 1 40rem;
-	margin-bottom: 150px;
-	
-}
-
-.home .content p{
 	margin: 0;
-	font-size: 7rem;
-	color: #fff;
-	font-weight: bold;
-	font-family: "Montserrat Alternates", serif;
-	
-}
+	height: 100vh;
+	width: 100vw;
+	padding: 0;
 
-.home .content .blue-p {
-	color: #61B0FF;
 }
-
- .break {
+.bg{
+	height: 100vh;
+	width: 100vw;
 	background-color: #61B0FF;
-	height: 4rem;
-	width: 100%;
-}
-
-.quem-proposito{
-    display: flex;
-    margin: 3%;
-    justify-content: space-around;
-}
-
-.div_meio_home{
-    width: 40%;
-    font-weight: 300;
-    font-size: 2.5rem;
-    text-align:justify;
-}
-
-.titulo_meio{
-    font-size: 4rem;
+	background-image: url('../assets/img/carro-autonomo.jpg');
+	background-size: cover;
+	position: fixed;
+	z-index: -1;
 
 }
+.content .blocoTextos{
+	z-index: 2;
+	bottom: 25vh;
+	left: 10vh;
 
-.porqueAllSet{
-	margin: 3%;
-	margin-bottom: 0;
+	font-size: 10vh;
+	color: #fff;
+	position: absolute;
 }
-
-.porqueAllSet .img-texto-pq {
-	display: flex;
-	justify-content: space-around;
-	border: solid .5rem #051D34;
-	padding: 3%;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 1.5rem;	
-	background-color: #f5f5f5;
-} 
-
-.porqueAllSet .img-texto-pq .texto-pq{
-	width: 50%;
-    font-weight: 300;
-    font-size: 2.5rem;
-    text-align:justify;
-}
-
-.porqueAllSet .img-texto-pq .texto-pq .icon-texto-pq{
-	color: #6b6b6b;
-	font-size: 2rem;
-	
-}
-
-.porqueAllSet .img-texto-pq .texto-pq .icon-texto-pq:hover{
+.blue-p{
 	color: #61B0FF;
+} 
+.content .btn{
+	position: absolute;
+	bottom: 10vh;
+	left: 10vh;
+	font-size: 4vh;
 }
-
-.porqueAllSet .img-texto-pq .img-pq{
-	flex:1 1 30rem;
-}
-
-.porqueAllSet .img-texto-pq .img-pq img{
-	width: 100%;
-	object-fit: cover;
-	border-radius: .5rem;
-
-
-}
-
-
-
-.faleconosco .row {
-	padding: 2rem;
-	box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+.quem-somos{
+	height: 100vh;
+	width: 100vw;
+	gap: 15vh;
+	background-color: #9dc5ed;
 	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-	border: solid .5rem #051D34;
-	background-color: #f5f5f5;
-	
+	align-items: center;
+	justify-content: center;
 }
-
-.faleconosco .row .imagem {
-	flex:1 1 30rem;
-	
-}
-
-.faleconosco .row .imagem img{
-	height: 100%;
-	width: 100%;
-	object-fit: cover;
-	border-radius: .5rem;	
-}
-
-.faleconosco .row form {
-	flex:1 1 50rem;
-	padding: 1rem;
-
-	
-}
-
-.faleconosco .row form .inputBox {
+.div_quadro{
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 75vh;
+	height: 70vh;
+	background-color: #fff;
+}
+.divisoria{
+	border: solid #666;
+	border-width: 0.3vh;
+	width: 10vh;
+	margin-bottom: 1vh;
+}
+.textos{
+	text-align: center;
+	font-size: 2.5vh;
+	width: 60vh;
+	font-family: "Roboto Mono", monospace;
+  	font-optical-sizing: auto;
+	font-style: normal;
+}
+.alicerces{
+	height: 100vh;
+	width: 100vw;
+	-webkit-backdrop-filter: blur(30px);
+	backdrop-filter: blur(15px);
+	background-color: #3f87cf3b;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.alicerces h1{
+	color: #fff;
+	padding-top: 10vh;
+	font-size: 6vh;
+}
+.grupo_quadros{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5vh;
+	margin-top: 10vh;
+	height: 55vh;
+	width: 160vh;
+	/* background-color: #fff; */
+}
+.titulos_quadros{
+	font-size: 3vh;
+	color: #286db3;
+}
+.quadro{
+	display: flex;
+	flex-direction: column;
+	border-radius: 2vh;
+	align-items: center;
+	background-color: #fff;
+	height: 55vh;
+	width: 50vh;
+}
+.icons{
+	font-size: 15vh;
+	margin-top: 5vh;
+	color: #286db3;
+}
+.quadro .divisoria{
+	margin-top: 1vh;
+	border-color: #286db3;
+	width: 4vh;
+}
+.quadro .textos{
+	width: 40vh;
+	font-size: 2vh;
+	color: #286db3;
+}
+.servicos{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	background-color: #fff;
+}
+.servicos h1{
+	margin-top: 5vh;
+	font-size: 6vh;
+}
+.servicos_div{
+	display: flex;
+	width: 100vw;
+	/* background-color: #9dc5ed; */
+	/* align-items: center; */
+	justify-content: center;
+	gap: 5vh;
+	margin-top: 10vh;
+}
+.beneficio{
+	display: flex;
+	/* background-color: #666; */
+	width: 40vh;
+	flex-direction: column;
+	align-items: center;
+}
+.servicos_div .icons{
+	/* background-color: #61B0FF; */
+	padding: 4vh;
+	border: solid #228df8 1vh;
+	border-radius: 12vh;
+	color: #228df8;
+}
+.servicos .divisoria {
+	margin-top: 2vh;
+	border-color: #228df8;
+}
+.beneficio .textos{
+	width: 35vh;
+	color: #228df8;
 	
-
-}
-
-.faleconosco .row form .inputBox input, .faleconosco .row form textarea {
-	padding: 1rem;
-	margin: 1rem 0;
-	font-size: 1.7rem;
-	color: #051D34	;
-	text-transform: none;
-	width: 49%;
-	border: solid .3rem #051D34;
-
-}
-
-.faleconosco .row form textarea {
-	width: 100%;
-	resize: none;
-	height: 5rem;
-}
-
-.faleconosco .row form .btn {
-	background: none;
-}
-
-.faleconosco .row form .btn:hover {
-	background: var(--blue);
-}
-
-
-
-.footer{
-    margin-top: 3%;
-	background: #051D34;
-    display: flex;
-    justify-content: space-around;
-    color: white;
-    font-weight: 400;
-    text-align: left;
-    
-}
-
-.titulo_footer{
-    font-weight:400;
-    font-size: 25px;
-    text-align: center;  
-}
-
-.icone_texto_footer{
-    display: flex;  
-    flex-direction: row;
-    font-size: 20px; 
-    text-align: center;
-    align-items: center;
-}
-
-.itens_footer{
-    display: flex;
-    flex-direction: column;
-}
-.h3_endereco{
-    margin: 0;
-	font-size: 20px;
-}
-
-.fa-solid{
-    padding: 1vh;
-}
-.fa-brands{
-    padding: 1vh;
-}
-.itens_footer{
-    text-align: center;
 }

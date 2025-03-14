@@ -10,12 +10,6 @@ disco = False
 bateria = False
 velocidadeDaRede = False
 
-def converter_bytes(bytes):
-    if(bytes <= 0):
-        return 0
-    conversao = round(float((bytes)/ (1024 ** 3)), 2)
-    return conversao
-
 def programaInsercao(infinito):
 
     BancoDeDados.setUsuario('Select')
@@ -57,37 +51,53 @@ def programaInsercao(infinito):
         if componenteAtual == 1:
             # CPU
             CPU = True
+            contCPU = cont
             
         elif componenteAtual == 2:
             # RAM
             RAM = True
+            contRAM = cont
             # Processos que tá gostando mais RAM (Quando a RAM estiver alta)
 
         elif componenteAtual == 3: 
             # Disco
             disco = True
+            contDisco = cont
 
         elif componenteAtual == 4:    
             # Bateria
             bateria = True
+            contBateria = cont
 
         elif componenteAtual == 5:
             # Velocidade da rede
-            velocidadeDaRede = True    
+            velocidadeDaRede = True
+            contRede = cont    
 
     while True:
 
         if CPU:
-            Computador.getCPU()
+            CPUAtual = Computador.getCPU()
+
+            if CPUAtual == limiarAlerta[contCPU]:
+                
+                sql = '(' + fkcarro + ',' + CPUAtual + ');'
+                
+                leitura = (
+
+                )
         
         if RAM:
+            RAMAtual = Computador.getRAM()
             
         if disco:
+            discoAtual = Computador.getDisco()
 
         if bateria:
+            bateriaAtual = Computador.getBateria()
 
         if velocidadeDaRede:
-                
+             velocidadeDaRedeAtual = Computador.getRede()   
 
     while True:
 

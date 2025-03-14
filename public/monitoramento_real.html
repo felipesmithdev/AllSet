@@ -13,7 +13,7 @@
     <title>AllSet - Monitoramento em tempo real</title>
 </head>
 
-<body onload="ordenadoItem()">
+<body onload="trocarOrdem('placa')">
   <div id="modal-background" onclick="fecharModal(false)">
     
     <div id="modal-dash" onclick="fecharModal(true)">
@@ -58,23 +58,23 @@
     </div>
     <div class="metade">
       <h1>Ordenar por:</h1> 
-      <input type="checkbox" id="select_ram" class="select"> 
-      <div class="label-select" onclick="trocarOrdem('ram')">RAM</div>
-      <input type="checkbox" id="select_cpu" class="select"> 
-      <div class="label-select" onclick="trocarOrdem('cpu')">CPU</div>
-      <input type="checkbox" id="select_placa" class="select"> 
-      <div class="label-select" onclick="trocarOrdem('placa')">PLACA</div>
+      <input type="checkbox" id="select-ram" class="select"> 
+      <label class="label-select" for="select-ram"  id="select-ram-label" onclick="trocarOrdem('ram')">RAM</label>
+      <input type="checkbox" id="select-cpu" class="select"> 
+      <label class="label-select" for="select-cpu"  id="select-cpu-label" onclick="trocarOrdem('cpu')">CPU</label>
+      <input type="checkbox" id="select-placa" class="select"> 
+      <label class="label-select" for="select-placa" id="select-placa-label" onclick ="trocarOrdem('placa')">PLACA</label>
  </div>
   </div>
-
     <div class="container-dash" id="spawnpoint">
     </div>
     </div> 
     </div>
-</body>3
+</body>
 
 </html>
 <script>
+
   const carros = [
     { placa: 'DEF4G56', cpu: 45, ram: 40 },
     { placa: 'STU9V01', cpu: 55, ram: 73 },
@@ -148,7 +148,6 @@
   }
  function expandir(){
   console.log("boom")
-  
 }
 
 function fecharModal(real) {
@@ -167,11 +166,16 @@ function expandirDash(idcarro){
   document.getElementById("header-modal").innerHTML += `${carro.placa}`
 }
 
+const elementRam = document.getElementById("select-ram")
+const elementCpu = document.getElementById("select-cpu")
+const elementPlaca = document.getElementById("select-placa")
+
 function trocarOrdem(sortido){ 
   var ordenadoItem = carros
-  console.log(carros)
-  console.log(sortido)
    if(sortido == 'placa'){
+    elementCpu.checked = false
+    elementRam.checked = false
+    elementPlaca.checked = true
     ordenadoItem.sort(function(a,b){
       bool = a[sortido].localeCompare(b[sortido]);
       if(bool < 0){
@@ -180,6 +184,15 @@ function trocarOrdem(sortido){
       return bool
     })
   } else {    
+    if (sortido == 'cpu'){
+      elementPlaca.checked = false
+    elementRam.checked = false
+    elementCpu.checked = true
+    } else {
+      elementCpu.checked = false
+    elementPlaca.checked = false
+    elementRam.checked = true
+    }
     ordenadoItem.sort(function(a, b) {
         bool= a[sortido] - b[sortido]
         if(bool < 0){

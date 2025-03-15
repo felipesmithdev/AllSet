@@ -293,3 +293,60 @@ header .navbar .login-hide{
 	color: #228df8;
 	
 }
+.porqueAllSet{
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	-webkit-backdrop-filter: blur(30px);
+	backdrop-filter: blur(15px);
+	background-color: #3f87cf3b;
+	width: 100vw;
+}
+.porqueAllSet h1{
+	color: #fff;
+	margin-top: 7vh;
+	font-size: 6vh;
+}
+.img-texto-pq{
+	margin-top: 7vh;
+	display: flex;
+	justify-content: center;
+	gap: 5vw;
+}
+.texto-pq{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 25vw;
+	height: 26vw;
+	background-color: #fff;
+	padding: 4vh;
+	border-radius: 4vh;
+}
+.texto-pq p{
+	font-size: 2.2vh;
+	font-family: "Roboto Mono", monospace;
+  	font-optical-sizing: auto;
+	font-style: normal;
+}
+.img-pq{
+	height: 30vh;
+	width: 40vw;
+	/* background-color: #228df8; */
+}
+.img-pq img{
+	height: 30vw;
+	width: 40vw;
+	/* background-color: #228df8; */
+	border-radius: 4vh;
+} 
+.footer{
+	display: flex;
+	background-color: #155492;
+	color: #fff;
+	font-size: 2vh;
+	height: 15vh;
+	gap: 30vh;
+	justify-content: center;
+	align-items: center;
+}

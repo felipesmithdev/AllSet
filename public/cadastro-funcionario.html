@@ -30,6 +30,10 @@
             <input id="nome_input" type="text" placeholder="Digite seu nome">
         </div>
         <div class="campo">
+            <span>CPF:</span>
+            <input id="cpf_input" type="text" placeholder="Digite seu CPF">
+        </div>
+        <div class="campo">
             <span>Cargo:</span>
             <select name="cargo" id="cargo_select">
                 <option value="#" disabled>Escolha um cargo</option>
@@ -54,6 +58,7 @@
     </div>
 
         <div id="div_erro_nome"></div>
+        <div id="div_erro_cpf"></div>
         <div id="div_erro_email"></div>
         <div id="div_erro_senha_8char"></div>
         <div id="div_erro_senha_min"></div>
@@ -85,6 +90,16 @@
             div_erro_nome.innerHTML = ""
           return true;
       }
+  }
+  
+  function validarCpf(cpf) {
+    const regexN = /[0-9]/;
+    let cpfValido = true;
+    if (cpf.length !== 11) {
+        div_erro_cpf.innerHTML = "O CPF deve possuir 11 dígitos";
+        cpfValido = false;
+    }
+    return cpfValido
   }
 
 
@@ -152,25 +167,29 @@
   function validacaoGeral() {
     console.log('entrei')
       const nome = nome_input.value;
+      const cpf = cpf_input.value;
       const cargo = cargo_select.value
       const email = email_input.value;
       const senha = senha_input.value;
       const confirmacaoSenha = confirmacaoSenha_input.value;
       
       const nomeValido = validarNome(nome);
+      const cpfValido = validarCpf(cpf);
       const emailValido = validarEmail(email);
       const senhaValida = validarSenha(senha);
       const confirmacaoSenhaValida = validarConfirmacaoSenha(senha, confirmacaoSenha);
 
-      if (nomeValido && emailValido && senhaValida && confirmacaoSenhaValida) {
+      if (nomeValido && cpfValido && emailValido && senhaValida && confirmacaoSenhaValida) {
           alert('Cadastrado com sucesso');
           console.log(`nome = ${nome}`)
+          console.log(`cpf = ${cpf}`)
           console.log(`cargo = ${cargo}`)
           console.log(`email = ${email}`)
           console.log(`senha = ${senha}`)
           window.location.href = "login.html"
       }else {
         if(!nomeValido){console.log('erro no nome')}
+        if(!cpfValido){console.log('erro no cpf')}
         if(!emailValido){console.log('erro no email')}
         if(!senhaValida){console.log('erro na senha')}
         if(!confirmacaoSenhaValida){console.log('erro na confirmacao senha')}

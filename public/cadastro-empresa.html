@@ -23,7 +23,7 @@
         </div> -->
     <!-- </div> -->
 
-    <a href="index.html" class="voltar">
+    <a onclick="voltarCadastro()" class="voltar">
       <i class="fa-solid fa-arrow-left"></i
     ></a>
     <h1 class="titulo-form">AllSet</h1>
@@ -147,6 +147,8 @@
 </html>
 
 <script>
+    var etapa_cadastro = 0
+
   let nomeEmpresa = document.getElementById("nomeEmpresa_input");
   let cnpj = document.getElementById("cnpj_input");
   let unidade = document.getElementById("unidade_input");
@@ -205,13 +207,26 @@
     }
     span_erros_cnpj.innerHTML = mensagem_erro_cnpj;
   }
+  function voltarCadastro() {
+    if (etapa_cadastro == 0) {
+      window.location.href = "index.html"
+    } else if(etapa_cadastro == 1){
+            cadastro1.style.display = "block";
+            cadastro2.style.display = "none";
+    }else if(etapa_cadastro == 2){
+      cadastro2.style.display = "block";
+      cadastro3.style.display = "none";
+    }
 
+        }
   function continuar() {
-    if (nomeEmpresa_validado && cnpj_validado) {
+
+    if (nomeEmpresa_validado && cnpj_validado && etapa_cadastro == 0) {
       console.warn(`RLX QUE VALIDARAM TODOS`);
-      document.getElementById("cadastro1").style.display = "none";
-      document.getElementById("cadastro2").style.display = "block";
-    } else {
+      cadastro1.style.display = "none";
+      cadastro2.style.display = "block";
+      etapa_cadastro++
+     } else {
       console.warn(`NÃO FORAM VALIDADOS`);
     }
   }

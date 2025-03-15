@@ -49,6 +49,6 @@ class Computador:
         return armUsado
 
     def getRede():    
-        
+        rede = 'bananinha'
     # Pegar o IPV4 tbm
     # Pegar os processos

@@ -2,24 +2,6 @@ from mysql.connector import connection
 from mysql.connector import errorcode
 
 componentes = []
-print("Seja bem vindo a API - AllSet \n")
-
-def iniciacao():
-    
-    while True:
-        try:
-            oQueFazer = int(input("Qual computador gostaria de verificar dessa vez? (0 para cancelar, 1 - Diniz, 2 - Amanda, 3 - Israel, 4 - Guilherme, 5 - Servidor (Robert)): \n"))
-            if oQueFazer in [0, 1, 2, 3, 4, 5]:  
-                break
-            else:
-                print("Opção inválida! Digite uma das opções válidas")
-        except ValueError: 
-            print("Entrada inválida! Digite um número válido.")
-
-    if oQueFazer == 0:
-        return
-    else:
-        metricas(oQueFazer)
 
 def metricas(computador):
 
@@ -175,7 +157,3 @@ def puxarDados(computador, componente, metrica, medida):
 
     mycursor.close()
     mydb.close()
-
-    iniciacao()
-
-iniciacao()

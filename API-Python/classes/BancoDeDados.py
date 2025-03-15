@@ -49,9 +49,12 @@ class BancoDeDados:
 
         sql = "INSERT INTO leitura (fkConfiguracao, valor) VALUES %s"
 
-        mycursor.execute(sql,valores)
-        mycursor.close()
-        mydb.commit()
+        try:
+            mycursor.execute(sql, valores)
+            mydb.commit()
+            print("Dados inseridos com sucesso!")
+        except Error as e:
+            print(f"Erro ao inserir dados: {e}")
 
     def select(valores, mydb):
 

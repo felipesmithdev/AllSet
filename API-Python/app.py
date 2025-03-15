@@ -1,19 +1,31 @@
 from monitoramentoInsercao.insercao import programaInsercao
-from monitoramentoInsercao.monitoria import programaMonitoria
+# from monitoramentoInsercao.monitoria import programaMonitoria
 
-print("Bom dia, seja bem vindo a API da AllSet")
+print("""
+      
+.:       .::      .::        .:: ::  .::::::::.::: .::::::
+.: ::     .::      .::      .::    .::.::           .::
+.:  .::    .::      .::       .::      .::           .::
+.::   .::   .::      .::         .::    .::::::       .::
+.:::::: .::  .::      .::            .:: .::           .::
+.::       .:: .::      .::      .::    .::.::           .::
+.::         .::.::::::::.::::::::  .:: ::  .::::::::     .:: 
+    
+Seja bem vindo a nossa API de Python 
+Aqui poderá monitorar em tempo real ou selecionar os dados salvos em nosso banco de dados
+""")
 
-def iniciacao():
+def iniciacao(): 
         
-        while True:
-            try:
-                oQueFazer = int(input("Deseja verificar apenas uma vez (1) ou rodar o programa infinitamente (2)? Caso deseje cancelar, digite 0: \n"))
-                if oQueFazer in [0, 1, 2]:
-                    break
-                else:
-                    print("Opção inválida! Digite 0, 1 ou 2.")
-            except ValueError:
-                print("Entrada inválida! Digite um número válido.")
+    while True:
+        try:
+            oQueFazer = int(input("Deseja verificar apenas uma vez (1) ou rodar o programa infinitamente (2)? Caso deseje cancelar, digite 0: \n"))
+            if oQueFazer in [0, 1, 2]:
+                break
+            else:
+                print("Opção inválida! Digite 0, 1 ou 2.")
+        except ValueError:
+            print("Entrada inválida! Digite um número válido.")
 
         if oQueFazer == 0:
             return

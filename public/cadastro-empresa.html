@@ -37,19 +37,13 @@
             id="nomeEmpresa_input"
             type="text"
             placeholder="AllSet Monitoramento"
-            oninput="validarNomeEmpresa()"
           />
         </div>
 
         <div class="campo">
           <span>CNPJ:</span>
           <small style="font-size: 15px">Digite apenas números</small>
-          <input
-            id="cnpj_input"
-            oninput="validarCnpj()"
-            type="text"
-            placeholder="00.000.000/0000-00"
-          />
+          <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00" />
         </div>
       </div>
       <div id="cadastro2">
@@ -113,10 +107,6 @@
           />
         </div>
         <div class="campo">
-          <span>Senha:</span>
-          <input id="password_input" type="text" placeholder="xxxxxxxxxxxx" />
-        </div>
-        <div class="campo">
           <span>Email:</span>
           <input
             id="email_input"
@@ -124,13 +114,59 @@
             placeholder="emailteste@email.com"
           />
         </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input
+            id="password_input"
+            type="password"
+            placeholder="xxxxxxxxxxxx"
+          />
+        </div>
+        <div class="campo">
+          <span>Confirmar Senha:</span>
+          <input
+            id="confirma_password_input"
+            type="password"
+            placeholder="xxxxxxxxxxxx"
+          />
+        </div>
       </div>
       <div
         style="display: flex; flex-direction: column"
         id="div_erros_cadastro"
       >
-        <span id="span_erros_nomeEmpresa"></span>
-        <span id="span_erros_cnpj"></span>
+        <div id="div_erro_cadastro1">
+          <div id="div_erro_nomeEmpresa_vazia"></div>
+          <div id="div_erro_nomeEmpresa_3char"></div>
+          <div id="div_erro_cnpj_vazia"></div>
+          <div id="div_erro_cnpj_apenasNum"></div>
+          <div id="div_erro_cnpj_14digitos"></div>
+        </div>
+        <div id="div_erro_cadastro2">
+          <div id="div_erro_nomeUnidade_vazia"></div>
+          <div id="div_erro_nomeUnidade_3char"></div>
+          <div id="div_erro_cep_vazia"></div>
+          <div id="div_erro_cep_apenasNum"></div>
+          <div id="div_erro_cep_8digitos"></div>
+          <div id="div_erro_contato_vazia"></div>
+          <div id="div_erro_contato_apenasNum"></div>
+          <div id="div_erro_contato_11digitos"></div>
+        </div>
+
+        <div id="div_erro_cadastro3">
+          <div id="div_erro_username_vazia"></div>
+          <div id="div_erro_username_3char"></div>
+          <div id="div_erro_email_vazia"></div>
+          <div id="div_erro_email_invalido"></div>
+          <div id="div_erro_password_vazia"></div>
+          <div id="div_erro_password_8char"></div>
+          <div id="div_erro_password_num"></div>
+          <div id="div_erro_password_min"></div>
+          <div id="div_erro_password_mai"></div>
+          <div id="div_erro_password_charEsp"></div>
+          <div id="div_erro_confirma_password_vazia"></div>
+          <div id="div_erro_confirma_password_igual"></div>
+        </div>
       </div>
       <button id="btn_cadastro1" class="botao" onclick="continuar()">
         Continuar
@@ -147,7 +183,7 @@
 </html>
 
 <script>
-    var etapa_cadastro = 0
+  var etapa_cadastro = 0;
 
   let nomeEmpresa = document.getElementById("nomeEmpresa_input");
   let cnpj = document.getElementById("cnpj_input");
@@ -161,103 +197,319 @@
   let contato = document.getElementById("contato_input");
   let username = document.getElementById("username_input");
   let password = document.getElementById("password_input");
+  let confirma_password = document.getElementById("confirma_password_input");
   let email = document.getElementById("email_input");
 
-  let nomeEmpresa_validado = false;
-  let cnpj_validado = false;
+  function validarNomeEmpresa(nomeEmpresa) {
+    div_erro_nomeEmpresa_vazia.innerHTML = "";
+    div_erro_nomeEmpresa_vazia.innerHTML = "";
+    let nomeEmpresaValido = true;
 
-  function validarNomeEmpresa() {
-    let mensagem_erro_nome = ``;
-    let nomeEmpresaValor = nomeEmpresa.value.trim();
-    let tamanho_nomeEmpresaValor = nomeEmpresaValor.length;
-
-    if (nomeEmpresaValor) {
-      if (tamanho_nomeEmpresaValor >= 3) {
-        console.log(`Nome da Empresa tudo certo!`);
-        nomeEmpresa_validado = true;
-      } else {
-        nomeEmpresa_validado = false;
-        console.warn(`NOME DA EMPRESA COM MENOS DE 3 CARACTERES`);
-        mensagem_erro_nome = `O nome da empresa deve conter no mínimo 3 caracteres.`;
-      }
-    } else {
-      console.warn(`PREENCHA O NOME DA EMPRESA, EU ORDENO`);
-      mensagem_erro_nome = `Por favor, preencha o campo Nome.`;
+    if (nomeEmpresa == "") {
+      div_erro_nomeEmpresa_vazia.innerHTML = "Preencha o campo Nome da Empresa";
+      nomeEmpresaValido = false;
     }
-    span_erros_nomeEmpresa.innerHTML = mensagem_erro_nome;
+    if (nomeEmpresa.length < 3) {
+      div_erro_nomeEmpresa_3char.innerHTML =
+        "O Nome da Empresa precisa ter pelo menos 3 caracteres";
+      nomeEmpresaValido = false;
+    }
+    return nomeEmpresaValido;
   }
 
-  function validarCnpj() {
-    let mensagem_erro_cnpj = ``;
-    let cnpjValor = cnpj.value.trim();
-    let tamanho_cnpjValor = cnpjValor.length;
+  function validarCnpj(cnpj) {
+    const regexN = /[0-9]/;
+    let cnpjValido = true;
+    div_erro_cnpj_vazia.innerHTML = "";
+    div_erro_cnpj_apenasNum.innerHTML = "";
+    div_erro_cnpj_14digitos.innerHTML = "";
 
-    if (cnpjValor) {
-      if (tamanho_cnpjValor == 14) {
-        console.log(`CNPJ com 14 dígitos. Ta suave`);
-        cnpj_validado = true;
-      } else {
-        cnpj_validado = false;
-        console.warn(`O CNPJ NÃOOOO CONTÉM 14 DÍGITOS`);
-        mensagem_erro_cnpj = `O CNPJ deve conter 14 dígitos`;
-      }
-    } else {
-      mensagem_erro_cnpj = `Por favor, preencha o campo CNPJ.`;
-      console.warn(`PREENCHA O CNPJ!!!`);
+    if (cnpj == "") {
+      div_erro_cnpj_vazia.innerHTML = "Preencha o campo CNPJ";
+      cnpjValido = false;
     }
-    span_erros_cnpj.innerHTML = mensagem_erro_cnpj;
-  }
-  function voltarCadastro() {
-    if (etapa_cadastro == 0) {
-      window.location.href = "index.html"
-    } else if(etapa_cadastro == 1){
-            cadastro1.style.display = "block";
-            cadastro2.style.display = "none";
-    }else if(etapa_cadastro == 2){
-      cadastro2.style.display = "block";
-      cadastro3.style.display = "none";
+    if (!regexN.test(cnpj)) {
+      div_erro_cnpj_apenasNum.innerHTML = "O Cnpj deve possuir apenas números";
+      cnpjValido = false;
     }
-
-        }
-  function continuar() {
-
-    if (nomeEmpresa_validado && cnpj_validado && etapa_cadastro == 0) {
-      console.warn(`RLX QUE VALIDARAM TODOS`);
-      cadastro1.style.display = "none";
-      cadastro2.style.display = "block";
-      etapa_cadastro++
-     } else {
-      console.warn(`NÃO FORAM VALIDADOS`);
+    if (cnpj.length !== 14) {
+      div_erro_cnpj_14digitos.innerHTML = "O Cnpj deve possuir 14 digitos";
+      cnpjValido = false;
     }
+    return cnpjValido;
   }
 
+  function validarUnidade(unidade) {
+    div_erro_nomeUnidade_vazia.innerHTML = "";
+    div_erro_nomeUnidade_3char.innerHTML = "";
+    let unidadeValida = true;
+    if (unidade == "") {
+      div_erro_nomeUnidade_vazia.innerHTML = "Preencha o campo Nome da Unidade";
+      unidadeValida = false;
+    }
+    if (unidade.length < 3) {
+      div_erro_nomeUnidade_3char.innerHTML =
+        "O Nome da Unidade precisa ter pelo menos 3 caracteres";
+      unidadeValida = false;
+    }
+    return unidadeValida;
+  }
+
+  function validarCep(cep) {
+    const regexN = /[0-9]/;
+    let cepValido = true;
+    div_erro_cep_vazia.innerHTML = "";
+    div_erro_cep_apenasNum.innerHTML = "";
+    div_erro_cep_8digitos.innerHTML = "";
+
+    if (cep == "") {
+      div_erro_cep_vazia.innerHTML = "Preencha o campo CEP";
+      cepValido = false;
+    }
+    if (!regexN.test(cep)) {
+      div_erro_cep_apenasNum.innerHTML = "O CEP deve possuir apenas números";
+      cepValido = false;
+    }
+    if (cep.length !== 8) {
+      div_erro_cep_8digitos.innerHTML = "O CEP deve possuir 8 dígitos";
+      cepValido = false;
+    }
+    return cepValido;
+  }
+
+  function validarContato(contato) {
+    const regexN = /[0-9]/;
+    let contatoValido = true;
+    div_erro_contato_vazia.innerHTML = "";
+    div_erro_contato_apenasNum.innerHTML = "";
+    div_erro_contato_11digitos.innerHTML = "";
+    if (contato == "") {
+      div_erro_contato_vazia.innerHTML = "Preencha o campo Contato";
+      contatoValido = false;
+    }
+    if (!regexN.test(contato)) {
+      div_erro_contato_apenasNum.innerHTML =
+        "O Contato deve possuir apenas números";
+      contatoValido = false;
+    }
+    if (contato.length !== 11) {
+      div_erro_contato_11digitos.innerHTML =
+        "O Contato deve possuir 11 dígitos";
+      contatoValido = false;
+    }
+    return contatoValido;
+  }
+  function validarUsername(username) {
+    let usernameValido = true;
+    div_erro_username_vazia.innerHTML = "";
+    div_erro_username_3char.innerHTML = "";
+    if (username == "") {
+      div_erro_username_vazia.innerHTML = "Preencha o campo Username";
+      usernameValido = false;
+    }
+    if (username.length < 3) {
+      div_erro_username_3char.innerHTML =
+        "O Username precisa ter pelo menos 3 caracteres";
+      usernameValido = false;
+    }
+    return usernameValido;
+  }
+
+  function validarEmail(email) {
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let emailValido = true;
+    div_erro_email_vazia.innerHTML = "";
+    div_erro_email_invalido.innerHTML = "";
+
+    if (email == "") {
+      div_erro_email_vazia.innerHTML = "Preencha o campo Email";
+      emailValido = false;
+    }
+    if (!regexEmail.test(email)) {
+      div_erro_email_invalido.innerHTML = "E-mail inválido";
+      emailValido = false;
+    }
+    return emailValido;
+  }
+
+  function validarPassword(password) {
+    const regexMin = /[a-z]/;
+    const regexMax = /[A-Z]/;
+    const regexN = /[0-9]/;
+    const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+    let passwordValido = true;
+    div_erro_password_vazia.innerHTML = "";
+    div_erro_password_min.innerHTML = "";
+    div_erro_password_mai.innerHTML = "";
+    div_erro_password_num.innerHTML = "";
+    div_erro_password_charEsp.innerHTML = "";
+    div_erro_password_8char.innerHTML = "";
+    if (password == "") {
+      div_erro_password_vazia.innerHTML = "Preencha o campo Senha";
+      passwordValido = false;
+    }
+    if (!regexMin.test(password)) {
+      div_erro_password_min.innerHTML =
+        "A Senha precisa de pelo menos uma letra minúscula";
+      passwordValido = false;
+    }
+    if (!regexMax.test(password)) {
+      div_erro_password_mai.innerHTML =
+        "A Senha precisa de pelo menos uma letra maiúscula";
+      passwordValido = false;
+    }
+    if (!regexN.test(password)) {
+      div_erro_password_num.innerHTML =
+        "A Senha precisa de pelo menos um número";
+      passwordValido = false;
+    }
+    if (!regexCharEspecial.test(password)) {
+      div_erro_password_charEsp.innerHTML =
+        "A Senha precisa de pelo menos um caractere especial";
+      passwordValido = false;
+      if (password.length < 8) {
+        div_erro_password_8char.innerHTML =
+          "A Senha precisa ter pelo menos 8 caracteres";
+        passwordValido = false;
+      }     
+    }
+    return passwordValido;
+  }
+  function validarConfirmarPassword(password, confirmarPassword) {
+    let confirmarPasswordValido = true;
+    div_erro_confirma_password_vazia.innerHTML = "";
+    div_erro_confirma_password_igual.innerHTML = "";
+    if (confirmarPassword == "") {
+      div_erro_confirma_password_vazia.innerHTML =
+        "Preencha o campo Confirmar Senha";
+      confirmarPasswordValido = false;
+    }
+    if (password !== confirmarPassword) {
+      div_erro_confirma_password_igual.innerHTML = "As Senhas devem ser iguais";
+      confirmarPasswordValido = false;
+    }
+    return confirmarPasswordValido;
+  }
   function autoPreencherCep() {
-    Inputmask("99.999-999").mask(cep);
-    let cepLimpo = cep.value.replace(/\D/g, "");
-    let tamanhoCEP = cepLimpo.length;
-    let minCharCEP = false;
-    let cepValido = false;
-    if (tamanhoCEP !== 8) {
-      console.log(cepLimpo);
-      console.log("CEP sem 8 dígitos");
-    } else {
-      minCharCEP = true;
-      cepValido = true;
-    }
-    if (cepValido) {
-      fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+    let cep = document.getElementById("cep_input").value;
+    if (validarCep(cep)) {
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
+      fetch(url)
         .then((response) => response.json())
-        .then((dados) => {
-          estado.value = dados.estado;
-          logradouro.value = dados.logradouro;
-          bairro.value = dados.bairro;
-          cidade.value = dados.localidade;
+        .then((data) => {
+          document.getElementById("logradouro_input").value = data.logradouro;
+          document.getElementById("bairro_input").value = data.bairro;
+          document.getElementById("cidade_input").value = data.localidade;
+          document.getElementById("estado_input").value = data.uf;
         })
-        .catch((error) => {
-          console.log("Erro ao buscar o CEP:", error);
-        });
+        .catch((error) => console.error("Erro ao buscar CEP:", error));
+    }
+  }
+
+  function continuar() {
+    const nomeEmpresaValidado = validarNomeEmpresa(nomeEmpresa.value);
+    const cnpjValidado = validarCnpj(cnpj.value);
+
+    const unidadeValidada = validarUnidade(unidade.value);
+    const cepValidado = validarCep(cep.value);
+    const contatoValidado = validarContato(contato.value);
+
+    const usernameValidado = validarUsername(username.value);
+    const emailValidado = validarEmail(email.value);
+    const passwordValidado = validarPassword(password.value);
+    const confirmarPasswordValidado = validarConfirmarPassword(
+      password.value,
+      confirma_password.value
+    );
+
+    if (etapa_cadastro == 0) {
+      document.getElementById("div_erro_cadastro1").style.display = "block";
+      document.getElementById("div_erro_cadastro2").style.display = "none";
+      document.getElementById("div_erro_cadastro3").style.display = "none";
+    } else if (etapa_cadastro == 1) {
+      document.getElementById("div_erro_cadastro1").style.display = "none";
+      document.getElementById("div_erro_cadastro2").style.display = "block";
+      document.getElementById("div_erro_cadastro3").style.display = "none";
+    } else if (etapa_cadastro == 2) {
+      document.getElementById("div_erro_cadastro1").style.display = "none";
+      document.getElementById("div_erro_cadastro2").style.display = "none";
+      document.getElementById("div_erro_cadastro3").style.display = "block";
+    }
+    if (nomeEmpresaValidado && cnpjValidado && etapa_cadastro == 0) {
+      {
+        alert("Empresa e cnpj cadastrados com sucesso!");
+        console.log(`nomeEmpresa = ${nomeEmpresa.value}`);
+        console.log(`cnpj = ${cnpj.value}`);
+        document.getElementById("cadastro1").style.display = "none";
+        document.getElementById("cadastro2").style.display = "block";
+        etapa_cadastro++;
+      }
+    }
+
+    if (
+      unidadeValidada &&
+      cepValidado &&
+      contatoValidado &&
+      etapa_cadastro == 1
+    ) {
+      alert("Unidade, endereço, contato cadastrados com sucesso!");
+      console.log(`unidade = ${unidade.value}`);
+      console.log(`cep = ${cep.value}`);
+      console.log(`contato = ${contato.value}`);
+      document.getElementById("cadastro2").style.display = "none";
+      document.getElementById("cadastro3").style.display = "block";
+      etapa_cadastro++;
+    }
+
+    if (
+      usernameValidado &&
+      emailValidado &&
+      passwordValidado &&
+      confirmarPasswordValidado &&
+      etapa_cadastro == 2
+    ) {
+      alert("Username, senha cadastrados com sucesso!");
+      console.log(`username = ${username.value}`);
+      console.log(`email = ${email.value}`);
+      console.log(`password = ${password.value}`);
+      window.location.href = "login.html";
     } else {
-      console.warn("CEP INVÁLIDO");
+      if (!usernameValidado) {
+        console.log("erro no username");
+      }
+
+      if (!emailValidado) {
+        console.log("erro no email");
+      }
+
+      if (!passwordValidado) {
+        console.log("erro na password");
+      }
+
+      if (etapa_cadastro !== 2) {
+        console.log("erro na etapa cadastro")
+        console.log(etapa_cadastro)
+      }
+    }
+  }
+
+  function voltarCadastro() {
+    if (etapa_cadastro == 1) {
+      document.getElementById("cadastro2").style.display = "none";
+      document.getElementById("cadastro1").style.display = "block";
+      document.getElementById("div_erro_cadastro1").style.display = "none";
+      document.getElementById("div_erro_cadastro2").style.display = "none";
+      document.getElementById("div_erro_cadastro3").style.display = "none";
+
+      etapa_cadastro = 0;
+    } else if (etapa_cadastro == 2) {
+      document.getElementById("cadastro3").style.display = "none";
+      document.getElementById("cadastro2").style.display = "block";
+      document.getElementById("div_erro_cadastro1").style.display = "none";
+      document.getElementById("div_erro_cadastro2").style.display = "none";
+      document.getElementById("div_erro_cadastro3").style.display = "none";
+
+      etapa_cadastro = 1;
     }
   }
 </script>

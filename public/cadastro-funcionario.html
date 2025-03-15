@@ -29,7 +29,15 @@
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Digite seu nome">
         </div>
-
+        <div class="campo">
+            <span>Cargo:</span>
+            <select name="cargo" id="cargo_select">
+                <option value="#" disabled>Escolha um cargo</option>
+                <option value="Gerente_de_Seguranca">Gerente de Segurança</option>
+                <option value="Gerente_Opercional">Gerente Opercional</option>
+                <option value="Cientista_de_Dados">Cientista de Dados</option>
+            </select>
+        </div>
         <div class="campo">
             <span>E-mail:</span>
             <input id="email_input" type="text" placeholder="exemplo@gmail.com">
@@ -78,6 +86,7 @@
           return true;
       }
   }
+
 
   function validarEmail(email) {
       const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -143,10 +152,11 @@
   function validacaoGeral() {
     console.log('entrei')
       const nome = nome_input.value;
+      const cargo = cargo_select.value
       const email = email_input.value;
       const senha = senha_input.value;
       const confirmacaoSenha = confirmacaoSenha_input.value;
-
+      
       const nomeValido = validarNome(nome);
       const emailValido = validarEmail(email);
       const senhaValida = validarSenha(senha);
@@ -155,6 +165,7 @@
       if (nomeValido && emailValido && senhaValida && confirmacaoSenhaValida) {
           alert('Cadastrado com sucesso');
           console.log(`nome = ${nome}`)
+          console.log(`cargo = ${cargo}`)
           console.log(`email = ${email}`)
           console.log(`senha = ${senha}`)
           window.location.href = "login.html"

@@ -19,7 +19,7 @@
 	 
 /* media queries 768px */
 
-@media(max-width: 768px){
+@media(max-width: 768px) and (orientation: portrait){
 	.quem-somos{
 		height: auto;
 		flex-direction: column;
@@ -93,6 +93,9 @@
 		margin-top: 4vh;
 		font-size: 6vh;
 	}
+	.beneficio .textos{
+		width: 70vw;
+	}
 	.porqueAllSet{
 		justify-content: center;
 		align-items: center;
@@ -158,10 +161,14 @@
 			clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 	
 		}
+		header .logo{
+			 font-size: 4rem;
+		}
 
 		header .navbar a{
 			margin: 1.5rem;
 			padding: 1.5rem;
+			font-size: 2rem;
 			display: block;
 			border-left: .5rem solid var(--blue);
 			background: #051D34;

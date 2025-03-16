@@ -95,11 +95,10 @@ header{
 }
 
 header .logo{
-	font-size: 2rem;
 	font-weight: 900;
 	text-decoration: none;
 	color: #61B0FF;
-	font-size: 4rem;
+	font-size: 3vw;
 	
 }
 header .logo .logofoto{
@@ -107,7 +106,7 @@ header .logo .logofoto{
 	height: 50px;
 }
 header .navbar a{
-	font-size: 2rem;
+	font-size: 1.3vw;
 	margin-left: 2rem;
 	color: #fff;
 }
@@ -151,7 +150,7 @@ header .navbar .login-hide{
 	bottom: 25vh;
 	left: 10vh;
 	font-weight: bolder;
-	font-size: 10vh;
+	font-size: 5vw;
 	color: #fff;
 	position: absolute;
 }
@@ -160,7 +159,7 @@ header .navbar .login-hide{
 } 
 .content .btn{
 	position: absolute;
-	bottom: 10vh;
+	bottom: 15vh;
 	left: 10vh;
 	font-size: 4vh;
 }
@@ -178,7 +177,8 @@ header .navbar .login-hide{
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 75vh;
+	width: auto;
+	padding: 0 2vw;
 	height: 70vh;
 	background-color: #fff;
 }
@@ -191,7 +191,7 @@ header .navbar .login-hide{
 .textos{
 	text-align: center;
 	font-size: 2.5vh;
-	width: 60vh;
+	width: 30vw;
 	font-family: "Roboto Mono", monospace;
   	font-optical-sizing: auto;
 	font-style: normal;
@@ -218,7 +218,7 @@ header .navbar .login-hide{
 	gap: 5vh;
 	margin-top: 10vh;
 	height: 55vh;
-	width: 160vh;
+	width: auto;
 	/* background-color: #fff; */
 }
 .titulos_quadros{
@@ -232,7 +232,8 @@ header .navbar .login-hide{
 	align-items: center;
 	background-color: #fff;
 	height: 55vh;
-	width: 50vh;
+	width: auto;
+	padding: 0 2vw;
 }
 .icons{
 	font-size: 15vh;
@@ -245,7 +246,7 @@ header .navbar .login-hide{
 	width: 4vh;
 }
 .quadro .textos{
-	width: 40vh;
+	width: 22vw;
 	font-size: 2vh;
 	color: #286db3;
 }
@@ -273,7 +274,8 @@ header .navbar .login-hide{
 .beneficio{
 	display: flex;
 	/* background-color: #666; */
-	width: 40vh;
+	width: auto;
+	padding: 0 1vw;
 	flex-direction: column;
 	align-items: center;
 }
@@ -289,14 +291,14 @@ header .navbar .login-hide{
 	border-color: #228df8;
 }
 .beneficio .textos{
-	width: 35vh;
+	width: 17vw;
 	color: #228df8;
 	
 }
 .porqueAllSet{
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
 	-webkit-backdrop-filter: blur(30px);
 	backdrop-filter: blur(15px);
 	background-color: #3f87cf3b;
@@ -318,14 +320,15 @@ header .navbar .login-hide{
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	width: 25vw;
-	height: 30vw;
+	width: auto;
+	padding: 1.4vw;
+	height: auto;
 	background-color: #fff;
 	border-radius: 4vh;
 }
 .texto-pq p{
 	width: 22vw;
-	font-size: 2.2vh;
+	font-size: 1.05vw;
 	font-family: "Roboto Mono", monospace;
   	font-optical-sizing: auto;
 	font-style: normal;

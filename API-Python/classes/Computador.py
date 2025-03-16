@@ -55,7 +55,8 @@ class Computador:
         return armUsado
     
     @staticmethod
-    def getRede():    
+    def getRede():
+         
         pass 
 
     # Pegar o IPV4 tbm

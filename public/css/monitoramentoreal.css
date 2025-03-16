@@ -176,6 +176,7 @@ body{
   background-color: black;
    clip-path: polygon(0 90%,50% 0,100% 90%,100% 100%,50% 10%, 0 100%);
 }
+
 .bola{
 height: 50%;
 width: 17%;
@@ -230,8 +231,8 @@ clip-path: circle();
   justify-content: center;
   align-items: center;  
 }
-.metade{
-  width: 50%;
+.terco{
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -239,7 +240,7 @@ clip-path: circle();
   align-items: center;
 }
 
-.metade ::nth-child(){
+.terco ::nth-child(){
   margin-left: 2%;
   margin-right: 2%;
 }
@@ -261,10 +262,34 @@ clip-path: circle();
   display: none;
 }
 
-.metade h1{
+.terco h1{
+  color: white;
  margin-top: 10px;
 }
 
 input[type=checkbox]:checked + label{
   color: rgb(24, 94, 175);  
+}
+
+.kpi{
+  background-color: white;
+  color: black;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  padding: 2px;
+}
+
+.kpi-holder{
+ display: flex;
+ flex-wrap: wrap;
+}
+
+.kpi-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }

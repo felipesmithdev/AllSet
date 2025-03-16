@@ -96,7 +96,7 @@ header{
 
 header .logo{
 	font-size: 2rem;
-	font-weight: bolder;
+	font-weight: 900;
 	text-decoration: none;
 	color: #61B0FF;
 	font-size: 4rem;
@@ -150,7 +150,7 @@ header .navbar .login-hide{
 	z-index: 2;
 	bottom: 25vh;
 	left: 10vh;
-
+	font-weight: bolder;
 	font-size: 10vh;
 	color: #fff;
 	position: absolute;

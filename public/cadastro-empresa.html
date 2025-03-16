@@ -27,12 +27,13 @@
     <a onclick="voltarCadastro()" class="voltar">
       <i class="fa-solid fa-arrow-left"></i
     ></a>
-    <h1 class="titulo-form">AllSet</h1>
+    <h1 class="titulo-form" onclick=window.location.href="index.html">AllSet</h1>
 
     <div class="formulario">
       <span class="titulo">Cadastro - Empresa</span>
       <div id="cadastro1">
         <div class="campo">
+          <br>
           <span>Nome da Empresa:</span>
           <input
             id="nomeEmpresa_input"
@@ -52,6 +53,7 @@
           <span>
             Agora é necessário cadastrar uma unidade para a sua empresa.</span
           >
+          <br><br>
           <span>Nome da Unidade:</span>
           <input
             id="unidade_input"
@@ -93,6 +95,10 @@
           />
         </div>
         <div class="campo">
+          <span>Número:</span>
+          <input id="numero_input" type="text" placeholder="11123456789" />
+        </div>
+        <div class="campo">
           <span>Contato celular:</span>
           <input id="contato_input" type="text" placeholder="11123456789" />
         </div>
@@ -100,6 +106,7 @@
       <div id="cadastro3">
         <div class="campo">
           <span>Por fim, vamos cadastrar um usuário administrativo.</span>
+          <br>
           <span>Nome:</span>
           <input
             id="username_input"
@@ -149,6 +156,7 @@
           <div id="div_erro_cep_vazia"></div>
           <div id="div_erro_cep_apenasNum"></div>
           <div id="div_erro_cep_8digitos"></div>
+          <div id="div_erro_numero"></div>
           <div id="div_erro_contato_vazia"></div>
           <div id="div_erro_contato_apenasNum"></div>
           <div id="div_erro_contato_11digitos"></div>
@@ -194,6 +202,7 @@
   let cidade = document.getElementById("cidade_input");
   let bairro = document.getElementById("bairro_input");
   let logradouro = document.getElementById("logradouro_input");
+  let numero = document.getElementById("numero_input");
   let complemento = document.getElementById("complemento_input");
   let contato = document.getElementById("contato_input");
   let username = document.getElementById("username_input");
@@ -277,7 +286,17 @@
     }
     return cepValido;
   }
-
+    function validarNumero(numero) {
+      const regexN = /[0-9]/;
+      let numeroValido = true;
+      div_erro_numero.innerHTML = "";
+      if (!regexN.test(numero)) {
+        div_erro_numero.innerHTML =
+          "O Número deve possuir apenas números";
+        numeroValido = false;
+      }
+      return numeroValido;
+    }
   function validarContato(contato) {
     const regexN = /[0-9]/;
     let contatoValido = true;
@@ -413,6 +432,7 @@
 
     const unidadeValidada = validarUnidade(unidade.value);
     const cepValidado = validarCep(cep.value);
+    const numeroValidado = validarNumero(numero.value);
     const contatoValidado = validarContato(contato.value);
 
     const usernameValidado = validarUsername(username.value);
@@ -450,6 +470,7 @@
     if (
       unidadeValidada &&
       cepValidado &&
+      numeroValidado &&
       contatoValidado &&
       etapa_cadastro == 1
     ) {
@@ -495,6 +516,9 @@
   }
 
   function voltarCadastro() {
+    if (etapa_cadastro == 0) {
+      window.location.href="index.html"
+    }
     if (etapa_cadastro == 1) {
       document.getElementById("cadastro2").style.display = "none";
       document.getElementById("cadastro1").style.display = "block";

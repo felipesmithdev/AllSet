@@ -26,7 +26,7 @@ class Computador:
     
     def getCPU():
         porcentagemCPU = psutil.cpu_percent(interval=1)
-        
+
         return porcentagemCPU
     
     def getBateria():
@@ -49,6 +49,7 @@ class Computador:
         return armUsado
 
     def getRede():    
-        rede = 'bananinha'
+        pass 
+
     # Pegar o IPV4 tbm
     # Pegar os processos

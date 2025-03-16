@@ -7,42 +7,44 @@ class BancoDeDados:
     database="allset"
     conexaoEstabelecida = False
 
-    def getHost(self):
-        return self.host
+    def getHost():
+        return host
 
-    def setHost(self,host):
-        self.host = host
+    def setHost(host):
+        host = host
 
-    def setUsuario(self,tipo):
+    def setUsuario(tipo):
 
         if tipo == "Select":
-            self.user = "selectAllSet"
-            self.password = "Select123"
+            user = "selectAllSet"
+            password = "Select123"
         
         elif tipo == "Insert":
-            self.user = "insertAllSet"
-            self.password = "Insert123"
+            user = "insertAllSet"
+            password = "Insert123"
     
-    def getConexao(self):
+    def getConexao():
         
         mydb = connection.MySQLConnection ( 
-        host = self.host,
-        user = self.user,
-        password = self.password,
-        database = self.database
+        host = host,
+        user = user,
+        password = password,
+        database = database
             )
         
-        self.conexaoEstabelecida = True
+        conexaoEstabelecida = True
 
         print("Database insert - connection made!")
 
         return(mydb)
     
-    def fecharConexao(self, mydb):
+    @staticmethod
+    def fecharConexao(mydb):
         mydb.close()
 
-        self.conexaoEstabelecida = False
-        
+        conexaoEstabelecida = False
+
+    @staticmethod
     def insert(valores, mydb):
         
         mycursor = mydb.cursor()
@@ -56,6 +58,7 @@ class BancoDeDados:
         except Error as e:
             print(f"Erro ao inserir dados: {e}")
 
+    @staticmethod
     def select(valores, mydb):
 
         mycursor = mydb.cursor()

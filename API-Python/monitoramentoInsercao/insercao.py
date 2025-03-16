@@ -12,6 +12,7 @@ velocidadeDaRede = False
 
 def programaInsercao(infinito):
 
+    bd = BancoDeDados()
     BancoDeDados.setUsuario('Select')
     mydb = BancoDeDados.getConexao()
 

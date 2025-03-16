@@ -1,5 +1,6 @@
 from monitoramentoInsercao.insercao import programaInsercao
 # from monitoramentoInsercao.monitoria import programaMonitoria
+from classes.BancoDeDados import BancoDeDados
 
 print("""
       
@@ -16,10 +17,13 @@ Aqui poderá monitorar em tempo real ou selecionar os dados salvos em nosso banc
 """)
 
 def iniciacao(): 
+
+    hostAtual = BancoDeDados.getHost()
+    print(hostAtual)
         
     while True:
         try:
-            oQueFazer = int(input("Deseja verificar apenas uma vez (1) ou rodar o programa infinitamente (2)? Caso deseje cancelar, digite 0: \n"))
+            oQueFazer = int(input("Deseja alterar o host atual (" + hostAtual + ")? \n 1 - Sim \n 2 - Não \n 0 - Cancelar \n Resposta:"))
             if oQueFazer in [0, 1, 2]:
                 break
             else:

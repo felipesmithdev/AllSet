@@ -39,7 +39,7 @@
 	}
 	.alicerces{
 		height: auto;
-		padding: 2vh 0 2vh 0;
+		padding: 0 0 5vh 0;
 	}
 	.grupo_quadros{
 		display: flex;
@@ -52,6 +52,7 @@
 		color: #fff;
 		z-index: 10;
 		margin-top: 0;
+		padding-top: 5vh;
 		font-size: 6vh;
 		font-size: 4vh;
 	}
@@ -71,26 +72,33 @@
 	.servicos{
 		height: auto;
 		justify-content: center;
-		padding: 2vh 0 2vh 0;
+		padding: 2vh 0 6vh 0;
 	}
 	.servicos h1{
 		font-size: 4vh;
 		width: 80vw;
+		margin-top: 2vh;
 	}
 	.servicos_div{
 		display: flex;
-		gap: 1vh;
+		gap: 0vh;
 		align-items: center;
 
 		flex-direction: column;
 	}
+	.beneficio{
+		height: auto;
+	}
 	.beneficio .icons{
+		margin-top: 4vh;
 		font-size: 6vh;
 	}
 	.porqueAllSet{
 		justify-content: center;
 		align-items: center;
+		justify-content: center;
 		height: auto;
+		width: auto;
 		padding: 0 0 4vh 0;
 		
 	}
@@ -98,25 +106,41 @@
 		font-size: 4vh;
 	}
 	.img-texto-pq{
-		flex-direction: column;
+		width: auto;
+		margin-top: 4vh;
+		justify-content: center;
+		flex-direction: column-reverse;
 	}
 	.texto-pq{
-		padding: 1vh;
-		width: auto;
+		padding: 3vh;
+		width: 75vw;
 		height: auto;
 		border-radius: 3vh;
 	}
 	.img-pq img{
-		width: 80vw;
+		width: 88vw;
 		height: 30vh;
 	}
 	
 	.texto-pq p{
 		font-size: 2vh;
-		width:75vw;
+		width: auto;
 	}
 	.home .content p{
-		font-size: 5rem;
+		font-size: 4vh;
+	}
+	.content .blocoTextos {
+		z-index: 2;
+		bottom: 30vh;
+		left: 4vh;
+		color: #fff;
+		position: absolute;
+	}
+	.content .btn {
+		position: absolute;
+		bottom: 20vh;
+		left: 4vh;
+		font-size: 3vh;
 	}
 		#menu-bar{
 			display: initial;
@@ -144,6 +168,7 @@
 		header .navbar .login-hide{
 			font-size: 2rem;
 		}
+		
 
 		
 
@@ -166,7 +191,8 @@
 @media(max-width: 450px){
 
 	.home{
-		background-image: url(../assets/img/fundoazul.png);
+		background-image: url(../assets/img/carro-autonomo\ -corte.jpg);
+		background-size: cover;
 	}
 	
 		html{
@@ -178,10 +204,6 @@
 			margin-top: 0;
 		}
 		
-		.faleconosco .row form .inputBox input {
-			width: 100%;
-		}
-		
 		header {
 			padding: 2rem;
 		}
@@ -191,10 +213,6 @@
 	
 		html{
 			font-size: 50%;
-		}
-		
-		.faleconosco .row form .inputBox input {
-			width: 100%;
 		}
 		
 		header {

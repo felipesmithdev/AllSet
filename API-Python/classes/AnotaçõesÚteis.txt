@@ -50,6 +50,7 @@
                 )                    
 
     4.2ª @staticmethod
+        É basicamente uma função dentro de um método que não se relaciona com a classe 
     
     4,3ª @classmethod
 

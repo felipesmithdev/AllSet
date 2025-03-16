@@ -1,5 +1,5 @@
 from monitoramentoInsercao.insercao import programaInsercao
-# from monitoramentoInsercao.monitoria import programaMonitoria
+from monitoramentoInsercao.monitoria import programaMonitoria
 from classes.BancoDeDados import BancoDeDados
 
 print("""
@@ -31,12 +31,46 @@ def iniciacao():
         except ValueError:
             print("Entrada inválida! Digite um número válido.")
 
+    if oQueFazer == 0:
+        return
+    
+    elif oQueFazer == 1:
+        while True:
+            novoHost = str(input("digite o novo host para substituit o " + hostAtual + "(Seguindo esse padrão: 000.000.000.000)  \n Digite 1 para cancelar a troca do host e seguir para o próximo passo ou 0 para cancelar, caso contrário, prosiga com o novo host \n Resposta:"))
+            
+
+            if novoHost == 0:
+                return
+            
+            elif novoHost == 1:
+                break
+
+            elif len(oQueFazer) == 15:
+                    
+                    BancoDeDados.setHost(novoHost)
+                    print("Novo host " + novoHost + " Cadastado com sucesso!")
+                    break
+            else:
+                print("Cadastro não realizado, siga o padrão 000.000.000.000 \n Exemplos: 023.234.222.123 ou 012.034.024.019")
+
+    while True:
+
+        try:
+            oQueFazer = int(input("Deseja iniciar qual funcionalidade? \n 1 - Monitoria em tempo real \n 2 - Inserção de dados \n 0 - Cancelar \n Resposta:"))
+        
+            if oQueFazer in [0, 1, 2]:
+                break
+            else:
+                print("Opção inválida! Digite 0, 1 ou 2.")
+        except ValueError:
+            print("Entrada inválida! Digite um número válido.")
+
         if oQueFazer == 0:
             return
         elif oQueFazer == 1:
-            programaInsercao(False)
+            programaInsercao()
         elif oQueFazer == 2:
-            programaInsercao(True)
+            programaMonitoria()
 
 iniciacao()
 

@@ -2,12 +2,14 @@ import psutil
 
 class Computador:
     
+    @staticmethod
     def converter_bytes(bytes):
         if(bytes <= 0):
             return 0
         conversao = round(float((bytes)/ (1024 ** 3)), 2)
         return conversao
 
+    @staticmethod
     def getEnderecoMAC():
         informacaoNet = psutil.net_if_addrs()
         # Informações relacionadas a dados da Net, por exemplo IPV4, o que queremos nesse caso é o endereço MAC
@@ -24,22 +26,26 @@ class Computador:
     
         return 'NadaEncontrado'
     
+    @staticmethod
     def getCPU():
         porcentagemCPU = psutil.cpu_percent(interval=1)
 
         return porcentagemCPU
     
+    @staticmethod
     def getBateria():
         porcentagemBateria = psutil.sensors_battery()
 
         return porcentagemBateria
 
+    @staticmethod
     def getRAM():
         memoriaVirtual = psutil.virtual_memory()
         RAMusado = Computador.converter_bytes(memoriaVirtual.used)
         
         return RAMusado
 
+    @staticmethod
     def getDisco():
         discoUso = psutil.disk_usage('C:\\')
         # Não funciona no Linux, pois no Linux é necessário ser o '/' no lugar, pois o armazenamento dele está lá, mas a nível de simulação, por todos notebooks serem windows, optamos por manter o padrão de Windows
@@ -47,7 +53,8 @@ class Computador:
         armUsado = Computador.converter_bytes(discoUso.used)
 
         return armUsado
-
+    
+    @staticmethod
     def getRede():    
         pass 
 

@@ -7,42 +7,46 @@ class BancoDeDados:
     database="allset"
     conexaoEstabelecida = False
 
-    def getHost():
-        return host
+    @classmethod
+    def getHost(cls):
+        return cls.host
 
-    def setHost(host):
+    @classmethod
+    def setHost(cls, host):
         host = host
-
-    def setUsuario(tipo):
+ 
+    @classmethod
+    def setUsuario(cls, tipo):
 
         if tipo == "Select":
-            user = "selectAllSet"
-            password = "Select123"
+            cls.user = "selectAllSet"
+            cls.password = "Select123"
         
         elif tipo == "Insert":
-            user = "insertAllSet"
-            password = "Insert123"
+            cls.user = "insertAllSet"
+            cls.password = "Insert123"
     
-    def getConexao():
+    @classmethod
+    def getConexao(cls):
         
         mydb = connection.MySQLConnection ( 
-        host = host,
-        user = user,
-        password = password,
-        database = database
+        host = cls.host,
+        user = cls.user,
+        password = cls.password,
+        database = cls.database
             )
         
-        conexaoEstabelecida = True
+        cls.conexaoEstabelecida = True
 
         print("Database insert - connection made!")
 
         return(mydb)
-    
-    @staticmethod
-    def fecharConexao(mydb):
+
+    @classmethod
+    def fecharConexao(cls, mydb):
         mydb.close()
 
-        conexaoEstabelecida = False
+        cls.conexaoEstabelecida = False
 
     @staticmethod
     def insert(valores, mydb):

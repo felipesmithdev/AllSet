@@ -10,7 +10,7 @@ disco = False
 bateria = False
 velocidadeDaRede = False
 
-def programaInsercao(infinito):
+def programaInsercao():
 
     bd = BancoDeDados()
     BancoDeDados.setUsuario('Select')

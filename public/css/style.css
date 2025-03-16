@@ -316,14 +316,15 @@ header .navbar .login-hide{
 .texto-pq{
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-direction: column;
 	width: 25vw;
-	height: 26vw;
+	height: 30vw;
 	background-color: #fff;
-	padding: 4vh;
 	border-radius: 4vh;
 }
 .texto-pq p{
+	width: 22vw;
 	font-size: 2.2vh;
 	font-family: "Roboto Mono", monospace;
   	font-optical-sizing: auto;

@@ -6,21 +6,114 @@
  
 @media(max-width: 991px){
 	
-		html{
+		/* html{
 			font-size: 55%;
-		}
-		header{
+		} */
+		/* header{
 			padding: 2rem;
-		}
-		section{
+		} */
+		/* section{
 			padding: 2rem;
- }
+ } */
 	 
 	 
 /* media queries 768px */
 
 @media(max-width: 768px){
+	.quem-somos{
+		height: auto;
+		flex-direction: column;
+		justify-content: start;
+		gap: 4vh;
+		padding: 3vh 0 3vh 0;
+	}
+	.div_quadro{
+		flex-direction: column;
+		width: 90vw;
+		height:50vh;
+		
+	}
+	.textos{
+		width: 80vw;
+		font-size: 2vh;
+	}
+	.alicerces{
+		height: auto;
+		padding: 2vh 0 2vh 0;
+	}
+	.grupo_quadros{
+		display: flex;
+		flex-direction: column;
+		width: auto;
+		height: auto;
+	}
+	.alicerces h1{
+		color: #fff;
+		z-index: 10;
+		margin-top: 0;
+		font-size: 6vh;
+		font-size: 4vh;
+	}
+	.quadro{
+		height: auto;
+		width:auto;
+		padding: 0 2vw 4vh 2vw;
+	}
+	.quadro .icons{
+		height: auto;
+		font-size: 8vh;
+	}
+	.quadro .textos{
+		font-size: 2vh;
+		width: 75vw;
+	}
+	.servicos{
+		height: auto;
+		justify-content: center;
+		padding: 2vh 0 2vh 0;
+	}
+	.servicos h1{
+		font-size: 4vh;
+		width: 80vw;
+	}
+	.servicos_div{
+		display: flex;
+		gap: 1vh;
+		align-items: center;
 
+		flex-direction: column;
+	}
+	.beneficio .icons{
+		font-size: 6vh;
+	}
+	.porqueAllSet{
+		justify-content: center;
+		align-items: center;
+		height: auto;
+		padding: 0 0 4vh 0;
+		
+	}
+	.porqueAllSet h1{
+		font-size: 4vh;
+	}
+	.img-texto-pq{
+		flex-direction: column;
+	}
+	.texto-pq{
+		padding: 1vh;
+		width: auto;
+		height: auto;
+		border-radius: 3vh;
+	}
+	.img-pq img{
+		width: 80vw;
+		height: 30vh;
+	}
+	
+	.texto-pq p{
+		font-size: 2vh;
+		width:75vw;
+	}
 	.home .content p{
 		font-size: 5rem;
 	}
@@ -30,9 +123,9 @@
 		header .navbar{
 			position: absolute;
 			top: 100%; left: 0; right: 0;
-			background: #f7f7f7;
 			border-top: .1rem solid rgba(0,0,0,.1);
 			clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+			z-index: 8;
 		}
 		
 		header .navbar.active{
@@ -59,15 +152,10 @@
 			flex-direction: column;
 		}
 
-		.div_meio_home{
-			width: 100%;
-		}
-
-		.porqueAllSet .img-texto-pq .texto-pq{
-			width: 100%;
-		}
+		
 
 		.footer{
+			height: auto;
 			flex-direction: column;
 			gap: 1.5rem;
 			align-items: center;
@@ -91,3 +179,17 @@
 		}
     }
 }
+@media(max-width: 320px){
+	
+		html{
+			font-size: 50%;
+		}
+		
+		.faleconosco .row form .inputBox input {
+			width: 100%;
+		}
+		
+		header {
+			padding: 2rem;
+		}
+    }

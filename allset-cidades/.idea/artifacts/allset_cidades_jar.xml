@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="allset-cidades:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/allset_cidades_jar</output-path>
+    <root id="archive" name="allset-cidades.jar">
+      <element id="module-output" name="allset-cidades" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/mifmif/generex/1.0.2/generex-1.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/javafaker/javafaker/1.0.2/javafaker-1.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.23/snakeyaml-1.23-android.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/dk/brics/automaton/automaton/1.11-8/automaton-1.11-8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -46,6 +46,7 @@
 		flex-direction: column;
 		width: auto;
 		height: auto;
+		margin-top: 4vh;
 	}
 	.alicerces h1{
 		color: #fff;
@@ -144,9 +145,7 @@
 			font-size: 2rem;
 		}
 
-		.home{
-			background-image: url(../assets/img/carro-autonomo\ -corte.jpg);
-		}
+		
 
 		.quem-proposito{
 			flex-direction: column;
@@ -165,9 +164,18 @@
  }
 	
 @media(max-width: 450px){
+
+	.home{
+		background-image: url(../assets/img/fundoazul.png);
+	}
 	
 		html{
 			font-size: 50%;
+		}
+
+		.servicos_div{
+			
+			margin-top: 0;
 		}
 		
 		.faleconosco .row form .inputBox input {

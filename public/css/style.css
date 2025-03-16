@@ -350,4 +350,6 @@ header .navbar .login-hide{
 	gap: 30vh;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 }
+

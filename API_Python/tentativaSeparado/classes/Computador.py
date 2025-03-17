@@ -20,8 +20,11 @@ class Computador:
                 if endereco.family == psutil.AF_LINK:  # AF_LINK representa o MAC Address
                     # Aqui é o que tem que mudar pra pegar o MAC, pra pegar o IPV4 por exemplo seria: psutil.AF_INET ou colocando o 6 no final para pegar o IPV6
                 
-                    macArrumado = endereco.address.replace()(":", "")
-                
+                    if ":" in endereco.address:
+                        macArrumado = endereco.address.replace(":", "")
+                    elif "-" in endereco.address:
+                        macArrumado = endereco.address.replace("-", "")
+
                     return macArrumado
     
         return 'NadaEncontrado'

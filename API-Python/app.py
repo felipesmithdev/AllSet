@@ -1,5 +1,5 @@
 from monitoramentoInsercao.insercao import programaInsercao
-from monitoramentoInsercao.monitoria import programaMonitoria
+# from monitoramentoInsercao.monitoria import programaMonitoria
 from classes.BancoDeDados import BancoDeDados
 
 print("""

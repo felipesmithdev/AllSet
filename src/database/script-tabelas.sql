@@ -1,6 +1,7 @@
 CREATE DATABASE allset;
 USE allset;
 
+
 CREATE TABLE Empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
     razaoSocial VARCHAR(255) NOT NULL,
@@ -42,7 +43,6 @@ CREATE TABLE Carro (
     ano YEAR NOT NULL,
     enderecoMac CHAR(12) NOT NULL UNIQUE,
     sistemaOperacional VARCHAR(10),
-    ipv4 VARCHAR
     FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade) ON DELETE CASCADE
 );
 
@@ -69,10 +69,75 @@ CREATE TABLE Leitura (
     FOREIGN KEY (fkConfiguracao) REFERENCES Configuracao(idConfiguracao) ON DELETE CASCADE
 );
 
-INSERT INTO Empresa (idEmpresa, razaoSocial, cnpj, dtCadastro)
-VALUES (DEFAULT, 'Empresa Exemplo Ltda', '12.345.678/0001-99', '2023-04-07');
 
-select * from unidade;
-select * from usuario;
-select * from empresa;
+
+INSERT INTO Empresa (idEmpresa, razaoSocial, cnpj, dtCadastro)
+    VALUES (1, 'Veículos Autônomos LTDA', '12345678000199', '2024-04-07');
+
+INSERT INTO Unidade (fkEmpresa, nome, logradouro, numero, bairro, cidade, estado, contato)
+VALUES
+(1, 'Unidade Centro', 'Rua A', '123', 'Centro', 'São Paulo', 'SP', '11987654321');
+
+	
+INSERT INTO Usuario (fkUnidade, nome, cpf, email, senha, nvl_administrativo, ativo)
+VALUES
+(1, 'João Silva', '12345678901', 'joao.silva@example.com', 'senha123', 1, 1);
+
+
+INSERT INTO Carro (fkUnidade, modelo, marca, ano, enderecoMac, sistemaOperacional) 
+VALUES
+(1, 'Autonobus X200', 'Autonoma Motors', 2024, '0C9A3C4D328A', 'SO1'),
+(1, 'SelfDrive 3000', 'DriveTech', 2023, 'F854F6084511', 'SO2'),
+(1, 'VisionDrive Pro', 'RoboCars', 2025, 'B81EA4FE8B6F', 'SO3');
+
+
+
+INSERT INTO Componente (nome, medida) 
+VALUES ('RAM', 'GB'),
+       ('Armazenamento', 'MB'),
+       ('Bateria', '%'),
+       ('CPU', '%'),
+		('Velocidade da Rede', 'MB');
+
+
+INSERT INTO Configuracao (fkCarro, fkComponente, valorLimiteAlerta) 
+VALUES
+(1, 2, 16),  -- Carro 1, RAM, Limite de alerta 16 GB
+(1, 3, 512), -- Carro 1, Armazenamento, Limite de alerta 512 MB
+(1, 4, 20),  -- Carro 1, Bateria, Limite de alerta 20%
+(1, 1, 75),  -- Carro 1, CPU, Limite de alerta 75%
+
+(2, 2, 8),   -- Carro 2, RAM, Limite de alerta 8 GB
+(2, 3, 256), -- Carro 2, Armazenamento, Limite de alerta 256 MB
+(2, 4, 15),  -- Carro 2, Bateria, Limite de alerta 15%
+(2, 1, 85),  -- Carro 2, CPU, Limite de alerta 85%
+(2, 5, 50),  -- Carro 2, Velocidade da Rede, Limite de alerta 50 MB
+
+(3, 2, 32),  -- Carro 3, RAM, Limite de alerta 32 GB
+(3, 3, 1024),-- Carro 3, Armazenamento, Limite de alerta 1024 MB (1 GB)
+(3, 4, 25),  -- Carro 3, Bateria, Limite de alerta 25%
+(3, 1, 60);  -- Carro 3, CPU, Limite de alerta 60%
+
+
+
+-- Inserir leituras que ultrapassam os limites de alerta
+INSERT INTO Leitura (fkConfiguracao, dataHora, valor)
+VALUES
+(1, '2025-03-17 10:00:00', 18),  -- Carro 1, RAM, Leitura ultrapassa 16 GB
+(2, '2025-03-17 11:00:00', 300), -- Carro 1, Armazenamento, Leitura ultrapassa 512 MB
+(3, '2025-03-17 12:00:00', 25),  -- Carro 1, Bateria, Leitura ultrapassa 20%
+(4, '2025-03-17 13:00:00', 80),  -- Carro 1, CPU, Leitura ultrapassa 75%
+(5, '2025-03-17 14:00:00', 150), -- Carro 1, Velocidade da Rede, Leitura ultrapassa 100 MB
+
+(6, '2025-03-17 15:00:00', 10),  -- Carro 2, RAM, Leitura ultrapassa 8 GB
+(7, '2025-03-17 16:00:00', 300), -- Carro 2, Armazenamento, Leitura ultrapassa 256 MB
+(8, '2025-03-17 17:00:00', 20),  -- Carro 2, Bateria, Leitura ultrapassa 15%
+(9, '2025-03-17 18:00:00', 90),  -- Carro 2, CPU, Leitura ultrapassa 85%
+(10, '2025-03-17 19:00:00', 60), -- Carro 2, Velocidade da Rede, Leitura ultrapassa 50 MB
+
+(11, '2025-03-17 20:00:00', 40), -- Carro 3, RAM, Leitura ultrapassa 32 GB
+(12, '2025-03-17 21:00:00', 1200),-- Carro 3, Armazenamento, Leitura ultrapassa 1024 MB (1 GB)
+(13, '2025-03-17 22:00:00', 30);  -- Carro 3, Bateria, Leitura ultrapassa 25%
+
+
 

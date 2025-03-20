@@ -37,8 +37,7 @@ class Computador:
     
     @staticmethod
     def getBateria():
-        porcentagemBateria = psutil.sensors_battery()
-
+        porcentagemBateria = psutil.sensors_battery().percent
         return porcentagemBateria
 
     @staticmethod
@@ -50,10 +49,10 @@ class Computador:
 
     @staticmethod
     def getDisco():
-        discoUso = psutil.disk_usage('C:\\')
+        discoTotal = psutil.disk_usage('C:\\')
         # Não funciona no Linux, pois no Linux é necessário ser o '/' no lugar, pois o armazenamento dele está lá, mas a nível de simulação, por todos notebooks serem windows, optamos por manter o padrão de Windows
 
-        armUsado = Computador.converter_bytes(discoUso.used)
+        armUsado = Computador.converter_bytes(discoTotal.free)
 
         return armUsado
     

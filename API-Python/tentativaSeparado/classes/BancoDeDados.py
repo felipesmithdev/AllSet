@@ -13,7 +13,7 @@ class BancoDeDados:
 
     @classmethod
     def setHost(cls, host):
-        host = host
+        cls.host = host
  
     @classmethod
     def setUsuario(cls, tipo):
@@ -66,7 +66,7 @@ class BancoDeDados:
     def select(valores, mydb):
 
         mycursor = mydb.cursor()
-        sql = 'SELECT %s FROM %s;'
+        sql = 'SELECT %s FROM %s WHERE enderecoMac = %s;'
 
         mycursor.execute(sql,valores)
         resultados = mycursor.fetchall()

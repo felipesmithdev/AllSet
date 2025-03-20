@@ -1,7 +1,5 @@
-# from API_Python.classes.BancoDeDados import BancoDeDados
-# from ..classes.BancoDeDados import BancoDeDados
-# from API_Python.classes.Computador import Computador
-# from API_Python import Computador
+from ..classes.BancoDeDados import BancoDeDados
+from classes.Computador import Computador
 import time
 
 def programaMonitoria():
@@ -9,8 +7,7 @@ def programaMonitoria():
     while True:
         
         try:
-            oQueFazer = int(input("Gostaria de verificar por um tempo determinado ou rodar indeterminadamente: \n 1 - Inderterminadamente \n 2 - Definir tempo \n 0 - Cancelar \n Resposta:"))
-    
+            oQueFazer = int(input("Gostaria de verificar por um tempo determinado ou rodar indeterminadamente: \n 1 - Inderterminadamente \n 2 - Definir tempo \n 0 - Cancelar \n Resposta:"))    
             if oQueFazer in [0, 1, 2]:
                 break
             else:
@@ -42,7 +39,7 @@ def programaMonitoria():
             return
         
         elif tempo > 0:
-            tempo *= 60
+            tempo = tempo * 60
             monitorar(tempo)
 
     elif oQueFazer == 0:
@@ -53,12 +50,12 @@ def monitorar(tempo):
     if tempo == True:
         
         while True:
-            cpu = Computador.getCPU
-            ram = Computador.getRAM
-            disco = Computador.getDisco
-            bateria = Computador.getBateria
+            cpu = Computador.getCPU()
+            ram = Computador.getRAM()
+            disco = Computador.getDisco()
+            bateria = Computador.getBateria()
 
-            print('CPU: ' + cpu + ' RAM: ' + ram + ' Disco: ' + disco + ' Bateria: '+ bateria)
+            print('CPU utilizada: ' + str(cpu) + '% RAM utilizada: ' + str(ram) + '% Disco restante: ' + str(disco) + ' Bateria restante: ' + str(bateria) + '%')
 
             time.sleep(5)
 
@@ -69,14 +66,14 @@ def monitorar(tempo):
 
         while cont <= tempo:
 
-            cpu = Computador.getCPU
-            ram = Computador.getRAM
-            disco = Computador.getDisco
-            bateria = Computador.getBateria
+            cpu = Computador.getCPU()
+            ram = Computador.getRAM()
+            disco = Computador.getDisco()
+            bateria = Computador.getBateria()
 
             print('CPU: ' + cpu + ' RAM: ' + ram + ' Disco: ' + disco + ' Bateria: '+ bateria)
 
             time.sleep(5)
-            
+            cont += 1
         
 programaMonitoria()

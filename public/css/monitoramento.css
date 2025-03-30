@@ -5,10 +5,15 @@ body {
     width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
+    background-color: #0b1624;
   }
 
   span {
     color: #ffffff;
+  }
+
+  .section_active{
+    color: #5094ec;
   }
 
   .sidebar{
@@ -378,4 +383,13 @@ body {
     color: #dd2727;
     width: 10px;
     border-radius: 10px;
+}
+
+
+/* inicio da pagina de alertas */
+
+.titulo_main{
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
 }

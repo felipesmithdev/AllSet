@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramento</title>
-    <link rel="stylesheet" href="./css/monitoramento.css">
+    <link rel="stylesheet" href="../css/monitoramento.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -19,9 +19,9 @@
             </div>
             <div class="side_topicos">
                 <ul class="side_menu">
-                    <li><i>📊</i> Dashboard</li>
-                    <li><i>💻</i> Carros</li>
-                    <li><i>🔔</i> Alertas</li>
+                    <li class="section_active"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaCarros()"><i>💻</i> Carros</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
                     <li><i>❓</i> Ajuda</li>
                     <li><i>🚪</i> Sair</li>
@@ -167,6 +167,13 @@
 </html>
 
 <script>
+
+function irParaAlertas(){
+    window.location.href="alertaTecnico.html"
+}
+function irParaCarros(){
+    window.location.href="carros.html"
+}
 
 criarGrafico1()
 criarGrafico2()

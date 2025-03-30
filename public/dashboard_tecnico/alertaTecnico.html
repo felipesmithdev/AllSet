@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento</title>
+    <link rel="stylesheet" href="../css/monitoramento.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil"></div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Strupilson Negr</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaCarros()"><i>💻</i> Carros</li>
+                    <li class="section_active"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> Ajuda</li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <div class="titulo_main">
+                <div class="inicio_titulo">
+                    ALERTAS
+                </div>
+            </div>
+            <div class="exibir_data">
+                <div class="alerta_data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+            </div>
+        </div>
+        <div class="kpi_grid">
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Consumo de CPU acima do normal</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>Temperatura excedeu 65%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span>Carro 0001</span> <br>
+                    <span>25/05/2025 8:20</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Consumo de RAM acima do normal</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>Uso de RAM excedeu 90%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span>Carro 0001</span> <br>
+                    <span>25/05/2025 8:20</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Consumo de CPU acima do normal</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>Temperatura excedeu 90%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span>Carro 0001</span> <br>
+                    <span>25/05/2025 8:20</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Consumo de CPU acima do normal</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>Temperatura excedeu 65%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span>Carro 0001</span> <br>
+                    <span>25/05/2025 8:20</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Consumo de CPU acima do normal</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>Temperatura excedeu 65%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span>Carro 0001</span> <br>
+                    <span>25/05/2025 8:20</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+<script>
+
+    function irParaDash(){
+        window.location.href="monitoramento.html"
+    }
+
+    function irParaCarros(){
+        window.location.href="carros.html"
+    }
+
+</script>

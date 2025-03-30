@@ -1,224 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/login.css" />
-    <link rel="stylesheet" href="./css/mobile-login.css" />
-    <link rel="stylesheet" href="./css/scroll.css" />
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AllSet | Cadastro Funcionário</title>
+
+    <link rel="stylesheet" href="./css/cadastro-func.css">
     <link rel="website icon" type="png" href="./assets/img/logoAllSet.png" />
-    <script src="./js/sessao.js"></script>
-    <script
-      src="https://kit.fontawesome.com/88fed8b646.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>AllSet - Cadastro Funcionário</title>
-  </head>
+    <!-- <link rel="icon" href="./assets/logo_fundo_branco.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
 
-  <body>
-    <!-- <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-        </div> -->
-    <!-- </div> -->
-    <a href="cadastro-funcionario.html" class="voltar">
-      <i class="fa-solid fa-arrow-left"></i
-    ></a>
-    <h1 class="titulo-form">AllSet</h1>
+</head>
 
-    <div class="formulario">
-      <span class="titulo">Cadastro - Funcionário</span>
-      <div class="campo">
-        <span>Nome:</span>
-        <input id="nome_input" type="text" placeholder="Digite seu nome" />
-      </div>
-      <div class="campo">
-        <span>CPF:</span>
-        <input id="cpf_input" type="text" placeholder="Digite seu CPF" />
-      </div>
-      <div class="campo">
-        <span>Cargo:</span>
-        <select name="cargo" id="cargo_select">
-          <option value="#" disabled>Escolha um cargo</option>
-          <option value="Gerente_de_Seguranca">Gerente de Segurança</option>
-          <option value="Gerente_Opercional">Gerente Opercional</option>
-          <option value="Cientista_de_Dados">Cientista de Dados</option>
-        </select>
-      </div>
-      <div class="campo">
-        <span>E-mail:</span>
-        <input id="email_input" type="text" placeholder="exemplo@gmail.com" />
-      </div>
+<body>
+    <div class="principal2">
 
-      <div class="campo">
-        <span>Senha:</span>
-        <input id="senha_input" type="password" placeholder="******" />
-      </div>
+        <div class="imagem"></div>
 
-      <div class="campo">
-        <span>Confirme sua senha:</span>
-        <input
-          id="confirmacaoSenha_input"
-          type="password"
-          placeholder="******"
-        />
-      </div>
+        <div class="camposCadastro">
+            <div class="headerCadastro">
+                <div class="home">
+                    <a href="./index.html"><img src="./assets/iconevoltar.png" alt="">Voltar para Home</a>
+                </div>
 
-      <div id="div_erro"></div>
-      <div id="div_erro_nome"></div>
-      <div id="div_erro_cpf"></div>
-      <div id="div_erro_email"></div>
-      <div id="div_erro_senha_8char"></div>
-      <div id="div_erro_senha_min"></div>
-      <div id="div_erro_senha_mai"></div>
-      <div id="div_erro_senha_num"></div>
-      <div id="div_erro_senha_charEsp"></div>
-      <div id="div_erro_confirmarSenha"></div>
-      <button class="botao" onclick="validacaoGeral()">Cadastrar</button>
-      <a href="./login.html" class="texto-link"
-        >Já possui uma conta? Faça login</a
-      >
+                <img src="./assets/streamlineAzul.png" alt="">
+            </div>
+
+            <div class="Cadastro">
+                <h1>Cadastre-se</h1>
+                <span>Crie sua conta inserindo os dados abaixo:</span>
+                <!-- <input type="text" id="ipt_codigo" class="inputCadastro" placeholder="Código da empresa">
+                <div id="div_mensagemLogin" class="MsgErro"></div>
+                <div id="div_tCod" class="MsgErro"></div> -->
+
+                <input type="text" id="ipt_usuario" class="inputCadastro" placeholder="Usuário">
+                <div id="div_mensagemLogin" class="MsgErro"></div>
+                <div id="div_tlogin" class="MsgErro"></div>
+
+                <div class="inputJunta">
+                    <input type="text" id="ipt_cpf" class="inputCadastro" placeholder="CPF">
+                    <div id="div_mensagemLogin" class="MsgErro"></div>
+                    <div id="div_tcpf" class="MsgErro"></div>
+
+                    <input type="text" id="ipt_telefone" class="inputCadastro" placeholder="Telefone">
+                    <div id="div_telefone" class="MsgErro"></div>
+                </div>
+
+                <input type="text" id="ipt_cargo" class="inputCadastro" placeholder="Cargo">
+                <div id="div_cargo" class="MsgErro"></div>
+
+                <input type="text" id="ipt_email" class="inputCadastro" placeholder="Email">
+                <div id="div_mensagemEmail" class="MsgErro"></div>
+
+                <div class="inputJunta">
+                    <input type="password" id="ipt_senha" class="inputCadastro" placeholder="Senha">
+                    <div id="div_senha" class="MsgErro"></div>
+                    <div id="div_tsenha" class="MsgErro"></div>
+
+                    <input type="password" id="ipt_senhaconfirmada" class="inputCadastro"
+                        placeholder="Confirme sua senha">
+                    <div id="div_senhaConfirmada" class="MsgErro"></div> <br>
+                </div>
+                <br>
+
+                <button onclick="cadastro()" id="button_cadastro" class="button">Cadastrar</button>
+
+            </div>
+
+            <div class="footerCadastro">
+                <div class="sem_cadastro">
+                    <p>Já possui uma conta?<a href="./login.html" style="color: #fff;">
+                            <span style="color:#fff; text-decoration: underline;"> Clique aqui</span></a></p>
+                </div>
+            </div>
+        </div>
     </div>
+</body>
 
-    <div id="div_aguardar" class="loading-div">
-      <img src="./assets/gifazul.gif" id="loading-gif" />
-    </div>
-  </body>
 </html>
 
 <script>
-  function validarNome(nome) {
-    if (nome.length < 3) {
-      div_erro.innerHTML = "O nome precisa ter pelo menos 3 caracteres";
-      return false;
-    } else {
-      div_erro.innerHTML = "";
-      return true;
-    }
-  }
+  // function validarNome(nome) {
+  //   if (nome.length < 3) {
+  //     div_erro.innerHTML = "O nome precisa ter pelo menos 3 caracteres";
+  //     return false;
+  //   } else {
+  //     div_erro.innerHTML = "";
+  //     return true;
+  //   }
+  // }
 
-  function validarCpf(cpf) {
-    const regexN = /[0-9]/;
-    let cpfValido = true;
-    if (cpf.length !== 11) {
-      div_erro_cpf.innerHTML = "O CPF deve possuir 11 dígitos";
-      cpfValido = false;
-    }
-    return cpfValido;
-  }
+  // function validarCpf(cpf) {
+  //   const regexN = /[0-9]/;
+  //   let cpfValido = true;
+  //   if (cpf.length !== 11) {
+  //     div_erro_cpf.innerHTML = "O CPF deve possuir 11 dígitos";
+  //     cpfValido = false;
+  //   }
+  //   return cpfValido;
+  // }
 
-  function validarEmail(email) {
-    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!regexEmail.test(email)) {
-      div_erro.innerHTML = "E-mail inválido";
-      return false;
-    } else {
-      div_erro.innerHTML = "";
-      return true;
-    }
-  }
+  // function validarEmail(email) {
+  //   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  //   if (!regexEmail.test(email)) {
+  //     div_erro.innerHTML = "E-mail inválido";
+  //     return false;
+  //   } else {
+  //     div_erro.innerHTML = "";
+  //     return true;
+  //   }
+  // }
 
-  function validarSenha(senha) {
-    let valido = true;
+  // function validarSenha(senha) {
+  //   let valido = true;
 
-    const regexMin = /[a-z]/;
-    const regexMax = /[A-Z]/;
-    const regexN = /[0-9]/;
-    const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+  //   const regexMin = /[a-z]/;
+  //   const regexMax = /[A-Z]/;
+  //   const regexN = /[0-9]/;
+  //   const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
 
-    div_erro_senha_8char.innerHTML = "";
-    div_erro_senha_min.innerHTML = "";
-    div_erro_senha_mai.innerHTML = "";
-    div_erro_senha_num.innerHTML = "";
-    div_erro_senha_charEsp.innerHTML = "";
+  //   div_erro_senha_8char.innerHTML = "";
+  //   div_erro_senha_min.innerHTML = "";
+  //   div_erro_senha_mai.innerHTML = "";
+  //   div_erro_senha_num.innerHTML = "";
+  //   div_erro_senha_charEsp.innerHTML = "";
 
-    if (senha.length < 8) {
-      div_erro_senha_8char.innerHTML =
-        "A senha precisa ter no mínimo 8 caracteres";
-      valido = false;
-    }
-    if (!regexMin.test(senha)) {
-      div_erro_senha_min.innerHTML =
-        "A senha precisa de pelo menos uma letra minúscula";
-      valido = false;
-    }
-    if (!regexMax.test(senha)) {
-      div_erro_senha_mai.innerHTML =
-        "A senha precisa de pelo menos uma letra maiúscula";
-      valido = false;
-    }
-    if (!regexN.test(senha)) {
-      div_erro_senha_num.innerHTML = "A senha precisa de pelo menos um número";
-      valido = false;
-    }
-    if (!regexCharEspecial.test(senha)) {
-      div_erro_senha_charEsp.innerHTML =
-        "A senha precisa de pelo menos um caractere especial";
-      valido = false;
-    }
+  //   if (senha.length < 8) {
+  //     div_erro_senha_8char.innerHTML =
+  //       "A senha precisa ter no mínimo 8 caracteres";
+  //     valido = false;
+  //   }
+  //   if (!regexMin.test(senha)) {
+  //     div_erro_senha_min.innerHTML =
+  //       "A senha precisa de pelo menos uma letra minúscula";
+  //     valido = false;
+  //   }
+  //   if (!regexMax.test(senha)) {
+  //     div_erro_senha_mai.innerHTML =
+  //       "A senha precisa de pelo menos uma letra maiúscula";
+  //     valido = false;
+  //   }
+  //   if (!regexN.test(senha)) {
+  //     div_erro_senha_num.innerHTML = "A senha precisa de pelo menos um número";
+  //     valido = false;
+  //   }
+  //   if (!regexCharEspecial.test(senha)) {
+  //     div_erro_senha_charEsp.innerHTML =
+  //       "A senha precisa de pelo menos um caractere especial";
+  //     valido = false;
+  //   }
 
-    return valido;
-  }
+  //   return valido;
+  // }
 
-  function validarConfirmacaoSenha(senha, confirmacaoSenha) {
-    if (senha === confirmacaoSenha) {
-      div_erro_confirmarSenha.innerHTML = "";
-      return true;
-    } else {
-      div_erro_confirmarSenha.innerHTML = "As senhas não conferem";
-      return false;
-    }
-  }
+  // function validarConfirmacaoSenha(senha, confirmacaoSenha) {
+  //   if (senha === confirmacaoSenha) {
+  //     div_erro_confirmarSenha.innerHTML = "";
+  //     return true;
+  //   } else {
+  //     div_erro_confirmarSenha.innerHTML = "As senhas não conferem";
+  //     return false;
+  //   }
+  // }
 
-  function validacaoGeral() {
-    console.log("entrei");
-    const nome = nome_input.value;
-    const cpf = cpf_input.value;
-    const cargo = cargo_select.value;
-    const email = email_input.value;
-    const senha = senha_input.value;
-    const confirmacaoSenha = confirmacaoSenha_input.value;
+  // function validacaoGeral() {
+  //   console.log("entrei");
+  //   const nome = nome_input.value;
+  //   const cpf = cpf_input.value;
+  //   const cargo = cargo_select.value;
+  //   const email = email_input.value;
+  //   const senha = senha_input.value;
+  //   const confirmacaoSenha = confirmacaoSenha_input.value;
 
-    const nomeValido = validarNome(nome);
-    const cpfValido = validarCpf(cpf);
-    const emailValido = validarEmail(email);
-    const senhaValida = validarSenha(senha);
-    const confirmacaoSenhaValida = validarConfirmacaoSenha(
-      senha,
-      confirmacaoSenha
-    );
+  //   const nomeValido = validarNome(nome);
+  //   const cpfValido = validarCpf(cpf);
+  //   const emailValido = validarEmail(email);
+  //   const senhaValida = validarSenha(senha);
+  //   const confirmacaoSenhaValida = validarConfirmacaoSenha(
+  //     senha,
+  //     confirmacaoSenha
+  //   );
 
-    if (
-      nomeValido &&
-      cpfValido &&
-      emailValido &&
-      senhaValida &&
-      confirmacaoSenhaValida
-    ) {
-      alert("Cadastrado com sucesso");
-      console.log(`nome = ${nome}`);
-      console.log(`cpf = ${cpf}`);
-      console.log(`cargo = ${cargo}`);
-      console.log(`email = ${email}`);
-      console.log(`senha = ${senha}`);
-      window.location.href = "login.html";
-    } else {
-      if (!nomeValido) {
-        console.log("erro no nome");
-      }
-      if (!cpfValido) {
-        console.log("erro no cpf");
-      }
-      if (!emailValido) {
-        console.log("erro no email");
-      }
-      if (!senhaValida) {
-        console.log("erro na senha");
-      }
-      if (!confirmacaoSenhaValida) {
-        console.log("erro na confirmacao senha");
-      }
-      console.log("deu errado");
-    }
-  }
+  //   if (
+  //     nomeValido &&
+  //     cpfValido &&
+  //     emailValido &&
+  //     senhaValida &&
+  //     confirmacaoSenhaValida
+  //   ) {
+  //     alert("Cadastrado com sucesso");
+  //     console.log(`nome = ${nome}`);
+  //     console.log(`cpf = ${cpf}`);
+  //     console.log(`cargo = ${cargo}`);
+  //     console.log(`email = ${email}`);
+  //     console.log(`senha = ${senha}`);
+  //     window.location.href = "login.html";
+  //   } else {
+  //     if (!nomeValido) {
+  //       console.log("erro no nome");
+  //     }
+  //     if (!cpfValido) {
+  //       console.log("erro no cpf");
+  //     }
+  //     if (!emailValido) {
+  //       console.log("erro no email");
+  //     }
+  //     if (!senhaValida) {
+  //       console.log("erro na senha");
+  //     }
+  //     if (!confirmacaoSenhaValida) {
+  //       console.log("erro na confirmacao senha");
+  //     }
+  //     console.log("deu errado");
+  //   }
+  // }
 </script>

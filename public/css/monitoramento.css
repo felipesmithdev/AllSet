@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
   }
@@ -110,7 +111,8 @@ body {
   /* aqui começa a main content */
 
   .main_content{
-    width: 85%;
+    min-width: 84vw;
+    width: auto;
     margin-left: 13%;
     min-height: 100vh;
     height: auto;
@@ -285,9 +287,9 @@ body {
 .dashboards_separadas{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 10px;
     margin-top: 3%;
-    width: 100%;
+    width: auto;
 }
 
 .grid_dash{
@@ -322,7 +324,7 @@ body {
     margin-top: 3%;
     background-color: #202a33 !important;
     width: auto;
-    height: 25vh;
+    height: auto;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

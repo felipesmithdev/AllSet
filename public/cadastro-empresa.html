@@ -194,348 +194,348 @@
 </html>
 
 <script>
-  var etapa_cadastro = 0;
+  // var etapa_cadastro = 0;
 
-  let nomeEmpresa = document.getElementById("nomeEmpresa_input");
-  let cnpj = document.getElementById("cnpj_input");
-  let unidade = document.getElementById("unidade_input");
-  let cep = document.getElementById("cep_input");
-  let estado = document.getElementById("estado_input");
-  let cidade = document.getElementById("cidade_input");
-  let bairro = document.getElementById("bairro_input");
-  let logradouro = document.getElementById("logradouro_input");
-  let numero = document.getElementById("numero_input");
-  let complemento = document.getElementById("complemento_input");
-  let contato = document.getElementById("contato_input");
-  let username = document.getElementById("username_input");
-  let password = document.getElementById("password_input");
-  let confirma_password = document.getElementById("confirma_password_input");
-  let email = document.getElementById("email_input");
+  // let nomeEmpresa = document.getElementById("nomeEmpresa_input");
+  // let cnpj = document.getElementById("cnpj_input");
+  // let unidade = document.getElementById("unidade_input");
+  // let cep = document.getElementById("cep_input");
+  // let estado = document.getElementById("estado_input");
+  // let cidade = document.getElementById("cidade_input");
+  // let bairro = document.getElementById("bairro_input");
+  // let logradouro = document.getElementById("logradouro_input");
+  // let numero = document.getElementById("numero_input");
+  // let complemento = document.getElementById("complemento_input");
+  // let contato = document.getElementById("contato_input");
+  // let username = document.getElementById("username_input");
+  // let password = document.getElementById("password_input");
+  // let confirma_password = document.getElementById("confirma_password_input");
+  // let email = document.getElementById("email_input");
 
-  function validarNomeEmpresa(nomeEmpresa) {
-    div_erro_nomeEmpresa_vazia.innerHTML = "";
-    div_erro_nomeEmpresa_vazia.innerHTML = "";
-    let nomeEmpresaValido = true;
+  // function validarNomeEmpresa(nomeEmpresa) {
+  //   div_erro_nomeEmpresa_vazia.innerHTML = "";
+  //   div_erro_nomeEmpresa_vazia.innerHTML = "";
+  //   let nomeEmpresaValido = true;
 
-    if (nomeEmpresa == "") {
-      div_erro_nomeEmpresa_vazia.innerHTML = "Preencha o campo Nome da Empresa";
-      nomeEmpresaValido = false;
-    }
-    if (nomeEmpresa.length < 3) {
-      div_erro_nomeEmpresa_3char.innerHTML =
-        "O Nome da Empresa precisa ter pelo menos 3 caracteres";
-      nomeEmpresaValido = false;
-    }
-    return nomeEmpresaValido;
-  }
+  //   if (nomeEmpresa == "") {
+  //     div_erro_nomeEmpresa_vazia.innerHTML = "Preencha o campo Nome da Empresa";
+  //     nomeEmpresaValido = false;
+  //   }
+  //   if (nomeEmpresa.length < 3) {
+  //     div_erro_nomeEmpresa_3char.innerHTML =
+  //       "O Nome da Empresa precisa ter pelo menos 3 caracteres";
+  //     nomeEmpresaValido = false;
+  //   }
+  //   return nomeEmpresaValido;
+  // }
 
-  function validarCnpj(cnpj) {
-    const regexN = /[0-9]/;
-    let cnpjValido = true;
-    div_erro_cnpj_vazia.innerHTML = "";
-    div_erro_cnpj_apenasNum.innerHTML = "";
-    div_erro_cnpj_14digitos.innerHTML = "";
+  // function validarCnpj(cnpj) {
+  //   const regexN = /[0-9]/;
+  //   let cnpjValido = true;
+  //   div_erro_cnpj_vazia.innerHTML = "";
+  //   div_erro_cnpj_apenasNum.innerHTML = "";
+  //   div_erro_cnpj_14digitos.innerHTML = "";
 
-    if (cnpj == "") {
-      div_erro_cnpj_vazia.innerHTML = "Preencha o campo CNPJ";
-      cnpjValido = false;
-    }
-    if (!regexN.test(cnpj)) {
-      div_erro_cnpj_apenasNum.innerHTML = "O Cnpj deve possuir apenas números";
-      cnpjValido = false;
-    }
-    if (cnpj.length !== 14) {
-      div_erro_cnpj_14digitos.innerHTML = "O Cnpj deve possuir 14 digitos";
-      cnpjValido = false;
-    }
-    return cnpjValido;
-  }
+  //   if (cnpj == "") {
+  //     div_erro_cnpj_vazia.innerHTML = "Preencha o campo CNPJ";
+  //     cnpjValido = false;
+  //   }
+  //   if (!regexN.test(cnpj)) {
+  //     div_erro_cnpj_apenasNum.innerHTML = "O Cnpj deve possuir apenas números";
+  //     cnpjValido = false;
+  //   }
+  //   if (cnpj.length !== 14) {
+  //     div_erro_cnpj_14digitos.innerHTML = "O Cnpj deve possuir 14 digitos";
+  //     cnpjValido = false;
+  //   }
+  //   return cnpjValido;
+  // }
 
-  function validarUnidade(unidade) {
-    div_erro_nomeUnidade_vazia.innerHTML = "";
-    div_erro_nomeUnidade_3char.innerHTML = "";
-    let unidadeValida = true;
-    if (unidade == "") {
-      div_erro_nomeUnidade_vazia.innerHTML = "Preencha o campo Nome da Unidade";
-      unidadeValida = false;
-    }
-    if (unidade.length < 3) {
-      div_erro_nomeUnidade_3char.innerHTML =
-        "O Nome da Unidade precisa ter pelo menos 3 caracteres";
-      unidadeValida = false;
-    }
-    return unidadeValida;
-  }
+  // function validarUnidade(unidade) {
+  //   div_erro_nomeUnidade_vazia.innerHTML = "";
+  //   div_erro_nomeUnidade_3char.innerHTML = "";
+  //   let unidadeValida = true;
+  //   if (unidade == "") {
+  //     div_erro_nomeUnidade_vazia.innerHTML = "Preencha o campo Nome da Unidade";
+  //     unidadeValida = false;
+  //   }
+  //   if (unidade.length < 3) {
+  //     div_erro_nomeUnidade_3char.innerHTML =
+  //       "O Nome da Unidade precisa ter pelo menos 3 caracteres";
+  //     unidadeValida = false;
+  //   }
+  //   return unidadeValida;
+  // }
 
-  function validarCep(cep) {
-    const regexN = /[0-9]/;
-    let cepValido = true;
-    div_erro_cep_vazia.innerHTML = "";
-    div_erro_cep_apenasNum.innerHTML = "";
-    div_erro_cep_8digitos.innerHTML = "";
+  // function validarCep(cep) {
+  //   const regexN = /[0-9]/;
+  //   let cepValido = true;
+  //   div_erro_cep_vazia.innerHTML = "";
+  //   div_erro_cep_apenasNum.innerHTML = "";
+  //   div_erro_cep_8digitos.innerHTML = "";
 
-    if (cep == "") {
-      div_erro_cep_vazia.innerHTML = "Preencha o campo CEP";
-      cepValido = false;
-    }
-    if (!regexN.test(cep)) {
-      div_erro_cep_apenasNum.innerHTML = "O CEP deve possuir apenas números";
-      cepValido = false;
-    }
-    if (cep.length !== 8) {
-      div_erro_cep_8digitos.innerHTML = "O CEP deve possuir 8 dígitos";
-      cepValido = false;
-    }
-    return cepValido;
-  }
-  function validarNumero(numero) {
-    const regexN = /[0-9]/;
-    let numeroValido = true;
-    div_erro_numero.innerHTML = "";
-    if (!regexN.test(numero)) {
-      div_erro_numero.innerHTML = "O Número deve possuir apenas números";
-      numeroValido = false;
-    }
-    return numeroValido;
-  }
-  function validarContato(contato) {
-    const regexN = /[0-9]/;
-    let contatoValido = true;
-    div_erro_contato_vazia.innerHTML = "";
-    div_erro_contato_apenasNum.innerHTML = "";
-    div_erro_contato_11digitos.innerHTML = "";
-    if (contato == "") {
-      div_erro_contato_vazia.innerHTML = "Preencha o campo Contato";
-      contatoValido = false;
-    }
-    if (!regexN.test(contato)) {
-      div_erro_contato_apenasNum.innerHTML =
-        "O Contato deve possuir apenas números";
-      contatoValido = false;
-    }
-    if (contato.length !== 11) {
-      div_erro_contato_11digitos.innerHTML =
-        "O Contato deve possuir 11 dígitos";
-      contatoValido = false;
-    }
-    return contatoValido;
-  }
-  function validarUsername(username) {
-    let usernameValido = true;
-    div_erro_username_vazia.innerHTML = "";
-    div_erro_username_3char.innerHTML = "";
-    if (username == "") {
-      div_erro_username_vazia.innerHTML = "Preencha o campo Username";
-      usernameValido = false;
-    }
-    if (username.length < 3) {
-      div_erro_username_3char.innerHTML =
-        "O Username precisa ter pelo menos 3 caracteres";
-      usernameValido = false;
-    }
-    return usernameValido;
-  }
+  //   if (cep == "") {
+  //     div_erro_cep_vazia.innerHTML = "Preencha o campo CEP";
+  //     cepValido = false;
+  //   }
+  //   if (!regexN.test(cep)) {
+  //     div_erro_cep_apenasNum.innerHTML = "O CEP deve possuir apenas números";
+  //     cepValido = false;
+  //   }
+  //   if (cep.length !== 8) {
+  //     div_erro_cep_8digitos.innerHTML = "O CEP deve possuir 8 dígitos";
+  //     cepValido = false;
+  //   }
+  //   return cepValido;
+  // }
+  // function validarNumero(numero) {
+  //   const regexN = /[0-9]/;
+  //   let numeroValido = true;
+  //   div_erro_numero.innerHTML = "";
+  //   if (!regexN.test(numero)) {
+  //     div_erro_numero.innerHTML = "O Número deve possuir apenas números";
+  //     numeroValido = false;
+  //   }
+  //   return numeroValido;
+  // }
+  // function validarContato(contato) {
+  //   const regexN = /[0-9]/;
+  //   let contatoValido = true;
+  //   div_erro_contato_vazia.innerHTML = "";
+  //   div_erro_contato_apenasNum.innerHTML = "";
+  //   div_erro_contato_11digitos.innerHTML = "";
+  //   if (contato == "") {
+  //     div_erro_contato_vazia.innerHTML = "Preencha o campo Contato";
+  //     contatoValido = false;
+  //   }
+  //   if (!regexN.test(contato)) {
+  //     div_erro_contato_apenasNum.innerHTML =
+  //       "O Contato deve possuir apenas números";
+  //     contatoValido = false;
+  //   }
+  //   if (contato.length !== 11) {
+  //     div_erro_contato_11digitos.innerHTML =
+  //       "O Contato deve possuir 11 dígitos";
+  //     contatoValido = false;
+  //   }
+  //   return contatoValido;
+  // }
+  // function validarUsername(username) {
+  //   let usernameValido = true;
+  //   div_erro_username_vazia.innerHTML = "";
+  //   div_erro_username_3char.innerHTML = "";
+  //   if (username == "") {
+  //     div_erro_username_vazia.innerHTML = "Preencha o campo Username";
+  //     usernameValido = false;
+  //   }
+  //   if (username.length < 3) {
+  //     div_erro_username_3char.innerHTML =
+  //       "O Username precisa ter pelo menos 3 caracteres";
+  //     usernameValido = false;
+  //   }
+  //   return usernameValido;
+  // }
 
-  function validarEmail(email) {
-    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let emailValido = true;
-    div_erro_email_vazia.innerHTML = "";
-    div_erro_email_invalido.innerHTML = "";
+  // function validarEmail(email) {
+  //   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  //   let emailValido = true;
+  //   div_erro_email_vazia.innerHTML = "";
+  //   div_erro_email_invalido.innerHTML = "";
 
-    if (email == "") {
-      div_erro_email_vazia.innerHTML = "Preencha o campo Email";
-      emailValido = false;
-    }
-    if (!regexEmail.test(email)) {
-      div_erro_email_invalido.innerHTML = "E-mail inválido";
-      emailValido = false;
-    }
-    return emailValido;
-  }
+  //   if (email == "") {
+  //     div_erro_email_vazia.innerHTML = "Preencha o campo Email";
+  //     emailValido = false;
+  //   }
+  //   if (!regexEmail.test(email)) {
+  //     div_erro_email_invalido.innerHTML = "E-mail inválido";
+  //     emailValido = false;
+  //   }
+  //   return emailValido;
+  // }
 
-  function validarPassword(password) {
-    const regexMin = /[a-z]/;
-    const regexMax = /[A-Z]/;
-    const regexN = /[0-9]/;
-    const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
-    let passwordValido = true;
-    div_erro_password_vazia.innerHTML = "";
-    div_erro_password_min.innerHTML = "";
-    div_erro_password_mai.innerHTML = "";
-    div_erro_password_num.innerHTML = "";
-    div_erro_password_charEsp.innerHTML = "";
-    div_erro_password_8char.innerHTML = "";
-    if (password == "") {
-      div_erro_password_vazia.innerHTML = "Preencha o campo Senha";
-      passwordValido = false;
-    }
-    if (!regexMin.test(password)) {
-      div_erro_password_min.innerHTML =
-        "A Senha precisa de pelo menos uma letra minúscula";
-      passwordValido = false;
-    }
-    if (!regexMax.test(password)) {
-      div_erro_password_mai.innerHTML =
-        "A Senha precisa de pelo menos uma letra maiúscula";
-      passwordValido = false;
-    }
-    if (!regexN.test(password)) {
-      div_erro_password_num.innerHTML =
-        "A Senha precisa de pelo menos um número";
-      passwordValido = false;
-    }
-    if (!regexCharEspecial.test(password)) {
-      div_erro_password_charEsp.innerHTML =
-        "A Senha precisa de pelo menos um caractere especial";
-      passwordValido = false;
-      if (password.length < 8) {
-        div_erro_password_8char.innerHTML =
-          "A Senha precisa ter pelo menos 8 caracteres";
-        passwordValido = false;
-      }
-    }
-    return passwordValido;
-  }
-  function validarConfirmarPassword(password, confirmarPassword) {
-    let confirmarPasswordValido = true;
-    div_erro_confirma_password_vazia.innerHTML = "";
-    div_erro_confirma_password_igual.innerHTML = "";
-    if (confirmarPassword == "") {
-      div_erro_confirma_password_vazia.innerHTML =
-        "Preencha o campo Confirmar Senha";
-      confirmarPasswordValido = false;
-    }
-    if (password !== confirmarPassword) {
-      div_erro_confirma_password_igual.innerHTML = "As Senhas devem ser iguais";
-      confirmarPasswordValido = false;
-    }
-    return confirmarPasswordValido;
-  }
-  function autoPreencherCep() {
-    let cep = document.getElementById("cep_input").value;
-    if (validarCep(cep)) {
-      const url = `https://viacep.com.br/ws/${cep}/json/`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          document.getElementById("logradouro_input").value = data.logradouro;
-          document.getElementById("bairro_input").value = data.bairro;
-          document.getElementById("cidade_input").value = data.localidade;
-          document.getElementById("estado_input").value = data.uf;
-        })
-        .catch((error) => console.error("Erro ao buscar CEP:", error));
-    }
-  }
+  // function validarPassword(password) {
+  //   const regexMin = /[a-z]/;
+  //   const regexMax = /[A-Z]/;
+  //   const regexN = /[0-9]/;
+  //   const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+  //   let passwordValido = true;
+  //   div_erro_password_vazia.innerHTML = "";
+  //   div_erro_password_min.innerHTML = "";
+  //   div_erro_password_mai.innerHTML = "";
+  //   div_erro_password_num.innerHTML = "";
+  //   div_erro_password_charEsp.innerHTML = "";
+  //   div_erro_password_8char.innerHTML = "";
+  //   if (password == "") {
+  //     div_erro_password_vazia.innerHTML = "Preencha o campo Senha";
+  //     passwordValido = false;
+  //   }
+  //   if (!regexMin.test(password)) {
+  //     div_erro_password_min.innerHTML =
+  //       "A Senha precisa de pelo menos uma letra minúscula";
+  //     passwordValido = false;
+  //   }
+  //   if (!regexMax.test(password)) {
+  //     div_erro_password_mai.innerHTML =
+  //       "A Senha precisa de pelo menos uma letra maiúscula";
+  //     passwordValido = false;
+  //   }
+  //   if (!regexN.test(password)) {
+  //     div_erro_password_num.innerHTML =
+  //       "A Senha precisa de pelo menos um número";
+  //     passwordValido = false;
+  //   }
+  //   if (!regexCharEspecial.test(password)) {
+  //     div_erro_password_charEsp.innerHTML =
+  //       "A Senha precisa de pelo menos um caractere especial";
+  //     passwordValido = false;
+  //     if (password.length < 8) {
+  //       div_erro_password_8char.innerHTML =
+  //         "A Senha precisa ter pelo menos 8 caracteres";
+  //       passwordValido = false;
+  //     }
+  //   }
+  //   return passwordValido;
+  // }
+  // function validarConfirmarPassword(password, confirmarPassword) {
+  //   let confirmarPasswordValido = true;
+  //   div_erro_confirma_password_vazia.innerHTML = "";
+  //   div_erro_confirma_password_igual.innerHTML = "";
+  //   if (confirmarPassword == "") {
+  //     div_erro_confirma_password_vazia.innerHTML =
+  //       "Preencha o campo Confirmar Senha";
+  //     confirmarPasswordValido = false;
+  //   }
+  //   if (password !== confirmarPassword) {
+  //     div_erro_confirma_password_igual.innerHTML = "As Senhas devem ser iguais";
+  //     confirmarPasswordValido = false;
+  //   }
+  //   return confirmarPasswordValido;
+  // }
+  // function autoPreencherCep() {
+  //   let cep = document.getElementById("cep_input").value;
+  //   if (validarCep(cep)) {
+  //     const url = `https://viacep.com.br/ws/${cep}/json/`;
+  //     fetch(url)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         document.getElementById("logradouro_input").value = data.logradouro;
+  //         document.getElementById("bairro_input").value = data.bairro;
+  //         document.getElementById("cidade_input").value = data.localidade;
+  //         document.getElementById("estado_input").value = data.uf;
+  //       })
+  //       .catch((error) => console.error("Erro ao buscar CEP:", error));
+  //   }
+  // }
 
-  function continuar() {
-    const nomeEmpresaValidado = validarNomeEmpresa(nomeEmpresa.value);
-    const cnpjValidado = validarCnpj(cnpj.value);
+  // function continuar() {
+  //   const nomeEmpresaValidado = validarNomeEmpresa(nomeEmpresa.value);
+  //   const cnpjValidado = validarCnpj(cnpj.value);
 
-    const unidadeValidada = validarUnidade(unidade.value);
-    const cepValidado = validarCep(cep.value);
-    const numeroValidado = validarNumero(numero.value);
-    const contatoValidado = validarContato(contato.value);
+  //   const unidadeValidada = validarUnidade(unidade.value);
+  //   const cepValidado = validarCep(cep.value);
+  //   const numeroValidado = validarNumero(numero.value);
+  //   const contatoValidado = validarContato(contato.value);
 
-    const usernameValidado = validarUsername(username.value);
-    const emailValidado = validarEmail(email.value);
-    const passwordValidado = validarPassword(password.value);
-    const confirmarPasswordValidado = validarConfirmarPassword(
-      password.value,
-      confirma_password.value
-    );
+  //   const usernameValidado = validarUsername(username.value);
+  //   const emailValidado = validarEmail(email.value);
+  //   const passwordValidado = validarPassword(password.value);
+  //   const confirmarPasswordValidado = validarConfirmarPassword(
+  //     password.value,
+  //     confirma_password.value
+  //   );
 
-    if (etapa_cadastro == 0) {
-      document.getElementById("div_erro_cadastro1").style.display = "block";
-      document.getElementById("div_erro_cadastro2").style.display = "none";
-      document.getElementById("div_erro_cadastro3").style.display = "none";
-    } else if (etapa_cadastro == 1) {
-      document.getElementById("div_erro_cadastro1").style.display = "none";
-      document.getElementById("div_erro_cadastro2").style.display = "block";
-      document.getElementById("div_erro_cadastro3").style.display = "none";
-    } else if (etapa_cadastro == 2) {
-      document.getElementById("div_erro_cadastro1").style.display = "none";
-      document.getElementById("div_erro_cadastro2").style.display = "none";
-      document.getElementById("div_erro_cadastro3").style.display = "block";
-    }
-    if (nomeEmpresaValidado && cnpjValidado && etapa_cadastro == 0) {
-      {
-        alert("Empresa e cnpj cadastrados com sucesso!");
-        console.log(`nomeEmpresa = ${nomeEmpresa.value}`);
-        console.log(`cnpj = ${cnpj.value}`);
-        document.getElementById("cadastro1").style.display = "none";
-        document.getElementById("cadastro2").style.display = "block";
-        etapa_cadastro++;
-      }
-    }
+  //   if (etapa_cadastro == 0) {
+  //     document.getElementById("div_erro_cadastro1").style.display = "block";
+  //     document.getElementById("div_erro_cadastro2").style.display = "none";
+  //     document.getElementById("div_erro_cadastro3").style.display = "none";
+  //   } else if (etapa_cadastro == 1) {
+  //     document.getElementById("div_erro_cadastro1").style.display = "none";
+  //     document.getElementById("div_erro_cadastro2").style.display = "block";
+  //     document.getElementById("div_erro_cadastro3").style.display = "none";
+  //   } else if (etapa_cadastro == 2) {
+  //     document.getElementById("div_erro_cadastro1").style.display = "none";
+  //     document.getElementById("div_erro_cadastro2").style.display = "none";
+  //     document.getElementById("div_erro_cadastro3").style.display = "block";
+  //   }
+  //   if (nomeEmpresaValidado && cnpjValidado && etapa_cadastro == 0) {
+  //     {
+  //       alert("Empresa e cnpj cadastrados com sucesso!");
+  //       console.log(`nomeEmpresa = ${nomeEmpresa.value}`);
+  //       console.log(`cnpj = ${cnpj.value}`);
+  //       document.getElementById("cadastro1").style.display = "none";
+  //       document.getElementById("cadastro2").style.display = "block";
+  //       etapa_cadastro++;
+  //     }
+  //   }
 
-    if (
-      unidadeValidada &&
-      cepValidado &&
-      numeroValidado &&
-      contatoValidado &&
-      etapa_cadastro == 1
-    ) {
-      alert("Unidade, endereço, contato cadastrados com sucesso!");
-      console.log(`unidade = ${unidade.value}`);
-      console.log(`cep = ${cep.value}`);
-      console.log(`contato = ${contato.value}`);
-      document.getElementById("cadastro2").style.display = "none";
-      document.getElementById("cadastro3").style.display = "block";
-      etapa_cadastro++;
-    }
+  //   if (
+  //     unidadeValidada &&
+  //     cepValidado &&
+  //     numeroValidado &&
+  //     contatoValidado &&
+  //     etapa_cadastro == 1
+  //   ) {
+  //     alert("Unidade, endereço, contato cadastrados com sucesso!");
+  //     console.log(`unidade = ${unidade.value}`);
+  //     console.log(`cep = ${cep.value}`);
+  //     console.log(`contato = ${contato.value}`);
+  //     document.getElementById("cadastro2").style.display = "none";
+  //     document.getElementById("cadastro3").style.display = "block";
+  //     etapa_cadastro++;
+  //   }
 
-    if (
-      usernameValidado &&
-      emailValidado &&
-      passwordValidado &&
-      confirmarPasswordValidado &&
-      etapa_cadastro == 2
-    ) {
-      alert("Username, senha cadastrados com sucesso!");
-      console.log(`username = ${username.value}`);
-      console.log(`email = ${email.value}`);
-      console.log(`password = ${password.value}`);
-      window.location.href = "login.html";
-    } else {
-      if (!usernameValidado) {
-        console.log("erro no username");
-      }
+  //   if (
+  //     usernameValidado &&
+  //     emailValidado &&
+  //     passwordValidado &&
+  //     confirmarPasswordValidado &&
+  //     etapa_cadastro == 2
+  //   ) {
+  //     alert("Username, senha cadastrados com sucesso!");
+  //     console.log(`username = ${username.value}`);
+  //     console.log(`email = ${email.value}`);
+  //     console.log(`password = ${password.value}`);
+  //     window.location.href = "login.html";
+  //   } else {
+  //     if (!usernameValidado) {
+  //       console.log("erro no username");
+  //     }
 
-      if (!emailValidado) {
-        console.log("erro no email");
-      }
+  //     if (!emailValidado) {
+  //       console.log("erro no email");
+  //     }
 
-      if (!passwordValidado) {
-        console.log("erro na password");
-      }
+  //     if (!passwordValidado) {
+  //       console.log("erro na password");
+  //     }
 
-      if (etapa_cadastro !== 2) {
-        console.log("erro na etapa cadastro");
-        console.log(etapa_cadastro);
-      }
-    }
-  }
+  //     if (etapa_cadastro !== 2) {
+  //       console.log("erro na etapa cadastro");
+  //       console.log(etapa_cadastro);
+  //     }
+  //   }
+  // }
 
-  function voltarCadastro() {
-    if (etapa_cadastro == 0) {
-      window.location.href = "index.html";
-    }
-    if (etapa_cadastro == 1) {
-      document.getElementById("cadastro2").style.display = "none";
-      document.getElementById("cadastro1").style.display = "block";
-      document.getElementById("div_erro_cadastro1").style.display = "none";
-      document.getElementById("div_erro_cadastro2").style.display = "none";
-      document.getElementById("div_erro_cadastro3").style.display = "none";
+  // function voltarCadastro() {
+  //   if (etapa_cadastro == 0) {
+  //     window.location.href = "index.html";
+  //   }
+  //   if (etapa_cadastro == 1) {
+  //     document.getElementById("cadastro2").style.display = "none";
+  //     document.getElementById("cadastro1").style.display = "block";
+  //     document.getElementById("div_erro_cadastro1").style.display = "none";
+  //     document.getElementById("div_erro_cadastro2").style.display = "none";
+  //     document.getElementById("div_erro_cadastro3").style.display = "none";
 
-      etapa_cadastro = 0;
-    } else if (etapa_cadastro == 2) {
-      document.getElementById("cadastro3").style.display = "none";
-      document.getElementById("cadastro2").style.display = "block";
-      document.getElementById("div_erro_cadastro1").style.display = "none";
-      document.getElementById("div_erro_cadastro2").style.display = "none";
-      document.getElementById("div_erro_cadastro3").style.display = "none";
+  //     etapa_cadastro = 0;
+  //   } else if (etapa_cadastro == 2) {
+  //     document.getElementById("cadastro3").style.display = "none";
+  //     document.getElementById("cadastro2").style.display = "block";
+  //     document.getElementById("div_erro_cadastro1").style.display = "none";
+  //     document.getElementById("div_erro_cadastro2").style.display = "none";
+  //     document.getElementById("div_erro_cadastro3").style.display = "none";
 
-      etapa_cadastro = 1;
-    }
-  }
+  //     etapa_cadastro = 1;
+  //   }
+  // }
 </script>

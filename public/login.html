@@ -60,24 +60,10 @@
 
 <script>
    src="./login.js"
-  function entrar() {
-    var email = document.getElementById("email_input").value;
-    var senha = document.getElementById("senha_input").value;
-
-    if (email == "monitoramento@allset.com" && senha == "Mon123@") {
-      window.location.href = "monitoramento_real.html";
-    } else if (email == "adm@allser.com" && senha == "Adm123@") {
-      window.location.href = "monitoramento_real.html";
-    } else {
-      div_erros_login.innerHTML =
-        "Login inválido! Verifique se as informações foram escritas corretamente";
-      console.log(email);
-      console.log(senha);
-    }
 
     function login() {
         var login = ipt_usuario.value
-        var senha = ipt_senha_login.value
+        var senha = ipt_senha.value
 
         // validações
         // Validação de autenticação (adicionar após a implementação da API de comunicação com BD)
@@ -97,18 +83,48 @@
                     resposta.json()
                         .then((resultado) => {
                             sessionStorage.setItem("idUsuario", resultado[0].idUsuario)
-                            if (resultado[0].nivel == 2) {
-                                window.location.href = "./suporte/suporte.html"
+                            if (resultado[0].nvl_adminitrativo == 0) {
+                                window.location.href = "./dashboard_tecnico/usuarioallset.html"
                             } else
-                            // caso a empresa esteja com o cadastro ativo, vamos redirecionar para a dashboard, caso não
-                            if (resultado[0].isAtivo == 1) {
+                            
+                            if (resultado[0].ativo == 1) {
+                                if (resultado[0].nvl_administrativo == 1) {
                                 // armazenando os dados do usuário logado no SessionStorage
-                                sessionStorage.setItem("idEmpresa", resultado[0].fkEmpresa)
+                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
                                 // verificando nível de usuário e o direcionando para a tela certa
-                                window.location.href = "./dashboard/dashboard.html"
+                                window.location.href = "./dashboard_tecnico/paginagerente.html"
+                                }
+
                             } else {
                                 alert("Sua empresa não está com cadastro ativo ainda!")
                             }
+
+                            if (resultado[0].ativo == 1) {
+                                if (resultado[0].nvl_administrativo == 2) {
+                                // armazenando os dados do usuário logado no SessionStorage
+                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
+                                // verificando nível de usuário e o direcionando para a tela certa
+                                window.location.href = "./dashboard_tecnico/monitoramento.html"
+                                }
+
+                            } else {
+                                alert("Sua empresa não está com cadastro ativo ainda!")
+                            }
+
+                            
+                            if (resultado[0].ativo == 1) {
+                                if (resultado[0].nvl_administrativo == 3) {
+                                // armazenando os dados do usuário logado no SessionStorage
+                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
+                                // verificando nível de usuário e o direcionando para a tela certa
+                                window.location.href = "./dashboard_tecnico/analistadash.html"
+                                }
+
+                            } else {
+                                alert("Sua empresa não está com cadastro ativo ainda!")
+                            }
+
+
                         })
                         .catch((erro) => {
                             // console.log(erro);
@@ -126,6 +142,5 @@
                 console.log(erro)
             })
 
-    }
   }
 </script>

@@ -74,5 +74,58 @@
       console.log(email);
       console.log(senha);
     }
+
+    function login() {
+        var login = ipt_usuario.value
+        var senha = ipt_senha_login.value
+
+        // validações
+        // Validação de autenticação (adicionar após a implementação da API de comunicação com BD)
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                login: login,
+                senha: senha
+            })
+        })
+
+            .then((resposta) => {
+                if (resposta.status == 200) {
+                    resposta.json()
+                        .then((resultado) => {
+                            sessionStorage.setItem("idUsuario", resultado[0].idUsuario)
+                            if (resultado[0].nivel == 2) {
+                                window.location.href = "./suporte/suporte.html"
+                            } else
+                            // caso a empresa esteja com o cadastro ativo, vamos redirecionar para a dashboard, caso não
+                            if (resultado[0].isAtivo == 1) {
+                                // armazenando os dados do usuário logado no SessionStorage
+                                sessionStorage.setItem("idEmpresa", resultado[0].fkEmpresa)
+                                // verificando nível de usuário e o direcionando para a tela certa
+                                window.location.href = "./dashboard/dashboard.html"
+                            } else {
+                                alert("Sua empresa não está com cadastro ativo ainda!")
+                            }
+                        })
+                        .catch((erro) => {
+                            // console.log(erro);
+                        })
+                } else if (resposta.status == 403) {
+                    // usuario ou senha incorretos
+                    modal_mensagem_erro.style.display = 'flex'
+                    modal_erro.style.display = 'flex'
+                } else {
+                    console.error("Erro inesperado ao logar", resposta)
+                }
+
+            })
+            .catch((erro) => {
+                console.log(erro)
+            })
+
+    }
   }
 </script>

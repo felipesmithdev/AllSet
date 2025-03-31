@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carros</title>
     <link rel="stylesheet" href="../css/monitoramento.css">
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -15,8 +18,10 @@
                 <span>AllSet</span>
             </div>
             <div class="side_perfil">
-                <div class="foto_perfil"></div>
-                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Strupilson Negr</span></span>
+                <div class="foto_perfil">
+                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Jordana</span></span>
             </div>
             <div class="side_topicos">
                 <ul class="side_menu">
@@ -47,9 +52,13 @@
         <div class="alertas_section">
             <div class="top_alerta">
                 <div class="titulo_alerta">Carros Cadastrados</div>
-                <div class="ver_alertas">Cadastrar Novo Carro <span>→</span></div>
+                <div class="ver_alertas" value='Open the modal'
+                onclick="document.querySelector('jsuites-modal').modal.open()" class='plain'>Cadastrar Novo Carro <span>→</span></div>
             </div>
-            <table class="tabela_alertas">
+            <jsuites-modal title="Cadastrar novo Carro" closed="true" width="900" height="480">
+                
+                </jsuites-modal>
+            <table class="tabela_alertas carros_tabela">
                 <thead>
                     <tr>
                         <th>Placa/ID</th>
@@ -111,4 +120,11 @@
     function irParaAlertas(){
         window.location.href="alertaTecnico.html"
     }
+
+    document.querySelector('jsuites-modal').addEventListener('onopen', function() {
+    console.log('Modal is open');
+    });
+    document.querySelector('jsuites-modal').addEventListener('onclose', function() {
+        console.log('Modal is closed');
+});
 </script>

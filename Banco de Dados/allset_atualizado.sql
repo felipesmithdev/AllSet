@@ -1,29 +1,7 @@
--- -----------------------------------------------------
-DROP DATABASE IF EXISTS allset;
+
 CREATE DATABASE IF NOT EXISTS allset ;
 USE allset ;
 
-
-CREATE TABLE IF NOT EXISTS pais (
-  id_pais INT PRIMARY KEY AUTO_INCREMENT ,
-  nome VARCHAR(45) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS estado (
-  id_estado INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL,
-  uf CHAR(2) NOT NULL,
-  fk_pais INT NOT NULL,
-  CONSTRAINT fkPais foreign key (fk_pais) references pais(id_pais)
-  );
-
-
-CREATE TABLE IF NOT EXISTS cidade (
-  id_cidade INT PRIMARY KEY auto_increment,
-  nome VARCHAR(45) NOT NULL,
-  fk_estado int not null,
-  constraint fkEstado foreign key (fk_estado) references estado (id_estado)
-  );
   
 
 CREATE TABLE IF NOT EXISTS empresa (
@@ -33,17 +11,24 @@ CREATE TABLE IF NOT EXISTS empresa (
   dt_cadastro DATE not NULL
   );
 
-CREATE TABLE IF NOT EXISTS agencia (
+CREATE TABLE IF NOT EXISTS agencia(
   id_agencia INT primary key auto_increment ,
-  endereco VARCHAR(45) NOT NULL,
-  endereco2 VARCHAR(45) NULL,
   cep CHAR(8) NOT NULL,
   numero CHAR(10) NOT NULL,
-  fk_cidade INT NOT NULL,
+  complemento varchar(45),
   fk_empresa INT NOT NULL,
-  constraint fkCidadeAgencia foreign key (fk_cidade) references cidade(id_cidade),
   constraint fkEmpresaAgencia foreign key (fk_empresa) references empresa(id_empresa)
   );
+  
+CREATE TABLE IF NOT EXISTS endereco (
+	id_endereco int primary key auto_increment,
+    logradouro varchar(100) not null,
+    bairro varchar(50) not null,
+    uf char(2) not null,
+    estado varchar(45),
+    fk_agencia_endereco int not null,
+    constraint fkAgencia foreign key (fk_agencia_endereco) references agencia(id_agencia)
+	);
 
 
 CREATE TABLE IF NOT EXISTS pessoa (
@@ -79,14 +64,12 @@ CREATE TABLE IF NOT EXISTS componente (
   metrica CHAR(2) not NULL
 );
 
-
-
 CREATE TABLE IF NOT EXISTS configuracao (
   pk_componente INT NOT NULL,
   pk_carro int NOT NULL,
   dt_pedido DATE not NULL,
   limite DOUBLE not NULL,
-  PRIMARY KEY (`pk_componente`, `pk_carro`),
+  PRIMARY KEY (pk_componente, pk_carro),
   CONSTRAINT fkComponentePK FOREIGN KEY (`pk_componente`) REFERENCES componente (id_componente),
   CONSTRAINT fkCarroPK FOREIGN KEY (pk_carro) REFERENCES carro (id_carro)
 );

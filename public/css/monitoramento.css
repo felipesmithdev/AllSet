@@ -116,7 +116,7 @@ body {
   /* aqui começa a main content */
 
   .main_content{
-    min-width: 84vw;
+    min-width: 84vw;  
     width: auto;
     margin-left: 13%;
     min-height: 100vh;

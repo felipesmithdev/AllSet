@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+
+
 :root{
 	--blue: #61B0FF ;
 	margin: 0;
@@ -153,9 +156,11 @@ header .navbar .login-hide{
 	font-size: 5vw;
 	color: #fff;
 	position: absolute;
+	text-shadow: 9px 9px 7px rgba(0, 0, 0, 0.9);
 }
 .blue-p{
 	color: #61B0FF;
+	text-shadow: 9px 9px 7px rgba(0, 0, 0, 0.9);
 } 
 .content .btn{
 	position: absolute;
@@ -181,6 +186,7 @@ header .navbar .login-hide{
 	padding: 0 2vw;
 	height: 70vh;
 	background-color: #fff;
+	border-radius: 50%;
 }
 .divisoria{
 	border: solid #666;
@@ -190,9 +196,9 @@ header .navbar .login-hide{
 }
 .textos{
 	text-align: center;
-	font-size: 2.5vh;
+	font-size: 3.5vh;
 	width: 30vw;
-	font-family: "Roboto Mono", monospace;
+	font-family: "Afacad", monospace;
   	font-optical-sizing: auto;
 	font-style: normal;
 }
@@ -219,6 +225,7 @@ header .navbar .login-hide{
 	margin-top: 10vh;
 	height: 55vh;
 	width: auto;
+	font-size: 5vh;
 	/* background-color: #fff; */
 }
 .titulos_quadros{
@@ -234,6 +241,7 @@ header .navbar .login-hide{
 	height: 55vh;
 	width: auto;
 	padding: 0 2vw;
+	border-radius: 50%;
 }
 .icons{
 	font-size: 15vh;
@@ -247,7 +255,7 @@ header .navbar .login-hide{
 }
 .quadro .textos{
 	width: 22vw;
-	font-size: 2vh;
+	font-size: 3vh;
 	color: #286db3;
 }
 .servicos{
@@ -311,25 +319,29 @@ header .navbar .login-hide{
 }
 .img-texto-pq{
 	margin-top: 7vh;
+	margin-bottom: 7vh;
 	display: flex;
 	justify-content: center;
 	gap: 5vw;
+	border-radius: 50%;
+	
 }
 .texto-pq{
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	width: auto;
+	width: 70vh;
 	padding: 1.4vw;
-	height: auto;
+	height: 70vh;
 	background-color: #fff;
-	border-radius: 4vh;
+	border-radius: 50%;
+	text-align: center;
 }
 .texto-pq p{
 	width: 22vw;
-	font-size: 1.05vw;
-	font-family: "Roboto Mono", monospace;
+	font-size: 2.6vh;
+	font-family: "Afacad", monospace;
   	font-optical-sizing: auto;
 	font-style: normal;
 }

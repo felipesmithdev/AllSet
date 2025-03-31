@@ -70,8 +70,9 @@ body {
   .foto_perfil {
     height: 90%;
     width: 40%;
-    background-image: url("https://i.pinimg.com/736x/6f/93/86/6f93863d956a81b8f2960d01503b3312.jpg");
+    background-image: url("https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 100%;
   }
 

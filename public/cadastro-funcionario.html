@@ -83,138 +83,138 @@
 </html>
 
 <script>
-  // function validarNome(nome) {
-  //   if (nome.length < 3) {
-  //     div_erro.innerHTML = "O nome precisa ter pelo menos 3 caracteres";
-  //     return false;
-  //   } else {
-  //     div_erro.innerHTML = "";
-  //     return true;
-  //   }
-  // }
+  function validarNome(nome) {
+    if (nome.length < 3) {
+      div_erro.innerHTML = "O nome precisa ter pelo menos 3 caracteres";
+      return false;
+    } else {
+      div_erro.innerHTML = "";
+      return true;
+    }
+  }
 
-  // function validarCpf(cpf) {
-  //   const regexN = /[0-9]/;
-  //   let cpfValido = true;
-  //   if (cpf.length !== 11) {
-  //     div_erro_cpf.innerHTML = "O CPF deve possuir 11 dígitos";
-  //     cpfValido = false;
-  //   }
-  //   return cpfValido;
-  // }
+  function validarCpf(cpf) {
+    const regexN = /[0-9]/;
+    let cpfValido = true;
+    if (cpf.length !== 11) {
+      div_erro_cpf.innerHTML = "O CPF deve possuir 11 dígitos";
+      cpfValido = false;
+    }
+    return cpfValido;
+  }
 
-  // function validarEmail(email) {
-  //   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  //   if (!regexEmail.test(email)) {
-  //     div_erro.innerHTML = "E-mail inválido";
-  //     return false;
-  //   } else {
-  //     div_erro.innerHTML = "";
-  //     return true;
-  //   }
-  // }
+  function validarEmail(email) {
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regexEmail.test(email)) {
+      div_erro.innerHTML = "E-mail inválido";
+      return false;
+    } else {
+      div_erro.innerHTML = "";
+      return true;
+    }
+  }
 
-  // function validarSenha(senha) {
-  //   let valido = true;
+  function validarSenha(senha) {
+    let valido = true;
 
-  //   const regexMin = /[a-z]/;
-  //   const regexMax = /[A-Z]/;
-  //   const regexN = /[0-9]/;
-  //   const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+    const regexMin = /[a-z]/;
+    const regexMax = /[A-Z]/;
+    const regexN = /[0-9]/;
+    const regexCharEspecial = /[!@#$%^&*(),.?":{}|<>]/;
 
-  //   div_erro_senha_8char.innerHTML = "";
-  //   div_erro_senha_min.innerHTML = "";
-  //   div_erro_senha_mai.innerHTML = "";
-  //   div_erro_senha_num.innerHTML = "";
-  //   div_erro_senha_charEsp.innerHTML = "";
+    div_erro_senha_8char.innerHTML = "";
+    div_erro_senha_min.innerHTML = "";
+    div_erro_senha_mai.innerHTML = "";
+    div_erro_senha_num.innerHTML = "";
+    div_erro_senha_charEsp.innerHTML = "";
 
-  //   if (senha.length < 8) {
-  //     div_erro_senha_8char.innerHTML =
-  //       "A senha precisa ter no mínimo 8 caracteres";
-  //     valido = false;
-  //   }
-  //   if (!regexMin.test(senha)) {
-  //     div_erro_senha_min.innerHTML =
-  //       "A senha precisa de pelo menos uma letra minúscula";
-  //     valido = false;
-  //   }
-  //   if (!regexMax.test(senha)) {
-  //     div_erro_senha_mai.innerHTML =
-  //       "A senha precisa de pelo menos uma letra maiúscula";
-  //     valido = false;
-  //   }
-  //   if (!regexN.test(senha)) {
-  //     div_erro_senha_num.innerHTML = "A senha precisa de pelo menos um número";
-  //     valido = false;
-  //   }
-  //   if (!regexCharEspecial.test(senha)) {
-  //     div_erro_senha_charEsp.innerHTML =
-  //       "A senha precisa de pelo menos um caractere especial";
-  //     valido = false;
-  //   }
+    if (senha.length < 8) {
+      div_erro_senha_8char.innerHTML =
+        "A senha precisa ter no mínimo 8 caracteres";
+      valido = false;
+    }
+    if (!regexMin.test(senha)) {
+      div_erro_senha_min.innerHTML =
+        "A senha precisa de pelo menos uma letra minúscula";
+      valido = false;
+    }
+    if (!regexMax.test(senha)) {
+      div_erro_senha_mai.innerHTML =
+        "A senha precisa de pelo menos uma letra maiúscula";
+      valido = false;
+    }
+    if (!regexN.test(senha)) {
+      div_erro_senha_num.innerHTML = "A senha precisa de pelo menos um número";
+      valido = false;
+    }
+    if (!regexCharEspecial.test(senha)) {
+      div_erro_senha_charEsp.innerHTML =
+        "A senha precisa de pelo menos um caractere especial";
+      valido = false;
+    }
 
-  //   return valido;
-  // }
+    return valido;
+  }
 
-  // function validarConfirmacaoSenha(senha, confirmacaoSenha) {
-  //   if (senha === confirmacaoSenha) {
-  //     div_erro_confirmarSenha.innerHTML = "";
-  //     return true;
-  //   } else {
-  //     div_erro_confirmarSenha.innerHTML = "As senhas não conferem";
-  //     return false;
-  //   }
-  // }
+  function validarConfirmacaoSenha(senha, confirmacaoSenha) {
+    if (senha === confirmacaoSenha) {
+      div_erro_confirmarSenha.innerHTML = "";
+      return true;
+    } else {
+      div_erro_confirmarSenha.innerHTML = "As senhas não conferem";
+      return false;
+    }
+  }
 
-  // function validacaoGeral() {
-  //   console.log("entrei");
-  //   const nome = nome_input.value;
-  //   const cpf = cpf_input.value;
-  //   const cargo = cargo_select.value;
-  //   const email = email_input.value;
-  //   const senha = senha_input.value;
-  //   const confirmacaoSenha = confirmacaoSenha_input.value;
+  function validacaoGeral() {
+    console.log("entrei");
+    const nome = nome_input.value;
+    const cpf = cpf_input.value;
+    const cargo = cargo_select.value;
+    const email = email_input.value;
+    const senha = senha_input.value;
+    const confirmacaoSenha = confirmacaoSenha_input.value;
 
-  //   const nomeValido = validarNome(nome);
-  //   const cpfValido = validarCpf(cpf);
-  //   const emailValido = validarEmail(email);
-  //   const senhaValida = validarSenha(senha);
-  //   const confirmacaoSenhaValida = validarConfirmacaoSenha(
-  //     senha,
-  //     confirmacaoSenha
-  //   );
+    const nomeValido = validarNome(nome);
+    const cpfValido = validarCpf(cpf);
+    const emailValido = validarEmail(email);
+    const senhaValida = validarSenha(senha);
+    const confirmacaoSenhaValida = validarConfirmacaoSenha(
+      senha,
+      confirmacaoSenha
+    );
 
-  //   if (
-  //     nomeValido &&
-  //     cpfValido &&
-  //     emailValido &&
-  //     senhaValida &&
-  //     confirmacaoSenhaValida
-  //   ) {
-  //     alert("Cadastrado com sucesso");
-  //     console.log(`nome = ${nome}`);
-  //     console.log(`cpf = ${cpf}`);
-  //     console.log(`cargo = ${cargo}`);
-  //     console.log(`email = ${email}`);
-  //     console.log(`senha = ${senha}`);
-  //     window.location.href = "login.html";
-  //   } else {
-  //     if (!nomeValido) {
-  //       console.log("erro no nome");
-  //     }
-  //     if (!cpfValido) {
-  //       console.log("erro no cpf");
-  //     }
-  //     if (!emailValido) {
-  //       console.log("erro no email");
-  //     }
-  //     if (!senhaValida) {
-  //       console.log("erro na senha");
-  //     }
-  //     if (!confirmacaoSenhaValida) {
-  //       console.log("erro na confirmacao senha");
-  //     }
-  //     console.log("deu errado");
-  //   }
-  // }
+    if (
+      nomeValido &&
+      cpfValido &&
+      emailValido &&
+      senhaValida &&
+      confirmacaoSenhaValida
+    ) {
+      alert("Cadastrado com sucesso");
+      console.log(`nome = ${nome}`);
+      console.log(`cpf = ${cpf}`);
+      console.log(`cargo = ${cargo}`);
+      console.log(`email = ${email}`);
+      console.log(`senha = ${senha}`);
+      window.location.href = "login.html";
+    } else {
+      if (!nomeValido) {
+        console.log("erro no nome");
+      }
+      if (!cpfValido) {
+        console.log("erro no cpf");
+      }
+      if (!emailValido) {
+        console.log("erro no email");
+      }
+      if (!senhaValida) {
+        console.log("erro na senha");
+      }
+      if (!confirmacaoSenhaValida) {
+        console.log("erro na confirmacao senha");
+      }
+      console.log("deu errado");
+    }
+  }
 </script>

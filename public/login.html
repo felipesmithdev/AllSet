@@ -60,19 +60,19 @@
 
 <script>
    src="./login.js"
-  // function entrar() {
-  //   var email = document.getElementById("email_input").value;
-  //   var senha = document.getElementById("senha_input").value;
+  function entrar() {
+    var email = document.getElementById("email_input").value;
+    var senha = document.getElementById("senha_input").value;
 
-  //   if (email == "monitoramento@allset.com" && senha == "Mon123@") {
-  //     window.location.href = "monitoramento_real.html";
-  //   } else if (email == "adm@allser.com" && senha == "Adm123@") {
-  //     window.location.href = "monitoramento_real.html";
-  //   } else {
-  //     div_erros_login.innerHTML =
-  //       "Login inválido! Verifique se as informações foram escritas corretamente";
-  //     console.log(email);
-  //     console.log(senha);
-  //   }
-  // }
+    if (email == "monitoramento@allset.com" && senha == "Mon123@") {
+      window.location.href = "monitoramento_real.html";
+    } else if (email == "adm@allser.com" && senha == "Adm123@") {
+      window.location.href = "monitoramento_real.html";
+    } else {
+      div_erros_login.innerHTML =
+        "Login inválido! Verifique se as informações foram escritas corretamente";
+      console.log(email);
+      console.log(senha);
+    }
+  }
 </script>

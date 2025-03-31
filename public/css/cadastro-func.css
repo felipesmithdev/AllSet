@@ -15,7 +15,7 @@ html, body {
 }
 
 body{
-    background-color: #666;
+    background-color: #0b1624;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -27,19 +27,19 @@ body{
 .principal2{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     /* margin-top: 40px; */     
     color: #61B0FF;
     height: 95%;
-    width: 80%;
-    background-color: rgb(34, 34, 34);
+    width: 50%;
+    background-color: #202a33;
     overflow: hidden;
     border-radius: 17px;
     box-shadow: #000000 6px, 5px, 5px, 9px;
 }
 
 .camposCadastro {
-    width: 55%;
+    width: 75%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -48,9 +48,9 @@ body{
 
 .headerCadastro {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    height: 18%;
+    height: 20%;
 }
 
 .headerCadastro img {
@@ -63,7 +63,7 @@ body{
 
 .footerCadastro {
     width: 100%;
-    height: 25%;
+    height: 10%;
     display: flex;
     justify-content: center;
 }
@@ -72,9 +72,9 @@ body{
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    height: 100%;
+    height: 70%;
     
 }
 

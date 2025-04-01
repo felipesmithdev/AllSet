@@ -47,8 +47,6 @@ function cadastrar(req, res) {
     var cpf = req.body.cpf;
     var email = req.body.email;
     var senha = req.body.senha;
-    var nivel_permissao = req.body.nivel_permissao;
-    var ativo = req.body.ativo;
     var fk_agencia = req.body.fk_agencia
 
     if (nome == undefined) {
@@ -60,9 +58,9 @@ function cadastrar(req, res) {
     }else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     }else if (fk_agencia == undefined) {
-        res.status(400).send("Sua fkUnidade está undefined!");
+        res.status(400).send("Sua fk_agencia está undefined!");
     }else{
-        usuarioModel.cadastrar(nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia).then((resultado) => {
+        usuarioModel.cadastrar(nome, cpf, email, senha, fk_agencia).then((resultado) => {
                 res.status(200).json(resultado);
                 res.status(200).send("Usuario cadastrado com sucesso");
               }).catch(function(erro){

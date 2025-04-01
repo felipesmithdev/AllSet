@@ -42,14 +42,14 @@ function listar(req, res) {
     })
 }
 
-function cadastrar(req, res) { //nome, cpf, senha, email, perfil, ativo, fkUnidade
+function cadastrar(req, res) {
     var nome = req.body.nome;
     var cpf = req.body.cpf;
-    var senha = req.body.senha;
     var email = req.body.email;
-    var perfil = req.body.perfil;
+    var senha = req.body.senha;
+    var nivel_permissao = req.body.nivel_permissao;
     var ativo = req.body.ativo;
-    var fkUnidade = req.body.fkUnidade
+    var fk_agencia = req.body.fk_agencia
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -59,14 +59,10 @@ function cadastrar(req, res) { //nome, cpf, senha, email, perfil, ativo, fkUnida
         res.status(400).send("Sua senha está undefined!");
     }else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    }else if (perfil == undefined) {
-        res.status(400).send("Seu perfil está undefined!");
-    }else if (ativo == undefined) {
-        res.status(400).send("Seu ativo está undefined!");
-    }else if (fkUnidade == undefined) {
+    }else if (fk_agencia == undefined) {
         res.status(400).send("Sua fkUnidade está undefined!");
     }else{
-        usuarioModel.cadastrar(nome, cpf, senha, email, perfil, ativo, fkUnidade).then((resultado) => {
+        usuarioModel.cadastrar(nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia).then((resultado) => {
                 res.status(200).json(resultado);
                 res.status(200).send("Usuario cadastrado com sucesso");
               }).catch(function(erro){

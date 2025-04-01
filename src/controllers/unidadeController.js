@@ -9,27 +9,19 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) { 
-    var nome = req.body.nome;
-    var estado = req.body.estado;
-    var cidade = req.body.cidade;
-    var bairro = req.body.bairro;
-    var contato = req.body.contato;
-    var fkEmpresa = req.body.fkEmpresa
+    var cep = req.body.cep;
+    var numero = req.body.numero;
+    var complemento = req.body.complemento;
+    var fk_empresa = req.body.fk_empresa;
 
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (estado == undefined) {
-        res.status(400).send("Seu estado está undefined!");
-    }else if (cidade == undefined) {
-        res.status(400).send("Seu cidade está undefined!");
-    }else if (bairro == undefined) {
-        res.status(400).send("Seu bairro está undefined!");
-    }else if (contato == undefined) {
-        res.status(400).send("Seu contato está undefined!");
-    }else if (fkEmpresa == undefined) {
-        res.status(400).send("sua fkEmpresa está undefined!");
+    if (cep == undefined) {
+        res.status(400).send("Seu cep está undefined!");
+    } else if (numero == undefined) {
+        res.status(400).send("Seu número está undefined!");
+    }else if (fk_empresa == undefined) {
+        res.status(400).send("Seu empresa está undefined!");
     }else{
-        unidadeModel.cadastrar(nome, estado, cidade, bairro, contato, fkEmpresa).then((resultado) => {
+        unidadeModel.cadastrar(cep, numero, complemento, fk_empresa).then((resultado) => {
                 res.status(200).json(resultado);
                 res.status(200).send("Unidade criada com sucesso");
               }).catch(function(erro){

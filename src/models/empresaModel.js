@@ -18,10 +18,10 @@ function buscarPorCnpj(cnpj) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(razaoSocial, cnpj, dtCadastro) {
-  var instrucaoSql = `INSERT INTO Empresa (razaoSocial, cnpj, dtCadastro) VALUES ('${razaoSocial}', '${cnpj}', '${dtCadastro}');`;
+function cadastrar(nome, cnpj) {
+  var instrucaoSql = `INSERT INTO empresa (nome, cnpj) VALUES ('${nome}', '${cnpj}');`;
 
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrar };

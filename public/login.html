@@ -29,12 +29,16 @@
                 <input type="password" id="ipt_senha" class="inputLogin" placeholder="Senha"><br>
                 <button onclick="login()" id="button_login" class="button">Entrar</button>
 
+                <div class="mensagem-senha-incorreta">
+                    <span style="color: red; display: none;" id="senha-incorreta">Usuário ou senha inválida</span>
+                </div>
+
             </div>
 
             <div class="footerLogin">
 
                 <div class="sem_cadastro">
-                    <p>Não possui cadastro?<a href="./cadastro-funcionario.html" style="color: #fff;">
+                    <p>Não possui cadastro?<a href="./cadastro-empresa.html" style="color: #fff;">
                             <span style="color:#fff; text-decoration: underline;"> Clique aqui</span></a></p>
                 </div>
 
@@ -78,15 +82,15 @@
                 if (resposta.status == 200) {
                     resposta.json()
                         .then((resultado) => {
-                            sessionStorage.setItem("idUsuario", resultado[0].idUsuario)
-                            if (resultado[0].nvl_adminitrativo == 0) {
+                            sessionStorage.setItem("idUsuario", resultado[0].id_pessoa)
+                            if (resultado[0].nivel_permissao == 0) {
                                 window.location.href = "./dashboard_tecnico/usuarioallset.html"
                             } else
                             
                             if (resultado[0].ativo == 1) {
-                                if (resultado[0].nvl_administrativo == 1) {
+                                if (resultado[0].nivel_permissao == 1) {
                                 // armazenando os dados do usuário logado no SessionStorage
-                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
+                                sessionStorage.setItem("fk_agencia", resultado[0].fk_agencia)
                                 // verificando nível de usuário e o direcionando para a tela certa
                                 window.location.href = "./dashboard_tecnico/paginagerente.html"
                                 }
@@ -96,9 +100,9 @@
                             }
 
                             if (resultado[0].ativo == 1) {
-                                if (resultado[0].nvl_administrativo == 2) {
+                                if (resultado[0].nivel_permissao == 2) {
                                 // armazenando os dados do usuário logado no SessionStorage
-                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
+                                sessionStorage.setItem("fk_agencia", resultado[0].fk_agencia)
                                 // verificando nível de usuário e o direcionando para a tela certa
                                 window.location.href = "./dashboard_tecnico/monitoramento.html"
                                 }
@@ -109,9 +113,9 @@
 
                             
                             if (resultado[0].ativo == 1) {
-                                if (resultado[0].nvl_administrativo == 3) {
+                                if (resultado[0].nivel_permissao == 3) {
                                 // armazenando os dados do usuário logado no SessionStorage
-                                sessionStorage.setItem("fkUnidade", resultado[0].fkUnidade)
+                                sessionStorage.setItem("fk_agencia", resultado[0].fk_agencia)
                                 // verificando nível de usuário e o direcionando para a tela certa
                                 window.location.href = "./dashboard_tecnico/analistadash.html"
                                 }
@@ -127,8 +131,8 @@
                         })
                 } else if (resposta.status == 403) {
                     // usuario ou senha incorretos
-                    modal_mensagem_erro.style.display = 'flex'
-                    modal_erro.style.display = 'flex'
+                    console.log("Tentando mostrar mensagem de erro");
+                    document.getElementById("senha-incorreta").style.display = "flex";
                 } else {
                     console.error("Erro inesperado ao logar", resposta)
                 }
@@ -137,6 +141,5 @@
             .catch((erro) => {
                 console.log(erro)
             })
-
-  }
+    }
 </script>

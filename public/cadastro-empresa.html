@@ -1,197 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/login.css" />
-    <link rel="stylesheet" href="./css/mobile-login.css" />
-    <link rel="stylesheet" href="./css/scroll.css" />
-    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png" />
-    <script src="./js/sessao.js"></script>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/cadastro-func.css">
+    <link rel="stylesheet" href="./css/mobile-login.css">
+    <link rel="stylesheet" href="./css/scroll.css">
+    <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/88fed8b646.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
     <title>AllSet - Cadastro Empresa</title>
-  </head>
-
-  <body>
-    <!-- <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-        </div> -->
-    <!-- </div> -->
+</head>
+<body>
 
     <a onclick="voltarCadastro()" class="voltar">
-      <i class="fa-solid fa-arrow-left"></i
-    ></a>
-    <h1 class="titulo-form" onclick="window.location.href" ="index.html">
-      AllSet
-    </h1>
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <h1 class="titulo-form">AllSet</h1>
 
     <div class="formulario">
-      <span class="titulo">Cadastro - Empresa</span>
-      <div id="cadastro1">
-        <div class="campo">
-          <br />
-          <span>Nome da Empresa:</span>
-          <input
-            id="nomeEmpresa_input"
-            type="text"
-            placeholder="AllSet Monitoramento"
-          />
+        <span class="titulo">Cadastro - Empresa</span>
+
+        <!-- Cadastro Empresa -->
+        <div id="cadastro1">
+            <div class="campo">
+                <span>Nome da Empresa:</span>
+                <input id="nomeEmpresa_input" type="text" placeholder="AllSet Monitoramento">
+            </div>
+            <div class="campo">
+                <span>CNPJ:</span>
+                <small>Digite apenas números</small>
+                <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00">
+            </div>
         </div>
 
-        <div class="campo">
-          <span>CNPJ:</span>
-          <small style="font-size: 15px">Digite apenas números</small>
-          <input id="cnpj_input" type="text" placeholder="00.000.000/0000-00" />
-        </div>
-      </div>
-      <div id="cadastro2">
-        <div class="campo">
-          <span>
-            Agora é necessário cadastrar uma unidade para a sua empresa.</span>
-          <br /><br />
-          <span>Nome da Unidade:</span>
-          <input
-            id="unidade_input"
-            type="text"
-            placeholder="Unidade avenida paulista"
-          />
-        </div>
-        <div class="campo">
-          <span>CEP:</span>
-          <input
-            id="cep_input"
-            type="text"
-            placeholder=" 00000-000"
-            oninput="autoPreencherCep()"
-          />
-        </div>
-        <div class="campo">
-          <span>Estado:</span>
-          <input id="estado_input" type="text" placeholder="Estado" disabled />
-        </div>
-        <div class="campo">
-          <span>Cidade:</span>
-          <input id="cidade_input" type="text" placeholder="Cidade" disabled />
-        </div>
-        <div class="campo">
-          <span>Bairro:</span>
-          <input id="bairro_input" type="text" placeholder="Bairro" disabled />
-        </div>
-        <div class="campo">
-          <span>Logradouro:</span>
-          <input id="logradouro_input" type="text" placeholder="Rua" disabled />
-        </div>
-        <div class="campo">
-          <span>Complemento:</span>
-          <input
-            id="complemento_input"
-            type="text"
-            placeholder="Apt./Casa/Bloco, Andar, Referência"
-          />
-        </div>
-        <div class="campo">
-          <span>Número:</span>
-          <input id="numero_input" type="text" placeholder="11123456789" />
-        </div>
-        <div class="campo">
-          <span>Contato celular:</span>
-          <input id="contato_input" type="text" placeholder="11123456789" />
-        </div>
-      </div>
-      <div id="cadastro3">
-        <div class="campo">
-          <span>Por fim, vamos cadastrar um usuário administrativo.</span>
-          <br />
-          <span>Nome:</span>
-          <input
-            id="username_input"
-            type="text"
-            placeholder="Usuario administrativo"
-          />
-        </div>
-        <div class="campo">
-          <span>Email:</span>
-          <input
-            id="email_input"
-            type="text"
-            placeholder="emailteste@email.com"
-          />
-        </div>
-        <div class="campo">
-          <span>Senha:</span>
-          <input
-            id="password_input"
-            type="password"
-            placeholder="xxxxxxxxxxxx"
-          />
-        </div>
-        <div class="campo">
-          <span>Confirmar Senha:</span>
-          <input
-            id="confirma_password_input"
-            type="password"
-            placeholder="xxxxxxxxxxxx"
-          />
-        </div>
-      </div>
-      <div
-        style="display: flex; flex-direction: column"
-        id="div_erros_cadastro"
-      >
-        <div id="div_erro_cadastro1">
-          <div id="div_erro_nomeEmpresa_vazia"></div>
-          <div id="div_erro_nomeEmpresa_3char"></div>
-          <div id="div_erro_cnpj_vazia"></div>
-          <div id="div_erro_cnpj_apenasNum"></div>
-          <div id="div_erro_cnpj_14digitos"></div>
-        </div>
-        <div id="div_erro_cadastro2">
-          <div id="div_erro_nomeUnidade_vazia"></div>
-          <div id="div_erro_nomeUnidade_3char"></div>
-          <div id="div_erro_cep_vazia"></div>
-          <div id="div_erro_cep_apenasNum"></div>
-          <div id="div_erro_cep_8digitos"></div>
-          <div id="div_erro_numero"></div>
-          <div id="div_erro_contato_vazia"></div>
-          <div id="div_erro_contato_apenasNum"></div>
-          <div id="div_erro_contato_11digitos"></div>
+        <!-- Cadastro Unidade -->
+        <div id="cadastro2">
+            <div class="campo">
+                <span>CEP:</span>
+                <input id="cep_input" type="text" placeholder="00000-000">
+            </div>
+            <div class="campo">
+                <span>Número:</span>
+                <input id="numero_input" type="text" placeholder="111">
+            </div>
+            <div class="campo">
+                <span>Complemento:</span>
+                <input id="complemento_input" type="text" placeholder="Apt./Casa/Bloco">
+            </div>
         </div>
 
-        <div id="div_erro_cadastro3">
-          <div id="div_erro_username_vazia"></div>
-          <div id="div_erro_username_3char"></div>
-          <div id="div_erro_email_vazia"></div>
-          <div id="div_erro_email_invalido"></div>
-          <div id="div_erro_password_vazia"></div>
-          <div id="div_erro_password_8char"></div>
-          <div id="div_erro_password_num"></div>
-          <div id="div_erro_password_min"></div>
-          <div id="div_erro_password_mai"></div>
-          <div id="div_erro_password_charEsp"></div>
-          <div id="div_erro_confirma_password_vazia"></div>
-          <div id="div_erro_confirma_password_igual"></div>
+        <!-- Cadastro Usuário -->
+        <div id="cadastro3">
+            <div class="campo">
+                <span>Nome:</span>
+                <input id="username_input" type="text" placeholder="Usuário administrativo">
+            </div>
+            <div class="campo">
+                <span>Email:</span>
+                <input id="email_input" type="email" placeholder="email@email.com">
+            </div>
+            <div class="campo">
+                <span>Senha:</span>
+                <input id="password_input" type="password" placeholder="********">
+            </div>
         </div>
-      </div>
-      <button id="btn_cadastro1" class="botao" onclick="continuar()">
-        Continuar
-      </button>
-      <a href="./login.html" class="texto-link"
-        >Já possui uma conta? Faça login</a
-      >
+
+        <button id="btn_cadastro" class="botao" onclick="cadastrarEmpresa()">Cadastrar</button>
     </div>
 
     <div id="div_aguardar" class="loading-div">
-      <img src="./assets/gifazul.gif" id="loading-gif" />
+        <img src="./assets/gifazul.gif" id="loading-gif">
     </div>
-  </body>
-</html>
+
+</body>
 
 <script>
+async function cadastrarEmpresa() {
+    try {
+        const nomeEmpresa = document.getElementById("nomeEmpresa_input").value;
+        const cnpj = document.getElementById("cnpj_input").value;
 
+        const response = await fetch("/empresas/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome: nomeEmpresa, cnpj: cnpj })
+        });
+
+        const data = await response.json();
+        sessionStorage.setItem("id_empresa", data.id_empresa);
+
+        console.log("Empresa cadastrada com sucesso!");
+        await cadastrarAgencia();
+    } catch (error) {
+        console.error("Erro ao cadastrar empresa:", error);
+    }
+}
+
+async function cadastrarAgencia() {
+    try {
+        const idEmpresa = sessionStorage.getItem("id_empresa");
+        const cep = document.getElementById("cep_input").value;
+        const numero = document.getElementById("numero_input").value;
+        const complemento = document.getElementById("complemento_input").value;
+
+        const response = await fetch("/unidades/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cep, numero, complemento, fk_empresa: idEmpresa })
+        });
+
+        const data = await response.json();
+        sessionStorage.setItem("id_agencia", data.id_agencia);
+
+        console.log("Agência cadastrada com sucesso!");
+        await cadastrarEndereco();
+    } catch (error) {
+        console.error("Erro ao cadastrar agência:", error);
+    }
+}
+
+async function cadastrarEndereco() {
+    try {
+        const idAgencia = sessionStorage.getItem("id_agencia");
+        const logradouro = document.getElementById("logradouro_input").value;
+        const bairro = document.getElementById("bairro_input").value;
+        const cidade = document.getElementById("cidade_input").value;
+        const uf = document.getElementById("estado_input").value;
+
+        const response = await fetch("/enderecos/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ logradouro, bairro, cidade, uf, fk_agencia_endereco: idAgencia })
+        });
+
+        const data = await response.json();
+        sessionStorage.setItem("id_endereco", data.id_endereco);
+
+        console.log("Endereço cadastrado com sucesso!");
+        // await cadastrarUsuario();
+    } catch (error) {
+        console.error("Erro ao cadastrar endereço:", error);
+    }
+}
+
+// async function cadastrarUsuario() {
+//     try {
+//         const idAgencia = sessionStorage.getItem("id_agencia");
+//         const nome = document.getElementById("username_input").value;
+//         const email = document.getElementById("email_input").value;
+//         const senha = document.getElementById("password_input").value;
+
+//         const response = await fetch("/cadastrarUsuario", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json" },
+//             body: JSON.stringify({ nome, email, senha, fk_agencia: idAgencia, nivel_permissao: 3 })
+//         });
+
+//         const data = await response.json();
+//         console.log("Usuário cadastrado com sucesso!");
+
+//         alert("Cadastro concluído com sucesso!");
+//         window.location.href = "login.html";
+//     } catch (error) {
+//         console.error("Erro ao cadastrar usuário:", error);
+//     }
+// }
 </script>
+</html>

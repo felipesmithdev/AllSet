@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
     <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
     <title>AllSet - Cadastro Empresa</title>
 </head>
+
 <body>
 
     <a onclick="voltarCadastro()" class="voltar">
@@ -36,6 +38,7 @@
             </div>
         </div>
 
+
         <!-- Cadastro Unidade -->
         <div id="cadastro2">
             <div class="campo">
@@ -49,6 +52,31 @@
             <div class="campo">
                 <span>Complemento:</span>
                 <input id="complemento_input" type="text" placeholder="Apt./Casa/Bloco">
+            </div>
+        </div>
+
+        
+        <!-- Cadastro Endereco -->
+        <div id="cadastro2">
+            <div class="campo">
+                <span>Logradouro: </span>
+                <input id="logradouro_input" type="text" placeholder="Avenida Paulista">
+            </div>
+            <div class="campo">
+                <span>Bairro: </span>
+                <input id="bairro_input" type="text" placeholder="Bairro Exemplo">
+            </div>
+            <div class="campo">
+                <span>Cidade: </span>
+                <input id="cidade_input" type="text" placeholder="São Paulo">
+            </div>
+            <div class="campo">
+                <span>UF: </span>
+                <input id="uf_input" type="text" placeholder="SP/RJ">
+            </div>
+            <div class="campo">
+                <span>Estado: </span>
+                <input id="estado_input" type="text" placeholder="São Paulo">
             </div>
         </div>
 
@@ -82,85 +110,115 @@
 </body>
 
 <script>
-async function cadastrarEmpresa() {
-    try {
-        const nomeEmpresa = document.getElementById("nomeEmpresa_input").value;
-        const cnpj = document.getElementById("cnpj_input").value;
+    async function cadastrarEmpresa() {
+        try {
+            const nomeEmpresa = document.getElementById("nomeEmpresa_input").value;
+            const cnpj = document.getElementById("cnpj_input").value;
 
-        const response = await fetch("/empresas/cadastrar", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: nomeEmpresa, cnpj: cnpj })
-        });
+            const response = await fetch("/empresas/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome: nomeEmpresa, cnpj: cnpj })
+            });
 
-        const data = await response.json();
-        console.log("Resposta da empresa:", data);
+            const data = await response.json();
+            console.log("Resposta da empresa:", data);
 
-        if (!data.insertId) throw new Error("ID da empresa não retornado!");
+            if (!data.insertId) throw new Error("ID da empresa não retornado!");
 
-        sessionStorage.setItem("id_empresa", data.insertId);
-        console.log("ID da empresa salvo:", sessionStorage.getItem("id_empresa"));
+            sessionStorage.setItem("id_empresa", data.insertId);
+            console.log("ID da empresa salvo:", sessionStorage.getItem("id_empresa"));
 
-        await cadastrarAgencia();
-    } catch (error) {
-        console.error("Erro ao cadastrar empresa:", error);
+            await cadastrarAgencia();
+        } catch (error) {
+            console.error("Erro ao cadastrar empresa:", error);
+        }
     }
-}
 
-async function cadastrarAgencia() {
-    try {
-        const idEmpresa = sessionStorage.getItem("id_empresa");
-        if (!idEmpresa) throw new Error("ID da empresa não encontrado!");
+    async function cadastrarAgencia() {
+        try {
+            const idEmpresa = sessionStorage.getItem("id_empresa");
+            if (!idEmpresa) throw new Error("ID da empresa não encontrado!");
 
-        const cep = document.getElementById("cep_input").value;
-        const numero = document.getElementById("numero_input").value;
-        const complemento = document.getElementById("complemento_input").value;
+            const cep = document.getElementById("cep_input").value;
+            const numero = document.getElementById("numero_input").value;
+            const complemento = document.getElementById("complemento_input").value;
 
-        const response = await fetch("/unidades/cadastrar", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ cep, numero, complemento, fk_empresa: idEmpresa })
-        });
+            const response = await fetch("/unidades/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cep, numero, complemento, fk_empresa: idEmpresa })
+            });
 
-        const data = await response.json();
-        console.log("Resposta da agência:", data);
+            const data = await response.json();
+            console.log("Resposta da agência:", data);
 
-        if (!data.insertId) throw new Error("ID da agência não retornado!");
+            if (!data.insertId) throw new Error("ID da agência não retornado!");
 
-        sessionStorage.setItem("id_agencia", data.insertId);
-        console.log("ID da agência salvo:", sessionStorage.getItem("id_agencia"));
+            sessionStorage.setItem("id_agencia", data.insertId);
+            console.log("ID da agência salvo:", sessionStorage.getItem("id_agencia"));
 
-        await cadastrarUsuario();
-    } catch (error) {
-        console.error("Erro ao cadastrar agência:", error);
+            await cadastrarEndereco();
+        } catch (error) {
+            console.error("Erro ao cadastrar agência:", error);
+        }
     }
-}
 
-async function cadastrarUsuario() {
-    try {
-        const idAgencia = sessionStorage.getItem("id_agencia");
-        if (!idAgencia) throw new Error("ID da agência não encontrado!");
+    async function cadastrarEndereco() {
+        try {
+            const idAgencia = sessionStorage.getItem("id_agencia");
+            if (!idAgencia) throw new Error("ID da agência não encontrado!");
 
-        const nome = document.getElementById("username_input").value;
-        const cpf = document.getElementById("cpf_input").value;
-        const email = document.getElementById("email_input").value;
-        const senha = document.getElementById("password_input").value;
+            const logradouro = document.getElementById("logradouro_input").value;
+            const bairro = document.getElementById("bairro_input").value;
+            const cidade = document.getElementById("cidade_input").value;
+            const uf = document.getElementById("uf_input").value.toUpperCase();
+            const estado = document.getElementById("estado_input").value;
 
-        const response = await fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, cpf, email, senha, fk_agencia: idAgencia })
-        });
+            const response = await fetch("/enderecos/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ logradouro, bairro, cidade, uf, estado, fk_agencia_endereco: idAgencia })
+            });
 
-        const data = await response.json();
-        console.log("Usuário cadastrado com sucesso!", data);
+            const data = await response.json();
+            console.log("Resposta do Endereço:", data);
 
-        alert("Cadastro concluído com sucesso!");
-        window.location.href = "login.html";
-    } catch (error) {
-        console.error("Erro ao cadastrar usuário:", error);
+            if (!data.insertId) throw new Error("ID da endereço não retornado!");
+
+            console.log("ID da agência salvo:", sessionStorage.getItem("id_agencia"));
+
+            await cadastrarUsuario();
+        } catch (error) {
+            console.error("Erro ao cadastrar endereço:", error);
+        }
     }
-}
+
+    async function cadastrarUsuario() {
+        try {
+            const idAgencia = sessionStorage.getItem("id_agencia");
+            if (!idAgencia) throw new Error("ID da agência não encontrado!");
+
+            const nome = document.getElementById("username_input").value;
+            const cpf = document.getElementById("cpf_input").value;
+            const email = document.getElementById("email_input").value;
+            const senha = document.getElementById("password_input").value;
+
+            const response = await fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, cpf, email, senha, fk_agencia: idAgencia })
+            });
+
+            const data = await response.json();
+            console.log("Usuário cadastrado com sucesso!", data);
+
+            alert("Cadastro concluído com sucesso!");
+            window.location.href = "login.html";
+        } catch (error) {
+            console.error("Erro ao cadastrar usuário:", error);
+        }
+    }
 </script>
 
 </html>

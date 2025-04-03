@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS empresa (
   id_empresa INT primary key auto_increment,
   nome VARCHAR(45) not NULL,
   cnpj CHAR(14) not NULL,
-  dt_cadastro DATE not NULL
+  dt_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   );
 
 CREATE TABLE IF NOT EXISTS agencia(
@@ -37,11 +37,11 @@ CREATE TABLE IF NOT EXISTS pessoa (
   cpf CHAR(11) not NULL,
   email VARCHAR(45) not NULL,
   senha VARCHAR(45) not NULL,
-  nivel_permissao TINYINT not NULL,
-  ativo TINYINT not NULL,
+  nivel_permissao TINYINT not NULL DEFAULT 1,
+  ativo TINYINT not NULL DEFAULT 1,
   fk_agencia INT NOT NULL,
   constraint chkNivel check(nivel_permissao in(0,1,2,3)),
-  constraint chkAtivo check(ativo in(0 or 1)),
+  constraint chkAtivo check(ativo in(0,1)),
   constraint fkAgenciaPessoa foreign key (fk_agencia) references agencia(id_agencia)
   );
   

@@ -55,10 +55,6 @@ body{
     height: 20%;
 }
 
-.headerLogin img {
-    width: 20%;
-}
-
 .headerLogin span {
     text-decoration: none;
 }
@@ -106,24 +102,6 @@ input:focus {
     display: flex;
     justify-self: flex-start;
     margin: 0;
-}
-
-.labels {
-    display: flex;
-    align-items:flex-start;
-    width: 70%;
-}
-
-.imagem{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
-    height: 95%;
-    background-image: url("../assets/cadastroimagem.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 20px;
 }
 
 /* Inputs de login */

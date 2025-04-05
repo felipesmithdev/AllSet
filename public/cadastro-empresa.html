@@ -4,108 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="./css/cadastro-func.css">
-    <link rel="stylesheet" href="./css/mobile-login.css">
-    <link rel="stylesheet" href="./css/scroll.css">
+
     <link rel="website icon" type="png" href="./assets/img/logoAllSet.png">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
     <script src="https://kit.fontawesome.com/88fed8b646.js" crossorigin="anonymous"></script>
-    <title>AllSet - Cadastro Empresa</title>
+
+    <title>AllSet | Cadastro Empresa</title>
+
+    <link rel="stylesheet" href="./css/empresa.css">
 </head>
 
 <body>
+    <div class="card">
+    
+        <div class="formulario">
+    
+            <!-- Cadastro Empresa -->
+            <div id="cadastro1" class="cadastro">
+                <h1 class="titulo-form">Efetue o cadastro</h1>
+                <span class="titulo">Cadastro - Empresa</span> <br>
 
-    <a onclick="voltarCadastro()" class="voltar">
-        <i class="fa-solid fa-arrow-left"></i>
-    </a>
-    <h1 class="titulo-form">AllSet</h1>
-
-    <div class="formulario">
-        <span class="titulo">Cadastro - Empresa</span>
-
-        <!-- Cadastro Empresa -->
-        <div id="cadastro1">
-            <div class="campo">
-                <span>Nome da Empresa:</span>
-                <input id="nomeEmpresa_input" type="text" placeholder="AllSet Monitoramento">
+                <input id="nomeEmpresa_input" type="text" placeholder="Nome da empresa"> <br>
+                
+                <input id="cnpj_input" type="text" placeholder="CNPJ"> <br>
+                
+                <button id="btn_cadastro" class="botao" onclick="continuar1()" >Continuar</button>
+                <div class="voltar">
+                    <a href="./login.html"><img src="./assets/iconevoltar.png" alt="">Voltar para Login</a>
+                </div>
             </div>
-            <div class="campo">
-                <span>CNPJ:</span>
-                <small>Digite apenas números</small>
-                <input id="cnpj_input" type="text" placeholder="00000000000000">
+    
+    
+            <!-- Cadastro Unidade -->
+            <div id="cadastro2" class="cadastro" style="display: none;">
+                <h1 class="titulo-form">Efetue o cadastro</h1>
+                <span class="titulo">Cadastro - Unidade</span> <br>
+            
+                <input id="cep_input" type="text" placeholder="CEP"> <br>
+                
+             
+                <input id="numero_input" type="text" placeholder="Número"> <br>
+                
+                
+                <input id="complemento_input" type="text" placeholder="Complemento"> <br>
+                
+                <button id="btn_cadastro" class="botao" onclick="continuar2()">Continuar</button>
+                <div class="voltar">
+                    <a onclick="voltar1()"><img src="./assets/iconevoltar.png" alt="">Voltar</a>
+                </div>
             </div>
+    
+            
+            <!-- Cadastro Endereco -->
+            <div id="cadastro3" class="cadastro" style="display: none;">
+                <h1 class="titulo-form">Efetue o cadastro</h1>
+                <span class="titulo">Cadastro - Endereço</span> <br>
+                
+                <input id="logradouro_input" type="text" placeholder="Logradouro"> <br>
+                
+                <input id="bairro_input" type="text" placeholder="Bairro"> <br>
+                
+                
+                <input id="cidade_input" type="text" placeholder="Cidade"> <br>
+                
+                
+                <input id="uf_input" type="text" placeholder="Unidade Federal"> <br>
+                
+                <button id="btn_cadastro" class="botao" onclick="continuar3()">Continuar</button>
+                <div class="voltar">
+                    <a onclick="voltar2()"><img src="./assets/iconevoltar.png" alt="">Voltar</a>
+                </div>
+            </div>
+    
+            <!-- Cadastro Usuário -->
+            <div id="cadastro4" class="cadastro" style="display: none;">
+                <h1 class="titulo-form">Efetue o cadastro</h1>
+                <span class="titulo">Cadastro - Usuário</span> <br>
+                
+                <input id="username_input" type="text" placeholder="Nome Usuário"> <br>
+                
+                
+                <input id="cpf_input" type="text" placeholder="CPF"> <br>
+                
+                
+                <input id="email_input" type="email" placeholder="E-mail"> <br>
+                
+                
+                <input id="password_input" type="password" placeholder="Senha"> <br>
+                
+                <button id="btn_cadastro" class="botao" onclick="cadastrarEmpresa()">Cadastrar</button>
+                <div class="voltar">
+                    <a onclick="voltar3()"><img src="./assets/iconevoltar.png" alt="">Voltar</a>
+                </div>
+            </div>
+    
+            
         </div>
 
-
-        <!-- Cadastro Unidade -->
-        <div id="cadastro2">
-            <div class="campo">
-                <span>CEP:</span>
-                <input id="cep_input" type="text" placeholder="00000-000">
-            </div>
-            <div class="campo">
-                <span>Número:</span>
-                <input id="numero_input" type="text" placeholder="111">
-            </div>
-            <div class="campo">
-                <span>Complemento:</span>
-                <input id="complemento_input" type="text" placeholder="Apt./Casa/Bloco">
-            </div>
-        </div>
-
-        
-        <!-- Cadastro Endereco -->
-        <div id="cadastro2">
-            <div class="campo">
-                <span>Logradouro: </span>
-                <input id="logradouro_input" type="text" placeholder="Avenida Paulista">
-            </div>
-            <div class="campo">
-                <span>Bairro: </span>
-                <input id="bairro_input" type="text" placeholder="Bairro Exemplo">
-            </div>
-            <div class="campo">
-                <span>Cidade: </span>
-                <input id="cidade_input" type="text" placeholder="São Paulo">
-            </div>
-            <div class="campo">
-                <span>UF: </span>
-                <input id="uf_input" type="text" placeholder="SP/RJ">
-            </div>
-            <div class="campo">
-                <span>Estado: </span>
-                <input id="estado_input" type="text" placeholder="São Paulo">
-            </div>
-        </div>
-
-        <!-- Cadastro Usuário -->
-        <div id="cadastro3">
-            <div class="campo">
-                <span>Nome:</span>
-                <input id="username_input" type="text" placeholder="Usuário administrativo">
-            </div>
-            <div class="campo">
-                <span>Email:</span>
-                <input id="email_input" type="email" placeholder="email@email.com">
-            </div>
-            <div class="cpf">
-                <span>CPF:</span>
-                <input id="cpf_input" type="text" placeholder="000.000.000-00">
-            </div>
-            <div class="campo">
-                <span>Senha:</span>
-                <input id="password_input" type="password" placeholder="********">
-            </div>
-        </div>
-
-        <button id="btn_cadastro" class="botao" onclick="cadastrarEmpresa()">Cadastrar</button>
     </div>
 
-    <div id="div_aguardar" class="loading-div">
-        <img src="./assets/gifazul.gif" id="loading-gif">
-    </div>
+    
 
 </body>
 
@@ -219,6 +219,56 @@
             console.error("Erro ao cadastrar usuário:", error);
         }
     }
+
+    // Funções para troca de display:
+    function continuar1() {
+        let cadastro1 = document.getElementById("cadastro1")
+        let cadastro2 = document.getElementById("cadastro2")
+
+        cadastro1.style.display = "none"
+        cadastro2.style.display = "flex"
+    }
+
+    function continuar2() {
+        let cadastro2 = document.getElementById("cadastro2")
+        let cadastro3 = document.getElementById("cadastro3")
+
+        cadastro2.style.display = "none"
+        cadastro3.style.display = "flex"
+    }
+
+    function continuar3() {
+        let cadastro3 = document.getElementById("cadastro3")
+        let cadastro4 = document.getElementById("cadastro4")
+
+        cadastro3.style.display = "none"
+        cadastro4.style.display = "flex"
+    }
+
+    function voltar1() {
+        let cadastro1 = document.getElementById("cadastro1")
+        let cadastro2 = document.getElementById("cadastro2")
+
+        cadastro1.style.display = "flex"
+        cadastro2.style.display = "none"
+    }
+
+    function voltar2() {
+        let cadastro2 = document.getElementById("cadastro2")
+        let cadastro3 = document.getElementById("cadastro3")
+
+        cadastro2.style.display = "flex"
+        cadastro3.style.display = "none"
+    }
+
+    function voltar3() {
+        let cadastro3 = document.getElementById("cadastro3")
+        let cadastro4 = document.getElementById("cadastro4")
+
+        cadastro3.style.display = "flex"
+        cadastro4.style.display = "none"
+    }
+    // Fim das funções para troca de display.
 </script>
 
 </html>

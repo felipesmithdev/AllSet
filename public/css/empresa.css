@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    list-style: none;
+}
+
+body{
+    background-color: #0b1624;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: 40px; */     
+    color: #61B0FF;
+    height: 95%;
+    width: 50%;
+    background-color: #202a33;
+    overflow: hidden;
+    border-radius: 17px;
+    box-shadow: #000000 6px, 5px, 5px, 9px;
+    flex-direction: column;
+}
+
+.formulario {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cadastro{
+    border-radius:50px ;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    gap: 0.5px;
+}
+
+.cadastro h1 {
+    font-size: 6ch;
+    display: flex;
+    justify-self: flex-start;
+    margin: 0;
+}
+
+.cadastro input {
+    background-color: rgb(86, 86, 86);
+    border: none;
+    font-weight: 600;
+    padding-left: 10px;
+    border: solid 2px rgb(34, 34, 34);
+    color: #fff;
+    transition: border-color 0.3s ease;
+    width: 504px;
+    height: 56.59px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 3px;
+}
+
+.cadastro input::placeholder {
+    font-weight: bold;
+    color: #fff;
+    opacity: 1;
+}
+
+input:focus {
+    border-color: #61B0FF;
+    outline: none;
+}
+
+.cadastro span{
+    font-weight: 700;
+    text-align: left;
+    color: #fff;
+    margin-top: 10px;
+    font-size: 90%;
+}
+
+.cadastro button{
+    width: 70%;
+    height: 10%;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    background-color: #61B0FF;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8%;
+    && a{
+        color: #61B0FF;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        text-decoration: none;
+        background-color: rgb(86, 86, 86);
+        padding: 10px;
+    } && a img{
+        width: 20px;
+        margin-right: 7px;
+    }
+}
+
+.voltar a {
+    cursor: pointer;
+}

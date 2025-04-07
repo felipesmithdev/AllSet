@@ -84,6 +84,8 @@
                         .then((resultado) => {
                             sessionStorage.setItem("idUsuario", resultado[0].id_pessoa)
                             if (resultado[0].nivel_permissao == 0) {
+                                // armazenando os dados do usuário logado no SessionStorage
+                                sessionStorage.setItem("fk_agencia", resultado[0].fk_agencia)
                                 window.location.href = "./dashboard_tecnico/usuarioallset.html"
                             } else
                             
@@ -92,7 +94,7 @@
                                 // armazenando os dados do usuário logado no SessionStorage
                                 sessionStorage.setItem("fk_agencia", resultado[0].fk_agencia)
                                 // verificando nível de usuário e o direcionando para a tela certa
-                                window.location.href = "./dashboard_tecnico/paginagerente.html"
+                                window.location.href = "./dashboard_gerente/gerente.html"
                                 }
 
                             } else {

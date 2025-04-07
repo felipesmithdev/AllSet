@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS endereco (
     logradouro varchar(100) not null,
     bairro varchar(50) not null,
     uf char(2) not null,
-    estado varchar(45),
     fk_agencia_endereco int not null,
     constraint fkAgencia foreign key (fk_agencia_endereco) references agencia(id_agencia)
 	);

@@ -173,12 +173,11 @@
             const bairro = document.getElementById("bairro_input").value;
             const cidade = document.getElementById("cidade_input").value;
             const uf = document.getElementById("uf_input").value.toUpperCase();
-            const estado = document.getElementById("estado_input").value;
 
             const response = await fetch("/enderecos/cadastrar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ logradouro, bairro, cidade, uf, estado, fk_agencia_endereco: idAgencia })
+                body: JSON.stringify({ logradouro, bairro, cidade, uf, fk_agencia_endereco: idAgencia })
             });
 
             const data = await response.json();

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Geral</title>
+    <link rel="stylesheet" href="../css/gerente.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://www.elhombre.com.br/wp-content/uploads/2023/06/jon-hamm-1494357063.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Marcos</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li class="section_active"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaFunc()"><i>💻</i> Funcionários</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> Ajuda</li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <div class="buscar_carro">
+                <span>Painel Geral</span>
+            </div>
+            <div class="selecionar_carro">
+                <div class="data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+            </div>
+        </div>
+        <div class="kpi_grid">
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Total Carros Monitorados</span>
+                    <div class="icone_kpi">🖥️</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>6520</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">120</span>
+                    <span>Comparado a 6400 há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Total Carros com Falhas</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>120</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">2</span>
+                    <span>Comparado a 118 há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Componente com Mais Ocorrência</span>
+                    <div class="icone_kpi">💿</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>CPU</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi3">117</span>
+                    <span>Ocorrências relatadas</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Funcionários Ativos</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>23</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">10</span>
+                    <span>Comparado a 13 há 1h</span>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard_mesclado">
+            <span>Desempenho dos Carros</span>
+            <canvas id="myChart3"></canvas>
+        </div>
+
+        <div class="alertas_section">
+            <div class="top_alerta">
+                <div class="titulo_alerta">Últimos Alertas</div>
+                <div class="ver_alertas">Ver todos os alertas <span>→</span></div>
+            </div>
+            <table class="tabela_alertas">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Data/Hora</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td class="alerta_crit">Crítico</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+function irParaAlertas(){
+    window.location.href="alertaGerente.html"
+}
+function irParaFunc(){
+    window.location.href="funcionarios.html"
+}
+
+criarGraficoTaxaSaude()
+
+function criarGraficoTaxaSaude() {
+    const ctx = document.getElementById('myChart3').getContext('2d');
+
+    const labels = ['28 Mar', '29 Mar', '30 Mar', '31 Mar', '01 Abr', '02 Abr', '03 Abr', '04 Abr', '05 Abr', '06 Abr'];
+    
+    // Dados tendenciosos: saúde começa alta e despenca nos últimos dias
+    const dadosTaxaSaude = [38.2, 20.5, 41.3, 68.1, 17.8, 27.4, 16.2, 14.5, 11.2, 79.7];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Taxa de Saúde dos Carros (%)',
+            data: dadosTaxaSaude,
+            fill: false,
+            borderColor: '#00bc8c',
+            backgroundColor: '#00bc8c',
+            tension: 0.3,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointHoverRadius: 7
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#fff',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw.toFixed(1)}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    },
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        color: '#fff',
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)'
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+
+</script>

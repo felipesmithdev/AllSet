@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários</title>
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/gerente.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://www.elhombre.com.br/wp-content/uploads/2023/06/jon-hamm-1494357063.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Marcos</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
+                    <li class="section_active"><i>💻</i> Funcionários</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> Ajuda</li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <div class="titulo_main">
+                <div class="inicio_titulo">
+                    Funcionários
+                </div>
+            </div>
+            <div class="exibir_data">
+                <div class="alerta_data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+            </div>
+        </div>
+        <div class="alertas_section">
+            <div class="top_alerta">
+                <div class="titulo_alerta">Carros Cadastrados</div>
+                <div class="ver_alertas" value='Open the modal'
+                onclick="document.querySelector('jsuites-modal').modal.open()" class='plain'>Cadastrar Novo Funcionário <span>→</span></div>
+            </div>
+            <jsuites-modal title="Cadastrar novo Funcionário" closed="true" width="900" height="480">
+                <div class="funcionario_container">
+                    <div class="campos_cadastro_func">
+                        <div class="topo">
+                            <div class="nome_campo">
+                                <span>Nome</span>
+                                <input type="text">
+                            </div>
+                            <div class="cpf_campo">
+                                <span>CPF</span>
+                                <input type="text">
+                            </div>
+                            <div class="cargo_campo">
+                                <span>Cargo</span>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="meio">
+                            <div class="email_campo">
+                                <span>Email</span>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="fim">
+                            <div class="senha_campo">
+                                <span>Senha</span>
+                                <input type="password">
+                            </div>
+                            <div class="confirmar_senha_campo">
+                                <span>Confirmar Senha</span>
+                                <input type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="botao_cadastrar">
+                        <button>Cadastrar</button>
+                    </div>
+                </div>
+            </jsuites-modal>
+            <table class="tabela_alertas carros_tabela">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Cargo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Felipe</td>
+                        <td>felipe.barbosa@sptech.school</td>
+                        <td>Analista</td>
+                        <td>Ativo</td>
+                    </tr>
+                    <tr>
+                        <td>João</td>
+                        <td>joao.gabriel@sptech.school</td>
+                        <td>Analista</td>
+                        <td>Ativo</td>
+                    </tr>
+                    <tr>
+                        <td>Pedro</td>
+                        <td>pedro.pedrao@sptech.school</td>
+                        <td>Técnico</td>
+                        <td class="alerta_crit">Inativo</td>
+                    </tr>
+                    <tr>
+                        <td>Fabricio</td>
+                        <td>fabricio.ernandes@sptech.school</td>
+                        <td>Técnico</td>
+                        <td>Ativo</td>
+                    </tr>
+                    <tr>
+                        <td>Isabela</td>
+                        <td>isabela.carvalho@sptech.school</td>
+                        <td>Analista</td>
+                        <td class="alerta_pend">Pendente</td>
+                    </tr>
+                    <tr>
+                        <td>Vladmir</td>
+                        <td>vladmir.putin@sptech.school</td>
+                        <td>Técnico</td>
+                        <td class="alerta_crit">Inativo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+<script>
+
+    function irParaDash(){
+        window.location.href="gerente.html"
+    }
+    function irParaAlertas(){
+        window.location.href="alertaGerente.html"
+    }
+
+    document.querySelector('jsuites-modal').addEventListener('onopen', function() {
+    console.log('Modal is open');
+    });
+    document.querySelector('jsuites-modal').addEventListener('onclose', function() {
+        console.log('Modal is closed');
+});
+</script>

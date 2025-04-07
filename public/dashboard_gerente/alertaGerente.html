@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Geral</title>
+    <link rel="stylesheet" href="../css/gerente.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://www.elhombre.com.br/wp-content/uploads/2023/06/jon-hamm-1494357063.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Marcos</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaFunc()"><i>💻</i> Funcionários</li>
+                    <li class="section_active"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> Ajuda</li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <div class="titulo_main">
+                <div class="inicio_titulo">
+                    ALERTAS
+                </div>
+            </div>
+            <div class="exibir_data">
+                <div class="alerta_data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+            </div>
+        </div>
+        <div class="alertas_section">
+            <div class="top_alerta">
+                <div class="titulo_alerta">Histórico de Alertas</div>
+            </div>
+            <table class="tabela_alertas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição do alerta</th>
+                        <th>Data/Hora</th>
+                        <th>Situação</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Temperatura da cpu excedida</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Fechado</td>
+                        <td>Médio</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Temperatura da cpu excedida</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Aberto</td>
+                        <td>Médio</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Temperatura da cpu excedida</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Aberto</td>
+                        <td class="alerta_crit">Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Nível da bateria abaixo do recomendado</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Aberto</td>
+                        <td>Médio</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Consumo da cpu excedida</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Fechado</td>
+                        <td>Médio</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Consumo de RAM excedida</td>
+                        <td>21/03/2025 8:00</td>
+                        <td>Aberto</td>
+                        <td>Médio</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
+<script>
+
+    function irParaDash(){
+        window.location.href="gerente.html"
+    }
+
+    function irParaFunc(){
+        window.location.href="funcionarios.html"
+    }
+
+</script>

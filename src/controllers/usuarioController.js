@@ -92,7 +92,7 @@ function cadastrar2(req, res) {
   } else if (nivel_permissao == undefined) {
     res.status(400).send("Seu cargo está undefined!");
   } else{
-      usuarioModel.cadastrar(nome, cpf, email, senha, nivel_permissao, fk_agencia).then((resultado) => {
+      usuarioModel.cadastrar2(nome, cpf, email, senha, nivel_permissao, fk_agencia).then((resultado) => {
               res.status(200).json(resultado);
               res.status(200).send("Usuario cadastrado com sucesso");
             }).catch(function(erro){

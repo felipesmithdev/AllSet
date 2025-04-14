@@ -40,11 +40,8 @@ body{
 
 .heading {
 	text-align: center;
-	font-size: 3.5rem;
-	padding: 1rem;
-	color: #666;
-
-
+	font-size: 5rem;
+	color: #61B0FF;
 }
 
 .heading span {
@@ -91,9 +88,9 @@ header{
 	top: 0;
 	left: 0;
 	right: 0;
-	display: flex; 
+	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	padding: 2rem 9%; /* 16 */
 }
 
@@ -101,14 +98,26 @@ header .logo{
 	font-weight: 900;
 	text-decoration: none;
 	color: #61B0FF;
-	font-size: 3vw;
+	font-size: 2.2vw;
 	
 }
 header .logo .logofoto{
 	padding-right: .5rem;
 	height: 50px;
 }
-header .navbar a{
+header .navbar {
+	display: flex;	
+	align-items: center;
+	justify-content: space-between;
+	width: 80%;
+	padding-left:15%;
+	padding-right:15%;
+	padding-top:1.5%;
+	padding-bottom: 1.5%;
+	border-radius: 40px;
+	background-color: #0b1624;
+}
+header .navbar .textoNav {
 	font-size: 1.3vw;
 	margin-left: 2rem;
 	color: #fff;
@@ -142,16 +151,19 @@ header .navbar .login-hide{
 	height: 100vh;
 	width: 100vw;
 	background-color: #61B0FF;
-	background-image: url('../assets/img/carro-autonomo.jpg');
+	background-image: 
+	  linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)), /* Gradiente da esquerda para a direita */
+	  url('../assets/img/carro-autonomo.jpg'); /* A imagem de fundo */
 	background-size: cover;
 	position: fixed;
+	transform: scaleX(-1);
 	z-index: -1;
-
 }
+
 .content .blocoTextos{
 	z-index: 2;
-	bottom: 25vh;
-	left: 10vh;
+	bottom: 18vh;
+	left: 20vh;
 	font-weight: bolder;
 	font-size: 5vw;
 	color: #fff;
@@ -164,15 +176,18 @@ header .navbar .login-hide{
 } 
 .content .btn{
 	position: absolute;
-	bottom: 15vh;
-	left: 10vh;
+	bottom: 6vh;
+	left: 20vh;
 	font-size: 4vh;
+	border-radius: 25px;
+	background-color: #0b1624;
+	border: none;
 }
 .quem-somos{
 	height: 100vh;
 	width: 100vw;
 	gap: 15vh;
-	background-color: #9dc5ed;
+	background-color: #0b1624;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -183,10 +198,10 @@ header .navbar .login-hide{
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	padding: 0 2vw;
+	padding: 0 3.5vw;
 	height: 70vh;
 	background-color: #fff;
-	border-radius: 50%;
+	border-radius: 20px;
 }
 .divisoria{
 	border: solid #666;

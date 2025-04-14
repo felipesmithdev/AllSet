@@ -135,6 +135,23 @@
         }
     }
 
+    function autoPreencherCep() {
+    let cep = document.getElementById("cep_input").value;
+    
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            document.getElementById("logradouro_input").value = data.logradouro || "";
+            document.getElementById("bairro_input").value = data.bairro || "";
+            document.getElementById("cidade_input").value = data.localidade || "";
+            document.getElementById("uf_input").value = data.uf || "";
+        })
+        .catch((error) => console.error("Erro ao buscar CEP:", error));
+}
+
+
+
     async function cadastrarAgencia() {
         try {
             const idEmpresa = sessionStorage.getItem("id_empresa");
@@ -229,6 +246,7 @@
     }
 
     function continuar2() {
+        autoPreencherCep();
         let cadastro2 = document.getElementById("cadastro2")
         let cadastro3 = document.getElementById("cadastro3")
 

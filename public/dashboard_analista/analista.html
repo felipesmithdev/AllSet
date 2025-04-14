@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Geral</title>
+    <link rel="stylesheet" href="../css/analista.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://img.freepik.com/fotos-gratis/foto-de-close-up-do-homem-de-negocios-bem-sucedido-jovem-de-terno-preto_171337-9509.jpg?semt=ais_hybrid&w=740" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario">Felipe</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li class="section_active"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> Ajuda</li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <div class="buscar_carro">
+                <span>PAINEL</span>
+            </div>
+            <div class="selecionar_carro">
+                <div class="data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+                <div class="id_carro">
+                    <button class="botao_historico">Download Histórico</button>
+                </div>
+            </div>
+        </div>
+        <div class="kpi_grid">
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico CPU</span>
+                    <div class="icone_kpi">🖥️</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>89%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">1%</span>
+                    <span>Comparado a 90% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico RAM</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>80%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">2%</span>
+                    <span>Comparado a 82% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico DISCO</span>
+                    <div class="icone_kpi">💿</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>59%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi3">12%</span>
+                    <span>Comparado a 47% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Ocorrência BATERIA</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>08:59</span>
+                </div>
+                <div class="fim_kpi">
+                    <!-- <span class="metrica_kpi"></span> -->
+                    <span>Horário com maior número de ocorrências</span>
+                </div>
+            </div>
+        </div>
+        <div class="dashboards_separadas">
+            <div class="grid_dash g1">
+                <span>Uso de CPU</span>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="grid_dash g2">
+                <span>Uso de RAM</span>
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="grid_dash g3">
+                <span>Uso de Disco</span>
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="grid_dash">
+                <span>Uso de Bateria</span>
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        
+        
+
+        <div class="alertas_section">
+            <div class="top_alerta">
+                <div class="titulo_alerta">Últimos Alertas</div>
+                <div class="ver_alertas">Ver todos os alertas <span>→</span></div>
+            </div>
+            <table class="tabela_alertas">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Data/Hora</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td class="alerta_crit">Crítico</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+function irParaAlertas(){
+    window.location.href="alertaAnalista.html"
+}
+
+criarGrafico1()
+criarGrafico2()
+criarGrafico3()
+criarGrafico4()
+
+function criarGrafico1(){
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [12, 18, 25, 29, 35, 40, 49],
+            fill: false,
+            borderColor: '#ed9922',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false 
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGrafico2(){
+    const ctx = document.getElementById('myChart1').getContext('2d');
+
+    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [25, 59, 30, 50, 55, 45, 40],
+            fill: false,
+            borderColor: '#d8c51d',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGrafico3(){
+    const ctx = document.getElementById('myChart2').getContext('2d');
+
+    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [1, 20, 40, 81, 56, 12, 40],
+            fill: false,
+            borderColor: '#39a124',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGrafico4(){
+    const ctx = document.getElementById('myChart3').getContext('2d');
+
+    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [20, 30, 40, 30, 40, 30,   40],
+            fill: false,
+            borderColor: '#39a124',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+
+
+</script>

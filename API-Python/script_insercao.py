@@ -49,10 +49,11 @@ while True:
 
     try:
         cursor.execute(
-            "INSERT INTO carro_123456789ABC (discoUso, porcentagemDisco, porcentagemCpu, frequenciaCpu, ramUso, porcentagemRam, porcentagemBateria) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-            (discoUso, porcentagemDisco, porcentagemCpu, frequenciaCpu, ramUso, porcentagemRam, porcentagemBateria)
-        )
+        "INSERT INTO carro_123456789ABC (discoUso, porcentagemDisco, porcentagemCpu, frequenciaCpu, ramUso, porcentagemRam, porcentagemBateria) "
+        "VALUES (%s, %s, %s, %s, %s, %s, %s)",
+        (discoUso, porcentagemDisco, porcentagemCpu, frequenciaCpu, ramUso, porcentagemRam, porcentagemBateria)
+
+    )
 
     except Exception as e:
         print(f"Erro ao inserir no banco: {e}")
@@ -75,7 +76,28 @@ while True:
     df = pd.DataFrame(dados_monitoramento)
     df.to_csv(nome_do_csv, index=False)
 
-    print(f"Salvo em {nome_arquivo}")
+    print(f"Salvo em {nome_do_csv}")
+
+
+
+    #configurando o boto3
+    s3 = boto3.client(
+    's3',
+    aws_access_key_id='',
+    aws_secret_access_key='',
+    region_name=''  
+)
+
+    #nome do bucket e do arquivo que eu estou tentando salvar
+    nome_bucket = ''
+    nome_no_s3 = f"monitoramentos/{nome_do_csv}"  #caminho dentro do bucket
+
+    try:
+        s3.upload_file(nome_do_csv, nome_bucket, nome_no_s3)
+        print(f"Arquivo '{nome_do_csv}' enviado com sucesso para S3 em '{nome_no_s3}'")
+    except Exception as e:
+        print(f"Erro ao enviar para o S3: {e}")
+
 
     time.sleep(3.5)
     conn.commit()

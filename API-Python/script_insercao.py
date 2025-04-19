@@ -1,6 +1,8 @@
 import psutil
 import mysql.connector
 import time
+import pandas as pd
+import boto3
 
 def conectar():
     return mysql.connector.connect(
@@ -9,6 +11,9 @@ def conectar():
         password="urubu100",
         database="allSet"
     )
+
+#estou criando uma lista vazia, assim consigo armazenar as info.
+dados_monitoramento = []
 
 def getEnderecoMAC():
     informacaoNet = psutil.net_if_addrs()
@@ -24,6 +29,10 @@ def getEnderecoMAC():
                 return macArrumado
    
     return 'NadaEncontrado'
+
+#usando uma variável mac
+mac = getEnderecoMAC()
+nome_do_csv = f"monitoramento_{mac}.csv"
 
 conn = conectar()
 cursor = conn.cursor()
@@ -47,8 +56,26 @@ while True:
 
     except Exception as e:
         print(f"Erro ao inserir no banco: {e}")
+
+    #agora vou adicionar um dicionário com os dados coletados na lista que eu criei no começo do codigo
+    #Ele não esta retornando nada, só modificando a lista original e acumulando os dados
+    dados_monitoramento.append({
+        "discoUso": discoUso,
+        "porcentagemDisco": porcentagemDisco,
+        "porcentagemCpu": porcentagemCpu,
+        "frequenciaCpu": frequenciaCpu,
+        "ramUso": ramUso,
+        "porcentagemRam": porcentagemRam,
+        "porcentagemBateria": porcentagemBateria
+    })
    
     print(i, discoUso, porcentagemDisco, porcentagemCpu, frequenciaCpu, ramUso, porcentagemRam, porcentagemBateria)
+
+    #salvando o csv a cada interação
+    df = pd.DataFrame(dados_monitoramento)
+    df.to_csv(nome_do_csv, index=False)
+
+    print(f"Salvo em {nome_arquivo}")
 
     time.sleep(3.5)
     conn.commit()

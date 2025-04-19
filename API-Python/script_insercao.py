@@ -58,7 +58,7 @@ while True:
         print(f"Erro ao inserir no banco: {e}")
 
     #agora vou adicionar um dicionário com os dados coletados na lista que eu criei no começo do codigo
-    #Ele não esta retornando nada, só modificando a lista original e acumulando os dados
+    #ele não esta retornando nada, só modificando a lista original e acumulando os dados
     dados_monitoramento.append({
         "discoUso": discoUso,
         "porcentagemDisco": porcentagemDisco,

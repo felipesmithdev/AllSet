@@ -46,26 +46,26 @@ conn = conectar()
 cursor = conn.cursor()
 
 cursor.execute(
-"INSERT INTO pedido (pk_componente, pk_carro, dt_pedido, limite)"
+"INSERT INTO pedido_captura (fk_componente, fk_carro, dt_pedido, limite)"
 "VALUES (1, 1, ""now()"", 50.0), (2, 1, ""now()"", 50.0), (3, 1, ""now()"", 50.0), (4, 1, ""now()"", 50.0), (5, 1, ""now()"", 50.0), (6, 1, ""now()"", 50.0)"
 )
    
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 1 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 1 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_cpu = cursor.fetchone()[0]
 
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 2 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 2 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_ramPorcentagem = cursor.fetchone()[0]
 
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 3 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 3 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_ramBytes = cursor.fetchone()[0]
 
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 4 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 4 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_discoPorcentagem = cursor.fetchone()[0]
 
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 5 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 5 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_discoBytes = cursor.fetchone()[0]
 
-cursor.execute("SELECT id_pedido FROM pedido WHERE pk_componente = 6 ORDER BY id_pedido DESC LIMIT 1;")
+cursor.execute("SELECT id_pedido FROM pedido_captura WHERE fk_componente = 6 ORDER BY id_pedido DESC LIMIT 1;")
 pedido_bateria = cursor.fetchone()[0]
 
 
@@ -104,7 +104,7 @@ while True:
     nome_bucket = 'raw-allset'
     nome_no_s3 = f"monitoramentos/{nome_do_csv}"
 
-    if i != 0 and i % 100 == 0:
+    if i != 0 and i % 72 == 0:
         df = pd.DataFrame(dados_monitoramento)
         df.to_csv(nome_do_csv, index=False)
         print(f"Salvo em {nome_do_csv}")
@@ -115,12 +115,6 @@ while True:
         except Exception as e:
             print(f"Erro ao enviar para o S3: {e}")
 
-    time.sleep(0)
+    time.sleep(300)
     conn.commit()
     i += 1
-
-    if i == 101:
-        break
-
-
-        

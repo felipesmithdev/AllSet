@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS carro (
   modelo VARCHAR(45) not NULL,
   marca VARCHAR(45) not NULL,
   ano CHAR(4) not NULL,
-  identificador CHAR(45) not NULL,
   sistema_operacional VARCHAR(45) not NULL,
-  fk_agenciaCarro INT NOT NULL,
+  fk_agencia INT NOT NULL,
+  macadress VARCHAR(45),
   constraint foreign key fkAgenciaCarro (fk_agenciaCarro) references agencia(id_agencia)
   );
 
@@ -59,10 +59,10 @@ CREATE TABLE IF NOT EXISTS componente (
   metrica CHAR(2) not NULL
 );
 
-CREATE TABLE IF NOT EXISTS pedido (
+CREATE TABLE IF NOT EXISTS pedido_captura (
   id_pedido INT auto_increment,
-  pk_componente INT NOT NULL,
-  pk_carro INT NOT NULL,
+  fk_componente INT NOT NULL,
+  fk_carro INT NOT NULL,
   dt_pedido DATETIME not NULL,
   limite DOUBLE not NULL,
   PRIMARY KEY (id_pedido, pk_componente, pk_carro),
@@ -94,7 +94,7 @@ INSERT INTO agencia (cep, numero, complemento, fk_empresa, fk_endereco) VALUES (
 
 INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia) VALUES ('João Silva', '12345678901', 'joao.silva@email.com', 'senha123', 2, 1, 1);
 
-INSERT INTO carro (modelo, marca, ano, identificador, sistema_operacional, fk_agenciaCarro) VALUES ('Model S', 'Tesla', '2022', 'ABC123XYZ', 'Linux AutoOS', 1);
+INSERT INTO carro (modelo, marca, ano, sistema_operacional, fk_agencia) VALUES ('Model S', 'Tesla', '2022', 'Linux AutoOS', 1);
 
 SELECT * FROM empresa;
 
@@ -106,5 +106,5 @@ SELECT * FROM pessoa;
 
 SELECT * FROM carro;
 
-SELECT * FROM pedido;
+SELECT * FROM pedido_captura;
 

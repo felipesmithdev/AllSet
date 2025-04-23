@@ -40,7 +40,7 @@ region_name=''
 
 #usando uma variável mac
 mac = getEnderecoMAC()
-nome_do_csv = f"monitoramento_{mac}_{datetime.now().strftime("%d-%m-%Y_%Hhrs%Mmin%Ss")}.csv"
+nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime("%d-%m-%Y_%Hhrs%Mmin%Ss")}.json"
 
 conn = conectar()
 cursor = conn.cursor()
@@ -77,6 +77,7 @@ while True:
     ramUso = psutil.virtual_memory().used
     porcentagemRam = psutil.virtual_memory().percent
     porcentagemBateria = psutil.sensors_battery().percent
+    hrCaptura = datetime.now().strftime("%d-%m-%Y %H:%M:%S");
 
     try:
         cursor.execute(
@@ -96,25 +97,29 @@ while True:
         "porcentagemCpu": porcentagemCpu,
         "ramUso": ramUso,
         "porcentagemRam": porcentagemRam,
-        "porcentagemBateria": porcentagemBateria
+        "porcentagemBateria": porcentagemBateria,
+        "hrCaptura": hrCaptura
     })
    
-    print(i, discoUso, porcentagemDisco, porcentagemCpu, ramUso, porcentagemRam, porcentagemBateria)
+    print(i, discoUso, porcentagemDisco, porcentagemCpu, ramUso, porcentagemRam, porcentagemBateria, hrCaptura)
 
     nome_bucket = 'raw-allset'
-    nome_no_s3 = f"monitoramentos/{nome_do_csv}"
+    nome_no_s3 = f"{nome_do_json}"
 
-    if i != 0 and i % 72 == 0:
+    if i != 0 and i % 100 == 0:
         df = pd.DataFrame(dados_monitoramento)
-        df.to_csv(nome_do_csv, index=False)
-        print(f"Salvo em {nome_do_csv}")
+        df.to_json(nome_do_json, orient="records", indent=4)
+        print(f"Salvo em {nome_do_json}")
 
         try:
-            s3.upload_file(nome_do_csv, nome_bucket, nome_no_s3)
-            print(f"Arquivo '{nome_do_csv}' enviado com sucesso para S3 em '{nome_no_s3}'")
+            s3.upload_file(nome_do_json, nome_bucket, nome_no_s3)
+            print(f"Arquivo '{nome_do_json}' enviado com sucesso para S3 em '{nome_no_s3}'")
         except Exception as e:
             print(f"Erro ao enviar para o S3: {e}")
 
-    time.sleep(300)
+        break
+            
+
+    time.sleep(0)
     conn.commit()
     i += 1

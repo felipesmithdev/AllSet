@@ -39,6 +39,15 @@ CREATE TABLE IF NOT EXISTS pessoa (
   constraint chkAtivo check(ativo in(0,1)),
   constraint fkAgenciaPessoa foreign key (fk_agencia) references agencia(id_agencia)
   );
+
+
+CREATE TABLE IF NOT EXISTS lote(
+  id_lote int primary key auto_increment,
+  modelo varchar(45) not null,
+  dt_registro date not null,
+  fk_agencia int not null,
+  constraint fk_agencia_lote foreign key (fk_agencia) references agencia (id_agencia)
+)
   
 
 CREATE TABLE IF NOT EXISTS carro (
@@ -47,9 +56,9 @@ CREATE TABLE IF NOT EXISTS carro (
   marca VARCHAR(45) not NULL,
   ano CHAR(4) not NULL,
   sistema_operacional VARCHAR(45) not NULL,
-  fk_agencia INT NOT NULL,
+  fk_lote INT NOT NULL,
   macadress VARCHAR(45),
-  constraint foreign key fkAgenciaCarro (fk_agenciaCarro) references agencia(id_agencia)
+  constraint foreign key fkLoteCarro (fk_lote) references lote(id_lote)
   );
 
 

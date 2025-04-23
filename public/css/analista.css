@@ -397,3 +397,8 @@ body {
 .carros_tabela tr {
   cursor: pointer;
 }
+
+.helpdesk {
+  text-decoration: none;
+  color: white;
+}

@@ -116,6 +116,7 @@ header .navbar {
 	padding-bottom: 1.5%;
 	border-radius: 40px;
 	background-color: #0b1624;
+	position: relative;
 }
 header .navbar .textoNav {
 	font-size: 1.3vw;
@@ -139,6 +140,28 @@ header .navbar .login-hide{
 	border-radius: .3rem;
 	padding: .5rem 1.5rem;
 	display: none;
+}
+.user-icon-overlay {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    z-index: 10;
+	margin-right: 7%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	cursor: pointer;
+}
+.user-icon-overlay span {
+	color: #61B0FF;
+	font-size: 15px;
+	margin: none;
+}
+.user-icon-overlay img {
+    width: 40px;
+	cursor: pointer;
 }
 .home{
 	margin: 0;
@@ -256,7 +279,7 @@ header .navbar .login-hide{
 	height: 55vh;
 	width: auto;
 	padding: 0 2vw;
-	border-radius: 50%;
+	border-radius: 6%;
 }
 .icons{
 	font-size: 15vh;
@@ -331,14 +354,19 @@ header .navbar .login-hide{
 	color: #fff;
 	margin-top: 7vh;
 	font-size: 6vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .img-texto-pq{
 	margin-top: 7vh;
 	margin-bottom: 7vh;
 	display: flex;
 	justify-content: center;
-	gap: 5vw;
-	border-radius: 50%;
+	border-radius: 70%;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	width: 100%;
 	
 }
 .texto-pq{
@@ -346,31 +374,29 @@ header .navbar .login-hide{
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	width: 70vh;
+	width: 35%;
 	padding: 1.4vw;
-	height: 70vh;
+	height: 56vh;
 	background-color: #fff;
-	border-radius: 50%;
+	border-radius: 6%;
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
 	text-align: center;
+	
 }
 .texto-pq p{
-	width: 22vw;
+	width: 27vw;
 	font-size: 2.6vh;
-	font-family: "Afacad", monospace;
   	font-optical-sizing: auto;
 	font-style: normal;
 }
 .img-pq{
-	height: 30vh;
-	width: 40vw;
-	/* background-color: #228df8; */
+	width: 35%;	
+	background-image: url(../assets/img/img-pq.png);
+	background-size: cover;
+	border-top-right-radius: 6%;
+	border-bottom-right-radius: 6%;
 }
-.img-pq img{
-	height: 30vw;
-	width: 40vw;
-	/* background-color: #228df8; */
-	border-radius: 4vh;
-} 
 .footer{
 	display: flex;
 	background-color: #155492;

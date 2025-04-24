@@ -4,6 +4,30 @@ import time
 from datetime import datetime
 import pandas as pd
 import boto3
+# import dotenv import load_dotenv
+
+# load_dotenv()
+
+# AMBIENTE = os.getenv("AMBIENTE", "local")
+
+# CONFIG = {
+#     "local": {
+#         "host": "127.0.0.1",
+#         "port": 3307,
+#         "user": "root",
+#         "password": "urubu100",
+#         "database": allset
+#     },
+#     "producao": {
+#         "host": "ip",
+#         "port": 3306,
+#         "user": "root",
+#         "password": "urubu100",
+#         "database": "allset"
+#     }
+# }
+
+
 
 def conectar():
     return mysql.connector.connect(

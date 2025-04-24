@@ -8,15 +8,6 @@ CREATE TABLE IF NOT EXISTS empresa (
   dt_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   );
   
-  CREATE TABLE IF NOT EXISTS endereco (
-	id_endereco int primary key auto_increment,
-    logradouro varchar(100) not null,
-    bairro varchar(50) not null,
-    cidade varchar(50) not null,
-    uf char(2) not null,
-    fk_agencia_endereco INT NOT NULL,
-    constraint fkAgencia foreign key (fk_agencia_endereco) references agencia(id_agencia)
-	);
 
 CREATE TABLE IF NOT EXISTS agencia(
   id_agencia INT primary key auto_increment ,
@@ -26,6 +17,16 @@ CREATE TABLE IF NOT EXISTS agencia(
   fk_empresa INT NOT NULL,
   constraint fkEmpresaAgencia foreign key (fk_empresa) references empresa(id_empresa)
   );
+
+    CREATE TABLE IF NOT EXISTS endereco (
+	id_endereco int primary key auto_increment,
+    logradouro varchar(100) not null,
+    bairro varchar(50) not null,
+    cidade varchar(50) not null,
+    uf char(2) not null,
+    fk_agencia_endereco INT NOT NULL,
+    constraint fkAgencia foreign key (fk_agencia_endereco) references agencia(id_agencia)
+	);
 
 CREATE TABLE IF NOT EXISTS pessoa (
   id_pessoa INT primary key auto_increment,
@@ -104,17 +105,5 @@ INSERT INTO endereco (logradouro, bairro, cidade, uf, fk_agencia_endereco) VALUE
 
 INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia) VALUES ('João Silva', '12345678901', 'joao.silva@email.com', 'senha123', 2, 1, 1);
 
-INSERT INTO carro (modelo, marca, ano, sistema_operacional, fk_agencia) VALUES ('Model S', 'Tesla', '2022', 'Linux AutoOS', 1);
-
-SELECT * FROM empresa;
-
-SELECT * FROM endereco;
-
-SELECT * FROM agencia;
-
-SELECT * FROM pessoa;
-
-SELECT * FROM carro;
-
-SELECT * FROM pedido_captura;
+-- docker exec -it db ls -la /docker-entrypoint-initdb.d/
 

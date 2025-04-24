@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS empresa (
 	id_endereco int primary key auto_increment,
     logradouro varchar(100) not null,
     bairro varchar(50) not null,
-    uf char(2) not null
+    cidade varchar(50) not null,
+    uf char(2) not null,
+    fk_agencia_endereco INT NOT NULL,
+    constraint fkAgencia foreign key (fk_agencia_endereco) references agencia(id_agencia)
 	);
 
 CREATE TABLE IF NOT EXISTS agencia(
@@ -21,9 +24,7 @@ CREATE TABLE IF NOT EXISTS agencia(
   numero CHAR(10) NOT NULL,
   complemento varchar(45),
   fk_empresa INT NOT NULL,
-  fk_endereco INT NOT NULL,
-  constraint fkEmpresaAgencia foreign key (fk_empresa) references empresa(id_empresa),
-  constraint fkEnderecoAgencia foreign key (fk_endereco) references endereco(id_endereco)
+  constraint fkEmpresaAgencia foreign key (fk_empresa) references empresa(id_empresa)
   );
 
 CREATE TABLE IF NOT EXISTS pessoa (
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS lote(
   dt_registro date not null,
   fk_agencia int not null,
   constraint fk_agencia_lote foreign key (fk_agencia) references agencia (id_agencia)
-)
+);
   
 
 CREATE TABLE IF NOT EXISTS carro (
@@ -74,9 +75,9 @@ CREATE TABLE IF NOT EXISTS pedido_captura (
   fk_carro INT NOT NULL,
   dt_pedido DATETIME not NULL,
   limite DOUBLE not NULL,
-  PRIMARY KEY (id_pedido, pk_componente, pk_carro),
-  CONSTRAINT fkComponentePK FOREIGN KEY (pk_componente) REFERENCES componente (id_componente),
-  CONSTRAINT fkCarroPK FOREIGN KEY (pk_carro) REFERENCES carro (id_carro)
+  PRIMARY KEY (id_pedido, fk_componente, fk_carro),
+  CONSTRAINT fkComponentePK FOREIGN KEY (fk_componente) REFERENCES componente (id_componente),
+  CONSTRAINT fkCarroPK FOREIGN KEY (fk_carro) REFERENCES carro (id_carro)
 );
 
 CREATE TABLE IF NOT EXISTS captura_componente_n (
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS captura_componente_n (
   valor float not NULL,
   dt_captura datetime,
   fk_pedido INT,
-  constraint fkCapPedido foreign key (fk_pedido) references pedido(id_pedido)
+  constraint fkCapPedido foreign key (fk_pedido) references pedido_captura(id_pedido)
 );
 
 INSERT INTO componente (tipo, metrica) VALUES
@@ -97,9 +98,9 @@ INSERT INTO componente (tipo, metrica) VALUES
 
 INSERT INTO empresa (nome, cnpj) VALUES ('TechMobility Ltda', '12345678000199');
 
-INSERT INTO endereco (logradouro, bairro, uf) VALUES ('Rua das Inovações, 123', 'Centro', 'SP');
+INSERT INTO agencia (cep, numero, complemento, fk_empresa) VALUES ('01001000', '100', 'Térreo', 1);
 
-INSERT INTO agencia (cep, numero, complemento, fk_empresa, fk_endereco) VALUES ('01001000', '100', 'Térreo', 1, 1);
+INSERT INTO endereco (logradouro, bairro, cidade, uf, fk_agencia_endereco) VALUES ('Rua das Inovações, 123', 'Centro', 'São Paulo', 'SP', 1);
 
 INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia) VALUES ('João Silva', '12345678901', 'joao.silva@email.com', 'senha123', 2, 1, 1);
 

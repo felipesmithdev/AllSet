@@ -132,14 +132,19 @@ header .navbar .login-hide{
 	font-size: 0px;
 }
 
+header .navbar #loginMobile {
+	display: none;
+}
+
 #menu-bar{
 	font-size: 3rem;
 	cursor: pointer;
-	color: #fff;
-	border: .1rem solid #fff;
+	color: #61B0FF;
+	border: .1rem solid #61B0FF;
 	border-radius: .3rem;
 	padding: .5rem 1.5rem;
 	display: none;
+	margin-left: auto;
 }
 .user-icon-overlay {
     position: absolute;
@@ -175,12 +180,16 @@ header .navbar .login-hide{
 	width: 100vw;
 	background-color: #61B0FF;
 	background-image: 
-	  linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)), /* Gradiente da esquerda para a direita */
-	  url('../assets/img/carro-autonomo.jpg'); /* A imagem de fundo */
+	  linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)),
+	  url('../assets/img/carro-autonomo.jpg');
 	background-size: cover;
 	position: fixed;
 	transform: scaleX(-1);
 	z-index: -1;
+}
+
+.content .blocoTextos .nomeMobile {
+	display: none;
 }
 
 .content .blocoTextos{

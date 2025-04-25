@@ -20,12 +20,21 @@
 /* media queries 768px */
 
 @media(max-width: 768px) and (orientation: portrait){
+	.bg {
+		background-position: 25% center;
+	}
 	.quem-somos{
 		height: auto;
 		flex-direction: column;
 		justify-content: start;
 		gap: 4vh;
 		padding: 3vh 0 3vh 0;
+	}
+
+	.content .blocoTextos .nomeMobile {
+		display: flex;
+		font-size: 20vw;
+		color: var(--blue);
 	}
 	.div_quadro{
 		flex-direction: column;
@@ -147,20 +156,40 @@
 	}
 		#menu-bar{
 			display: initial;
+			z-index: 10;
 		}
+		
 		header .navbar{
 			position: absolute;
-			top: 100%; left: 0; right: 0;
+			top: 0%; left: 0; right: 0;
 			border-top: .1rem solid rgba(0,0,0,.1);
 			clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 			flex-direction: column;
 			z-index: 8;
+			padding: 20%;
 		}
 		
 		header .navbar.active{
 			clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-	
+			box-shadow: 0 0 1000px rgba(0, 0, 0, 1);
 		}
+
+		header .navbar #logoNavBar {
+			display: none;
+		}
+
+		header .navbar #loginMobile {
+			display: block;
+		}
+
+		header .navbar .user-icon-overlay {
+			display: none;
+		}
+
+		header .navbar .textoNav {
+			font-size: 5vw;
+		}
+
 		header .logo{
 			 font-size: 4rem;
 		}
@@ -172,6 +201,8 @@
 			display: block;
 			border-left: .5rem solid var(--blue);
 			background: #051D34;
+			width: 100%;
+			margin-right: 33%;
 		}
 
 		header .navbar .login-hide{
@@ -200,7 +231,6 @@
 @media(max-width: 450px){
 
 	.home{
-		background-image: url(../assets/img/carro-autonomo\ -corte.jpg);
 		background-size: cover;
 	}
 	

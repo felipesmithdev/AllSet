@@ -24,8 +24,9 @@
             <div class="side_topicos">
                 <ul class="side_menu">
                     <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
+                    <li onclick="irParaCarros()"><i>🚗</i> Carros</li>
                     <li onclick="irParaLote()"><i>💻</i> Lotes</li>
-                    <li onclick="irParaAlertaTecnico()"><i>🔔</i> Alertas</li>
+                    <li class="section_active" onclick="irParaAlertaTecnico()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
                     <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
                     <li><i>🚪</i> Sair</li>
@@ -119,6 +120,10 @@
 
     function irParaLote(){
         window.location.href="lote.html"
+    }
+
+    function irParaCarros(){
+        window.location.href="carro.html"
     }
 
     function irParaAlertaTecnico(){

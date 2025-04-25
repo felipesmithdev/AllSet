@@ -31,10 +31,11 @@ import boto3
 
 def conectar():
     return mysql.connector.connect(
-        host="localhost",
+        host="3.92.196.145",
+        port= 3306,
         user="root",
         password="urubu100",
-        database="allSet"
+        database="allset"
     )
 
 #estou criando uma lista vazia, assim consigo armazenar as info.

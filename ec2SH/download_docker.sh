@@ -15,6 +15,9 @@ echo \
 sudo apt-get update
 
 #instalando as últimas versões
+# instalando o docker compose 
+sudo apt install docker-compose -y
+docker-compose up -d
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 # adicionando o usuário no grupo docker para não precisar mais do sudo
@@ -24,9 +27,6 @@ newgrp docker
 #acessando o docker
 sudo systemctl start docker
 sudo systemctl enable docker
-
-# instalando o docker compose 
-sudo apt install docker-compose -y
 
 # dando pull na imagem mysql
 docker-compose up -d

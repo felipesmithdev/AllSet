@@ -7,10 +7,11 @@ import boto3
 
 def conectar():
     return mysql.connector.connect(
-        host="localhost",
+        host="3.83.84.227",
+        port= 3306,
         user="root",
         password="urubu100",
-        database="allSet"
+        database="allset"
     )
 
 #estou criando uma lista vazia, assim consigo armazenar as info.
@@ -35,7 +36,7 @@ s3 = boto3.client(
 aws_access_key_id='',
 aws_secret_access_key='',
 aws_session_token='',
-region_name=''  
+region_name='us-east-1'  
 )
 
 #usando uma variável mac
@@ -78,6 +79,9 @@ while True:
     porcentagemRam = psutil.virtual_memory().percent
     porcentagemBateria = psutil.sensors_battery().percent
     hrCaptura = datetime.now().strftime("%d-%m-%Y %H:%M:%S");
+    for processos in psutil.process_iter(['name']):
+        if 'python' in processos.name().lower():
+            print('Processo encontrado:',processos.name())
 
     try:
         cursor.execute(

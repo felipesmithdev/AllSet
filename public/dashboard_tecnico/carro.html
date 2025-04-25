@@ -22,7 +22,7 @@
             </div>
             <div class="side_topicos">
                 <ul class="side_menu">
-                    <li><i>📊</i> Dashboard</li>
+                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
                     <li class="section_active"><i>🚗</i> Carro</li>
                     <li onclick="irParaCarros()"><i>💻</i> Lotes</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
@@ -178,6 +178,11 @@
 </html>
 
 <script>
+
+
+function irParaDash(){
+    window.location.href="monitoramento.html"
+}
 
 function irParaAlertas(){
     window.location.href="alertaTecnico.html"

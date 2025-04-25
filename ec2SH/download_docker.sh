@@ -28,8 +28,6 @@ newgrp docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
-# dando pull na imagem mysql
-docker-compose up -d
 
 
 

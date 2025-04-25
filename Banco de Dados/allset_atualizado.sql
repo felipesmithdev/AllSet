@@ -105,5 +105,15 @@ INSERT INTO endereco (logradouro, bairro, cidade, uf, fk_agencia_endereco) VALUE
 
 INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia) VALUES ('João Silva', '12345678901', 'joao.silva@email.com', 'senha123', 2, 1, 1);
 
+INSERT INTO lote (modelo, dt_registro, fk_agencia) VALUES 
+('Lote Veículos Elétricos 2025', '2025-01-15', 1),
+('Lote SUVs Autônomos', '2025-02-10', 1);
+
+INSERT INTO carro (modelo, marca, ano, sistema_operacional, fk_lote, macadress) VALUES 
+('Model S', 'Tesla', '2023', 'Tesla OS', 1, 'AA:BB:CC:DD:EE:FF'),
+('Cybertruck', 'Tesla', '2024', 'Tesla OS', 1, 'FF:EE:DD:CC:BB:AA'),
+('iX', 'BMW', '2024', 'BMW iDrive', 2, '11:22:33:44:55:66'),
+('EQS', 'Mercedes', '2024', 'MBUX', 2, '66:55:44:33:22:11');
+
 -- docker exec -it db ls -la /docker-entrypoint-initdb.d/
 

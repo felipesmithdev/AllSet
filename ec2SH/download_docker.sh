@@ -29,7 +29,7 @@ sudo systemctl enable docker
 sudo apt install docker-compose -y
 
 # dando pull na imagem mysql
-sudo docker-compose.yml up -d
+docker-compose up -d
 
 
 

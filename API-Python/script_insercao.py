@@ -4,38 +4,13 @@ import time
 from datetime import datetime
 import pandas as pd
 import boto3
-# import dotenv import load_dotenv
-
-# load_dotenv()
-
-# AMBIENTE = os.getenv("AMBIENTE", "local")
-
-# CONFIG = {
-#     "local": {
-#         "host": "127.0.0.1",
-#         "port": 3307,
-#         "user": "root",
-#         "password": "urubu100",
-#         "database": allset
-#     },
-#     "producao": {
-#         "host": "ip",
-#         "port": 3306,
-#         "user": "root",
-#         "password": "urubu100",
-#         "database": "allset"
-#     }
-# }
-
-
 
 def conectar():
     return mysql.connector.connect(
-        host="3.92.196.145",
-        port= 3306,
+        host="localhost",
         user="root",
         password="urubu100",
-        database="allset"
+        database="allSet"
     )
 
 #estou criando uma lista vazia, assim consigo armazenar as info.
@@ -60,11 +35,12 @@ s3 = boto3.client(
 aws_access_key_id='',
 aws_secret_access_key='',
 aws_session_token='',
-region_name='us-east-1'  
+region_name=''  
 )
 
 #usando uma variável mac
 mac = getEnderecoMAC()
+nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime("%d-%m-%Y_%Hhrs%Mmin%Ss")}.json"
 
 conn = conectar()
 cursor = conn.cursor()
@@ -128,7 +104,7 @@ while True:
     print(i, discoUso, porcentagemDisco, porcentagemCpu, ramUso, porcentagemRam, porcentagemBateria, hrCaptura)
 
     nome_bucket = 'raw-allset'
-    nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime("%d-%m-%Y_%Hhrs%Mmin%Ss")}.json"
+    nome_no_s3 = f"{nome_do_json}"
 
     if i != 0 and i % 100 == 0:
         df = pd.DataFrame(dados_monitoramento)
@@ -136,11 +112,12 @@ while True:
         print(f"Salvo em {nome_do_json}")
 
         try:
-            s3.upload_file(nome_do_json, nome_bucket, nome_do_json)
-            print(f"Arquivo '{nome_do_json}' enviado com sucesso para S3 em '{nome_do_json}'")
+            s3.upload_file(nome_do_json, nome_bucket, nome_no_s3)
+            print(f"Arquivo '{nome_do_json}' enviado com sucesso para S3 em '{nome_no_s3}'")
         except Exception as e:
             print(f"Erro ao enviar para o S3: {e}")
 
+        break
             
 
     time.sleep(0)

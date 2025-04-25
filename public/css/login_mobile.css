@@ -1,0 +1,25 @@
+@media(max-width: 768px){
+
+    html{
+        font-size: 2.1ch;
+    }
+
+    .titulo_login{
+        display: flex;
+        text-align: center;
+    }
+
+    .texto_login{
+        display: flex;
+        text-align: center;
+        align-items: center;
+   
+    }
+
+    .principal2{
+        width: 90%;
+        height: 60%;
+    }
+
+
+  }

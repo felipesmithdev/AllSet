@@ -508,4 +508,53 @@ body {
 .helpdesk {
     text-decoration: none;
     color: white;
-  }
+}
+
+#menu-bar {
+    display: none;
+}
+
+@media(max-width: 768px) and (orientation: portrait){
+
+    body {
+        z-index: 7;
+    }
+    
+    .sidebar {
+        position: absolute;
+		top: 0%; left: 0; right: 0;
+		border-top: .1rem solid rgba(0,0,0,.1);
+		clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+		flex-direction: column;
+		z-index: 8;
+    }
+
+    .sidebar.active {
+        display: flex;
+        width: 80%;
+        height: 100%;
+        z-index: 8;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .main_content {
+        margin: 0px;
+    }
+
+    .kpi_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 42vw);
+    }
+
+    .alertas_section {
+        font-size: 12px;
+    }
+
+    #menu-bar{
+        display: initial;
+        z-index: 20;
+        color: white;
+        margin-right: 10px;
+    }
+
+}

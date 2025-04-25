@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carros</title>
+    <title>Lotes</title>
     <link rel="stylesheet" href="../css/monitoramento.css">
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
     <script src="https://jsuites.net/v5/jsuites.js"></script>
     <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
     <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
@@ -29,7 +30,7 @@
                 <ul class="side_menu">
                     <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
                     <li onclick="irParaCarro()"><i>🚗</i>Carro</li>
-                    <li class="section_active"><i>💻</i> Lotes</li>
+                    <li onclick="irParaLote()"><i>💻</i> Lotes</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
                     <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
@@ -122,6 +123,12 @@
     }
     function irParaAlertas(){
         window.location.href="alertaTecnico.html"
+    }
+    function irParaLote(){
+        window.location.href="lote.html"
+    }
+    function irParaCarro(){
+        window.location.href="carro.html"
     }
 
     document.querySelector('jsuites-modal').addEventListener('onopen', function() {

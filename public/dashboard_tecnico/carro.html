@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoramento</title>
+    <title>Carros</title>
     <link rel="stylesheet" href="../css/monitoramento.css">
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
 </head>
@@ -23,8 +24,8 @@
             <div class="side_topicos">
                 <ul class="side_menu">
                     <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
-                    <li class="section_active"><i>🚗</i> Carro</li>
-                    <li onclick="irParaCarros()"><i>💻</i> Lotes</li>
+                    <li onclick="irParaCarros()"><i>🚗</i> Carro</li>
+                    <li onclick="irParaLote()"><i>💻</i> Lotes</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
                     <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
@@ -189,6 +190,9 @@ function irParaAlertas(){
 }
 function irParaCarros(){
     window.location.href="carros.html"
+}
+function irParaLote(){
+    window.location.href="lote.html"
 }
 
 criarGrafico1()

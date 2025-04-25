@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento</title>
+    <link rel="stylesheet" href="../css/monitoramento.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario" id="b_usuario">Jordana</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li><i>📊</i> Dashboard</li>
+                    <li class="section_active"><i>🚗</i> Carro</li>
+                    <li onclick="irParaCarros()"><i>💻</i> Lotes</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
+                    <li><i>🚪</i> Sair</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_content">
+        <div class="nav_main">
+            <!-- <div class="buscar_carro">
+                <div class="input_carro">
+                    <i>🔍</i>
+                    <input type="text" name="" id="" placeholder="Pesquisar carro...">
+                </div>
+            </div> -->
+            <div class="selecionar_carro">
+                <div class="data_hora">
+                    <span>📅 29/03/2025</span>
+                </div>
+                <div class="id_carro">
+                    <select name="" id="">
+                        <option value="">Lote 001</option>
+                        <option value="">Lote 002</option>
+                        <option value="">Lote 003</option>
+                    </select>
+                </div>
+                <div class="id_carro">
+                    <select name="" id="">
+                        <option value="">carro 001</option>
+                        <option value="">carro 002</option>
+                        <option value="">carro 003</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="kpi_grid">
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico de uso da CPU</span>
+                    <div class="icone_kpi">🖥️</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>49%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">5%</span>
+                    <span>Comparado a 54% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico de uso da RAM</span>
+                    <div class="icone_kpi">💾</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>59%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">3%</span>
+                    <span>Comparado a 62% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Pico de uso do Disco</span>
+                    <div class="icone_kpi">💿</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>81%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi3">5%</span>
+                    <span>Comparado a 74% há 1h</span>
+                </div>
+            </div>
+            <div class="grid_cards">
+                <div class="topo_kpi">
+                    <span>Menor nível bateria</span>
+                    <div class="icone_kpi">🚨</div>
+                </div>
+                <div class="meio_kpi">
+                    <span>47%</span>
+                </div>
+                <div class="fim_kpi">
+                    <span class="metrica_kpi">08:48</span>
+                    <span>Horário de baixa</span>
+                </div>
+            </div>
+        </div>
+        <div class="dashboards_separadas">
+            <div class="grid_dash">
+                <span>Uso de CPU</span>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="grid_dash">
+                <span>Uso de RAM</span>
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="grid_dash">
+                <span>Uso de Disco</span>
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="dashboard_mesclado">
+            <span>Gráfico com Medidas Mescladas</span>
+            <canvas id="myChart3"></canvas>
+        </div>
+
+        <div class="alertas_section">
+            <div class="top_alerta">
+                <div class="titulo_alerta">Últimos Alertas</div>
+                <div class="ver_alertas">Ver todos os alertas <span>→</span></div>
+            </div>
+            <table class="tabela_alertas">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Data/Hora</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td>Crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Disco</td>
+                        <td>92%</td>
+                        <td>21/03/2025 00:50</td>
+                        <td class="alerta_crit">Crítico</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+function irParaAlertas(){
+    window.location.href="alertaTecnico.html"
+}
+function irParaCarros(){
+    window.location.href="carros.html"
+}
+
+criarGrafico1()
+criarGrafico2()
+criarGrafico3()
+criarGraficoUnico()
+
+function criarGrafico1(){
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [12, 18, 25, 29, 35, 40, 49],
+            fill: false,
+            borderColor: '#ed9922',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false 
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGrafico2(){
+    const ctx = document.getElementById('myChart1').getContext('2d');
+
+    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [25, 59, 30, 50, 55, 45, 40],
+            fill: false,
+            borderColor: '#d8c51d',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGrafico3(){
+    const ctx = document.getElementById('myChart2').getContext('2d');
+
+    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            data: [1, 20, 40, 81, 56, 12, 40],
+            fill: false,
+            borderColor: '#39a124',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+        }
+    };
+
+    new Chart(ctx, config);
+}
+
+function criarGraficoUnico(){
+    const ctx = document.getElementById('myChart3').getContext('2d');
+
+    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'CPU',
+                data: [12, 18, 25, 29, 35, 40, 49],
+                fill: false,
+                borderColor: '#ed9922',
+                tension: 0.1
+            },
+            {
+                label: 'RAM',
+                data: [25, 59, 30, 50, 55, 45, 40],
+                fill: false,
+                borderColor: '#d8c51d',
+                tension: 0.1
+            },
+            {
+                label: 'DISCO',
+                data: [5, 15, 10, 35, 45, 30, 25],
+                fill: false,
+                borderColor: '#39a124',
+                tension: 0.1
+            }, 
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            backgroundColor: 'transparent',
+            responsive: true,
+            maintainAspectRatio: false 
+        }
+    };
+    
+    new Chart(ctx, config);
+}
+
+
+</script>

@@ -81,6 +81,7 @@ body{
     padding: 3px;
 }
 
+
 .cadastro input::placeholder {
     font-weight: bold;
     color: #fff;

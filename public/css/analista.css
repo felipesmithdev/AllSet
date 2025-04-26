@@ -307,6 +307,7 @@ body {
         color: #c0c0c0;
     }
 }
+
 .g1{
   position: relative;
   height: 200px; /* Set your desired height here */
@@ -401,4 +402,93 @@ body {
 .helpdesk {
   text-decoration: none;
   color: white;
+}
+
+@media(max-width: 768px) and (orientation: portrait){
+
+  body {
+      z-index: 7;
+  }
+  
+  .sidebar {
+    position: absolute;
+    top: 0%; left: 0; right: 0;
+    border-top: .1rem solid rgba(0,0,0,.1);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    flex-direction: column;
+    z-index: 8;
+  }
+
+  .sidebar.active {
+      display: flex;
+      width: 80%;
+      height: 100%;
+      z-index: 8;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .main_content {
+      margin: 0px;
+  }
+
+  .kpi_grid {
+      display: grid;
+      grid-template-columns: repeat(2, 42vw);
+  }
+
+  .alertas_section {
+      font-size: 12px;
+  }
+
+  #menu-bar{
+      display: initial;
+      z-index: 20;
+      color: white;
+      margin-right: 10px;
+      margin-top: 5px;
+  }
+
+  .dashboards_separadas{
+      display: grid;
+      grid-template-columns: repeat(1 , 1fr);
+      gap: 10px;
+      margin-top: 3%;
+      width: auto;
+  }
+
+  .nav_main{
+    width: 100%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .selecionar_carro{
+    display: flex;
+    align-items: center;
+    /* gap: 15px; */
+    width: 65%;
+    height: 50%;
+  }
+
+  .botao_historico{
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    color: #ffffff;
+    width: 100%;
+    height: 80px;
+    cursor: pointer;
+  }
+
+  .buscar_carro{
+    width: 20%;
+    height: 60%;
+    display: flex;
+    font-size: 20px;
+    font-weight: 800;
+    align-items: center;
+    justify-content: center;
+  }
 }

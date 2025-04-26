@@ -8,6 +8,7 @@
     <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
     <nav class="sidebar">
@@ -38,7 +39,8 @@
         <div class="nav_main">
             <div class="titulo_main">
                 <div class="inicio_titulo">
-                    ALERTAS
+                    <div id="menu-bar" class="fas fa-bars"></div>
+                    Alertas
                 </div>
             </div>
             <div class="exibir_data">
@@ -119,6 +121,25 @@
 
     function irParaFunc(){
         window.location.href="funcionarios.html"
+    }
+
+    let menu = document.querySelector('#menu-bar');
+    let navbar = document.querySelector('.sidebar');
+
+
+    menu.onclick = () =>{
+	
+	    menu.classList.toggle('fa-times');
+	    navbar.classList.toggle('active');
+        menu.classList.add('fa-times');
+	
+    }
+	
+    window.onscroll = () =>{
+        
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+        
     }
 
 </script>

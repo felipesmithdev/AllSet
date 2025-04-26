@@ -442,7 +442,7 @@ body {
 
   #menu-bar{
       display: initial;
-      z-index: 20;
+      z-index: 7;
       color: white;
       margin-right: 10px;
       margin-top: 5px;
@@ -458,7 +458,7 @@ body {
 
   .nav_main{
     width: 100%;
-    height: 7%;
+    height: 3%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -475,16 +475,16 @@ body {
   .botao_historico{
     background-color: transparent;
     border: none;
-    font-size: 13px;
+    font-size: 10px;
     color: #ffffff;
     width: 100%;
-    height: 80px;
+    height: 300px;
     cursor: pointer;
   }
 
   .buscar_carro{
     width: 20%;
-    height: 60%;
+    height: 40%;
     display: flex;
     font-size: 20px;
     font-weight: 800;

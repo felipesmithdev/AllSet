@@ -1,4 +1,4 @@
-@media(max-width: 768px){
+@media(max-width: 778px){
 
     html{
         font-size: 2.1ch;
@@ -9,17 +9,35 @@
         text-align: center;
     }
 
-    .texto_login{
-        display: flex;
+    .texto_login {
+        width: 100%;
         text-align: center;
-        align-items: center;
-   
+        margin-top: 5%;
     }
+    
+    .texto_login span {
+        max-width: 80%;
+        text-align: center;
+        }
 
     .principal2{
         width: 90%;
-        height: 60%;
+        height: 90%;
     }
 
+    .Login input {
+        width: 90%;
+        height: 40%;
+        padding: 10px;
+    }
 
+    button{
+        width: 60%;
+        height: 60%;
+      
+    }
+
+    .home{
+        margin-top: 5%;
+    }
   }

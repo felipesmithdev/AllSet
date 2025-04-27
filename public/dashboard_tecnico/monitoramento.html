@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramento</title>
     <link rel="stylesheet" href="../css/monitoramento.css">
-    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
+
 <body>
     <nav class="sidebar">
         <div class="side_container">
@@ -17,9 +20,11 @@
             </div>
             <div class="side_perfil">
                 <div class="foto_perfil">
-                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg" alt="">
+                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg"
+                        alt="">
                 </div>
-                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario" id="b_usuario">Jordana</span></span>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario"
+                        id="b_usuario">Jordana</span></span>
             </div>
             <div class="side_topicos">
                 <ul class="side_menu">
@@ -28,7 +33,8 @@
                     <li onclick="irParaLote()"><i>💻</i> Lotes</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
-                    <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
+                    <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
+                            target=”_blank”>Ajuda</a></li>
                     <li><i>🚪</i> Sair</li>
                 </ul>
             </div>
@@ -36,6 +42,12 @@
     </nav>
 
     <div class="main_content">
+        <div class="titulo_main">
+            <div id="menu-bar" class="fas fa-bars"></div>
+            <div class="inicio_titulo">
+                Painel Geral
+            </div>
+        </div>
         <div class="nav_main">
             <div class="buscar_carro">
                 <div class="input_carro">
@@ -167,218 +179,237 @@
         </div>
 
     </div>
-    
+
 </body>
+
 </html>
 
 <script>
 
-function irParaDash(){
-    window.location.href="monitoramento.html"
-}
+    function irParaDash() {
+        window.location.href = "monitoramento.html"
+    }
 
-function irParaAlertas(){
-    window.location.href="alertaTecnico.html"
-}
-function irParaCarros(){
-    window.location.href="carro.html"
-}
-function irParaLote(){
-    window.location.href="lote.html"
-}
+    function irParaAlertas() {
+        window.location.href = "alertaTecnico.html"
+    }
+    function irParaCarros() {
+        window.location.href = "carro.html"
+    }
+    function irParaLote() {
+        window.location.href = "lote.html"
+    }
 
-criarGrafico1()
-criarGrafico2()
-criarGrafico3()
-criarGraficoUnico()
+    criarGrafico1()
+    criarGrafico2()
+    criarGrafico3()
+    criarGraficoUnico()
 
-function criarGrafico1(){
-    const ctx = document.getElementById('myChart').getContext('2d');
+    function criarGrafico1() {
+        const ctx = document.getElementById('myChart').getContext('2d');
 
-    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-    const data = {
-        labels: labels,
-        datasets: [{
-            data: [12, 18, 25, 29, 35, 40, 49],
-            fill: false,
-            borderColor: '#ed9922',
-            tension: 0.1
-        }]
-    };
-
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                legend: {
-                    display: false 
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                }
-            },
-            backgroundColor: 'transparent',
-        }
-    };
-
-    new Chart(ctx, config);
-}
-
-function criarGrafico2(){
-    const ctx = document.getElementById('myChart1').getContext('2d');
-
-    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-    const data = {
-        labels: labels,
-        datasets: [{
-            data: [25, 59, 30, 50, 55, 45, 40],
-            fill: false,
-            borderColor: '#d8c51d',
-            tension: 0.1
-        }]
-    };
-
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                }
-            },
-            backgroundColor: 'transparent',
-        }
-    };
-
-    new Chart(ctx, config);
-}
-
-function criarGrafico3(){
-    const ctx = document.getElementById('myChart2').getContext('2d');
-
-    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-    const data = {
-        labels: labels,
-        datasets: [{
-            data: [1, 20, 40, 81, 56, 12, 40],
-            fill: false,
-            borderColor: '#39a124',
-            tension: 0.1
-        }]
-    };
-
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#fff'
-                    }
-                }
-            },
-            backgroundColor: 'transparent',
-        }
-    };
-
-    new Chart(ctx, config);
-}
-
-function criarGraficoUnico(){
-    const ctx = document.getElementById('myChart3').getContext('2d');
-
-    const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'CPU',
+        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const data = {
+            labels: labels,
+            datasets: [{
                 data: [12, 18, 25, 29, 35, 40, 49],
                 fill: false,
                 borderColor: '#ed9922',
                 tension: 0.1
-            },
-            {
-                label: 'RAM',
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                backgroundColor: 'transparent',
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function criarGrafico2() {
+        const ctx = document.getElementById('myChart1').getContext('2d');
+
+        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const data = {
+            labels: labels,
+            datasets: [{
                 data: [25, 59, 30, 50, 55, 45, 40],
                 fill: false,
                 borderColor: '#d8c51d',
                 tension: 0.1
-            },
-            {
-                label: 'DISCO',
-                data: [5, 15, 10, 35, 45, 30, 25],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                backgroundColor: 'transparent',
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function criarGrafico3() {
+        const ctx = document.getElementById('myChart2').getContext('2d');
+
+        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                data: [1, 20, 40, 81, 56, 12, 40],
                 fill: false,
                 borderColor: '#39a124',
                 tension: 0.1
-            }, 
-        ]
-    };
+            }]
+        };
 
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                legend: {
-                    display: true
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#fff'
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    ticks: {
-                        color: '#fff'
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#fff'
+                        }
                     }
-                }
-            },
-            backgroundColor: 'transparent',
-            responsive: true,
-            maintainAspectRatio: false 
-        }
-    };
-    
-    new Chart(ctx, config);
-}
+                },
+                backgroundColor: 'transparent',
+            }
+        };
 
+        new Chart(ctx, config);
+    }
+
+    function criarGraficoUnico() {
+        const ctx = document.getElementById('myChart3').getContext('2d');
+
+        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'CPU',
+                    data: [12, 18, 25, 29, 35, 40, 49],
+                    fill: false,
+                    borderColor: '#ed9922',
+                    tension: 0.1
+                },
+                {
+                    label: 'RAM',
+                    data: [25, 59, 30, 50, 55, 45, 40],
+                    fill: false,
+                    borderColor: '#d8c51d',
+                    tension: 0.1
+                },
+                {
+                    label: 'DISCO',
+                    data: [5, 15, 10, 35, 45, 30, 25],
+                    fill: false,
+                    borderColor: '#39a124',
+                    tension: 0.1
+                },
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                backgroundColor: 'transparent',
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+    let menu = document.querySelector('#menu-bar');
+    let navbar = document.querySelector('.sidebar');
+
+
+    menu.onclick = () => {
+
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+        menu.classList.add('fa-times');
+
+    }
+
+    window.onscroll = () => {
+
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+
+    }
 
 </script>

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alerta Técnico</title>
     <link rel="stylesheet" href="../css/monitoramento.css">
-    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
+
 <body>
     <nav class="sidebar">
         <div class="side_container">
@@ -17,9 +20,11 @@
             </div>
             <div class="side_perfil">
                 <div class="foto_perfil">
-                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg" alt="">
+                    <img src="https://st4.depositphotos.com/36741118/38575/i/450/depositphotos_385759916-stock-photo-ordinary-girl-small-town-teeagers.jpg"
+                        alt="">
                 </div>
-                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario" id="b_usuario">Jordana</span></span>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario"
+                        id="b_usuario">Jordana</span></span>
             </div>
             <div class="side_topicos">
                 <ul class="side_menu">
@@ -28,7 +33,8 @@
                     <li onclick="irParaLote()"><i>💻</i> Lotes</li>
                     <li class="section_active" onclick="irParaAlertaTecnico()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
-                    <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
+                    <li><i>❓</i> <a href="https://grupo05.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
+                            target=”_blank”>Ajuda</a></li>
                     <li><i>🚪</i> Sair</li>
                 </ul>
             </div>
@@ -38,8 +44,9 @@
     <div class="main_content">
         <div class="nav_main">
             <div class="titulo_main">
+                <div id="menu-bar" class="fas fa-bars"></div>
                 <div class="inicio_titulo">
-                    ALERTAS
+                    Alertas
                 </div>
             </div>
             <div class="exibir_data">
@@ -109,25 +116,45 @@
             </table>
         </div>
     </div>
-    
+
 </body>
+
 </html>
 <script>
 
-    function irParaDash(){
-        window.location.href="monitoramento.html"
+    function irParaDash() {
+        window.location.href = "monitoramento.html"
     }
 
-    function irParaLote(){
-        window.location.href="lote.html"
+    function irParaLote() {
+        window.location.href = "lote.html"
     }
 
-    function irParaCarros(){
-        window.location.href="carro.html"
+    function irParaCarros() {
+        window.location.href = "carro.html"
     }
 
-    function irParaAlertaTecnico(){
-        window.location.href="alertaTecnico.html"
+    function irParaAlertaTecnico() {
+        window.location.href = "alertaTecnico.html"
+    }
+
+    let menu = document.querySelector('#menu-bar');
+    let navbar = document.querySelector('.sidebar');
+
+
+    menu.onclick = () => {
+
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+        menu.classList.add('fa-times');
+
+    }
+
+    window.onscroll = () => {
+
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+
     }
 
 </script>

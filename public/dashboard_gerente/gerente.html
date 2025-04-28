@@ -28,8 +28,9 @@
                     <li onclick="irParaFunc()"><i>💻</i> Funcionários</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
-                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
-                    <li><i>🚪</i> Sair</li>
+                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
+                        target=”_blank”>Ajuda</a></li>
+                <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -43,7 +44,7 @@
             </div>
             <div class="selecionar_carro">
                 <div class="data_hora">
-                    <span>📅 29/03/2025</span>
+                    <span>28/04/2025</span>
                 </div>
             </div>
         </div>
@@ -125,7 +126,7 @@
                         <td>001</td>
                         <td>CPU</td>
                         <td>10</td>
-                        <td>Crítico</td>
+                        <td class="alerta_crit">Crítico</td>
                     </tr>
                     <tr>
                         <td>002</td>
@@ -162,7 +163,7 @@ criarGraficoTaxaSaude()
 function criarGraficoTaxaSaude() {
     const ctx = document.getElementById('myChart3').getContext('2d');
 
-    const labels = ['28 Mar', '29 Mar', '30 Mar', '31 Mar', '01 Abr', '02 Abr', '03 Abr', '04 Abr', '05 Abr', '06 Abr'];
+    const labels = ['19-04-2025', '20-04-2025', '21-04-2025', '22-04-2025', '23-04-2025', '24-04-2025', '25-04-2025', '26-04-2025', '27-04-2025', '28-04-2025'];
     
     // Dados tendenciosos: saúde começa alta e despenca nos últimos dias
     const dadosTaxaSaude = [38.2, 20.5, 41.3, 68.1, 17.8, 27.4, 16.2, 14.5, 11.2, 79.7];

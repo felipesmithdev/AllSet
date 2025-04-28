@@ -27,8 +27,9 @@
                     <li class="section_active"><i>📊</i> Dashboard</li>
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
-                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk" target=”_blank”>Ajuda</a></li>
-                    <li><i>🚪</i> Sair</li>
+                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
+                        target=”_blank”>Ajuda</a></li>
+                <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -36,13 +37,13 @@
 
     <div class="main_content">
         <div class="nav_main">
-            <div class="buscar_carro">
+            <div class="buscar_carro analistaa">
                 <div id="menu-bar" class="fas fa-bars"></div>
                 <span>Painel Geral</span>
             </div>
             <div class="selecionar_carro">
                 <div class="data_hora">
-                    <span>📅 29/03/2025</span>
+                    <span>28/04/2025</span>
                 </div>
                 <div class="id_carro">
                     <button class="botao_historico">Download Histórico</button>
@@ -140,21 +141,21 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
+                        <td>Ram</td>
+                        <td>Consumo de ram padrão</td>
+                        <td>10</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <td>Cpu</td>
+                        <td>Consumo de cpu fora do normal</td>
+                        <td>15</td>
+                        <td>Médio</td>
                     </tr>
                     <tr>
                         <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
-                    </tr>
-                    <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
+                        <td>Consumo de disco acima do limite</td>
+                        <td>5</td>
                         <td class="alerta_crit">Crítico</td>
                     </tr>
                 </tbody>
@@ -180,11 +181,11 @@ criarGrafico4()
 function criarGrafico1(){
     const ctx = document.getElementById('myChart').getContext('2d');
 
-    const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'];
-    const data = {
-        labels: labels,
-        datasets: [{
-            data: [12, 18, 25, 29, 35, 40, 49],
+    const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                data: [30, 75, 40, 70, 90, 40, 89],
             fill: false,
             borderColor: '#ed9922',
             tension: 0.1
@@ -222,11 +223,11 @@ function criarGrafico1(){
 function criarGrafico2(){
     const ctx = document.getElementById('myChart1').getContext('2d');
 
-    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
     const data = {
         labels: labels,
         datasets: [{
-            data: [25, 59, 30, 50, 55, 45, 40],
+            data: [25, 59, 30, 82, 55, 80, 40],
             fill: false,
             borderColor: '#d8c51d',
             tension: 0.1
@@ -264,11 +265,11 @@ function criarGrafico2(){
 function criarGrafico3(){
     const ctx = document.getElementById('myChart2').getContext('2d');
 
-    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
     const data = {
         labels: labels,
         datasets: [{
-            data: [1, 20, 40, 81, 56, 12, 40],
+            data: [1, 20, 40, 47, 56, 59, 40],
             fill: false,
             borderColor: '#39a124',
             tension: 0.1
@@ -306,11 +307,11 @@ function criarGrafico3(){
 function criarGrafico4(){
     const ctx = document.getElementById('myChart3').getContext('2d');
 
-    const labels = ['9:00', '9:20', '9:30', '9:40', '9:50', '10:00', '10:10'];
+    const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
     const data = {
         labels: labels,
         datasets: [{
-            data: [20, 30, 40, 30, 40, 30,   40],
+            data: [69, 61, 58, 50, 47, 45, 58],
             fill: false,
             borderColor: '#39a124',
             tension: 0.1

@@ -35,7 +35,7 @@
                     <div class="dividir_side"></div>
                     <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
                             target=”_blank”>Ajuda</a></li>
-                    <li><i>🚪</i> Sair</li>
+                    <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -150,28 +150,28 @@
                 <thead>
                     <tr>
                         <th>Métrica</th>
-                        <th>Valor</th>
-                        <th>Data/Hora</th>
+                        <th>Descrição</th>
+                        <th>Ocorrências</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
+                        <td>Ram</td>
+                        <td>Consumo de ram padrão</td>
+                        <td>10</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <td>Cpu</td>
+                        <td>Consumo de cpu fora do normal</td>
+                        <td>15</td>
+                        <td>Médio</td>
                     </tr>
                     <tr>
                         <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
-                    </tr>
-                    <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
+                        <td>Consumo de disco acima do limite</td>
+                        <td>5</td>
                         <td class="alerta_crit">Crítico</td>
                     </tr>
                 </tbody>
@@ -208,11 +208,11 @@
     function criarGrafico1() {
         const ctx = document.getElementById('myChart').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [12, 18, 25, 29, 35, 40, 49],
+                data: [12, 18, 25, 29, 54, 40, 49],
                 fill: false,
                 borderColor: '#ed9922',
                 tension: 0.1
@@ -250,11 +250,11 @@
     function criarGrafico2() {
         const ctx = document.getElementById('myChart1').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [25, 59, 30, 50, 55, 45, 40],
+                data: [25, 50, 30, 62, 55, 59, 40],
                 fill: false,
                 borderColor: '#d8c51d',
                 tension: 0.1
@@ -292,11 +292,11 @@
     function criarGrafico3() {
         const ctx = document.getElementById('myChart2').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [1, 20, 40, 81, 56, 12, 40],
+                data: [1, 20, 40, 60, 74, 12, 81],
                 fill: false,
                 borderColor: '#39a124',
                 tension: 0.1
@@ -334,7 +334,7 @@
     function criarGraficoUnico() {
         const ctx = document.getElementById('myChart3').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
 
         const data = {
             labels: labels,

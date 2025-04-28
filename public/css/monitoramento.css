@@ -425,6 +425,10 @@ span {
   color: white;
 }
 
+.helpdesk:hover{
+  color: #5094ec;
+}
+
 #menu-bar {
   display: none;
 }

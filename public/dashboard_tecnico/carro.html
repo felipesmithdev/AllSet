@@ -34,8 +34,8 @@
                     <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
                     <div class="dividir_side"></div>
                     <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
-                            target=”_blank”>Ajuda</a></li>
-                    <li><i>🚪</i> Sair</li>
+                        target=”_blank”>Ajuda</a></li>
+                <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -164,16 +164,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
+                        <td>Cpu</td>
+                        <td>55%</td>
+                        <td>21/03/2025 11:00</td>
+                        <td>Médio</td>
                     </tr>
                     <tr>
-                        <td>Disco</td>
-                        <td>92%</td>
-                        <td>21/03/2025 00:50</td>
-                        <td>Crítico</td>
+                        <td>Ram</td>
+                        <td>52%</td>
+                        <td>21/03/2025 11:30</td>
+                        <td>Normal</td>
                     </tr>
                     <tr>
                         <td>Disco</td>
@@ -216,11 +216,11 @@
     function criarGrafico1() {
         const ctx = document.getElementById('myChart').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [12, 18, 25, 29, 35, 40, 49],
+                data: [12, 18, 25, 20, 35, 40, 49],
                 fill: false,
                 borderColor: '#ed9922',
                 tension: 0.1
@@ -262,7 +262,7 @@
         const data = {
             labels: labels,
             datasets: [{
-                data: [25, 59, 30, 50, 55, 45, 40],
+                data: [25, 59, 30, 50, 55, 30, 40],
                 fill: false,
                 borderColor: '#d8c51d',
                 tension: 0.1

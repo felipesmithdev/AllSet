@@ -57,7 +57,7 @@
             </div>
             <div class="selecionar_carro">
                 <div class="data_hora">
-                    <span>📅 29/03/2025</span>
+                    <span>29/03/2025</span>
                 </div>
                 <div class="id_carro">
                     <select name="" id="">
@@ -82,11 +82,11 @@
                     <div class="icone_kpi">🖥️</div>
                 </div>
                 <div class="meio_kpi">
-                    <span>49%</span>
+                    <span>70%</span>
                 </div>
                 <div class="fim_kpi">
                     <span class="metrica_kpi">5%</span>
-                    <span>Comparado a 54% há 1h</span>
+                    <span>Comparado a 75% há 1h</span>
                 </div>
             </div>
             <div class="grid_cards">
@@ -95,11 +95,11 @@
                     <div class="icone_kpi">💾</div>
                 </div>
                 <div class="meio_kpi">
-                    <span>59%</span>
+                    <span>86%</span>
                 </div>
                 <div class="fim_kpi">
                     <span class="metrica_kpi">3%</span>
-                    <span>Comparado a 62% há 1h</span>
+                    <span>Comparado a 89% há 1h</span>
                 </div>
             </div>
             <div class="grid_cards">
@@ -108,7 +108,7 @@
                     <div class="icone_kpi">💿</div>
                 </div>
                 <div class="meio_kpi">
-                    <span>81%</span>
+                    <span>48%</span>
                 </div>
                 <div class="fim_kpi">
                     <span class="metrica_kpi3">5%</span>
@@ -121,10 +121,10 @@
                     <div class="icone_kpi">🚨</div>
                 </div>
                 <div class="meio_kpi">
-                    <span>47%</span>
+                    <span>19%</span>
                 </div>
                 <div class="fim_kpi">
-                    <span class="metrica_kpi">08:48</span>
+                    <span class="metrica_kpi">12:30</span>
                     <span>Horário de baixa</span>
                 </div>
             </div>
@@ -220,7 +220,7 @@
         const data = {
             labels: labels,
             datasets: [{
-                data: [12, 18, 25, 20, 35, 40, 49],
+                data: [30, 75, 40, 70, 35, 40, 30],
                 fill: false,
                 borderColor: '#ed9922',
                 tension: 0.1
@@ -258,11 +258,11 @@
     function criarGrafico2() {
         const ctx = document.getElementById('myChart1').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [25, 59, 30, 50, 55, 30, 40],
+                data: [25, 89, 30, 86, 55, 30, 40],
                 fill: false,
                 borderColor: '#d8c51d',
                 tension: 0.1
@@ -300,11 +300,11 @@
     function criarGrafico3() {
         const ctx = document.getElementById('myChart2').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
         const data = {
             labels: labels,
             datasets: [{
-                data: [1, 20, 40, 81, 56, 12, 40],
+                data: [20, 43, 40, 48, 30, 19, 40],
                 fill: false,
                 borderColor: '#39a124',
                 tension: 0.1
@@ -342,7 +342,7 @@
     function criarGraficoUnico() {
         const ctx = document.getElementById('myChart3').getContext('2d');
 
-        const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        const labels = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
 
         const data = {
             labels: labels,

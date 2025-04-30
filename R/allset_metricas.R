@@ -1,8 +1,8 @@
 library(readr)
 library(ggplot2)
 
-teste_regressao <- read_csv("Downloads/monitoramento_0CCC47E9CD2D_22-04-2025_14hrs27min28s.csv")
-teste_regressao1 <- read_csv("Downloads/monitoramento_000000000000_25-04-2025_16hrs53min55s.csv")
+teste_regressao <- read_csv("CAMINHO DO ARQUIVO")
+teste_regressao1 <- read_csv("CAMINHO DO ARQUIVO")
 
 View(teste_regressao)
 View(teste_regressao1)

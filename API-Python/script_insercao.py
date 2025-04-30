@@ -7,7 +7,7 @@ import boto3
 
 def conectar():
     return mysql.connector.connect(
-        host="3.83.84.227",
+        host="",
         port= 3306,
         user="root",
         password="urubu100",

@@ -17,6 +17,18 @@ span {
     color: #ffffff;
 }
 
+.layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+.secao-side {
+    height: 100vh;
+    width: 9%;
+}
+
 .botao-side-bar {
     position: fixed;
     top: 20px;
@@ -144,10 +156,12 @@ span {
 }
 
 .conteudo-principal {
-    position: relative;
-    z-index: 1;
-    padding: 20px;
-    color: white;
+  width: 91%;
+  height: 100vh;
+  color: white;
+  padding: 20px;
+  background-color: #0b1624;
+  overflow-y: auto;
 }
 
 

@@ -10,20 +10,19 @@ body {
 }
 
 .dashboard {
-    background-color: #E7E7E7;
+    background-color: #f0f2f5;
     width: 100%;
+
 }
 
 .header {
     margin-left: 0.5%;
-    margin-top: 0.5%;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
 
 .logo {
-
     font-size: 24px;
     font-weight: bold;
     background-color: #C6C6C6;
@@ -36,29 +35,63 @@ body {
     font-size: 2.5ch;
 }
 
-.chamados-table {
-    display: flex;
-    flex-direction: column;
+.table-container {
     width: 85%;
-    background-color: #C6C6C6;
-    border-collapse: collapse;
     margin: auto;
+    max-height: 300px;
+    overflow-y: auto;
     border-radius: 5px;
-    justify-content: space-around;
+    background-color: whitesmoke;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chamados-table th, 
-.chamados-table td {
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.chamados-table {
     width: 100%;
-    padding: 10px;
+    border-collapse: collapse;
+    background-color: whitesmoke;
+}
+
+.chamados-table th,
+.chamados-table td {
+    padding: 12px 15px;
     text-align: left;
-    color: #333;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.chamados-table th:last-child,
+.chamados-table td:last-child {
+    border-right: none;
+}
+
+.chamados-table tr:last-child td {
+    border-bottom: none;
 }
 
 .chamados-table th {
-    background-color: #C6C6C6   ;
+    background-color: whitesmoke;
     font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .kpi-container {
@@ -121,7 +154,7 @@ body {
 .periodo-buttons {
     display: flex;
     background-color: white;
-    padding: 2%;
+    padding: 1%;
     border-radius: 20px;
 }
 
@@ -145,21 +178,21 @@ body {
 }
 
 .chart-container {
-    background-color: #C6C6C6;
+    background-color: #f0f2f5;
     border-radius: 5px;
     padding: 20px;
     margin-top: 20px;
 }
 
 .chart-container h3 {
-    font-size: 16px;
+    font-size: 2.5ch;
     margin-bottom: 20px;
     text-align: center;
 }
 
 .metrics {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
@@ -167,7 +200,7 @@ body {
     background-color: #515C7C;
     border-radius: 5px;
     padding: 15px;
-    width: 48%;
+    width: 30%;
     text-align: center;
 }
 

@@ -26,15 +26,15 @@
     <main class="conteudo-principal">
       <div class="titulo_dash"> <span>PAINEL GERAL</span></div>
 
-    <div class="card">
-    <h2>Filtragem de Tempo</h2>
-    <div class="filters">
-      <button onclick="filtrar('24h')">24h</button>
-      <button onclick="filtrar('7d')">7 dias</button>
-      <button onclick="filtrar('30d')">30 dias</button>
-    </div>
-    <p>Quantidade de lotes com problema: <span id="quantidade">10</span></p>
-  </div>
+      <div class="filter-group">
+                <label>Período:</label>
+                <div class="periodo-buttons">
+                    <button class="periodo-btn active">24 horas</button>
+                    <button class="periodo-btn">7 dias</button>
+                    <button class="periodo-btn">30 dias</button>
+                </div>
+                <p>Quantidade de lotes com problema: <span id="quantidade">10</span></p>
+            </div>
 
   <div class="card">
     <h2>Principais lotes com mais ocorrências</h2>
@@ -52,12 +52,16 @@
     </table>
   </div>
 
-
   <div class="card">
     <h2>Comparativo de Ocorrências </h2>
     <canvas id="grafico"></canvas>
   </div>
   </div>
+
+  <div class="chart-wrapper">
+                <canvas id="chamadosChart"></canvas>
+            </div>
+
       
   </main>
   </div>
@@ -105,36 +109,139 @@
     });
 
 
-    const dadosPorPeriodo = {
-    '24h': {
-      quantidade: 3,
-      lotes: [
-        ['Lote 2', 8, 'Crítico'],
-        ['Lote 5', 6, 'Moderado']
+     const chamadosData = {
+          '24horas': {
+         labels: [
+      '00:00', '01:00', '02:00', '03:00', '04:00', '05:00',
+      '06:00', '07:00', '08:00', '09:00', '10:00', '11:00',
+      '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
+      '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
+    ],
+    datasets: [{
+      label: 'Quantidade de chamados',
+      data: [
+        0, 1, 0, 2, 1, 0, 3, 5, 6, 8, 7, 5,
+        6, 4, 3, 2, 4, 6, 5, 3, 2, 1, 1, 0
       ],
-      grafico: [5, 3, 6, 2, 4, 6, 5, 4, 3, 2, 1, 3]
-    },
-    '7d': {
-      quantidade: 7,
-      lotes: [
-        ['Lote 1', 12, 'Crítico'],
-        ['Lote 3', 10, 'Crítico'],
-        ['Lote 5', 9, 'Moderado']
-      ],
-      grafico: [20, 30, 40, 25, 15, 30, 28, 22, 24, 26, 18, 20]
-    },
-    '30d': {
-      quantidade: 10,
-      lotes: [
-        ['Lote 1', 42, 'Crítico'],
-        ['Lote 4', 36, 'Crítico'],
-        ['Lote 5', 25, 'Crítico'],
-        ['Lote 10', 18, 'Crítico']
-    
-      ],
-      grafico: [100, 150, 200, 180, 160, 170, 140, 130, 120, 110, 100, 90]
-    }
-  }
+      borderColor: '#4eb5f1',
+      backgroundColor: 'rgba(78, 181, 241, 0.2)',
+      tension: 0.4,
+      pointBackgroundColor: '#4eb5f1',
+      pointRadius: 4
+        }]
+            },
+
+            '7dias': {
+                  labels: ['29/04', '30/04', '01/05', '02/05', '03/05', '04/05', '05/05'],
+                datasets: [{
+                    label: 'Quantidade de chamados',
+                    data: [5, 3, 6, 8, 5, 7, 9],
+                    borderColor: '#4eb5f1',
+                    backgroundColor: 'rgba(78, 181, 241, 0.2)',
+                    tension: 0.4,
+                    pointBackgroundColor: '#4eb5f1',
+                    pointRadius: 5
+                }]
+            },
+            '30dias': {
+                labels: ['06/04', '08/04', '10/04', '12/04', '14/04', '16/04', '18/04', '20/04', '22/04', '24/04', '26/04', '28/04', '30/04', '02/05', '04/05'],
+                datasets: [{
+                    label: 'Quantidade de chamados',
+                    data: [3, 5, 2, 7, 4, 6, 5, 8, 6, 3, 7, 5, 9, 8, 10],
+                    borderColor: '#4eb5f1',
+                    backgroundColor: 'rgba(78, 181, 241, 0.2)',
+                    tension: 0.4,
+                    pointBackgroundColor: '#4eb5f1',
+                    pointRadius: 5
+                }]
+            }
+        };
+
+        const chartConfig = {
+            type: 'line',
+            data: chamadosData['24horas'],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#333'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#333'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e3253',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: '#4eb5f1',
+                        borderWidth: 1,
+                        displayColors: false,
+                        callbacks: {
+                            title: function (tooltipItem) {
+                                return 'Dia: ' + tooltipItem[0].label;
+                            },
+                            label: function (context) {
+                                return 'Chamados: ' + context.parsed.y;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('chamadosChart').getContext('2d');
+            const chamadosChart = new Chart(ctx, chartConfig);
+
+            const periodoBtns = document.querySelectorAll('.periodo-btn');
+            periodoBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    periodoBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    let periodo = this.textContent;
+                    document.querySelector('.chart-container h3').textContent = `Chamados nos últimos ${periodo} - ${document.getElementById('lote').value}`;
+
+                    if (periodo === '24 horas') {
+                        chamadosChart.data = chamadosData['24horas'];
+                    } else if (periodo === '7 dias') {
+                        chamadosChart.data = chamadosData['7dias'];
+                    } else if (periodo === '30 dias') {
+                        chamadosChart.data = chamadosData['30dias'];
+                    }
+
+                    chamadosChart.update();
+                });
+            });
+
+
+            document.getElementById('lote').addEventListener('change', function () {
+                const selectedLote = this.value;
+                const activePeriodo = document.querySelector('.periodo-btn.active').textContent;
+                document.querySelector('.chart-container h3').textContent = `Chamados nos últimos ${activePeriodo} - ${selectedLote}`;
+
+                // Essa função que vou colocar novos gráficos de acordo
+
+                chamadosChart.update();
+            });
+        });
   </script>
 </body>
 </html>

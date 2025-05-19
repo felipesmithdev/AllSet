@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analista</title>
+  <link rel="stylesheet" href="../css/analistaRegressaoLinear.css">
+  <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AllSet</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <main class="conteudo-principal">
+        
+        <section id="graficos">
+
+            <div id="metricas">
+
+                <div class="seletores">
+                    <select name="" id="">
+                        <option value="" selected disabled>Região</option>
+                        <option value="">São Paulo</option>
+                    </select>
+
+                    <select name="" id="">
+                        <option value="" selected disabled>Mês</option>
+                        <option value="">Janeiro</option>
+                    </select>
+                </div>
+                
+                <div class="grafLine">
+                    <canvas id="chartCPU" width="1200px" height="300px"></canvas>
+                </div>
+
+                <div class="grafLine">
+                    <canvas id="chartRAM" width="1200px" height="300px"></canvas>
+                </div>
+
+                <div class="grafLine">
+                    <canvas id="chartDisco" width="1200px" height="300px"></canvas>
+                </div>
+
+            </div>
+
+            <div id="dadosExternos">
+
+                <div class="grafBar">
+                    <canvas id="chartChuva" width="850px" height="450px"></canvas>
+                </div>
+
+                <div class="grafBar">
+                    <canvas id="chartTrafego" width="850px" height="450px"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="regressao">
+
+            <div id="header">
+
+                <div class="seletores">
+                    <select name="" id="">
+                        <option value="" selected disabled>Métrica (Eixo Y)</option>
+                        <option value="">CPU</option>
+                        <option value="">RAM</option>
+                        <option value="">Disco</option>
+                    </select>
+
+                    <select name="" id="">
+                        <option value="" selected disabled>Variável Independente (Eixo X)</option>
+                        <option value="">Chuva</option>
+                        <option value="">Tráfego</option>
+                    </select>
+                </div>
+                
+                <div id="indicadores">
+                    <b>Região</b>
+                    <b>Mês</b>
+                </div>
+
+            </div>
+
+            <div id="visualizacao">
+
+                <div id="grafReg">
+                    <canvas id="chartRegressao" width="1500px" height="850px"></canvas>
+                </div>
+
+                <div id="kpis">
+
+                    <div class="kpi">
+                        <h3>Pico métrica</h3>
+                        <div class="card">
+                            <p>Valor ?</p>
+                        </div>
+                    </div>
+
+                    <div class="kpi">
+                        <h3>Média métrica</h3>
+                        <div class="card">
+                            <p>Valor ?</p>
+                        </div>
+                    </div>
+
+                    <div class="kpi">
+                        <h3>Vale métrica</h3>
+                        <div class="card">
+                            <p>Valor ?</p>
+                        </div>
+                    </div>
+
+                    <div class="kpi">
+                        <h3>Força da correlação - R²</h3>
+                        <div class="card">
+                            <p>Valor ?</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+  </div>
+
+  <div id="side-bar" class="side-bar">
+    <div class="logo"><span>AllSet</span></div>
+    <div class="boas-vindas">
+      <img src="../assets/imgs/user.png" alt="">
+      <div class="textos-perfil">
+        <span>Bem Vindo</span>
+        <span id="b_usuario">Felipe</span>
+      </div>
+    </div>
+    <div class="opcoes-bar">
+      <a href="">Dashboard</a>
+      <a href="">Alertas</a>
+      <a href="">Sair</a>
+    </div>
+  </div>
+
+  <div id="fundo-preto" class="fundo-preto"></div>
+
+</body>
+
+</html>
+
+<script>
+
+  document.getElementById("menu-bar").addEventListener("click", function () {
+    const sidebar = document.querySelector(".side-bar");
+    const fundoPreto = document.querySelector(".fundo-preto");
+
+    const isVisible = sidebar.classList.contains("show");
+
+    if (!isVisible) {
+      sidebar.style.display = "flex";
+      fundoPreto.style.display = "block";
+
+      void sidebar.offsetWidth;
+      void fundoPreto.offsetWidth;
+
+      sidebar.classList.add("show");
+      fundoPreto.classList.add("show");
+    } else {
+      sidebar.classList.remove("show");
+      fundoPreto.classList.remove("show");
+
+      setTimeout(() => {
+        sidebar.style.display = "none";
+        fundoPreto.style.display = "none";
+      }, 300);
+    }
+  });
+
+
+  // Gráficos:
+
+  const cpu = document.getElementById('chartCPU');
+
+  new Chart(cpu, {
+    type: 'line',
+    data: {
+      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
+      datasets: [{
+        label: 'Média diária de uso de CPU',
+        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12] ,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const ram = document.getElementById('chartRAM');
+
+  new Chart(ram, {
+    type: 'line',
+    data: {
+      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
+      datasets: [{
+        label: 'Média diária de uso de RAM',
+        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const disco = document.getElementById('chartDisco');
+
+  new Chart(disco, {
+    type: 'line',
+    data: {
+      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
+      datasets: [{
+        label: 'Média diária de uso de Disco',
+        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const chuva = document.getElementById('chartChuva');
+
+  new Chart(chuva, {
+    type: 'bar',
+    data: {
+      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
+      datasets: [{
+        label: 'Volumetria de chuva (mm)',
+        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12] ,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const trafego = document.getElementById('chartTrafego');
+
+  new Chart(trafego, {
+    type: 'bar',
+    data: {
+      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
+      datasets: [{
+        label: 'Volumetria de tráfego',
+        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12] ,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+    const dadosX = [1, 2, 3, 4, 5];
+    const dadosY = [2, 4, 5, 4, 5];
+
+
+    function calcularRegressaoLinear(x, y) {
+        const n = x.length;
+        const mediaX = x.reduce((a, b) => a + b, 0) / n;
+        const mediaY = y.reduce((a, b) => a + b, 0) / n;
+
+        let somaXY = 0;
+        let somaX2 = 0;
+        for (let i = 0; i < n; i++) {
+            somaXY += x[i] * y[i];
+            somaX2 += x[i] * x[i];
+        }
+
+        const m = (somaXY - n * mediaX * mediaY) / (somaX2 - n * mediaX * mediaX);
+        const b = mediaY - m * mediaX;
+
+        return { m, b };
+    }
+
+    const regressao = calcularRegressaoLinear(dadosX, dadosY);
+
+    const dadosLinha = {
+        label: 'Regressão Linear',
+        data: [
+            { x: dadosX[0], y: regressao.m * dadosX[0] + regressao.b },
+            { x: dadosX[dadosX.length - 1], y: regressao.m * dadosX[dadosX.length - 1] + regressao.b }
+        ],
+        type: 'line',
+        borderColor: '#34495e',
+        backgroundColor: '#34495e',
+        fill: false
+    };
+
+    const regLinear = document.getElementById('chartRegressao').getContext('2d');
+
+    const myChart = new Chart(regLinear, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Dados',
+                data: dadosX.map((x, i) => ({ x: x, y: dadosY[i] })),
+                borderColor: '#61B0FF',
+                backgroundColor: '#61B0FF',
+                pointRadius: 5
+            }, dadosLinha],
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    title: 'X'
+                },
+                y: {
+                    type: 'linear',
+                    title: 'Y'
+                }
+            }
+        }
+    });
+
+</script>

@@ -97,9 +97,9 @@ while True:
     ramUso = psutil.virtual_memory().used
     porcentagemRam = psutil.virtual_memory().percent
     hrCaptura = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    # for processos in psutil.process_iter(['name']):
-    #     if 'python' in processos.name().lower():
-    #         print('Processo encontrado:',processos.name())
+    for processos in psutil.process_iter(['name']):
+        if 'python' in processos.name().lower():
+            print('Processo encontrado:',processos.name())
 
 # abrir chamado cpu
     if porcentagemCpu >= 50 and porcentagemCpu <= 65:

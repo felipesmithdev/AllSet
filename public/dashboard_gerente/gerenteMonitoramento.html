@@ -36,6 +36,22 @@
     <p>Quantidade de lotes com problema: <span id="quantidade">10</span></p>
   </div>
 
+  <div class="card">
+    <h2>Principais lotes com mais ocorrências</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Lote</th>
+          <th>Ocorrências</th>
+          <th>Status mais frequente</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaLotes">
+        <!-- preenchido via JS -->
+      </tbody>
+    </table>
+  </div>
+
 
   <div class="card">
     <h2>Comparativo de Ocorrências </h2>
@@ -87,6 +103,38 @@
         }, 300);
       }
     });
+
+
+    const dadosPorPeriodo = {
+    '24h': {
+      quantidade: 3,
+      lotes: [
+        ['Lote 2', 8, 'Crítico'],
+        ['Lote 5', 6, 'Moderado']
+      ],
+      grafico: [5, 3, 6, 2, 4, 6, 5, 4, 3, 2, 1, 3]
+    },
+    '7d': {
+      quantidade: 7,
+      lotes: [
+        ['Lote 1', 12, 'Crítico'],
+        ['Lote 3', 10, 'Crítico'],
+        ['Lote 5', 9, 'Moderado']
+      ],
+      grafico: [20, 30, 40, 25, 15, 30, 28, 22, 24, 26, 18, 20]
+    },
+    '30d': {
+      quantidade: 10,
+      lotes: [
+        ['Lote 1', 42, 'Crítico'],
+        ['Lote 4', 36, 'Crítico'],
+        ['Lote 5', 25, 'Crítico'],
+        ['Lote 10', 18, 'Crítico']
+    
+      ],
+      grafico: [100, 150, 200, 180, 160, 170, 140, 130, 120, 110, 100, 90]
+    }
+  }
   </script>
 </body>
 </html>

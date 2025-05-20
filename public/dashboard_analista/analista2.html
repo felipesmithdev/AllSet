@@ -22,41 +22,55 @@
     </div>
 
     <main class="conteudo-principal">
-      <div class="filtro-periodo">
-          <span>Período</span>
-          <div class="periodos">
-            <button>Últimos 7 dias</button>
-            <button>Últimos 15 dias</button>
-            <button>Últimos 30 dias</button>
-          </div>
+
+      <div class="titulo-dash">
+
+        <span class="nome-dash">Análise Histórica de Desempenho Operacional de Lotes</span><span class="subtitulo-dash">Situação geral de um lote específico</span>
+
       </div>
 
-      <br>
+      <div class="filtro-periodo">
 
-      <div class="kpis">
+        <span class="periodo">Período</span>
+
+        <div class="periodos">
+          <button class="sete-dias" onclick="ultimosSeteDias">Últimos 7 dias</button>
+          <button class="quinze-dias" onclick="ultimosQuinzeDias">Últimos 15 dias</button>
+          <button class="trinta-dias" onclick="ultimosTrintaDias">Últimos 30 dias</button>
+        </div>
+
+        <div class="kpis">
           <div class="kpi">
-              <span class="titulo-kpi">Lotes com mais ocorrências</span>
-              <div class="alinhar-lotes">
-              <span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span>
+              <span class="kpi-titulo">Lotes com mais incidências críticas</span>
+              <div class="lotes">
+                <span class="lote-um">Lote 001</span><span class="lote-um">Lote 002</span><span class="lote-um">Lote 003</span>
               </div>
               <button>Verificar situação geral</button>
           </div>
+                    
           <div class="kpi">
-              <span class="titulo-kpi">Taxa de falhas graves</span>
-              <span class="numero-indicador">50%</span>
+            <span class="kpi-titulo">Taxa de registros graves</span>
+            <span class="taxa-falhas">80%</span>
+            <span class="descricao-kpi">96 de 120 totais</span>
           </div>
+
           <div class="kpi">
-              <span>Lotes com mais ocorrências</span>
-              <div class="alinhar-lotes">
-              <span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span>
+            <span class="kpi-titulo-componentes">Componentes com maior incidência de falhas críticas</span>
+            <div class="componentes-maior">
+              <div class="componente">
+                <span>1° CPU 60 capturas</span>
               </div>
-          </div>
-              <div class="kpi">
-              <span>Lotes com mais ocorrências</span>
-              <div class="alinhar-lotes">
-              <span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span><span class="lote-indicador">Lote 001</span>
+
+              <div class="componente">
+                <span style="background-color: yellow;">2° RAM 60 capturas</span>
               </div>
+
+              <div class="componente">
+                <span style="background-color: greenyellow;">3° DISCO 60 capturas</span>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
 
     </main>
@@ -90,6 +104,7 @@
   document.getElementById("menu-bar").addEventListener("click", function () {
     const sidebar = document.querySelector(".side-bar");
     const fundoPreto = document.querySelector(".fundo-preto");
+    const botao = document.querySelector("#menu-bar")
 
     const isVisible = sidebar.classList.contains("show");
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analista</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AllSet</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <main class="conteudo-principal">
+        
+       <div class="row">
+      <div class="card">
+        <h3>Filtragem de Tempo</h3>
+        <button onclick="filtrar('24h')">24h</button>
+        <button onclick="filtrar('7d')">7 dias</button>
+        <button onclick="filtrar('30d')">30 dias</button>
+        <p>Quantidade de lotes com problema: <span id="quantidade">-</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Lotes com mais ocorrências</h3>
+        <table>
+          <thead>
+            <tr><th>Lote</th><th>Ocorrências</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tabelaLotes"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card grafico">
+        <h3>Comparativo de Ocorrências</h3>
+        <canvas id="grafico"></canvas>
+      </div>
+
+      <div class="card kpi">
+        <h3>50%</h3>
+        <p>Média entre as filtragens</p>
+      </div>
+    </div>
+  </div>
+
+    </main>
+
+  </div>
+
+  <div id="side-bar" class="side-bar">
+    <div class="logo"><span>AllSet</span></div>
+    <div class="boas-vindas">
+      <img src="../assets/imgs/user.png" alt="">
+      <div class="textos-perfil">
+        <span>Bem Vindo</span>
+        <span id="b_usuario">Felipe</span>
+      </div>
+    </div>
+    <div class="opcoes-bar">
+      <a href="">Dashboard</a>
+      <a href="">Alertas</a>
+      <a href="">Sair</a>
+    </div>
+  </div>
+
+  <div id="fundo-preto" class="fundo-preto"></div>
+
+</body>
+
+</html>
+
+<script>
+
+  document.getElementById("menu-bar").addEventListener("click", function () {
+    const sidebar = document.querySelector(".side-bar");
+    const fundoPreto = document.querySelector(".fundo-preto");
+
+    const isVisible = sidebar.classList.contains("show");
+
+    if (!isVisible) {
+      sidebar.style.display = "flex";
+      fundoPreto.style.display = "block";
+
+      void sidebar.offsetWidth;
+      void fundoPreto.offsetWidth;
+
+      sidebar.classList.add("show");
+      fundoPreto.classList.add("show");
+    } else {
+      sidebar.classList.remove("show");
+      fundoPreto.classList.remove("show");
+
+      setTimeout(() => {
+        sidebar.style.display = "none";
+        fundoPreto.style.display = "none";
+      }, 300);
+    }
+  });
+
+
+  // Gráficos:
+
+  const dados = {
+  '24h': {
+    quantidade: 2,
+    lotes: [['Lote 1', 5, 'Crítico'], ['Lote 2', 3, 'Crítico']],
+    grafico: [1, 2, 3, 4, 3, 2, 1]
+  },
+  '7d': {
+    quantidade: 4,
+    lotes: [['Lote 3 ', 12, 'Crítico'], ['Lote 4', 9, 'Crítico']],
+    grafico: [10, 20, 15, 18, 13, 25, 22]
+  },
+  '30d': {
+    quantidade: 10,
+    lotes: [
+      ['Lote 5', 30, 'Crítico'], ['Lote 9', 25, 'Crítico'], ['Lote 13', 18, 'Moderado'],
+      ['Lote 6', 15, 'Moderado'], ['Lote 10', 14, 'Crítico'],
+      ['Lote 7', 13, 'Moderado'], ['Lote 11', 12, 'Crítico'], ['Lote 14', 11, 'Moderado'],
+      ['Lote 8', 10, 'Crítico'], ['Lote 12', 9, 'Crítico']
+    ],
+    grafico: [30, 40, 35, 45, 50, 38, 42, 30, 28, 35, 39, 33]
+  }
+};
+
+let chart;
+
+function filtrar(periodo) {
+  document.getElementById('quantidade').textContent = dados[periodo].quantidade;
+
+  const tabela = document.getElementById('tabelaLotes');
+  tabela.innerHTML = '';
+
+  const lotesOrdenados = dados[periodo].lotes.sort((a, b) => {
+    if (a[2] === 'Crítico' && b[2] !== 'Crítico') return -1;
+    if (a[2] !== 'Crítico' && b[2] === 'Crítico') return 1;
+    return b[1] - a[1];
+  });
+
+  const top5 = lotesOrdenados.slice(0, 5);
+  top5.forEach(l => {
+    tabela.innerHTML += `<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td></tr>`;
+  });
+
+  if (chart) chart.destroy();
+  const ctx = document.getElementById('grafico').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: dados[periodo].grafico.map((_, i) => i + 1),
+      datasets: [{
+        label: 'Ocorrências',
+        data: dados[periodo].grafico,
+        borderColor: 'blue',
+        backgroundColor: 'rgba(0,123,255,0.2)',
+        fill: true
+      }]
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => filtrar('24h'));
+
+</script>

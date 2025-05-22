@@ -189,6 +189,7 @@ span {
         margin-bottom: 20px;
     }
 
+    /* todos os cards estoa juntos*/
     .card {
         background: white;
         border-radius: 8px;
@@ -196,6 +197,19 @@ span {
         flex: 1;
         min-width: 280px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card_kpi{
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        flex: 1;
+        min-width: 280px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        height: 180px;
+        align-items: center;
+        justify-content: center;
+        text-align: center; 
     }
 
     button {
@@ -229,3 +243,47 @@ span {
         height: 300px;
     }
 }
+
+/* .filters {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.filter-group {
+    font-size: 2.5ch;
+    display: flex;
+    align-items: center;
+}
+
+.filter-group label {
+    margin-right: 10px;
+}
+
+.periodo-buttons {
+    display: flex;
+    background-color: white;
+    padding: 1%;
+    border-radius: 20px;
+}
+
+.periodo-btn {
+    background-color: #C6C6C6;
+    border: none;
+    padding: 8px 12px;
+    color: black;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 20px;
+}
+
+.periodo-btn:last-child {
+    margin-right: 0;
+}
+
+.periodo-btn.active {
+    background-color: #4eb5f1;
+    color: whitesmoke;
+} */

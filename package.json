@@ -1,7 +1,7 @@
 {
   "name": "web-data-viz",
   "version": "1.0.0",
-  "description": "",
+  "description": "AllSet é um sistema de monitoramento de componentes de hardware em carros autônomos. Ele coleta e analisa dados de desempenho desses componentes e os apresenta em uma dashboard interativa para facilitar o acompanhamento em tempo real.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,11 +10,14 @@
   "author": "Feito pelos desenvolvedores @ São Paulo Tech School / Bandtec Digital School",
   "license": "MIT",
   "dependencies": {
+    "@atlassian/jira": "^0.1.0",
+    "axios": "^1.9.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.17.1",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
     "mysql2": "^3.9.4",
     "nodemon": "^2.0.7",
     "path": "^0.12.7"
-  }
+  },
+  "keywords": []
 }

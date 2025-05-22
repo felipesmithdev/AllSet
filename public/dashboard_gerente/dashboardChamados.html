@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllSet - Dashboard de Chamados</title>
     <link rel="stylesheet" href="../css/dashboardsChamados.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
     <div class="dashboard">
         <div class="header">
-            <div class="logo">AllSet</div>
             <div class="title">Chamados em aberto ordenados por urgência</div>
         </div>
 
@@ -93,17 +96,22 @@
         <div class="kpi-container">
             <div class="kpi-card">
                 <div class="kpi-title">Lote com mais chamados em aberto:</div>
-                <div class="kpi-value">Lote 1</div>
+                <div class="kpi-value"></div>
             </div>
 
             <div class="kpi-card">
                 <div class="kpi-title">Total de chamados em aberto:</div>
-                <div class="kpi-value">215</div>
+                <div class="kpi-value"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Chamados resolvidos nas últimas 24 horas:</div>
+                <div class="kpi-value"></div>
             </div>
 
             <div class="kpi-card">
                 <div class="kpi-title">Tempo médio de resolução de chamado:</div>
-                <div class="kpi-value">3:47 horas</div>
+                <div class="kpi-value"></div>
             </div>
         </div>
 
@@ -133,12 +141,12 @@
             <div class="metrics">
                 <div class="metric-card">
                     <div class="metric-title">Total de chamados em aberto no lote:</div>
-                    <div class="metric-value">12</div>
+                    <div class="metric-value"></div>
                 </div>
 
                 <div class="metric-card">
                     <div class="metric-title">Índice de conclusão de chamados</div>
-                    <div class="metric-value">89.5%</div>
+                    <div class="metric-value"></div>
                 </div>
             </div>
 
@@ -147,133 +155,101 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const chamadosData = {
-            '7dias': {
-                labels: ['29/04', '30/04', '01/05', '02/05', '03/05', '04/05', '05/05'],
-                datasets: [{
-                    label: 'Quantidade de chamados',
-                    data: [5, 3, 6, 8, 5, 7, 9],
-                    borderColor: '#4eb5f1',
-                    backgroundColor: 'rgba(78, 181, 241, 0.2)',
-                    tension: 0.4,
-                    pointBackgroundColor: '#4eb5f1',
-                    pointRadius: 5
-                }]
-            },
-            '15dias': {
-                labels: ['21/04', '22/04', '23/04', '24/04', '25/04', '26/04', '27/04', '28/04', '29/04', '30/04', '01/05', '02/05', '03/05', '04/05', '05/05'],
-                datasets: [{
-                    label: 'Quantidade de chamados',
-                    data: [4, 2, 3, 5, 6, 4, 3, 7, 5, 3, 6, 8, 5, 7, 9],
-                    borderColor: '#4eb5f1',
-                    backgroundColor: 'rgba(78, 181, 241, 0.2)',
-                    tension: 0.4,
-                    pointBackgroundColor: '#4eb5f1',
-                    pointRadius: 5
-                }]
-            },
-            '30dias': {
-                labels: ['06/04', '08/04', '10/04', '12/04', '14/04', '16/04', '18/04', '20/04', '22/04', '24/04', '26/04', '28/04', '30/04', '02/05', '04/05'],
-                datasets: [{
-                    label: 'Quantidade de chamados',
-                    data: [3, 5, 2, 7, 4, 6, 5, 8, 6, 3, 7, 5, 9, 8, 10],
-                    borderColor: '#4eb5f1',
-                    backgroundColor: 'rgba(78, 181, 241, 0.2)',
-                    tension: 0.4,
-                    pointBackgroundColor: '#4eb5f1',
-                    pointRadius: 5
-                }]
-            }
-        };
-
-        const chartConfig = {
-            type: 'line',
-            data: chamadosData['7dias'],
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#333'
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#333'
-                        },
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e3253',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        borderColor: '#4eb5f1',
-                        borderWidth: 1,
-                        displayColors: false,
-                        callbacks: {
-                            title: function (tooltipItem) {
-                                return 'Dia: ' + tooltipItem[0].label;
-                            },
-                            label: function (context) {
-                                return 'Chamados: ' + context.parsed.y;
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const ctx = document.getElementById('chamadosChart').getContext('2d');
-            const chamadosChart = new Chart(ctx, chartConfig);
-
-            const periodoBtns = document.querySelectorAll('.periodo-btn');
-            periodoBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    periodoBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-
-                    let periodo = this.textContent;
-                    document.querySelector('.chart-container h3').textContent = `Chamados nos últimos ${periodo} - ${document.getElementById('lote').value}`;
-
-                    if (periodo === '7 dias') {
-                        chamadosChart.data = chamadosData['7dias'];
-                    } else if (periodo === '15 dias') {
-                        chamadosChart.data = chamadosData['15dias'];
-                    } else if (periodo === '30 dias') {
-                        chamadosChart.data = chamadosData['30dias'];
-                    }
-
-                    chamadosChart.update();
-                });
-            });
-
-
-            document.getElementById('lote').addEventListener('change', function () {
-                const selectedLote = this.value;
-                const activePeriodo = document.querySelector('.periodo-btn.active').textContent;
-                document.querySelector('.chart-container h3').textContent = `Chamados nos últimos ${activePeriodo} - ${selectedLote}`;
-
-                // Essa função que vou colocar novos gráficos de acordo
-
-                chamadosChart.update();
-            });
-        });
-    </script>
 </body>
 
 </html>
+
+
+<script>
+    const chamadosChart = new Chart(document.getElementById('chamadosChart').getContext('2d'), {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { ticks: { color: '#333' } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e3253',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#4eb5f1',
+                    borderWidth: 1,
+                    displayColors: false
+                }
+            }
+        }
+    });
+
+    async function atualizarDashboard() {
+        const lote = document.getElementById('lote').value;
+        const dias = document.querySelector('.periodo-btn.active').textContent.replace(/\D/g, '');
+
+        const grafico = await axios.get(`/grafico?lote=${lote}&periodo=${dias}`);
+        chamadosChart.data = {
+            labels: grafico.data.labels,
+            datasets: [{
+                label: 'Quantidade de chamados',
+                data: grafico.data.data,
+                borderColor: '#4eb5f1',
+                backgroundColor: 'rgba(78, 181, 241, 0.2)',
+                tension: 0.4,
+                pointBackgroundColor: '#4eb5f1',
+                pointRadius: 5
+            }]
+        };
+        chamadosChart.update();
+
+        const kpis = await axios.get(`/kpis?lote=${lote}&periodo=${dias}`);
+        const kpiValues = document.querySelectorAll('.kpi-value');
+        kpiValues[0].textContent = kpis.data.loteComMais;
+        kpiValues[1].textContent = kpis.data.totalAbertos;
+        kpiValues[2].textContent = kpis.data.resolvidosUltimas24h;
+        kpiValues[3].textContent = `${kpis.data.tempoMedioHoras} h`;
+
+
+        document.querySelectorAll('.metric-value')[0].textContent = kpis.data.totalAbertos;
+        const resolvidos = Number(kpis.data.resolvidosUltimas24h);
+        const total = Number(kpis.data.totalAbertos) + resolvidos;
+        const indice = total > 0 ? `${((resolvidos / total) * 100).toFixed(1)}%` : '0%';
+        document.querySelectorAll('.metric-value')[1].textContent = indice;
+
+
+        const tabelaBody = document.querySelector('.chamados-table tbody');
+        const chamados = await axios.get(`/listar?lote=${lote}&periodo=${dias}`);
+        tabelaBody.innerHTML = '';
+        chamados.data.forEach(chamado => {
+            const row = `
+                <tr>
+                    <td>${chamado.id}</td>
+                    <td>${chamado.lote}</td>
+                    <td>${chamado.descricao}</td>
+                    <td>${new Date(chamado.data).toLocaleDateString('pt-BR')}</td>
+                    <td>${chamado.status}</td>
+                </tr>
+            `;
+            tabelaBody.innerHTML += row;
+        });
+
+        document.querySelector('.chart-container h3').textContent = `Chamados nos últimos ${dias} dias - ${lote}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        document.querySelectorAll('.periodo-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                atualizarDashboard();
+            });
+        });
+
+        document.getElementById('lote').addEventListener('change', atualizarDashboard);
+
+        atualizarDashboard();
+    });
+</script>

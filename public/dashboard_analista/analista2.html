@@ -25,7 +25,8 @@
 
       <div class="titulo-dash">
 
-        <span class="nome-dash">Análise Histórica de Desempenho Operacional de Lotes</span><span class="subtitulo-dash">Situação geral de um lote específico</span>
+        <span class="nome-dash">Análise Histórica de Desempenho Operacional de Lotes</span><span
+          class="subtitulo-dash">Situação geral de um lote específico</span>
 
       </div>
 
@@ -41,13 +42,14 @@
 
         <div class="kpis">
           <div class="kpi">
-              <span class="kpi-titulo">Lotes com mais incidências críticas</span>
-              <div class="lotes">
-                <span class="lote-um">Lote 001</span><span class="lote-um">Lote 002</span><span class="lote-um">Lote 003</span>
-              </div>
-              <button>Verificar situação geral</button>
+            <span class="kpi-titulo">Lotes com mais incidências críticas</span>
+            <div class="lotes">
+              <span class="lote-um">Lote 001</span><span class="lote-um">Lote 002</span><span class="lote-um">Lote
+                003</span>
+            </div>
+            <button style="cursor: pointer;">Verificar situação geral</button>
           </div>
-                    
+
           <div class="kpi">
             <span class="kpi-titulo">Taxa de registros graves</span>
             <span class="taxa-falhas">80%</span>
@@ -70,7 +72,25 @@
               </div>
             </div>
           </div>
+
         </div>
+        <div class="graficos">
+          <div class="graficos-componentes">
+            <div class="myChart">
+              <canvas id="graficoLinha1" width="1500" height="400"></canvas>
+            </div>
+            <div class="myChart">
+              <canvas id="graficoLinha2" width="1500" height="400"></canvas>
+            </div>
+          </div>
+
+          <div class="grafico-geral">
+            <div class="myChart2">
+              <canvas id="graficoBarrasGeral" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </main>
@@ -94,6 +114,135 @@
   </div>
 
   <div id="fundo-preto" class="fundo-preto"></div>
+
+  <script>
+    const dias30 = Array.from({ length: 30 }, (_, i) => (i + 1).toString());
+
+    const capturasCriticasCPU = dias30.map(() => Math.floor(Math.random() * 6) + 5);
+    const capturasCriticasRAM = dias30.map(() => Math.floor(Math.random() * 4) + 3);
+
+    // Gráfico linha CPU
+    const ctxCPU = document.getElementById('graficoLinha1');
+    if (ctxCPU) {
+      new Chart(ctxCPU, {
+        type: 'line',
+        data: {
+          labels: dias30,
+          datasets: [{
+            label: 'CPU',
+            data: capturasCriticasCPU,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Capturas Críticas - CPU'
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                autoSkip: false,       // mostra todos os rótulos
+                maxRotation: 45,       // rotaciona os rótulos para 45 graus
+                minRotation: 45
+              }
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Capturas'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Gráfico linha RAM
+    const ctxRAM = document.getElementById('graficoLinha2');
+    if (ctxRAM) {
+      new Chart(ctxRAM, {
+        type: 'line',
+        data: {
+          labels: dias30,
+          datasets: [{
+            label: 'RAM',
+            data: capturasCriticasRAM,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Capturas Críticas - RAM'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Capturas'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Gráfico barras geral
+    const somaCPU = capturasCriticasCPU.reduce((a, b) => a + b, 0);
+    const somaRAM = capturasCriticasRAM.reduce((a, b) => a + b, 0);
+    const somaDISCO = Math.floor(Math.random() * 60) + 60;
+
+    const ctxBarras = document.getElementById('graficoBarrasGeral');
+    if (ctxBarras) {
+      new Chart(ctxBarras, {
+        type: 'bar',
+        data: {
+          labels: ['CPU', 'RAM', 'DISCO'],
+          datasets: [{
+            label: 'Total de Capturas Críticas',
+            data: [somaCPU, somaRAM, somaDISCO],
+            backgroundColor: ['red', 'blue', 'green']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Total de Capturas Críticas por Componente'
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Capturas'
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
 
 </body>
 

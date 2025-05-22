@@ -16,7 +16,7 @@ public class CsvWriter {
         // Criar um CSV em memória utilizando ByteArrayOutputStream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("discoUso", "porcentagemDisco", "porcentagemCpu", "ramUso", "porcentagemRam", "porcentagemBateria", "hrCaptura"));
+        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("discoUso", "porcentagemDisco", "porcentagemCpu", "ramUso", "porcentagemRam", "porcentagemBateria", "hrCaptura", "lote"));
 
         // Processar e escrever cada objeto no CSV
         for (Componente componente : componentes) {
@@ -27,7 +27,8 @@ public class CsvWriter {
                     componente.getRamUso(),
                     componente.getPorcentagemRam(),
                     componente.getPorcentagemBateria(),
-                    componente.getHrCaptura()
+                    componente.getHrCaptura(),
+                    componente.getLote()
             );
         }
 

@@ -27,6 +27,9 @@ public class Componente {
     @JsonProperty("hrCaptura")
     private String hrCaptura;
 
+    @JsonProperty("lote")
+    private String lote;
+
     // Getters e setters
 
     public Double getDiscoUso() {
@@ -83,5 +86,13 @@ public class Componente {
 
     public void setHrCaptura(String hrCaptura) {
         this.hrCaptura = hrCaptura;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
     }
 }

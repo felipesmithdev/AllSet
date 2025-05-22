@@ -172,7 +172,6 @@ span {
 
 .titulo-dash {
     margin-bottom: 7px;
-    border: solid 4px red;
 }
 
 .periodos {
@@ -195,7 +194,7 @@ span {
 
 .sete-dias {
     background-color: #61B0FF;
-    padding: 10px;
+    padding: 1%;
     border-radius: 15px;
     color: #0B1624;
     font-weight: 600;
@@ -205,7 +204,7 @@ span {
 
 .quinze-dias {
     background-color: #fff;
-    padding: 10px;
+    padding: 1%;
     border-radius: 15px;
     color: #0B1624;
     font-weight: 600;
@@ -215,7 +214,7 @@ span {
 
 .trinta-dias {
     background-color: #fff;
-    padding: 10px;
+    padding: 1%;
     border-radius: 15px;
     color: #0B1624;
     font-weight: 600;
@@ -234,7 +233,6 @@ span {
 }
 
 .kpis {
-    border: solid 4px green;
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
@@ -243,7 +241,7 @@ span {
 
 .kpi {
     background-color: #E0E0E0;
-    width: 30%;
+    width: 33%;
     border-radius: 15px;
     height: 15vh;
     display: flex;
@@ -334,4 +332,45 @@ span {
     background-color: red;
     padding: 3px;
     width: 100%;
+}
+
+.graficos {
+    height: 67vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.graficos-componentes {
+    height: 100%;
+    width: 66.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.grafico-geral {
+    width: 33%;
+    height: 100%;
+}
+
+.myChart {
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 49%;
+    border-radius: 15px;
+}
+
+.myChart2 {
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.myChart canvas{
+  width: 100%;
+  display: block;
 }

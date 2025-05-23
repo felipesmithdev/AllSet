@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerente de Segurança</title>
-  <link rel="stylesheet" href="../css/monitoramento.css" />
-  <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../js/sessao.js"></script>
-  <link
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerente de Segurança</title>
+    <link rel="stylesheet" href="../css/monitoramento.css" />
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script src="../js/sessao.js"></script>
+  <!-- parte do modal -->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  />
+    />
 </head>
 <body>
   <div class="layout">
@@ -24,145 +27,91 @@
     </div>
 
     <main class="conteudo-principal">
-      <div class="titulo_dash"> <span>PAINEL GERAL</span></div>
+      <div class="titulo_dash"> <span>VISÃO GERAL</span></div>
       <div class="pai_container">
         <div class="filho_container">
             <div class="kpi_container">
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>TOTAL DE CARROS</span></div>
+                    <div class="kpi_top"><span>total carros ativos</span></div>
                     <div class="kpi_mid"><span>350</span></div>
                 </div>
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>TOTAL DE ALERTAS</span></div>
+                    <div class="kpi_top"><span>Alertas abertos nas últimas 6 horas</span></div>
                     <div class="kpi_mid"><span>19</span></div>
-                </div>
-                <div class="kpi_1">
-                    <div class="kpi_top"><span>COMPONENTE MAIS AFETADO</span></div>
-                    <div class="kpi_mid"><span>CPU</span></div>
                 </div>
             </div>
             <div class="carros_container">
-                <div class="titulo_carros">
-                    <span>ÚLTIMOS ALERTAS GRAVES</span>
-                    <select class="filtrar_carro" name="Filtrar" id="">
-                        <option selected disabled value="Filtrar">Filtrar</option>
-                        <option value="status">Status</option>
-                        <option value="Cpu">CPU</option>
-                        <option value="Ram">RAM</option>
-                    </select>
+                <div class="irmao_carro">
+                  <div class="titulo_grafico_bar">
+                    <h2 style="text-align:center; color:#1f3c88;">Fluxo em tempo real</h2>
+                  </div>
+                    <div class="div_grafico_tempo_real">
+                      <canvas id="fluxoChart"></canvas>
+                    </div>
                 </div>
-                <div class="tabela_container_carros">
-                    <table class="tabela_carros">
-                <thead>
-                    <tr>
-                    <th>Carro</th>
-                    <th>Componente em Alto Consumo</th>
-                    <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="selecionado">
-                    <td>carro1</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro2</td>
-                    <td>RAM</td>
-                    <td class="status alerta">alerta</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro3</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro4</td>
-                    <td>RAM</td>
-                    <td class="status normal">normal</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro5</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro6</td>
-                    <td>RAM</td>
-                    <td class="status alerta">alerta</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro7</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro8</td>
-                    <td>RAM</td>
-                    <td class="status normal">normal</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro9</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro10</td>
-                    <td>RAM</td>
-                    <td class="status alerta">alerta</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro11</td>
-                    <td>CPU</td>
-                    <td class="status critico">grave</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>carro12</td>
-                    <td>RAM</td>
-                    <td class="status normal">normal</td>
-                    </tr>
-                </tbody>
-            </table>
-                </div>    
+                <div class="irmao_carro_baixo">
+                  <div class="pop_alerta"></div>
+                  <div class="bar_componentes">
+                    <div class="div_grafico_componentes">
+                      <canvas id="componente_char"></canvas>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
         <div class="irmao_container">
-            <div class="titulo_lotes"><span>SELECIONAR LOTE</span></div>
-            <div class="tabela_container">
-            <table class="tabela_lotes">
-                <thead>
-                    <tr>
-                    <th>Lote</th>
-                    <th>Carros</th>
-                    <th>Alertas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="selecionado">
-                    <td>Lote 001</td>
-                    <td>50</td>
-                    <td>8</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>Lote 002</td>
-                    <td>20</td>
-                    <td>6</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>Lote 003</td>
-                    <td>50</td>
-                    <td>3</td>
-                    </tr>
-                    <tr class="selecionado">
-                    <td>Lote 004</td>
-                    <td>20</td>
-                    <td>2</td>
-                    </tr>
-                </tbody>
-            </table>
+          <div class="content_irmao">
+            <div class="kpi_saude">
+              <span class="titulo_saude">Saúde Atual da Operação</span>
+              <span class="valor_saude">79%</span>
             </div>
+            <div class="content_lotes">
+              <div class="titulo_lotes">
+              <span>SELECIONAR LOTE</span>
+              </div>
+              <div class="tabela_container">
+                <table class="tabela_lotes">
+                  <thead>
+                      <tr>
+                      <th>Lote</th>
+                      <th>Carros</th>
+                      <th>Alertas</th>
+                      <th>Graves</th>
+                      </tr>
+                  </thead>
+                 <tbody>
+                      <tr class="selecionado">
+                      <td>Lote 001</td>
+                     <td>50</td>
+                     <td>8</td>
+                     <td class="status_lote">7</td>
+                     </tr>
+                     <tr class="selecionado">
+                     <td>Lote 002</td>
+                     <td>20</td>
+                     <td>6</td>
+                     <td>5</td>
+                     </tr>
+                     <tr class="selecionado">
+                     <td>Lote 003</td>
+                     <td>50</td>
+                     <td>3</td>
+                     <td>2</td>
+                     </tr>
+                     <tr class="selecionado">
+                     <td>Lote 004</td>
+                     <td>20</td>
+                     <td>2</td>
+                     <td>0</td>
+                     </tr>
+                  </tbody>
+             </table>
+             </div>
+             </div>
+            </div>
+         </div>
         </div>
-      </div>
+
     </main>
   </div>
 
@@ -185,6 +134,138 @@
   <div id="fundo-preto" class="fundo-preto"></div>
 
   <script>
+
+
+    // grafico de barras tempo real
+    const ctx = document.getElementById('fluxoChart').getContext('2d');
+    const fluxoChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', 
+          '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
+        ],
+        datasets: [
+          {
+            label: 'carros sem alertas',
+            backgroundColor: 'limegreen',
+            data: [5, 11, 7, 10, 8, 7, 6, 4, 5, 15, 17, 18, 17],
+            barPercentage: 0.7,
+            borderRadius: 6,
+            
+          },
+          {
+            label: 'alertas (médios)',
+            backgroundColor: 'gold',
+            data: [6, 13, 14, 12, 17, 18, 17, 16, 15, 10, 12, 11, 9],
+            barPercentage: 0.7,
+            borderRadius: 6
+          },
+          {
+            label: 'alertas (críticos)',
+            backgroundColor: 'red',
+            data: [2, 4, 8, 11, 13, 10, 12, 13, 18, 17, 9, 3, 6],
+            barPercentage: 0.7,
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          x: {
+            stacked: false,
+            grid: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false,
+              maxRotation: 45,
+              minRotation: 45
+            }
+          },
+          y: {
+            beginAtZero: true,
+            max: 20,
+            stacked: false,
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+
+
+    // grafico de barra do comoponente por alerta
+const ctx2 = document.getElementById('componente_char').getContext('2d');
+const componentes_char = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['cpu', 'ram', 'disco'],
+    datasets: [
+      {
+        label: 'alertas (médios)',
+        data: [54, 43, 30],
+        backgroundColor: 'gold',
+        borderRadius: 6,
+        barPercentage: 0.9,
+        categoryPercentage: 0.5
+      },
+      {
+        label: 'alertas (críticos)',
+        data: [68, 51, 32],
+        backgroundColor: 'purple',
+        borderRadius: 6,
+        barPercentage: 0.9,
+        categoryPercentage: 0.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Alertas por Componente (médio / crítico)\nSEMANAL'
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: 'componente'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Valor'
+        },
+        grid: {
+          display: false,
+          color: '#e0e0e0'
+        }
+      }
+    }
+  }
+});
+
+
     document.getElementById("menu-bar").addEventListener("click", function () {
       const sidebar = document.querySelector(".side-bar");
       const fundoPreto = document.querySelector(".fundo-preto");

@@ -189,7 +189,7 @@ span {
         margin-bottom: 20px;
     }
 
-    /* todos os cards estoa juntos*/
+    /* todos os cards estao juntos*/
     .card {
         background: rgb(250, 246, 246);
         border-radius: 8px;
@@ -197,6 +197,72 @@ span {
         flex: 1;
         min-width: 280px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card_filtragem {
+        background: #EBEBEB;
+        border-radius: 8px;
+        padding: 15px;
+        flex: 1;
+        min-width: 150px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        min-height: 350px;
+        max-width: 350px;
+        display: flex;
+        /* justify-content: center; */
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .card_filtragem h3 {
+        font-size: 30px;
+    }
+
+    .botoes_filtragem button{
+    background-color: white;
+    color: black;
+    padding: 1%;
+    border-radius: 20px;
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
+
+    }
+
+    .botoes_filtragem {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #quantidade {
+        font-size: 36px;
+        color: #0B1624;
+        font-weight: 600;
+    }
+
+    .card_filtragem p {
+        font-size: 20px;
+    }
+
+    .card_tabela{
+        background: #EBEBEB;
+        border-radius: 8px;
+        padding: 15px;
+        flex: 1;
+        min-width: 280px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        max-width: 50%;
+
+    }
+
+    .card_tabela h3 {
+        font-size: 30px;
+        
+    }
+
+    .card_tabela th {
+
     }
 
     .card_kpi{
@@ -244,46 +310,3 @@ span {
     }
 }
 
-/* .filters {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.filter-group {
-    font-size: 2.5ch;
-    display: flex;
-    align-items: center;
-}
-
-.filter-group label {
-    margin-right: 10px;
-}
-
-.periodo-buttons {
-    display: flex;
-    background-color: white;
-    padding: 1%;
-    border-radius: 20px;
-}
-
-.periodo-btn {
-    background-color: #C6C6C6;
-    border: none;
-    padding: 8px 12px;
-    color: black;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius: 20px;
-}
-
-.periodo-btn:last-child {
-    margin-right: 0;
-}
-
-.periodo-btn.active {
-    background-color: #4eb5f1;
-    color: whitesmoke;
-} */

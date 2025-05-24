@@ -203,13 +203,18 @@ span {
         min-height: 480px;
     }
 
+    .card_grafico h3 {
+        font-size: 25px;
+        text-align: center;
+    }
+
     #grafico {
         height: 80%;
     }
 
     .grafico_container{
         width: 100%;
-        height: 85%;
+        height: 80%;
         display: flex;
         justify-content: center;
 
@@ -259,6 +264,8 @@ span {
 
     .card_filtragem p {
         font-size: 20px;
+        font-weight: 600;
+        text-align: center;
     }
 
     .card_tabela{
@@ -280,6 +287,8 @@ span {
 
     .card_tabela th {
         font-size: 20px;
+        background-color: #583DFF;
+        color: white;
     }
 
     .card_kpi{
@@ -300,10 +309,12 @@ span {
     .card_kpi h3 {
         font-size: 45px;
         margin: 0;
+        color: #61B0FF;
     }
 
     .card_kpi p {
         font-size: 20px;
+        font-weight: 700;
     }
 
     button {

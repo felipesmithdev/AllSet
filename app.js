@@ -20,6 +20,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var empresasRouter = require("./src/routes/empresas");
 var unidadesRouter = require("./src/routes/unidades");
 var enderecoRouter = require("./src/routes/enderecos");
+var segurancaRouter = require("./src/routes/seguranca");
 
 
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresasRouter);
 app.use("/unidades", unidadesRouter);
 app.use("/enderecos", enderecoRouter);
+app.use("/seguranca", segurancaRouter);
 
 
 app.listen(PORTA_APP, function () {

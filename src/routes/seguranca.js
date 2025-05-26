@@ -13,5 +13,10 @@ router.get("/buscar_alertas", function(req, res) {
     monitoramentoController.buscar_alertas(req,res)
 })
 
+router.get("/dados_tempo_real", function(req, res) {
+    console.log("OS DADOS TAO VINDO MALUCO")
+    monitoramentoController.dados_tempo_real(req, res)
+})
+
 
 module.exports = router;

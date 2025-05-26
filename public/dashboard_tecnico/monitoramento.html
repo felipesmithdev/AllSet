@@ -31,8 +31,8 @@
       <div class="pai_container">
         <div class="filho_container">
             <div class="kpi_saude">
-              <span class="titulo_saude">Desempenho Atual da Operação</span>
-              <span class="valor_saude">79%</span>
+              <span class="titulo_saude">Desempenho Atual da Operação (%) </span>
+              <span id="valor_saude" class="valor_saude"></span>
             </div>
             <div class="carros_container">
                 <div class="irmao_carro">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="kpi_1">
                     <div class="kpi_top"><span>total alertas - últimas 6h</span></div>
-                    <div class="kpi_mid"><span id="valor_kpi_alerta" class="valor_kpi_alerta">19</span></div>
+                    <div class="kpi_mid"><span id="valor_kpi_alerta">19</span></div>
                 </div>
             </div>
             <div class="content_lotes">
@@ -144,10 +144,11 @@
   <div id="fundo-preto" class="fundo-preto"></div>
 
 <script>
+  let total_carro_kpi;
+  let total_alertas_kpi;
+  let valor_saude = 0;
 
-  let total_carro_kpi = 0
-  let total_alertas_kpi = 0
-
+  atualizarGrafico()
   // atualizar kpi total carro
   fetch("/seguranca/buscar_carros", {
     method: "GET",
@@ -158,13 +159,8 @@
   .then((res) => {
     total_carro_kpi = res[0]['COUNT(id_carro)'];
     document.getElementById("total_carro").innerHTML = total_carro_kpi
-  }) 
-  .catch((erro) => {
-    console.log("deu ruim buceta caralho")
-  })
 
-  // atualizar kpi total_alertas
-    fetch("/seguranca/buscar_alertas", {
+    return fetch("/seguranca/buscar_alertas", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -172,7 +168,14 @@
   }).then((res) => res.json())
   .then((res) => {
     total_alertas_kpi = res[0]['COUNT(id_alerta)'];
+    let porcentagem_alerta = (total_alertas_kpi / total_carro_kpi) * 100
+    if (porcentagem_alerta >= 50){
+      document.getElementById("valor_kpi_alerta").style.color = "red";
+    } else {
+      document.getElementById("valor_kpi_alerta").style.color = "green";
+    }
     document.getElementById("valor_kpi_alerta").innerHTML = total_alertas_kpi
+  }) 
   }) 
   .catch((erro) => {
     console.log("deu ruim buceta caralho")
@@ -181,69 +184,109 @@
 
 
 
-    // grafico de barras tempo real
-    const ctx = document.getElementById('fluxoChart').getContext('2d');
-    const fluxoChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: [
-          '13:30','14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
-        ],
-        datasets: [
-          {
-            label: 'carros sem alertas',
-            backgroundColor: 'limegreen',
-            data: [10, 20, 18, 21, 30, 38, 40],
-            barPercentage: 0.7,
-            borderRadius: 6,
-            
-          },
-          {
-            label: 'alertas (médios)',
-            backgroundColor: 'gold',
-            data: [17, 27, 29, 42, 27, 18, 15],
-            barPercentage: 0.7,
-            borderRadius: 6
-          },
-          {
-            label: 'alertas (críticos)',
-            backgroundColor: 'red',
-            data: [19, 22, 39, 21, 13, 10, 8],
-            barPercentage: 0.7,
-            borderRadius: 6
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top'
-          }
+  // grafico em tempo real
+const ctx = document.getElementById('fluxoChart').getContext('2d');
+
+const fluxoData = {
+  labels: [],
+  datasets: [
+    {
+      label: 'carros sem alertas',
+      backgroundColor: 'limegreen',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6,
+    },
+    {
+      label: 'alertas (médios)',
+      backgroundColor: 'gold',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6
+    },
+    {
+      label: 'alertas (graves)',
+      backgroundColor: 'red',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6
+    }
+  ]
+};
+
+const fluxoChart = new Chart(ctx, {
+  type: 'bar',
+  data: fluxoData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        stacked: false,
+        grid: {
+          display: false
         },
-        scales: {
-          x: {
-            stacked: false,
-            grid: {
-              display: false
-            },
-            ticks: {
-              autoSkip: false,
-              maxRotation: 45,
-              minRotation: 45
-            }
-          },
-          y: {
-            beginAtZero: true,
-            stacked: false,
-            grid: {
-              display: false
-            }
-          }
+        ticks: {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 45
+        }
+      },
+      y: {
+        beginAtZero: true,
+        stacked: false,
+        grid: {
+          display: false
         }
       }
-    });
+    }
+  }
+});
+
+function atualizarGrafico() {
+    fetch('http://localhost:3333/seguranca/dados_tempo_real')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                const ponto = data[0];
+
+                if (fluxoChart.data.labels.length >= 6) {
+                    fluxoChart.data.labels.shift();
+                    fluxoChart.data.datasets[0].data.shift();
+                    fluxoChart.data.datasets[1].data.shift();
+                    fluxoChart.data.datasets[2].data.shift();
+                }
+
+                fluxoChart.data.labels.push(ponto.horario);
+                fluxoChart.data.datasets[0].data.push(ponto.carros_sem_alertas);
+                fluxoChart.data.datasets[1].data.push(ponto.alertas_medios);
+                fluxoChart.data.datasets[2].data.push(ponto.alertas_graves);
+
+                fluxoChart.update();
+
+
+                  valor_saude = (ponto.carros_sem_alertas / total_carro_kpi) * 100
+                  document.getElementById("valor_saude").innerHTML = valor_saude
+                 if (valor_saude <= 50){
+                    document.getElementById("valor_saude").style.color = "red"
+                  } else if (valor_saude <= 75){
+                    document.getElementById("valor_saude").style.color = "gold"
+                  } else {
+                    document.getElementById("valor_saude").style.color = "green"
+                  }
+                
+            }
+        })
+        .catch(error => console.error('Erro ao buscar dados:', error));
+}
+
+
+setInterval(atualizarGrafico, 10000); 
 
 
     // grafico de barra do comoponente por alerta

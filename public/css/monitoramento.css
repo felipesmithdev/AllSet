@@ -484,7 +484,7 @@ table.tabela_lotes tbody tr.selecionado:hover td {
   & .valor_saude{
     font-size: 40px;
     font-weight: 600;
-    color: #2bff00;
+    /* color: #2bff00; */
   }
 }
 

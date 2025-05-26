@@ -82,6 +82,7 @@ CREATE TABLE alerta (
   componente varchar(45) not null,
   valor float not null,
   dt_registro datetime,
+  gravidade varchar(30),
   status TINYINT,
   constraint chk_status check(status in(0,1)),
   fk_carro_macadress varchar(45),
@@ -169,12 +170,12 @@ INSERT INTO configuracao (pk_componente, pk_carro, dt_pedido, limite) VALUES
 (5, 5, '2024-07-05', 20.0);
 
 -- Inserting data into the alerta table
-INSERT INTO alerta (componente, valor, dt_registro, fk_carro_macadress) VALUES 
-('CPU', 95.5, '2024-08-01 10:15:30', 0, '00:1A:2B:3C:4D:5E'),
-('RAM', 18.2, '2024-08-02 11:20:45', 0, '11:2A:3B:4C:5D:6E'),
-('Disco', 520.8, '2024-08-03 12:30:15', 0, '22:3A:4B:5C:6D:7E'),
-('Temperatura', 90.2, '2024-08-04 13:45:20', 0, '33:4A:5B:6C:7D:8E'),
-('Bateria', 15.5, '2024-08-05 14:50:35', 0, '44:5A:6B:7C:8D:9E');
+INSERT INTO alerta (componente, valor, dt_registro, gravidade, status, fk_carro_macadress) VALUES 
+('CPU', 95.5, '2024-08-01 10:15:30', 'grave', 0, '00:1A:2B:3C:4D:5E'),
+('RAM', 18.2, '2024-08-02 11:20:45', 'medio', 0, '11:2A:3B:4C:5D:6E'),
+('Disco', 520.8, '2024-08-03 12:30:15', 'grave', 0, '22:3A:4B:5C:6D:7E'),
+('Temperatura', 90.2, '2024-08-04 13:45:20', 'grave',  0, '33:4A:5B:6C:7D:8E'),
+('Bateria', 15.5, '2024-08-05 14:50:35', 'medio', 0, '44:5A:6B:7C:8D:9E');
 
 -- Inserting data into the captura table (10 records as requested)
 INSERT INTO captura (lote, componente, valor, dt_captura) VALUES 

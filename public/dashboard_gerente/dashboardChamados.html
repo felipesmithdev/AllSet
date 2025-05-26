@@ -20,7 +20,6 @@
             <div class="title">Dashboard de Chamados JIRA - Visão Global</div>
         </div>
 
-        <!-- KPIs Globais -->
         <div class="kpi-container">
             <div class="kpi-card">
                 <div class="kpi-title">Lote com mais chamados em aberto</div>
@@ -57,7 +56,7 @@
                 </thead>
                 <tbody id="tabela-chamados">
                     <tr>
-                        <td colspan="5" class="loading">🔄 Carregando chamados...</td>
+                        <td colspan="5" class="loading">Carregando chamados...</td>
                     </tr>
                 </tbody>
             </table>
@@ -68,7 +67,7 @@
             <div class="filter-group">
                 <label for="lote">Filtrar por Lote:</label>
                 <select id="lote">
-                    <option value="">🔄 Carregando lotes...</option>
+                    <option value="">Carregando lotes...</option>
                 </select>
             </div>
 
@@ -112,7 +111,6 @@
     <script>
         let chamadosChart;
 
-        // Formatar data para o padrão brasileiro
         function formatarDataBR(dataISO) {
             try {
                 return new Date(dataISO).toLocaleDateString('pt-BR', {
@@ -125,7 +123,6 @@
             }
         }
 
-        // Função para obter classe CSS do status
         function obterClasseStatus(status) {
             const statusLower = status.toLowerCase();
             if (statusLower.includes('progresso') || statusLower.includes('progress')) {
@@ -138,7 +135,6 @@
             return 'status-default';
         }
 
-        // Atualizar KPIs globais
         async function atualizarKPIsGlobais() {
             console.log('🔄 Buscando KPIs globais...');
 
@@ -148,7 +144,6 @@
 
                 console.log('📊 KPIs globais recebidos:', kpis);
 
-                // Atualizar elementos na tela
                 document.getElementById('kpi-lote-mais-chamados').textContent = kpis.loteComMais || 'N/A';
                 document.getElementById('kpi-total-aberto').textContent = kpis.totalAbertos || '0';
                 document.getElementById('kpi-resolvidos-24').textContent = kpis.finalizadosUltimas24h || '0';
@@ -158,7 +153,6 @@
             } catch (error) {
                 console.error('❌ Erro ao buscar KPIs globais:', error);
 
-                // Mostrar erro na interface
                 document.getElementById('kpi-lote-mais-chamados').textContent = 'Erro';
                 document.getElementById('kpi-total-aberto').textContent = 'Erro';
                 document.getElementById('kpi-resolvidos-24').textContent = 'Erro';
@@ -168,7 +162,6 @@
             }
         }
 
-        // Atualizar tabela de chamados globais
         async function atualizarTabelaChamados() {
             console.log('🔄 Buscando chamados globais...');
 
@@ -186,7 +179,6 @@
                     return [];
                 }
 
-                // Limpar tabela e adicionar chamados
                 tabelaBody.innerHTML = '';
                 chamados.forEach((chamado, index) => {
                     const statusClass = obterClasseStatus(chamado.status);
@@ -211,7 +203,6 @@
             }
         }
 
-        // Carregar lotes disponíveis
         async function carregarLotes() {
             console.log('🔄 Carregando lotes disponíveis...');
 
@@ -223,7 +214,6 @@
 
                 console.log('📦 Lotes carregados:', lotes);
 
-                // Limpar e popular select
                 select.innerHTML = '<option value="">📊 Todos os lotes</option>';
 
                 lotes.forEach(lote => {
@@ -243,7 +233,6 @@
             }
         }
 
-        // Atualizar gráfico
         async function atualizarGrafico() {
             const lote = document.getElementById('lote').value;
             const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
@@ -251,25 +240,21 @@
             console.log(`📈 Atualizando gráfico - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
 
             try {
-                // Buscar dados do gráfico
                 const responseGrafico = await axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
                 const dadosGrafico = responseGrafico.data;
 
-                // Buscar KPIs do filtro
                 const responseKPIs = await axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
                 const kpis = responseKPIs.data;
 
                 console.log('📊 Dados do gráfico:', dadosGrafico);
                 console.log('📊 KPIs do filtro:', kpis);
 
-                // Atualizar gráfico
                 if (chamadosChart && dadosGrafico) {
                     chamadosChart.data.labels = dadosGrafico.labels || [];
                     chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
                     chamadosChart.update();
                 }
 
-                // Atualizar métricas do filtro
                 document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
                 document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
 
@@ -279,27 +264,23 @@
                     : 0;
                 document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
 
-                // Atualizar título
                 const tituloLote = lote || 'Todos os lotes';
                 document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
 
             } catch (error) {
-                console.error('❌ Erro ao atualizar gráfico:', error);
+                console.error('Erro ao atualizar gráfico:', error);
             }
         }
 
-        // Função para atualizar tudo
         async function atualizarTudo() {
             console.log('🔄 Iniciando atualização completa...');
 
-            // Mostrar loading nos KPIs
             document.getElementById('kpi-lote-mais-chamados').textContent = 'Carregando...';
             document.getElementById('kpi-total-aberto').textContent = 'Carregando...';
             document.getElementById('kpi-resolvidos-24').textContent = 'Carregando...';
             document.getElementById('kpi-tempo-medio').textContent = 'Carregando...';
 
             try {
-                // Executar atualizações em paralelo
                 await Promise.all([
                     atualizarKPIsGlobais(),
                     atualizarTabelaChamados(),
@@ -312,11 +293,9 @@
             }
         }
 
-        // Inicialização quando a página carregar
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🚀 Inicializando dashboard...');
 
-            // Inicializar Chart.js
             const ctx = document.getElementById('chamadosChart').getContext('2d');
             chamadosChart = new Chart(ctx, {
                 type: 'line',
@@ -356,7 +335,6 @@
                 }
             });
 
-            // Event listeners
             document.querySelectorAll('.periodo-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
@@ -367,7 +345,6 @@
 
             document.getElementById('lote').addEventListener('change', atualizarGrafico);
 
-            // Carregar dados iniciais
             try {
                 await carregarLotes();
                 await atualizarTudo();
@@ -376,7 +353,6 @@
                 console.error('❌ Erro na inicialização:', error);
             }
 
-            // Auto-refresh a cada 5 minutos
             setInterval(() => {
                 console.log('🔄 Auto-refresh executado');
                 atualizarKPIsGlobais();

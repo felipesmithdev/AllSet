@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gerente de Segurança</title>
     <link rel="stylesheet" href="../css/monitoramento.css" />
@@ -21,7 +21,7 @@
     <!-- LADO ESQUERDO FIXO -->
     <div class="secao-side">
       <div class="botao-side-bar">
-        <div class="logo"><span>AllSet</span></div>
+        <div class="logo"><span>AS</span></div>
         <div id="menu-bar" class="fas fa-bars"></div>
       </div>
     </div>
@@ -30,15 +30,9 @@
       <div class="titulo_dash"> <span>VISÃO GERAL</span></div>
       <div class="pai_container">
         <div class="filho_container">
-            <div class="kpi_container">
-                <div class="kpi_1">
-                    <div class="kpi_top"><span>total carros ativos</span></div>
-                    <div class="kpi_mid"><span>350</span></div>
-                </div>
-                <div class="kpi_1">
-                    <div class="kpi_top"><span>Alertas abertos nas últimas 6 horas</span></div>
-                    <div class="kpi_mid"><span>19</span></div>
-                </div>
+            <div class="kpi_saude">
+              <span class="titulo_saude">Desempenho Atual da Operação</span>
+              <span class="valor_saude">79%</span>
             </div>
             <div class="carros_container">
                 <div class="irmao_carro">
@@ -50,7 +44,17 @@
                     </div>
                 </div>
                 <div class="irmao_carro_baixo">
-                  <div class="pop_alerta"></div>
+                  <div class="pop_alerta">
+                    <div class="topo_alerta">
+                      <span>LOTE CRÍTICO</span>
+                    </div>
+                    <div class="meio_alerta">
+                      <span class="nome_lote">Lote 001</span>
+                      <span class="quantidade_alerta">7 ALERTAS GRAVES</span>
+                      <span>Último alerta</span>
+                      <span class="data_alerta">2025-05-25 08:59</span>
+                    </div>
+                  </div>
                   <div class="bar_componentes">
                     <div class="div_grafico_componentes">
                       <canvas id="componente_char"></canvas>
@@ -61,9 +65,15 @@
         </div>
         <div class="irmao_container">
           <div class="content_irmao">
-            <div class="kpi_saude">
-              <span class="titulo_saude">Saúde Atual da Operação</span>
-              <span class="valor_saude">79%</span>
+            <div class="kpi_container">
+                <div class="kpi_1">
+                    <div class="kpi_top"><span>total carros ativos</span></div>
+                    <div class="kpi_mid"><span id="total_carro">350</span></div>
+                </div>
+                <div class="kpi_1">
+                    <div class="kpi_top"><span>total alertas - últimas 6h</span></div>
+                    <div class="kpi_mid"><span id="valor_kpi_alerta" class="valor_kpi_alerta">19</span></div>
+                </div>
             </div>
             <div class="content_lotes">
               <div class="titulo_lotes">
@@ -90,19 +100,19 @@
                      <td>Lote 002</td>
                      <td>20</td>
                      <td>6</td>
-                     <td>5</td>
+                     <td class="status_lote">5</td>
                      </tr>
                      <tr class="selecionado">
                      <td>Lote 003</td>
                      <td>50</td>
                      <td>3</td>
-                     <td>2</td>
+                     <td class="status_lote_medio">1</td>
                      </tr>
                      <tr class="selecionado">
                      <td>Lote 004</td>
                      <td>20</td>
                      <td>2</td>
-                     <td>0</td>
+                     <td class="status_lote_normal">0</td>
                      </tr>
                   </tbody>
              </table>
@@ -133,7 +143,42 @@
   <!-- FUNDO ESCURO -->
   <div id="fundo-preto" class="fundo-preto"></div>
 
-  <script>
+<script>
+
+  let total_carro_kpi = 0
+  let total_alertas_kpi = 0
+
+  // atualizar kpi total carro
+  fetch("/seguranca/buscar_carros", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json())
+  .then((res) => {
+    total_carro_kpi = res[0]['COUNT(id_carro)'];
+    document.getElementById("total_carro").innerHTML = total_carro_kpi
+  }) 
+  .catch((erro) => {
+    console.log("deu ruim buceta caralho")
+  })
+
+  // atualizar kpi total_alertas
+    fetch("/seguranca/buscar_alertas", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json())
+  .then((res) => {
+    total_alertas_kpi = res[0]['COUNT(id_alerta)'];
+    document.getElementById("valor_kpi_alerta").innerHTML = total_alertas_kpi
+  }) 
+  .catch((erro) => {
+    console.log("deu ruim buceta caralho")
+  })
+
+
 
 
     // grafico de barras tempo real
@@ -142,14 +187,13 @@
       type: 'bar',
       data: {
         labels: [
-          '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', 
-          '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
+          '13:30','14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
         ],
         datasets: [
           {
             label: 'carros sem alertas',
             backgroundColor: 'limegreen',
-            data: [5, 11, 7, 10, 8, 7, 6, 4, 5, 15, 17, 18, 17],
+            data: [10, 20, 18, 21, 30, 38, 40],
             barPercentage: 0.7,
             borderRadius: 6,
             
@@ -157,14 +201,14 @@
           {
             label: 'alertas (médios)',
             backgroundColor: 'gold',
-            data: [6, 13, 14, 12, 17, 18, 17, 16, 15, 10, 12, 11, 9],
+            data: [17, 27, 29, 42, 27, 18, 15],
             barPercentage: 0.7,
             borderRadius: 6
           },
           {
             label: 'alertas (críticos)',
             backgroundColor: 'red',
-            data: [2, 4, 8, 11, 13, 10, 12, 13, 18, 17, 9, 3, 6],
+            data: [19, 22, 39, 21, 13, 10, 8],
             barPercentage: 0.7,
             borderRadius: 6
           }
@@ -192,7 +236,6 @@
           },
           y: {
             beginAtZero: true,
-            max: 20,
             stacked: false,
             grid: {
               display: false

@@ -21,8 +21,8 @@ var usuarioRouter = require("./src/routes/usuarios");
 var empresasRouter = require("./src/routes/empresas");
 var unidadesRouter = require("./src/routes/unidades");
 var enderecoRouter = require("./src/routes/enderecos");
-var jiraRouter = require('./src/routes/chamados');
-
+var segurancaRouter = require("./src/routes/seguranca");
+var jiraRouter = require("./src/routes/chamados");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +35,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresasRouter);
 app.use("/unidades", unidadesRouter);
 app.use("/enderecos", enderecoRouter);
+app.use("/seguranca", segurancaRouter);
 app.use("/jira", jiraRouter);
 
 

@@ -26,15 +26,18 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="card">
+                    <div class="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
+                        <div class="botoes_filtragem">
                         <button onclick="filtrar('7d')">7 dias</button>
                         <button onclick="filtrar('15d')">15 dias</button>
                         <button onclick="filtrar('30d')">30 dias</button>
-                        <p>Quantidade de lotes com problema: <span id="quantidade"></span></p>
+                    </div>
+                        <p>Quantidade de lotes com problema:</p>
+                        <span id="quantidade"></span>
                     </div>
 
-                    <div class="card">
+                    <div class="card_tabela">
                         <h3>Lotes com mais ocorrências</h3>
                         <table>
                             <thead>
@@ -51,9 +54,10 @@
 
 
                 <div class="row">
-                    <div class="card grafico">
+                    <div class="card_grafico">
                         <h3>Comparativo de Ocorrências</h3>
-                        <canvas id="grafico"></canvas>
+                        <div class="grafico_container"><canvas id="grafico"></canvas>
+                        </div>
                     </div>
 
                     <div class="card_kpi">

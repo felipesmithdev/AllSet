@@ -21,9 +21,9 @@
         </div>
 
         <div class="kpi-container">
-            <div class="kpi-card">
-                <div class="kpi-title">Lote com mais chamados em aberto</div>
-                <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
+            <div class="kpi-card" id="card-tempo-medio">
+                <div class="kpi-title">Tempo médio de resolução</div>
+                <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Total de chamados em aberto</div>
@@ -34,9 +34,10 @@
                 <div class="kpi-value" id="kpi-resolvidos-24">Carregando...</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-title">Tempo médio de resolução</div>
-                <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
+                <div class="kpi-title">Lote com mais chamados em aberto</div>
+                <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
             </div>
+
         </div>
 
 
@@ -62,7 +63,7 @@
             </table>
         </div>
 
-        <!-- Filtros -->
+
         <div class="filters">
             <div class="filter-group">
                 <label for="lote">Filtrar por Lote:</label>
@@ -80,10 +81,10 @@
                 </div>
             </div>
 
-            <button class="refresh-btn" onclick="atualizarTudo()">🔄 Atualizar Dados</button>
+            <button class="refresh-btn" onclick="atualizarTudo()"> Atualizar Dados</button>
         </div>
 
-        <!-- Gráfico -->
+
         <div class="chart-container">
             <h3 id="chart-title">Gráfico de Chamados nos últimos 7 dias - Todos os lotes</h3>
 
@@ -138,26 +139,51 @@
         async function atualizarKPIsGlobais() {
             console.log('🔄 Buscando KPIs globais...');
 
+            const kpiLoteMaisChamadosEl = document.getElementById('kpi-lote-mais-chamados');
+            const kpiTotalAbertoEl = document.getElementById('kpi-total-aberto');
+            const kpiResolvidos24El = document.getElementById('kpi-resolvidos-24');
+            const kpiTempoMedioValueEl = document.getElementById('kpi-tempo-medio');
+            const kpiTempoMedioCardEl = document.getElementById('card-tempo-medio');
+
             try {
                 const response = await axios.get('/jira/kpis-globais');
                 const kpis = response.data;
 
                 console.log('📊 KPIs globais recebidos:', kpis);
 
-                document.getElementById('kpi-lote-mais-chamados').textContent = kpis.loteComMais || 'N/A';
-                document.getElementById('kpi-total-aberto').textContent = kpis.totalAbertos || '0';
-                document.getElementById('kpi-resolvidos-24').textContent = kpis.finalizadosUltimas24h || '0';
-                document.getElementById('kpi-tempo-medio').textContent = kpis.tempoMedioResolucao || 'N/A';
+                kpiLoteMaisChamadosEl.textContent = kpis.loteComMais || 'N/A';
+                kpiTotalAbertoEl.textContent = kpis.totalAbertos || '0';
+                kpiResolvidos24El.textContent = kpis.finalizadosUltimas24h || '0'; 
 
+                const tempoMedioString = kpis.tempoMedioResolucao; 
+                kpiTempoMedioValueEl.textContent = tempoMedioString || 'N/A';
+
+                if (kpiTempoMedioCardEl) {
+
+                    kpiTempoMedioCardEl.classList.remove('warning', 'danger');
+
+                    if (tempoMedioString && tempoMedioString !== 'N/A') {
+                        const tempoMedioHoras = parseFloat(tempoMedioString); 
+
+                        if (!isNaN(tempoMedioHoras)) {
+                            if (tempoMedioHoras > 12) {
+                                kpiTempoMedioCardEl.classList.add('danger'); // Acima de 12 horas: vermelho
+                            } else if (tempoMedioHoras > 8) {
+                                kpiTempoMedioCardEl.classList.add('warning'); // Acima de 8 horas (até 12h): amarelo
+                            }
+                        }
+                    }
+                }
                 return kpis;
             } catch (error) {
                 console.error('❌ Erro ao buscar KPIs globais:', error);
-
-                document.getElementById('kpi-lote-mais-chamados').textContent = 'Erro';
-                document.getElementById('kpi-total-aberto').textContent = 'Erro';
-                document.getElementById('kpi-resolvidos-24').textContent = 'Erro';
-                document.getElementById('kpi-tempo-medio').textContent = 'Erro';
-
+                kpiLoteMaisChamadosEl.textContent = 'Erro';
+                kpiTotalAbertoEl.textContent = 'Erro';
+                kpiResolvidos24El.textContent = 'Erro';
+                kpiTempoMedioValueEl.textContent = 'Erro';
+                if (kpiTempoMedioCardEl) {
+                    kpiTempoMedioCardEl.classList.remove('warning', 'danger');
+                }
                 return {};
             }
         }
@@ -166,13 +192,12 @@
             console.log('🔄 Buscando chamados globais...');
 
             const tabelaBody = document.getElementById('tabela-chamados');
-            tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">🔄 Carregando chamados...</td></tr>';
+            tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">Carregando chamados...</td></tr>';
 
             try {
                 const response = await axios.get('/jira/chamados-globais');
                 const chamados = response.data;
 
-                console.log('📋 Chamados globais recebidos:', chamados?.length || 0);
 
                 if (!chamados || chamados.length === 0) {
                     tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">📭 Nenhum chamado em aberto encontrado</td></tr>';
@@ -204,7 +229,7 @@
         }
 
         async function carregarLotes() {
-            console.log('🔄 Carregando lotes disponíveis...');
+            console.log('Carregando lotes...');
 
             const select = document.getElementById('lote');
 

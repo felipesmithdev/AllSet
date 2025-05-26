@@ -94,7 +94,7 @@ async function buscarChamados(lote, dias) {
 }
 
 // -------------------------
-// NOVA FUNÇÃO: Buscar chamados globais em aberto ordenados por urgência
+// Buscar chamados globais em aberto ordenados por urgência
 // -------------------------
 async function buscarChamadosGlobais() {
     console.log('🔄 Iniciando busca de chamados globais...');

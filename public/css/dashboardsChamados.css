@@ -321,3 +321,29 @@ body {
     width: 100%;
     table-layout: fixed;
 }
+
+
+
+
+#card-tempo-medio.warning {
+    background-color: gold;
+    border-left-color: #FFD700; 
+}
+
+#card-tempo-medio.warning .kpi-title,
+#card-tempo-medio.warning .kpi-value {
+    color: #333333 !important;
+}
+
+
+
+
+#card-tempo-medio.danger {
+    background-color: #DC3545;
+    border-left-color: #A71D2A; 
+}
+
+#card-tempo-medio.danger .kpi-title,
+#card-tempo-medio.danger .kpi-value {
+    color: #FFFFFF !important;
+}

@@ -3,6 +3,6 @@ node_modules
 package-lock.json
 Dockerfile
 docker-compose.yaml
-labSOemNuvem.pem
+allset-infra.pem
 
 .github

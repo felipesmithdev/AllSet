@@ -28,23 +28,23 @@ def conectar(banco):
         database= BANCO_CAPTURAS['database']
     )
 
-jira = JIRA(
-    server= JIRA_URL,
-    basic_auth=(JIRA_USER, JIRA_TOKEN)
-)
+# jira = JIRA(
+#     server= JIRA_URL,
+#     basic_auth=(JIRA_USER, JIRA_TOKEN)
+# )
 
-def abrir_chamado(summary_jira, description, priority):
-    issue_dict = {
-        'project': {'key': 'AL'},
-        'summary': f"Limite de {summary_jira} atingido", 
-        'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
-        'issuetype': {'name': 'Tarefa'},
-        'priority': {'name': priority},
-        'customfield_10058': 'Lote 2025-A',  # esses dois customfield eu nao entendi como configura no jira, usei o default
-        'customfield_10059': 'Memória RAM - 16GB', 
-    }
-    nova_issue = jira.create_issue(fields=issue_dict)
-    print("Chamado aberto: ", [nova_issue.key])
+# def abrir_chamado(summary_jira, description, priority):
+#     issue_dict = {
+#         'project': {'key': 'AL'},
+#         'summary': f"Limite de {summary_jira} atingido", 
+#         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
+#         'issuetype': {'name': 'Tarefa'},
+#         'priority': {'name': priority},
+#         'customfield_10058': 'Lote 2025-A',  # esses dois customfield eu nao entendi como configura no jira, usei o default
+#         'customfield_10059': 'Memória RAM - 16GB', 
+#     }
+#     nova_issue = jira.create_issue(fields=issue_dict)
+#     print("Chamado aberto: ", [nova_issue.key])
     # prioridade normal, instavel e grave (High, Medium, Low)
 
 
@@ -78,12 +78,12 @@ mac = getEnderecoMAC()
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
-        abrir_chamado(summary_jira, valor, prioridade)
+        # abrir_chamado(summary_jira, valor, prioridade)
         banco = 'relacional'
         conn = conectar(banco)
         cursor = conn.cursor()
-        query = "INSERT INTO alerta (componente, valor, dt_registro, fk_carro_macadress) VALUES (%s, %s, now(), %s)"
-        cursor.execute(query, (summary_jira, valor, mac))
+        query = "INSERT INTO alerta (componente, valor, dt_registro, gravidade, status, fk_carro_macadress) VALUES (%s, %s, now(), %s, 1,  %s)"
+        cursor.execute(query, (summary_jira, valor, prioridade, mac))
         
         conn.commit()
         cursor.close()
@@ -102,65 +102,55 @@ while True:
             print('Processo encontrado:',processos.name())
 
 # abrir chamado cpu
-    if porcentagemCpu >= 50 and porcentagemCpu <= 65:
-        summary_jira = "cpu"
-        priority = "Low"
-        registrarChamado(summary_jira, porcentagemCpu, priority)
-    elif porcentagemCpu >= 66 and porcentagemCpu <= 80:
+    if porcentagemCpu >= 70 and porcentagemCpu <= 84:
         summary_jira = "cpu"
         priority = "Medium"
         registrarChamado(summary_jira, porcentagemCpu, priority)
-    elif porcentagemCpu >= 81 and porcentagemCpu <= 100:
+    elif porcentagemCpu >= 85 and porcentagemCpu <= 100:
         summary_jira = "cpu"
         priority = "High"
         registrarChamado(summary_jira, porcentagemCpu, priority)
     
 # abrir chamado ram
-    if porcentagemRam >= 60 and porcentagemRam <= 70:
-        summary_jira = "ram"
-        priority = "Low"
-        registrarChamado(summary_jira, porcentagemRam, priority)
-    elif porcentagemRam >= 71 and porcentagemRam <= 80:
+    if porcentagemRam >= 70 and porcentagemRam <= 84:
         summary_jira = "ram"
         priority = "Medium"
         registrarChamado(summary_jira, porcentagemRam, priority)
-    elif porcentagemRam >= 81 and porcentagemRam <= 100:
+    elif porcentagemRam >= 85 and porcentagemRam <= 100:
         summary_jira = "ram"
         priority = "High"
         registrarChamado(summary_jira, porcentagemRam, priority)
+
 
 # abrir chamado disco
-    if porcentagemDisco >= 70 and porcentagemDisco <= 80:
-        summary_jira = "disco"
-        priority = "Low"
-        registrarChamado(summary_jira, porcentagemDisco, priority)
-    elif porcentagemDisco >= 81 and porcentagemDisco <= 90:
+    if porcentagemDisco >= 70 and porcentagemDisco <= 84:
         summary_jira = "disco"
         priority = "Medium"
         registrarChamado(summary_jira, porcentagemDisco, priority)
-    elif porcentagemDisco >= 91 and porcentagemDisco <= 100:
+    elif porcentagemDisco >= 85 and porcentagemDisco <= 100:
         summary_jira = "disco"
         priority = "High"
         registrarChamado(summary_jira, porcentagemDisco, priority)
 
+
 # ENVIANDO PARA O BANCO DE CAPTURAS (BANCO QUE O JOÃO IRÁ USAR)
-    try:
-        banco = 'capturas'
-        conn = conectar(banco)
-        cursor = conn.cursor()
-        query = (
-            "INSERT INTO captura (lote, componente, valor, dt_captura) VALUES "
-            "(1, 'cpu', %s, NOW()), "
-            "(1, 'ram', %s, NOW()), "
-            "(1, 'disco', %s, NOW())"
-        )
-        cursor.execute(query, (porcentagemCpu, porcentagemRam, porcentagemDisco))
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print("ENVIANDO PARA O BANCO DE CAPTURA (pelo amor de deus funciona agora)")
-    except Exception as e:
-        print(f"Erro ao inserir no banco: {e}")
+    # try:
+    #     banco = 'capturas'
+    #     conn = conectar(banco)
+    #     cursor = conn.cursor()
+    #     query = (
+    #         "INSERT INTO captura (lote, componente, valor, dt_captura) VALUES "
+    #         "(1, 'cpu', %s, NOW()), "
+    #         "(1, 'ram', %s, NOW()), "
+    #         "(1, 'disco', %s, NOW())"
+    #     )
+    #     cursor.execute(query, (porcentagemCpu, porcentagemRam, porcentagemDisco))
+    #     conn.commit()
+    #     cursor.close()
+    #     conn.close()
+    #     print("ENVIANDO PARA O BANCO DE CAPTURA (pelo amor de deus funciona agora)")
+    # except Exception as e:
+    #     print(f"Erro ao inserir no banco: {e}")
 
     #agora vou adicionar um dicionário com os dados coletados na lista que eu criei no começo do codigo
     #ele não esta retornando nada, só modificando a lista original e acumulando os dados

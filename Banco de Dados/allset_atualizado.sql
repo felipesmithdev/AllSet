@@ -89,6 +89,9 @@ CREATE TABLE alerta (
   constraint fk_carro_mac foreign key (fk_carro_macadress) references carro(macadress)
 );
 
+-- 0 -> fechado
+-- 1 -> fechado
+
 create table captura(
 	id int primary key auto_increment,
     lote int,

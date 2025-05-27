@@ -27,17 +27,17 @@
     </div>
 
     <main class="conteudo-principal">
-      <div class="titulo_dash"> <span>VISÃO GERAL</span></div>
+      <div class="titulo_dash"> <span>Visão Geral dos Lotes</span></div>
       <div class="pai_container">
         <div class="filho_container">
             <div class="kpi_saude">
-              <span class="titulo_saude">Desempenho Atual da Operação (%) </span>
+              <span class="titulo_saude">Carros operando normalmente (Todos os Lotes)</span>
               <span id="valor_saude" class="valor_saude"></span>
             </div>
             <div class="carros_container">
                 <div class="irmao_carro">
                   <div class="titulo_grafico_bar">
-                    <h2 style="text-align:center; color:#1f3c88;">Fluxo em tempo real</h2>
+                    <h2 style="text-align:center; color:#1f3c88;">Fluxos dos carros nos lotes</h2>
                   </div>
                     <div class="div_grafico_tempo_real">
                       <canvas id="fluxoChart"></canvas>
@@ -67,12 +67,12 @@
           <div class="content_irmao">
             <div class="kpi_container">
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>total carros ativos</span></div>
-                    <div class="kpi_mid"><span id="total_carro">350</span></div>
+                    <div class="kpi_top"><span>Total carros ativos</span></div>
+                    <div class="kpi_mid"><span id="total_carro"></span></div>
                 </div>
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>total alertas - últimas 6h</span></div>
-                    <div class="kpi_mid"><span id="valor_kpi_alerta">19</span></div>
+                    <div class="kpi_top"><span>Total alertas dos lotes</span></div>
+                    <div class="kpi_mid"><span id="valor_kpi_alerta"></span></div>
                 </div>
             </div>
             <div class="content_lotes">
@@ -149,8 +149,14 @@
   let valor_saude = 0;
 
   atualizarGrafico()
+  buscarKpis()
+
+  
+
+
   // atualizar kpi total carro
-  fetch("/seguranca/buscar_carros", {
+  function buscarKpis(){
+      fetch("/seguranca/buscar_carros", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -180,6 +186,8 @@
   .catch((erro) => {
     console.log("deu ruim buceta caralho")
   })
+  }
+
 
 
 
@@ -191,21 +199,21 @@ const fluxoData = {
   labels: [],
   datasets: [
     {
-      label: 'carros sem alertas',
+      label: 'Carros sem alertas',
       backgroundColor: 'limegreen',
       data: [],
       barPercentage: 0.7,
       borderRadius: 6,
     },
     {
-      label: 'alertas (médios)',
+      label: 'Carros com alerta medio',
       backgroundColor: 'gold',
       data: [],
       barPercentage: 0.7,
       borderRadius: 6
     },
     {
-      label: 'alertas (graves)',
+      label: 'Carros com alerta grave',
       backgroundColor: 'red',
       data: [],
       barPercentage: 0.7,
@@ -249,7 +257,7 @@ const fluxoChart = new Chart(ctx, {
 });
 
 function atualizarGrafico() {
-    fetch('http://localhost:3333/seguranca/dados_tempo_real')
+    fetch('/seguranca/dados_tempo_real')
         .then(response => response.json())
         .then(data => {
             if (data && data.length > 0) {
@@ -271,7 +279,7 @@ function atualizarGrafico() {
 
 
                   valor_saude = (ponto.carros_sem_alertas / total_carro_kpi) * 100
-                  document.getElementById("valor_saude").innerHTML = valor_saude
+                  document.getElementById("valor_saude").innerHTML = valor_saude.toFixed(1) + '%'
                  if (valor_saude <= 50){
                     document.getElementById("valor_saude").style.color = "red"
                   } else if (valor_saude <= 75){
@@ -286,7 +294,8 @@ function atualizarGrafico() {
 }
 
 
-setInterval(atualizarGrafico, 10000); 
+setInterval(atualizarGrafico, 15000); 
+setInterval(buscarKpis, 15000); 
 
 
     // grafico de barra do comoponente por alerta

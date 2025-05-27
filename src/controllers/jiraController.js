@@ -47,18 +47,16 @@ exports.listarLotes = async (req, res) => {
     }
 };
 
-// CORREÇÃO: KPIs globais sem filtro de lote
+
 exports.obterKPIsGlobais = async (req, res) => {
     try {
-        // Para KPIs globais, não passamos lote específico
         const kpis = await jiraService.calcularKPIsGlobais();
         
-        // Padronizando os nomes das propriedades conforme esperado pelo frontend
         const kpisFormatados = {
             loteComMais: kpis.loteComMais,
             totalAbertos: kpis.totalAbertos,
-            resolvidosUltimas24h: kpis.finalizadosUltimas24h,
-            tempoMedioHoras: kpis.tempoMedioResolucao
+            finalizadosUltimas24h: kpis.finalizadosUltimas24h, 
+            tempoMedioResolucao: kpis.tempoMedioResolucao  
         };
         
         res.json(kpisFormatados);
@@ -68,10 +66,8 @@ exports.obterKPIsGlobais = async (req, res) => {
     }
 };
 
-// CORREÇÃO: Chamados globais formatados corretamente
 exports.listarChamadosGlobais = async (req, res) => {
     try {
-        // Buscar todos os chamados em aberto, ordenados por urgência
         const chamados = await jiraService.buscarChamadosGlobais();
         res.json(chamados);
     } catch (error) {

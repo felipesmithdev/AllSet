@@ -20,11 +20,10 @@
             <div class="title">Dashboard de Chamados JIRA - Visão Global</div>
         </div>
 
-        <!-- KPIs Globais -->
         <div class="kpi-container">
-            <div class="kpi-card">
-                <div class="kpi-title">Lote com mais chamados em aberto</div>
-                <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
+            <div class="kpi-card" id="card-tempo-medio">
+                <div class="kpi-title">Tempo médio de resolução</div>
+                <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Total de chamados em aberto</div>
@@ -35,9 +34,10 @@
                 <div class="kpi-value" id="kpi-resolvidos-24">Carregando...</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-title">Tempo médio de resolução</div>
-                <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
+                <div class="kpi-title">Lote com mais chamados em aberto</div>
+                <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
             </div>
+
         </div>
 
 
@@ -57,18 +57,18 @@
                 </thead>
                 <tbody id="tabela-chamados">
                     <tr>
-                        <td colspan="5" class="loading">🔄 Carregando chamados...</td>
+                        <td colspan="5" class="loading">Carregando chamados...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Filtros -->
+
         <div class="filters">
             <div class="filter-group">
                 <label for="lote">Filtrar por Lote:</label>
                 <select id="lote">
-                    <option value="">🔄 Carregando lotes...</option>
+                    <option value="">Carregando lotes...</option>
                 </select>
             </div>
 
@@ -81,10 +81,10 @@
                 </div>
             </div>
 
-            <button class="refresh-btn" onclick="atualizarTudo()">🔄 Atualizar Dados</button>
+            <button class="refresh-btn" onclick="atualizarTudo()"> Atualizar Dados</button>
         </div>
 
-        <!-- Gráfico -->
+
         <div class="chart-container">
             <h3 id="chart-title">Gráfico de Chamados nos últimos 7 dias - Todos os lotes</h3>
 
@@ -112,7 +112,6 @@
     <script>
         let chamadosChart;
 
-        // Formatar data para o padrão brasileiro
         function formatarDataBR(dataISO) {
             try {
                 return new Date(dataISO).toLocaleDateString('pt-BR', {
@@ -125,7 +124,6 @@
             }
         }
 
-        // Função para obter classe CSS do status
         function obterClasseStatus(status) {
             const statusLower = status.toLowerCase();
             if (statusLower.includes('progresso') || statusLower.includes('progress')) {
@@ -138,9 +136,14 @@
             return 'status-default';
         }
 
-        // Atualizar KPIs globais
         async function atualizarKPIsGlobais() {
             console.log('🔄 Buscando KPIs globais...');
+
+            const kpiLoteMaisChamadosEl = document.getElementById('kpi-lote-mais-chamados');
+            const kpiTotalAbertoEl = document.getElementById('kpi-total-aberto');
+            const kpiResolvidos24El = document.getElementById('kpi-resolvidos-24');
+            const kpiTempoMedioValueEl = document.getElementById('kpi-tempo-medio');
+            const kpiTempoMedioCardEl = document.getElementById('card-tempo-medio');
 
             try {
                 const response = await axios.get('/jira/kpis-globais');
@@ -148,45 +151,59 @@
 
                 console.log('📊 KPIs globais recebidos:', kpis);
 
-                // Atualizar elementos na tela
-                document.getElementById('kpi-lote-mais-chamados').textContent = kpis.loteComMais || 'N/A';
-                document.getElementById('kpi-total-aberto').textContent = kpis.totalAbertos || '0';
-                document.getElementById('kpi-resolvidos-24').textContent = kpis.finalizadosUltimas24h || '0';
-                document.getElementById('kpi-tempo-medio').textContent = kpis.tempoMedioResolucao || 'N/A';
+                kpiLoteMaisChamadosEl.textContent = kpis.loteComMais || 'N/A';
+                kpiTotalAbertoEl.textContent = kpis.totalAbertos || '0';
+                kpiResolvidos24El.textContent = kpis.finalizadosUltimas24h || '0'; 
 
+                const tempoMedioString = kpis.tempoMedioResolucao; 
+                kpiTempoMedioValueEl.textContent = tempoMedioString || 'N/A';
+
+                if (kpiTempoMedioCardEl) {
+
+                    kpiTempoMedioCardEl.classList.remove('warning', 'danger');
+
+                    if (tempoMedioString && tempoMedioString !== 'N/A') {
+                        const tempoMedioHoras = parseFloat(tempoMedioString); 
+
+                        if (!isNaN(tempoMedioHoras)) {
+                            if (tempoMedioHoras > 12) {
+                                kpiTempoMedioCardEl.classList.add('danger'); // Acima de 12 horas: vermelho
+                            } else if (tempoMedioHoras > 8) {
+                                kpiTempoMedioCardEl.classList.add('warning'); // Acima de 8 horas (até 12h): amarelo
+                            }
+                        }
+                    }
+                }
                 return kpis;
             } catch (error) {
                 console.error('❌ Erro ao buscar KPIs globais:', error);
-
-                // Mostrar erro na interface
-                document.getElementById('kpi-lote-mais-chamados').textContent = 'Erro';
-                document.getElementById('kpi-total-aberto').textContent = 'Erro';
-                document.getElementById('kpi-resolvidos-24').textContent = 'Erro';
-                document.getElementById('kpi-tempo-medio').textContent = 'Erro';
-
+                kpiLoteMaisChamadosEl.textContent = 'Erro';
+                kpiTotalAbertoEl.textContent = 'Erro';
+                kpiResolvidos24El.textContent = 'Erro';
+                kpiTempoMedioValueEl.textContent = 'Erro';
+                if (kpiTempoMedioCardEl) {
+                    kpiTempoMedioCardEl.classList.remove('warning', 'danger');
+                }
                 return {};
             }
         }
 
-        // Atualizar tabela de chamados globais
         async function atualizarTabelaChamados() {
             console.log('🔄 Buscando chamados globais...');
 
             const tabelaBody = document.getElementById('tabela-chamados');
-            tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">🔄 Carregando chamados...</td></tr>';
+            tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">Carregando chamados...</td></tr>';
 
             try {
                 const response = await axios.get('/jira/chamados-globais');
                 const chamados = response.data;
 
-                console.log('📋 Chamados globais recebidos:', chamados?.length || 0);
 
                 if (!chamados || chamados.length === 0) {
                     tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">📭 Nenhum chamado em aberto encontrado</td></tr>';
                     return [];
                 }
 
-                // Limpar tabela e adicionar chamados
                 tabelaBody.innerHTML = '';
                 chamados.forEach((chamado, index) => {
                     const statusClass = obterClasseStatus(chamado.status);
@@ -211,9 +228,8 @@
             }
         }
 
-        // Carregar lotes disponíveis
         async function carregarLotes() {
-            console.log('🔄 Carregando lotes disponíveis...');
+            console.log('Carregando lotes...');
 
             const select = document.getElementById('lote');
 
@@ -223,7 +239,6 @@
 
                 console.log('📦 Lotes carregados:', lotes);
 
-                // Limpar e popular select
                 select.innerHTML = '<option value="">📊 Todos os lotes</option>';
 
                 lotes.forEach(lote => {
@@ -243,7 +258,6 @@
             }
         }
 
-        // Atualizar gráfico
         async function atualizarGrafico() {
             const lote = document.getElementById('lote').value;
             const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
@@ -251,25 +265,21 @@
             console.log(`📈 Atualizando gráfico - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
 
             try {
-                // Buscar dados do gráfico
                 const responseGrafico = await axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
                 const dadosGrafico = responseGrafico.data;
 
-                // Buscar KPIs do filtro
                 const responseKPIs = await axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
                 const kpis = responseKPIs.data;
 
                 console.log('📊 Dados do gráfico:', dadosGrafico);
                 console.log('📊 KPIs do filtro:', kpis);
 
-                // Atualizar gráfico
                 if (chamadosChart && dadosGrafico) {
                     chamadosChart.data.labels = dadosGrafico.labels || [];
                     chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
                     chamadosChart.update();
                 }
 
-                // Atualizar métricas do filtro
                 document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
                 document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
 
@@ -279,27 +289,23 @@
                     : 0;
                 document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
 
-                // Atualizar título
                 const tituloLote = lote || 'Todos os lotes';
                 document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
 
             } catch (error) {
-                console.error('❌ Erro ao atualizar gráfico:', error);
+                console.error('Erro ao atualizar gráfico:', error);
             }
         }
 
-        // Função para atualizar tudo
         async function atualizarTudo() {
             console.log('🔄 Iniciando atualização completa...');
 
-            // Mostrar loading nos KPIs
             document.getElementById('kpi-lote-mais-chamados').textContent = 'Carregando...';
             document.getElementById('kpi-total-aberto').textContent = 'Carregando...';
             document.getElementById('kpi-resolvidos-24').textContent = 'Carregando...';
             document.getElementById('kpi-tempo-medio').textContent = 'Carregando...';
 
             try {
-                // Executar atualizações em paralelo
                 await Promise.all([
                     atualizarKPIsGlobais(),
                     atualizarTabelaChamados(),
@@ -312,11 +318,9 @@
             }
         }
 
-        // Inicialização quando a página carregar
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🚀 Inicializando dashboard...');
 
-            // Inicializar Chart.js
             const ctx = document.getElementById('chamadosChart').getContext('2d');
             chamadosChart = new Chart(ctx, {
                 type: 'line',
@@ -356,7 +360,6 @@
                 }
             });
 
-            // Event listeners
             document.querySelectorAll('.periodo-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
@@ -367,7 +370,6 @@
 
             document.getElementById('lote').addEventListener('change', atualizarGrafico);
 
-            // Carregar dados iniciais
             try {
                 await carregarLotes();
                 await atualizarTudo();
@@ -376,7 +378,6 @@
                 console.error('❌ Erro na inicialização:', error);
             }
 
-            // Auto-refresh a cada 5 minutos
             setInterval(() => {
                 console.log('🔄 Auto-refresh executado');
                 atualizarKPIsGlobais();

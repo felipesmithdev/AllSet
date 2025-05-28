@@ -64,10 +64,33 @@ function buscar_lotes(req,res) {
     })
 }
 
+function lotesMaisOcorrencia(req, res){
+    let fkAgencia = req.body.idAgencia
+    monitoramentoModel.lotesMaisOcorrencia(fkAgencia)
+    .then((resultado) => {
+        if(Array.isArray(resultado)){
+            res.status(200).json(resultado.map(item => ({
+                lote: resultado.lote,
+                ocorrencias: resultado.ocorrencias
+            })))
+        }else{
+            res.status(200).json([{
+                lote: resultado.lote,
+                ocorrencias: resultado.ocorrencias
+            }])
+        }
+    })
+    .catch(err => {
+        console.error("Erro ao listar lotes com mais ocorrencias (controller)", err);
+        res.status(500).json({erro: "erro ao trazer lotes e ocorrencias"})
+    });
+}
+
 
 module.exports = {
     buscar_carros,
     buscar_alertas,
     dados_tempo_real,
-    buscar_lotes
+    buscar_lotes,
+    lotesMaisOcorrencia
 };

@@ -77,9 +77,23 @@ function buscar_lotes(){
     return database.executar(instrucaoSql)
 }
 
+function lotesMaisOcorrencia(fkAgencia){
+    let query = `SELECT l.id_lote as 'lote', COUNT(a.id_alerta) AS 'ocorrencias' 
+                    FROM lote AS l
+                    JOIN carro AS c ON c.fk_lote = l.id_lote
+                    JOIN alerta AS a ON a.fk_carro_macadress = c.macadress
+                    WHERE l.fk_agencia_lote = ${fkAgencia}
+                    GROUP BY l.id_lote
+                    ORDER BY ocorrencias DESC
+                    LIMIT 5;`
+
+    return database.executar(query);
+}
+
 module.exports = {
     buscar_carros,
     buscar_alertas,
     dados_tempo_real,
-    buscar_lotes
+    buscar_lotes,
+    lotesMaisOcorrencia
 };

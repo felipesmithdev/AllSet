@@ -13,6 +13,8 @@ function buscar_alertas(){
 }
 
 function dados_tempo_real(){
+    console.log("meia hora fazendo esse select com subquery, se nao funcionar ja sabe onde ta o erro, TO FALANDO SOZINHO")
+
     var instrucaoSql = `
     SELECT 
     DATE_FORMAT(NOW(), '%H:%i') AS horario,
@@ -44,8 +46,40 @@ function dados_tempo_real(){
     return database.executar(instrucaoSql)
 }
 
+function buscar_lotes(){
+    var instrucaoSql = `
+    SELECT
+    id_lote as id_lote,
+    (
+        SELECT COUNT(id_carro)
+        FROM carro
+        WHERE carro.fk_lote = lote.id_lote
+    ) AS total_carro,
+
+    (
+        SELECT COUNT(id_alerta)
+        FROM alerta 
+        JOIN carro
+        ON alerta.fk_carro_macadress = carro.macadress
+        WHERE alerta.status = 1 AND carro.fk_lote = lote.id_lote
+    ) AS alertas,
+
+    (
+        SELECT COUNT(id_alerta)
+        FROM alerta 
+        JOIN carro
+        ON alerta.fk_carro_macadress = carro.macadress
+        WHERE alerta.status = 1 AND alerta.gravidade = 'High' AND carro.fk_lote = lote.id_lote
+    ) AS alertas_graves
+    FROM lote ORDER BY alertas desc;
+    `
+
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     buscar_carros,
     buscar_alertas,
-    dados_tempo_real
+    dados_tempo_real,
+    buscar_lotes
 };

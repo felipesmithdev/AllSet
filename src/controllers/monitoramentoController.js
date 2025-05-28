@@ -34,14 +34,40 @@ function dados_tempo_real(req, res) {
             }
         })
         .catch(err => {
-            console.error('Erro ao obter dados tempo real:', err);
-            res.status(500).json({ erro: 'Erro ao obter dados tempo real' });
+            console.error('Deu erro ai parceirinho, faz o L ', err);
+            res.status(500).json({ erro: 'Erro ao trazer os dados mano' });
         });
+}
+
+function buscar_lotes(req,res) {
+    monitoramentoModel.buscar_lotes()
+    .then((resultado) => {
+        if (Array.isArray(resultado)) {
+            res.status(200).json(resultado.map(item => ({
+                lote_id: item.id_lote,
+                carros: item.total_carro,
+                alertas: item.alertas,
+                alertas_graves: item.alertas_graves
+            })));
+        } else {
+            res.status(200).json([{
+                lote_id: resultado.id_lote,
+                carros: resultado.total_carro,
+                alertas: resultado.alertas,
+                alertas_graves: resultado.alertas_graves
+            }])
+        }
+    })
+    .catch(err => {
+        console.error("Deu erro ai parceiro, na parte de trazer lote (controller) ", err);
+        res.status(500).json({ erro: "Erro ao trazer os lote mano"})
+    })
 }
 
 
 module.exports = {
     buscar_carros,
     buscar_alertas,
-    dados_tempo_real
+    dados_tempo_real,
+    buscar_lotes
 };

@@ -67,11 +67,11 @@
           <div class="content_irmao">
             <div class="kpi_container">
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>Total carros ativos</span></div>
+                    <div class="kpi_top"><span>Total de Carros dos Lotes</span></div>
                     <div class="kpi_mid"><span id="total_carro"></span></div>
                 </div>
                 <div class="kpi_1">
-                    <div class="kpi_top"><span>Total alertas dos lotes</span></div>
+                    <div class="kpi_top"><span>Total de Alertas dos Lotes</span></div>
                     <div class="kpi_mid"><span id="valor_kpi_alerta"></span></div>
                 </div>
             </div>
@@ -151,7 +151,62 @@
   atualizarGrafico()
   buscarKpis()
 
-  
+  // buscar lotes
+
+  fetch("/seguranca/buscar_lotes", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json())
+  .then((lotes) => {
+    // console.log("to aqui no fetch, so pra saber, recebi o json pae")
+    const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
+    tabelaCorpo.innerHTML = ""; 
+
+    lotes.forEach(lote => {
+      console.log(lote)
+        const linha = document.createElement("tr");
+        linha.classList.add("selecionado");
+
+        const tdLote = document.createElement("td");
+        tdLote.textContent = `Lote ${lote.lote_id}`;
+
+        const tdCarros = document.createElement("td");
+        tdCarros.textContent = lote.carros;
+
+        const tdAlertas = document.createElement("td");
+        tdAlertas.textContent = lote.alertas;
+        
+        const tdGraves = document.createElement("td");
+        tdGraves.textContent = lote.alertas_graves;
+        tdGraves.classList.add(definirClasseStatus(lote.alertas, lote.alertas_graves));
+
+        // Adicionando células à linha
+        linha.appendChild(tdLote);
+        linha.appendChild(tdCarros);
+        linha.appendChild(tdAlertas);
+        linha.appendChild(tdGraves);
+
+        // Adicionando a linha à tabela
+        tabelaCorpo.appendChild(linha);
+    });
+  })
+  .catch("erro ao fazer o fetch, faz o L")
+
+  function definirClasseStatus(total, graves) {
+    let percentual_alerta = (graves / total) * 100
+
+    if (percentual_alerta >= 0 && percentual_alerta <= 30){
+      return "status_lote_normal"
+    } else if(percentual_alerta >= 31 && percentual_alerta <= 60){
+      return "status_lote_medio"
+    } else if(percentual_alerta >= 61 && percentual_alerta <= 100){
+      return "status_lote" // seria o grave no caso, esqueci de adicionar o final da classe no css
+    } else {
+      return "status_lote_normal"
+    }
+}
 
 
   // atualizar kpi total carro

@@ -4,18 +4,23 @@ var router = express.Router();
 var monitoramentoController = require("../controllers/monitoramentoController");
 
 router.get("/buscar_carros", function (req, res){
-    console.log("TO NA ROTA PORRA")
+    // console.log("TO NA ROTA PORRA")
     monitoramentoController.buscar_carros(req, res)
 });
 
 router.get("/buscar_alertas", function(req, res) {
-    console.log("OS ALERTA VAO VIR PAPAI")
+    // console.log("OS ALERTA VAO VIR PAPAI")
     monitoramentoController.buscar_alertas(req,res)
 })
 
 router.get("/dados_tempo_real", function(req, res) {
-    console.log("OS DADOS TAO VINDO MALUCO")
+    // console.log("OS DADOS TAO VINDO MALUCO")
     monitoramentoController.dados_tempo_real(req, res)
+})
+
+router.get("/buscar_lotes", function(req, res) {
+    // console.log("rota do lote, meu deus um passo pra frente respeita")
+    monitoramentoController.buscar_lotes(req, res)
 })
 
 

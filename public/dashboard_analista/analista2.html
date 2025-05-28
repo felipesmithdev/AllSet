@@ -24,15 +24,20 @@
     <main class="conteudo-principal">
 
       <div class="titulo-dash">
-
-        <span class="nome-dash">Análise Histórica de Desempenho Operacional de Lotes</span><span
-          class="subtitulo-dash">Situação geral de um lote específico</span>
-
+        <div class="titulo-dash-info"> <span class="nome-dash">Análise Histórica de Desempenho Operacional de
+            Lotes</span>
+          <span class="subtitulo-dash">Situação geral de um lote específico, caso queira alterar o lote monitorado, <a
+              href="" style="color: #61B0FF;">clique aqui</a>!</span>
+        </div>
+        <div class="titulo-dash-usuario">
+          <img src="../assets/imgs/user.png" alt="Ícone do usuário">
+          <span id="b_usuario">Felipe</span>
+        </div>
       </div>
 
       <div class="filtro-periodo">
 
-        <span class="periodo">Período</span>
+        <span class="periodo" style="font-weight: 600;">Período</span>
 
         <div class="periodos">
           <button class="sete-dias" onclick="ultimosSeteDias">Últimos 7 dias</button>
@@ -50,25 +55,25 @@
             <button style="cursor: pointer;">Verificar situação geral</button>
           </div>
 
-          <div class="kpi">
-            <span class="kpi-titulo">Taxa de registros graves</span>
+          <div class="kpi kpi-alternativa">
+            <span class="kpi-titulo">Taxa de incidentes críticos</span>
             <span class="taxa-falhas">80%</span>
             <span class="descricao-kpi">96 de 120 totais</span>
           </div>
 
           <div class="kpi">
-            <span class="kpi-titulo-componentes">Componentes com maior incidência de falhas críticas</span>
+            <span class="kpi-titulo-componentes">Ranking de componentes com mais incidências críticas</span>
             <div class="componentes-maior">
               <div class="componente">
                 <span>1° CPU 60 capturas</span>
               </div>
 
               <div class="componente">
-                <span style="background-color: yellow;">2° RAM 60 capturas</span>
+                <span style="background-color: red;">2° RAM 60 capturas</span>
               </div>
 
               <div class="componente">
-                <span style="background-color: greenyellow;">3° DISCO 60 capturas</span>
+                <span style="background-color: red;">3° DISCO 60 capturas</span>
               </div>
             </div>
           </div>

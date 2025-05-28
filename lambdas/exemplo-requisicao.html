@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teste Lambda AWS</title>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1474.0.min.js"></script>
+</head>
+<body>
+  <h1>Testar chamada à Lambda</h1>
+  <button onclick="chamarLambda('lote_1')">Chamar Lambda</button>
+
+  <pre id="resposta"></pre>
+
+  <script>
+    AWS.config.update({
+      region: 'us-east-1',
+      credentials: new AWS.Credentials({
+        accessKeyId: '',
+        secretAccessKey: '',
+        sessionToken: ''
+      })
+    });
+
+    const lambda = new AWS.Lambda();
+
+    function chamarLambda(lote) {
+      const params = {
+        FunctionName: 'requisicao-dashboard',
+        InvocationType: 'RequestResponse',
+        Payload: JSON.stringify({ lote: lote })
+      };
+
+      lambda.invoke(params, function (err, data) {
+        const output = document.getElementById('resposta');
+        if (err) {
+          console.error("Erro:", err);
+          output.textContent = "Erro ao chamar a Lambda:\n" + err;
+        } else {
+          try {
+            const resposta = JSON.parse(data.Payload);
+            const dados = JSON.parse(resposta.body);
+            console.log("Dados formatados:", dados);
+            output.textContent = "Resposta da Lambda:\n" + JSON.stringify(dados, null, 2);
+          } catch (e) {
+            console.error("Erro ao processar a resposta:", e);
+            output.textContent = "Erro ao processar a resposta:\n" + e;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

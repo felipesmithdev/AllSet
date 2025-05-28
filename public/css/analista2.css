@@ -13,7 +13,7 @@ body {
     height: 100%;
     width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EBEBEB;
+    background-color: rgb(215, 215, 215);
     overflow-x: hidden;
 }
 
@@ -168,7 +168,7 @@ span {
   color: white;
   padding-top: 20px;
   padding-left: 10px;
-  background-color: #EBEBEB;
+  background-color: rgb(215, 215, 215);
   overflow: hidden;
 }
 
@@ -227,7 +227,7 @@ span {
     align-items: center;
     justify-content: space-between;
     border-radius: 15px;
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     width: 33%;
     height: 5vh;
     margin-top: 5px;
@@ -253,7 +253,7 @@ span {
 }
 
 .quinze-dias {
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     padding: 1%;
     border-radius: 15px;
     color: #0B1624;
@@ -263,7 +263,7 @@ span {
 }
 
 .trinta-dias {
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     padding: 1%;
     border-radius: 15px;
     color: #0B1624;
@@ -291,10 +291,10 @@ span {
 }
 
 .kpi {
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     width: 33%;
     border-radius: 15px;
-    height: 15vh;
+    height: 16vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -423,14 +423,14 @@ span {
 }
 
 .myChart {
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     width: 100%;
     height: 49%;
     border-radius: 15px;
 }
 
 .myChart2 {
-    background-color: rgb(199, 199, 199);
+    background-color: #EBEBEB;
     width: 100%;
     height: 100%;
     border-radius: 15px;

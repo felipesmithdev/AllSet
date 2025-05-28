@@ -24,4 +24,9 @@ router.get("/buscar_lotes", function(req, res) {
 })
 
 
+router.get("/buscarDadosComponentes", function(req, res){
+    console.log("Estou aqui na rota mano, meio caminho andado AHAHAHAHAHA estou surtando")
+    monitoramentoController.buscarDadosComponentes(req, res)
+})
+
 module.exports = router;

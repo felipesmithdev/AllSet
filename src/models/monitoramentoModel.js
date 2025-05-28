@@ -71,15 +71,24 @@ function buscar_lotes(){
         ON alerta.fk_carro_macadress = carro.macadress
         WHERE alerta.status = 1 AND alerta.gravidade = 'High' AND carro.fk_lote = lote.id_lote
     ) AS alertas_graves
-    FROM lote ORDER BY alertas desc;
+
+    FROM lote ORDER BY alertas_graves desc;
     `
 
     return database.executar(instrucaoSql)
 }
 
+function buscarDadosComponentes(){
+    var instrucaoSql = 
+
+    return database.executar(instrucaoSql)
+}
+
+
 module.exports = {
     buscar_carros,
     buscar_alertas,
     dados_tempo_real,
-    buscar_lotes
+    buscar_lotes,
+    buscarDadosComponentes
 };

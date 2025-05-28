@@ -28,6 +28,47 @@ def conectar(banco):
         database= BANCO_CAPTURAS['database']
     )
 
+def getEnderecoMAC():
+    interfaces = psutil.net_if_addrs()
+    stats = psutil.net_if_stats()
+    
+    for nome_iface, enderecos in interfaces.items():
+        if nome_iface in stats and stats[nome_iface].isup:  # Verifica se está ativa
+            for endereco in enderecos:
+                if endereco.family == psutil.AF_LINK:
+                    mac = endereco.address
+                    if mac and mac != "00:00:00:00:00:00" and \
+                       (":" in mac or "-" in mac):
+                        return mac.replace(":", "").replace("-", "")
+    
+    return 'NadaEncontrado'
+
+lote = 1
+mac = getEnderecoMAC()
+print(mac)
+
+def inserirSelecionarLoteDoCarro(mac):
+    conn = conectar(banco='relacional')
+    cursor = conn.cursor()
+    # fazendo o select para ver se o carro ja existe em algum lote
+    query1 = 'SELECT fk_lote FROM carro WHERE macadress = %s'
+    cursor.execute(query1, (mac,))
+    resultado = cursor.fetchone()
+    if resultado:
+        lote = resultado[0]
+        print("Lote encontrado, Lote: ", lote)
+    else:
+        query = 'INSERT IGNORE INTO carro(marca, ano, sistema_operacional, macadress, fk_lote) VALUES' \
+            '(%s,%s,%s,%s,%s)'
+        cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 1))
+        print("Carro cadastrado com sucesso, Lote: 1")
+    conn.commit()
+    conn.close()
+
+inserirSelecionarLoteDoCarro(mac)
+
+
+
 # jira = JIRA(
 #     server= JIRA_URL,
 #     basic_auth=(JIRA_USER, JIRA_TOKEN)
@@ -40,8 +81,7 @@ def conectar(banco):
 #         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
 #         'issuetype': {'name': 'Tarefa'},
 #         'priority': {'name': priority},
-#         'customfield_10058': 'Lote 2025-A',  # esses dois customfield eu nao entendi como configura no jira, usei o default
-#         'customfield_10059': 'Memória RAM - 16GB', 
+#         'customfield_10091': 'Lote 2025-1',
 #     }
 #     nova_issue = jira.create_issue(fields=issue_dict)
 #     print("Chamado aberto: ", [nova_issue.key])
@@ -50,19 +90,6 @@ def conectar(banco):
 
 #estou criando uma lista vazia, assim consigo armazenar as info.
 dados_monitoramento = []
-
-def getEnderecoMAC():
-    informacaoNet = psutil.net_if_addrs()
-    
-    for nome_iface, lista_enderecos in informacaoNet.items():
-        for endereco in lista_enderecos:
-            if endereco.family == psutil.AF_LINK:
-                if ":" in endereco.address:
-                    return endereco.address.replace(":", "")
-                elif "-" in endereco.address:
-                    return endereco.address.replace("-", "")
-    
-    return 'NadaEncontrado'
 
 #configurando o boto3
 # s3 = boto3.client(
@@ -73,8 +100,6 @@ def getEnderecoMAC():
 # region_name='us-east-1'  
 # )
 
-#usando uma variável mac
-mac = getEnderecoMAC()
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
@@ -160,10 +185,15 @@ while True:
         "porcentagemCpu": porcentagemCpu,
         "ramUso": ramUso,
         "porcentagemRam": porcentagemRam,
-        "hrCaptura": hrCaptura
+        "hrCaptura": hrCaptura,
+        "macAdress": mac,
+        "Lote": lote
     })
    
-    print(porcentagemDisco, porcentagemCpu, porcentagemRam, hrCaptura)
+    print("\n", "Percentual do disco: ", porcentagemDisco, "\n", 
+          "Percentual da cpu: ", porcentagemCpu, "\n", 
+          "Percentual da ram: ", porcentagemRam, "\n", 
+          "DataHora da captura: ", hrCaptura, "\n")
 
     # nome_bucket = 'raw-allset'
     # nome_no_s3 = f"{nome_do_json}"
@@ -182,5 +212,5 @@ while True:
     #     break
             
 
-    time.sleep(10)
+    time.sleep(30)
     i += 1

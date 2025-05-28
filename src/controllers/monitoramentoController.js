@@ -64,10 +64,40 @@ function buscar_lotes(req,res) {
     })
 }
 
+function buscarDadosComponentes(req, res){
+    monitoramentoModel.buscarDadosComponentes()
+    .then((resultado) => {
+        if (Array.isArray(resultado)) {
+            res.status(200).json(resultado.map(item => ({
+                cpu_medio: item.cpu_medio,
+                cpu_grave: item.cpu_grave,
+                ram_medio: item.ram_medio,
+                ram_grave: item.ram_gave,
+                disco_medio: item.disco_medio,
+                disco_grave: item.discoGrave
+            })));
+        } else {
+            res.status(200).json([{
+                cpu_medio: resultado.cpu_medio,
+                cpu_grave: resultado.cpu_grave,
+                ram_medio: resultado.ram_medio,
+                ram_grave: resultado.ram_gave,
+                disco_medio: resultado.disco_medio,
+                disco_grave: resultado.discoGrave
+            }])
+        }
+    })
+    .catch(err => {
+        console.error("Deu erro ai parceiro, na parte de trazer os componentes (controller) ", err);
+        res.status(500).json({ erro: "Erro ao trazer os componentes mano"})
+    })
+}
+
 
 module.exports = {
     buscar_carros,
     buscar_alertas,
     dados_tempo_real,
-    buscar_lotes
+    buscar_lotes,
+    buscarDadosComponentes
 };

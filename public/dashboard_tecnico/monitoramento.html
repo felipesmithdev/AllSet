@@ -86,7 +86,7 @@
                       <th>Lote</th>
                       <th>Carros</th>
                       <th>Alertas</th>
-                      <th>Graves</th>
+                      <th>Alertas Graves</th>
                       </tr>
                   </thead>
                  <tbody>
@@ -150,51 +150,65 @@
 
   atualizarGrafico()
   buscarKpis()
+  trazerAtualizarLotes()
 
   // buscar lotes
-
+function trazerAtualizarLotes() {
   fetch("/seguranca/buscar_lotes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => res.json())
+  })
+  .then((res) => res.json())
   .then((lotes) => {
-    // console.log("to aqui no fetch, so pra saber, recebi o json pae")
+    console.log(lotes)
+    // Calcula a porcentagem e ordena
+    const lotesOrdenados = lotes
+      .map(lote => {
+        const totalAlertas = lote.alertas;
+        const alertasGraves = lote.alertas_graves;
+        const porcentagem = totalAlertas > 0
+          ? (alertasGraves / totalAlertas) * 100
+          : 0;
+        return { ...lote, porcentagem_graves: porcentagem };
+      })
+      .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
+
     const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
-    tabelaCorpo.innerHTML = ""; 
+    tabelaCorpo.innerHTML = "";
 
-    lotes.forEach(lote => {
-      console.log(lote)
-        const linha = document.createElement("tr");
-        linha.classList.add("selecionado");
+    lotesOrdenados.forEach(lote => {
+      const linha = document.createElement("tr");
+      linha.classList.add("selecionado");
 
-        const tdLote = document.createElement("td");
-        tdLote.textContent = `Lote ${lote.lote_id}`;
+      const tdLote = document.createElement("td");
+      tdLote.textContent = `Lote ${lote.lote_id}`;
 
-        const tdCarros = document.createElement("td");
-        tdCarros.textContent = lote.carros;
+      const tdCarros = document.createElement("td");
+      tdCarros.textContent = lote.carros;
 
-        const tdAlertas = document.createElement("td");
-        tdAlertas.textContent = lote.alertas;
-        
-        const tdGraves = document.createElement("td");
-        tdGraves.textContent = lote.alertas_graves;
-        tdGraves.classList.add(definirClasseStatus(lote.alertas, lote.alertas_graves));
+      const tdAlertas = document.createElement("td");
+      tdAlertas.textContent = lote.alertas;
 
-        // Adicionando células à linha
-        linha.appendChild(tdLote);
-        linha.appendChild(tdCarros);
-        linha.appendChild(tdAlertas);
-        linha.appendChild(tdGraves);
+      const tdGraves = document.createElement("td");
+      tdGraves.textContent = lote.alertas_graves;
+      tdGraves.classList.add(definirClasseStatus(lote.alertas, lote.alertas_graves));
 
-        // Adicionando a linha à tabela
-        tabelaCorpo.appendChild(linha);
+      linha.appendChild(tdLote);
+      linha.appendChild(tdCarros);
+      linha.appendChild(tdAlertas);
+      linha.appendChild(tdGraves);
+
+      tabelaCorpo.appendChild(linha);
     });
   })
-  .catch("erro ao fazer o fetch, faz o L")
+  .catch((erro) => console.error("Erro ao fazer o fetch:", erro));
+}
 
-  function definirClasseStatus(total, graves) {
+
+// aqui é para colocar cor na td (vermelho, amarelo ou verde)
+function definirClasseStatus(total, graves) {
     let percentual_alerta = (graves / total) * 100
 
     if (percentual_alerta >= 0 && percentual_alerta <= 30){
@@ -208,9 +222,8 @@
     }
 }
 
-
   // atualizar kpi total carro
-  function buscarKpis(){
+function buscarKpis(){
       fetch("/seguranca/buscar_carros", {
     method: "GET",
     headers: {
@@ -242,9 +255,6 @@
     console.log("deu ruim buceta caralho")
   })
   }
-
-
-
 
 
   // grafico em tempo real
@@ -311,6 +321,7 @@ const fluxoChart = new Chart(ctx, {
   }
 });
 
+// aqui é para atualizar os dados do grafico (grafico em tempo real dos lotes)
 function atualizarGrafico() {
     fetch('/seguranca/dados_tempo_real')
         .then(response => response.json())
@@ -349,11 +360,27 @@ function atualizarGrafico() {
 }
 
 
+function atualizarGraficoComponentes(){
+  fetch("/seguranca/buscarDadosComponentes", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  }).then((res) => res.json())
+  .then((res) => {
+    console.log("trazendo os dados do json, " + res)
+  })
+}
+
+
+
+// definindo o tempo em que os dados irão ser atualizados (dando get no banco)
 setInterval(atualizarGrafico, 15000); 
 setInterval(buscarKpis, 15000); 
+setInterval(trazerAtualizarLotes, 15000)
 
 
-    // grafico de barra do comoponente por alerta
+// grafico de barra do comoponente por alerta
 const ctx2 = document.getElementById('componente_char').getContext('2d');
 const componentes_char = new Chart(ctx2, {
   type: 'bar',

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Teste Lambda AWS</title>
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1474.0.min.js"></script>
 </head>
+
 <body>
   <h1>Testar chamada à Lambda</h1>
   <button onclick="chamarLambda('lote_1')">Chamar Lambda</button>
@@ -39,8 +41,26 @@
           try {
             const resposta = JSON.parse(data.Payload);
             const dados = JSON.parse(resposta.body);
+            var totalCritico = 0;
+            var totalModerado = 0;
+            var totalNormal = 0;
             console.log("Dados formatados:", dados);
             output.textContent = "Resposta da Lambda:\n" + JSON.stringify(dados, null, 2);
+
+            for (let i = 0; i < dados.length; i++) {
+              totalCritico += dados[i].critico
+              totalModerado += dados[i].moderado
+              totalNormal += dados[i].normal
+            }
+
+            var totalCapturas = totalCritico + totalModerado + totalNormal;
+
+            console.log("Total de críticos: " + totalCritico)
+            console.log("Total de moderados: " + totalModerado)
+            console.log("Total de normais: " + totalNormal)
+            console.log("Total capturas: " + totalCapturas)
+            console.log("Taxa de incidências graves: " + Math.floor((totalCritico / totalCapturas) * 100) + "%")
+
           } catch (e) {
             console.error("Erro ao processar a resposta:", e);
             output.textContent = "Erro ao processar a resposta:\n" + e;
@@ -50,4 +70,5 @@
     }
   </script>
 </body>
+
 </html>

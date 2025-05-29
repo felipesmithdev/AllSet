@@ -139,6 +139,39 @@
         console.log(res)
     })
 
+    fetch("/gerente/lotesMaisOcorrencias7", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+    })
+
+    fetch("/gerente/lotesMaisOcorrencias15", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+    })
+
+    fetch("/gerente/lotesMaisOcorrencias30", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+    })
+
     const dados = {
         '7d': {
             quantidade: 2,

@@ -28,6 +28,38 @@
 
       <section id="graficos">
 
+        <div id="kpiGraf">
+
+          <div class="kpi">
+              <h3>Lote com mais ocorrências</h3>
+              <div class="card">
+                <p>Valor ?</p>
+              </div>
+            </div>
+
+            <div class="kpi">
+              <h3>Métrica com mais ocorrências</h3>
+              <div class="card">
+                <p>Valor ?</p>
+              </div>
+            </div>
+
+            <div class="kpi">
+              <h3>Média de chuva</h3>
+              <div class="card">
+                <p>Valor ?</p>
+              </div>
+            </div>
+
+            <div class="kpi">
+              <h3>Média de tráfego</h3>
+              <div class="card">
+                <p>Valor ?</p>
+              </div>
+            </div>
+
+        </div>
+
         <div id="metricas">
 
           <div class="seletores">
@@ -36,18 +68,20 @@
               <option value="" selected disabled>Mês</option>
               <option value="">Janeiro</option>
             </select>
+
+            <select name="" id="">
+              <option value="" selected disabled>Lote</option>
+              <option value="">Lote X</option>
+              <option value="">Lote Y</option>
+            </select>
           </div>
 
           <div class="grafLine">
-            <canvas id="chartCPU" width="1200px" height="350px"></canvas>
+            <canvas id="chartCPU"></canvas>
           </div>
 
           <div class="grafLine">
-            <canvas id="chartRAM" width="1200px" height="350px"></canvas>
-          </div>
-
-          <div class="grafLine">
-            <canvas id="chartDisco" width="1200px" height="350px"></canvas>
+            <canvas id="chartRAM"></canvas>
           </div>
 
         </div>
@@ -55,13 +89,15 @@
         <div id="dadosExternos">
 
           <div class="grafBar">
-            <canvas id="chartChuva" width="850px" height="460px"></canvas>
+            <canvas id="chartChuva"></canvas>
           </div>
 
           <div class="grafBar">
-            <canvas id="chartTrafego" width="850px" height="460px"></canvas>
+            <canvas id="chartTrafego"></canvas>
           </div>
         </div>
+
+        
 
       </section>
 
@@ -86,6 +122,7 @@
 
           <div id="indicadores">
             <b>Mês</b>
+            <b>Lote</b>
           </div>
 
         </div>
@@ -96,7 +133,7 @@
             <canvas id="chartRegressao" width="1500px" height="850px"></canvas>
           </div>
 
-          <div id="kpis">
+          <div id="kpisReg">
 
             <div class="kpi">
               <h3>Pico métrica</h3>
@@ -233,34 +270,6 @@
         title: {
           display: true,
           text: "Média diária de uso de RAM",
-          align: 'start'
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
-  const disco = document.getElementById('chartDisco');
-
-  new Chart(disco, {
-    type: 'line',
-    data: {
-      labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
-      datasets: [{
-        label: 'Média Disco',
-        data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Média diária de uso de Disco",
           align: 'start'
         }
       },

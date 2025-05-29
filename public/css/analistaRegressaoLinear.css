@@ -13,7 +13,7 @@ body {
     height: 100%;
     width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fff;
+    background-color: #0B1624;
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
@@ -56,7 +56,7 @@ span {
 }
 
 #menu-bar {
-    color: #0B1624;
+    color: white;
     font-size: 25px;
     transform: scaleX(-1.7);
     padding: 5px;
@@ -165,7 +165,7 @@ span {
   width: 94%;
   height: 200vh;
   color: black;
-  background-color: #fff;
+  background-color: #EBEBEB;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -187,8 +187,48 @@ span {
         gap: 30px;
         scroll-snap-align: start;
 
+        #kpiGraf {
+            height: 100%;
+            width: 15%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            .kpi {
+                    height: 25%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    justify-content: center;
+
+                    h3 {
+                        font-weight: 100;
+                        margin: 0%;
+                    }
+
+                    .card {
+                        width: 100%;
+                        height: 40%;
+                        border: solid black 1px;
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: white;
+
+                        p{
+                            font-size: 30px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+        }
+
         #metricas {
-            width: 50%;
+            width: 40%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -207,17 +247,30 @@ span {
                     height: 50%;
                     border-radius: 10px;
                     text-align: center;
+                    margin-right: 20px;
                 }
             }
 
             .grafLine {
                 width: 100%;
-                height: 30%;
+                height: 35%;
+                background-color: white;
+                box-shadow:  2px 2px 6px 2px #b3b3b3;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                canvas {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
 
         #dadosExternos {
-            width: 45%;
+            width: 40%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -227,8 +280,22 @@ span {
             .grafBar {
                 width: 100%;
                 height: 48%;
+                background-color: white;
+                box-shadow:  2px 2px 6px 2px #b3b3b3;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border-radius: 20px;
+
+                canvas {
+                    width: 100%;
+                    height: 80%;
+                }
             }
         }
+
+
     }
 
     #regressao:nth-child(2) {
@@ -248,13 +315,14 @@ span {
             padding-right: 35px;
             align-items: center;
             justify-content: space-between;
+            flex-direction: row-reverse;
 
             .seletores {
                 display: flex;
                 width: 70%;
                 height: 100%;
                 align-items: center;
-                justify-content: s;
+                justify-content: flex-end;
                 gap: 50px;
 
                 select {
@@ -280,16 +348,20 @@ span {
             width: 100%;
             display: flex;
             justify-content: space-evenly;
+            flex-direction: row-reverse;
 
             #grafReg {
-                height: 100%;
+                height: 98%;
                 width: 80%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background-color: white;
+                box-shadow:  2px 2px 6px 2px #b3b3b3;
+                border-radius: 20px;
             }
 
-            #kpis {
+            #kpisReg {
                 height: 100%;
                 width: 15%;
                 display: flex;
@@ -318,6 +390,7 @@ span {
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        background: white;
 
                         p{
                             font-size: 30px;

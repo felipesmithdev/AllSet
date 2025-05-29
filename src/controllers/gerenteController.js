@@ -1,92 +1,22 @@
 var gerenteModel = require('../models/gerenteModel');
 
-function lotesMaisOcorrencia(req, res){
-    let fkAgencia = req.body.idAgencia
-    gerenteModel.lotesMaisOcorrencia(fkAgencia)
-    .then((resultado) => {
-        if(Array.isArray(resultado)){
-            res.status(200).json(resultado.map(item => ({
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            })))
-        }else{
-            res.status(200).json([{
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            }])
-        }
-    })
-    .catch(err => {
-        console.error("Erro ao listar lotes com mais ocorrencias (controller)", err);
-        res.status(500).json({erro: "erro ao trazer lotes e ocorrencias"})
-    });
+function lotesMaisOcorrencia(req, res) {
+    let { idAgencia, dias } = req.body;
+
+    if (!idAgencia) {
+        return res.status(400).json({ erro: "idAgencia é obrigatório" });
+    }
+
+    gerenteModel.lotesMaisOcorrencia(idAgencia, dias)
+        .then((resultado) => {
+            res.status(200).json(resultado);
+        })
+        .catch((err) => {
+            console.error("Erro ao listar lotes com mais ocorrências", err);
+            res.status(500).json({ erro: "Erro ao buscar dados" });
+        });
 }
 
-function lotesMaisOcorrencia7(req, res){
-    let fkAgencia = req.body.idAgencia
-    gerenteModel.lotesMaisOcorrencia(fkAgencia)
-    .then((resultado) => {
-        if(Array.isArray(resultado)){
-            res.status(200).json(resultado.map(item => ({
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            })))
-        }else{
-            res.status(200).json([{
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            }])
-        }
-    })
-    .catch(err => {
-        console.error("Erro ao listar lotes com mais ocorrencias (controller)", err);
-        res.status(500).json({erro: "erro ao trazer lotes e ocorrencias"})
-    });
-}
-
-function lotesMaisOcorrencia15(req, res){
-    let fkAgencia = req.body.idAgencia
-    gerenteModel.lotesMaisOcorrencia(fkAgencia)
-    .then((resultado) => {
-        if(Array.isArray(resultado)){
-            res.status(200).json(resultado.map(item => ({
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            })))
-        }else{
-            res.status(200).json([{
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            }])
-        }
-    })
-    .catch(err => {
-        console.error("Erro ao listar lotes com mais ocorrencias (controller)", err);
-        res.status(500).json({erro: "erro ao trazer lotes e ocorrencias"})
-    });
-}
-
-function lotesMaisOcorrencia30(req, res){
-    let fkAgencia = req.body.idAgencia
-    gerenteModel.lotesMaisOcorrencia(fkAgencia)
-    .then((resultado) => {
-        if(Array.isArray(resultado)){
-            res.status(200).json(resultado.map(item => ({
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            })))
-        }else{
-            res.status(200).json([{
-                lote: resultado.lote,
-                ocorrencias: resultado.ocorrencias
-            }])
-        }
-    })
-    .catch(err => {
-        console.error("Erro ao listar lotes com mais ocorrencias (controller)", err);
-        res.status(500).json({erro: "erro ao trazer lotes e ocorrencias"})
-    });
-}
 
 
 module.exports = {

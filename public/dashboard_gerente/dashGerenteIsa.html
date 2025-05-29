@@ -31,9 +31,9 @@
                     <div class="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
                         <div class="botoes_filtragem">
-                        <button onclick="filtrar('7d')">7 dias</button>
-                        <button onclick="filtrar('15d')">15 dias</button>
-                        <button onclick="filtrar('30d')">30 dias</button>
+                        <button onclick="filtrar('7d'); lotesMaisOcorrencias7()">7 dias</button>
+                        <button onclick="filtrar('15d'); lotesMaisOcorrencias15()">15 dias</button>
+                        <button onclick="filtrar('30d'); lotesMaisOcorrencias30()">30 dias</button>
                     </div>
                         <p>Quantidade de lotes com problema:</p>
                         <span id="quantidade"></span>
@@ -127,50 +127,46 @@
             }, 300);
         }
     });
+    
+
+function lotesMaisOcorrencias7() {
+    const dados = { idAgencia: 1, dias: 7 };
+    console.log("Enviando dados para o servidor:", dados); // 👈 loga os dados enviados
 
     fetch("/gerente/lotesMaisOcorrencias", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
     })
-    .then((res) => res.json())
-    .then((res) => {
-        console.log(res)
+    .then(response => {
+        console.log("Resposta bruta recebida:", response); // 👈 loga o objeto Response
+        return response.json(); // transforma em JSON
     })
+    .then(data => {
+        console.log("Dados recebidos do servidor:", data); // 👈 loga os dados processados
+        // aqui você pode usar os dados, ex: atualizar o DOM
+    })
+    .catch(error => {
+        console.error("Erro na requisição:", error); // 👈 loga qualquer erro
+    });
+}
 
-    fetch("/gerente/lotesMaisOcorrencias7", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
-    })
-    .then((res) => res.json())
-    .then((res) => {
-        console.log(res)
-    })
 
-    fetch("/gerente/lotesMaisOcorrencias15", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
-    })
-    .then((res) => res.json())
-    .then((res) => {
-        console.log(res)
-    })
+    function lotesMaisOcorrencias15(){
+    fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 15 }) 
+})
+}
 
-    fetch("/gerente/lotesMaisOcorrencias30", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
-    })
-    .then((res) => res.json())
-    .then((res) => {
-        console.log(res)
-    })
+function lotesMaisOcorrencias30(){
+    fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
+})
+}
 
     const dados = {
         '7d': {

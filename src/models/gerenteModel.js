@@ -22,6 +22,22 @@ function lotesMaisOcorrencia(fkAgencia, dias) {
 }
 
 
+function datasRegistroAlertas(idAgencia, dias) {
+    const instrucao = `
+        SELECT DATE(a.dt_registro) AS dia, COUNT(*) AS ocorrencias
+        FROM alerta a
+        JOIN carro c ON a.fk_carro_macadress = c.macadress
+        JOIN lote l ON c.fk_lote = l.id_lote
+        WHERE l.fk_agencia_lote = ${idAgencia}
+        AND a.dt_registro >= NOW() - INTERVAL ${dias} DAY
+        GROUP BY dia
+        ORDER BY dia;
+
+    `;
+    return database.executar(instrucao);
+}
+
  module.exports = {
-    lotesMaisOcorrencia
+    lotesMaisOcorrencia,
+    datasRegistroAlertas
 }

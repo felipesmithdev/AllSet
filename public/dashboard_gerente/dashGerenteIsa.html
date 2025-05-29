@@ -28,12 +28,12 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="card_filtragem">
+                    <div class="card_filtragem" id="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
                         <div class="botoes_filtragem">
-                        <button onclick="filtrar('7d'); lotesMaisOcorrencias7()">7 dias</button>
-                        <button onclick="filtrar('15d'); lotesMaisOcorrencias15()">15 dias</button>
-                        <button onclick="filtrar('30d'); lotesMaisOcorrencias30()">30 dias</button>
+                        <button onclick="filtrar('7d'); buscarLotes(7)">7 dias</button>
+                        <button onclick="filtrar('15d'); buscarLotes(15)">15 dias</button>
+                        <button onclick="filtrar('30d'); buscarLotes(30)">30 dias</button>
                     </div>
                         <p>Quantidade de lotes com problema:</p>
                         <span id="quantidade"></span>
@@ -128,29 +128,14 @@
         }
     });
     
-
-function lotesMaisOcorrencias7() {
-    const dados = { idAgencia: 1, dias: 7 };
-    console.log("Enviando dados para o servidor:", dados); // 👈 loga os dados enviados
-
-    fetch("/gerente/lotesMaisOcorrencias", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
-    })
-    .then(response => {
-        console.log("Resposta bruta recebida:", response); // 👈 loga o objeto Response
-        return response.json(); // transforma em JSON
-    })
-    .then(data => {
-        console.log("Dados recebidos do servidor:", data); // 👈 loga os dados processados
-        // aqui você pode usar os dados, ex: atualizar o DOM
-    })
-    .catch(error => {
-        console.error("Erro na requisição:", error); // 👈 loga qualquer erro
-    });
+/* lotes com mais ocorrencias */
+    function lotesMaisOcorrencias7() {
+     fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 7 }) 
+})
 }
-
 
     function lotesMaisOcorrencias15(){
     fetch("/gerente/lotesMaisOcorrencias", {
@@ -167,6 +152,74 @@ function lotesMaisOcorrencias30(){
   body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
 })
 }
+
+/* colocando nos graficos */
+function datasRegistroAlertas() {
+     fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 7 }) 
+})
+}
+
+function datasRegistroAlertas() {
+     fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 15 }) 
+})
+}
+
+function datasRegistroAlertas() {
+     fetch("/gerente/lotesMaisOcorrencias", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
+})
+}
+
+var quantidadeLotesComOcorrencias = 0
+
+function buscarLotes(dias) {
+    const idAgencia = sessionStorage.getItem("fk_agencia");
+
+    fetch("/gerente/lotesMaisOcorrencias", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idAgencia: idAgencia, dias: dias })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Erro na requisição");
+        return response.json();
+    })
+    .then(dados => {
+        const tabela = document.getElementById("tabelaLotes");
+        tabela.innerHTML = "";
+
+        dados.forEach(item => {
+            quantidadeLotesComOcorrencias++
+            tabela.innerHTML += `
+                <tr>
+                    <td>${item.lote}</td>
+                    <td>${item.ocorrencias}</td>
+                    <td>${item.ocorrencias > 10 ? 'Crítico' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
+                </tr>
+            `;
+        });
+        
+        if (quantidadeLotesComOcorrencias > 0){
+            document.getElementById("quantidade").style.color="red"
+            document.getElementById("card_filtragem").style.backgroundColor="red"
+        }
+
+        document.getElementById("quantidade").textContent = dados.length;
+    })
+    .catch(error => {
+        console.error("Erro ao buscar lotes:", error);
+    });
+}
+
+
 
     const dados = {
         '7d': {

@@ -64,6 +64,7 @@ function buscar_lotes(req,res) {
     })
 }
 
+<<<<<<< Updated upstream
 function buscarDadosComponentes(req, res){
     monitoramentoModel.buscarDadosComponentes()
     .then((resultado) => {
@@ -92,6 +93,8 @@ function buscarDadosComponentes(req, res){
         res.status(500).json({ erro: "Erro ao trazer os componentes mano"})
     })
 }
+=======
+>>>>>>> Stashed changes
 
 
 module.exports = {
@@ -99,5 +102,8 @@ module.exports = {
     buscar_alertas,
     dados_tempo_real,
     buscar_lotes,
+<<<<<<< Updated upstream
     buscarDadosComponentes
+=======
+>>>>>>> Stashed changes
 };

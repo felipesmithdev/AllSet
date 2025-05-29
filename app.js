@@ -22,6 +22,7 @@ var empresasRouter = require("./src/routes/empresas");
 var unidadesRouter = require("./src/routes/unidades");
 var enderecoRouter = require("./src/routes/enderecos");
 var segurancaRouter = require("./src/routes/seguranca");
+var gerenteRouter = require("./src/routes/gerente");
 var jiraRouter = require("./src/routes/chamados");
 
 app.use(express.json());
@@ -36,6 +37,7 @@ app.use("/empresas", empresasRouter);
 app.use("/unidades", unidadesRouter);
 app.use("/enderecos", enderecoRouter);
 app.use("/seguranca", segurancaRouter);
+app.use("/gerente", gerenteRouter);
 app.use("/jira", jiraRouter);
 
 

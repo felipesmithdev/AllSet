@@ -126,6 +126,17 @@
         }
     });
 
+    fetch("/gerente/lotesMaisOcorrencia", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+    })
+
     const dados = {
         '7d': {
             quantidade: 2,

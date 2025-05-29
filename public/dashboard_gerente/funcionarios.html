@@ -16,32 +16,42 @@
 </head>
 
 <body>
-    <nav class="sidebar">
-        <div class="side_container">
-            <div class="side_titulo">
-                <span>AllSet</span>
-            </div>
-            <div class="side_perfil">
-                <div class="foto_perfil">
-                    <img src="https://www.elhombre.com.br/wp-content/uploads/2023/06/jon-hamm-1494357063.jpg" alt="">
-                </div>
-                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario" id="b_usuario">Marcos</span></span>
-            </div>
-            <div class="side_topicos">
-                <ul class="side_menu">
-                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
-                    <li class="section_active"><i>💻</i> Funcionários</li>
-                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
-                    <div class="dividir_side"></div>
-                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
-                        target=”_blank”>Ajuda</a></li>
-                <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="main_content">
+    <div class="layout">
+    <!-- LADO ESQUERDO FIXO -->
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AS</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <main class="conteudo-principal">
+      <div class="titulo_dash"> <span>Funcionários</span></div>
+      
+
+    </main>
+  </div>
+
+  <div id="side-bar" class="side-bar">
+    <div class="logo"><span>AllSet</span></div>
+    <div class="boas-vindas">
+      <img src="../assets/imgs/user.png" alt="" />
+      <div class="textos-perfil">
+        <span>Bem Vindo</span>
+        <span id="b_usuario">Marcos</span>
+      </div>
+    </div>
+    <div class="opcoes-bar">
+      <a href="">Dashboard</a>
+      <a href="">Sair</a>
+    </div>
+  </div>
+
+  <!-- FUNDO ESCURO -->
+  <div id="fundo-preto" class="fundo-preto"></div>
+
+ <div class="main_content">
         <div class="nav_main">
             <div class="titulo_main">
                 <div class="inicio_titulo">
@@ -122,6 +132,34 @@
             </table>
         </div>
     </div>
+
+<!-- 
+    <nav class="sidebar">
+        <div class="side_container">
+            <div class="side_titulo">
+                <span>AllSet</span>
+            </div>
+            <div class="side_perfil">
+                <div class="foto_perfil">
+                    <img src="https://www.elhombre.com.br/wp-content/uploads/2023/06/jon-hamm-1494357063.jpg" alt="">
+                </div>
+                <span class="boas_vindas_span">Bem-vindo de volta, <br> <span class="nome_usuario" id="b_usuario">Marcos</span></span>
+            </div>
+            <div class="side_topicos">
+                <ul class="side_menu">
+                    <li onclick="irParaDash()"><i>📊</i> Dashboard</li>
+                    <li class="section_active"><i>💻</i> Funcionários</li>
+                    <li onclick="irParaAlertas()"><i>🔔</i> Alertas</li>
+                    <div class="dividir_side"></div>
+                    <li><i>❓</i> <a href="https://allsetsprint2.atlassian.net/servicedesk/customer/portal/1" class="helpdesk"
+                        target=”_blank”>Ajuda</a></li>
+                <li><i>🚪</i> <a href="../index.html" class="helpdesk"">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+   
 
     <script>
     function traduzirCargo(nivel) {

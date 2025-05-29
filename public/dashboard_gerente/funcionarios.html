@@ -6,134 +6,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funcionários</title>
     <script src="https://jsuites.net/v5/jsuites.js"></script>
-    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png"/>
+    <link rel="icon" type="image/png" href="../assets/img/logoAllSet.png" />
     <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
     <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../css/gerente.css">
-    <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="../js/sessao.js"></script>
 </head>
 
 <body>
 
+
+
+
+
     <div class="layout">
-    <!-- LADO ESQUERDO FIXO -->
-    <div class="secao-side">
-      <div class="botao-side-bar">
-        <div class="logo"><span>AS</span></div>
-        <div id="menu-bar" class="fas fa-bars"></div>
-      </div>
-    </div>
-
-    <main class="conteudo-principal">
-      <div class="titulo_dash"> <span>Funcionários</span></div>
-      
-
-    </main>
-  </div>
-
-  <div id="side-bar" class="side-bar">
-    <div class="logo"><span>AllSet</span></div>
-    <div class="boas-vindas">
-      <img src="../assets/imgs/user.png" alt="" />
-      <div class="textos-perfil">
-        <span>Bem Vindo</span>
-        <span id="b_usuario">Marcos</span>
-      </div>
-    </div>
-    <div class="opcoes-bar">
-      <a href="">Dashboard</a>
-      <a href="">Sair</a>
-    </div>
-  </div>
-
-  <!-- FUNDO ESCURO -->
-  <div id="fundo-preto" class="fundo-preto"></div>
-
- <div class="main_content">
-        <div class="nav_main">
-            <div class="titulo_main">
-                <div class="inicio_titulo">
-                    <div id="menu-bar" class="fas fa-bars"></div>
-                    Funcionários
-                </div>
-            </div>
-            <div class="exibir_data">
-                <div class="alerta_data_hora">
-                    <span>28/04/2025</span>
-                </div>
+        <div class="secao-side">
+            <div class="botao-side-bar">
+                <div class="logo"><span>AS</span></div>
+                <div id="menu-bar" class="fas fa-bars"></div>
             </div>
         </div>
-        <div class="alertas_section">
-            <div class="top_alerta">
-                <div class="titulo_alerta">Usuários Cadastrados</div>
-                <div class="ver_alertas" onclick="document.querySelector('jsuites-modal').modal.open()" class='plain'>
-                    Cadastrar Novo Funcionário <span>→</span>
+
+        <div id="side-bar" class="side-bar">
+            <div class="logo"><span>AllSet</span></div>
+            <div class="boas-vindas">
+                <img src="../assets/imgs/user.png" alt="Usuário" />
+                <div class="textos-perfil">
+                    <span>Bem Vindo</span>
+                    <span id="b_usuario">Jordana</span>
+                </div>
+            </div>
+            <div class="opcoes-bar">
+                <a href="./dashGerenteIsa.html">Dashboard Geral</a>
+                <a href="./dashboardChamados.html">Dashboard Chamados</a>
+                <a href="../login.html">Sair</a>
+            </div>
+        </div>
+
+        <div id="fundo-preto" class="fundo-preto"></div>
+
+        <main class="conteudo-principal">
+
+
+
+
+            <div class="main_content">
+                <div class="nav_main">
+                    <div class="titulo_main">
+                        <div class="inicio_titulo">
+                            Dashboard Gerente - Funcionários
+                        </div>
+                    </div>
+                </div>
+                <div class="alertas_section">
+                    <div class="top_alerta">
+                        <div class="titulo_alerta">Usuários Cadastrados</div>
+                        <div class="ver_alertas" onclick="document.querySelector('jsuites-modal').modal.open()"
+                            class='plain'>
+                            Cadastrar Novo Funcionário <span>→</span>
+                        </div>
+                    </div>
+
+                    <jsuites-modal title="Cadastrar novo Funcionário" closed="true" width="900" height="480">
+                        <div class="funcionario_container">
+                            <div class="campos_cadastro_func">
+                                <div class="topo">
+                                    <div class="nome_campo">
+                                        <span>Nome</span>
+                                        <input type="text" id="nome_input">
+                                    </div>
+                                    <div class="cpf_campo">
+                                        <span>CPF</span>
+                                        <input type="text" id="cpf_input">
+                                    </div>
+                                    <div class="cargo_campo">
+                                        <span>Cargo</span>
+                                        <select id="cargo_input">
+                                            <option value="" selected disabled>Selecione o cargo</option>
+                                            <option value="2">Gerente de segurança</option>
+                                            <option value="3">Cientista de dados</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="meio">
+                                    <div class="email_campo">
+                                        <span>Email</span>
+                                        <input type="text" id="email_input">
+                                    </div>
+                                </div>
+                                <div class="fim">
+                                    <div class="senha_campo">
+                                        <span>Senha</span>
+                                        <input type="password" id="senha_input">
+                                    </div>
+                                    <div class="confirmar_senha_campo">
+                                        <span>Confirmar Senha</span>
+                                        <input type="password" id="senha_confirmacao_input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="botao_cadastrar">
+                                <button onclick="cadastrarFuncionario()">Cadastrar</button>
+                            </div>
+                        </div>
+                    </jsuites-modal>
+
+                    <table class="tabela_alertas carros_tabela">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Cargo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <jsuites-modal title="Cadastrar novo Funcionário" closed="true" width="900" height="480">
-                <div class="funcionario_container">
-                    <div class="campos_cadastro_func">
-                        <div class="topo">
-                            <div class="nome_campo">
-                                <span>Nome</span>
-                                <input type="text" id="nome_input">
-                            </div>
-                            <div class="cpf_campo">
-                                <span>CPF</span>
-                                <input type="text" id="cpf_input">
-                            </div>
-                            <div class="cargo_campo">
-                                <span>Cargo</span>
-                                <select id="cargo_input">
-                                    <option value="" selected disabled>Selecione o cargo</option>
-                                    <option value="2">Gerente de segurança</option>
-                                    <option value="3">Cientista de dados</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="meio">
-                            <div class="email_campo">
-                                <span>Email</span>
-                                <input type="text" id="email_input">
-                            </div>
-                        </div>
-                        <div class="fim">
-                            <div class="senha_campo">
-                                <span>Senha</span>
-                                <input type="password" id="senha_input">
-                            </div>
-                            <div class="confirmar_senha_campo">
-                                <span>Confirmar Senha</span>
-                                <input type="password" id="senha_confirmacao_input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="botao_cadastrar">
-                        <button onclick="cadastrarFuncionario()">Cadastrar</button>
-                    </div>
-                </div>
-            </jsuites-modal>
 
-            <table class="tabela_alertas carros_tabela">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Cargo</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Tabela será preenchida dinamicamente -->
-                </tbody>
-            </table>
-        </div>
+
+
+        </main>
     </div>
 
-<!-- 
+
+
+
+
+    <!-- 
     <nav class="sidebar">
         <div class="side_container">
             <div class="side_titulo">
@@ -159,17 +166,17 @@
         </div>
     </nav> -->
 
-   
+
 
     <script>
-    function traduzirCargo(nivel) {
-        switch (parseInt(nivel)) {
-            case 1: return "Gerente de operação";
-            case 2: return "Gerente de segurança";
-            case 3: return "Cientista de dados";
-            default: return "Desconhecido";
+        function traduzirCargo(nivel) {
+            switch (parseInt(nivel)) {
+                case 1: return "Gerente de operação";
+                case 2: return "Gerente de segurança";
+                case 3: return "Cientista de dados";
+                default: return "Desconhecido";
+            }
         }
-    }
 
         async function cadastrarFuncionario() {
             const idAgencia = sessionStorage.getItem("fk_agencia");
@@ -234,7 +241,7 @@
 
                     const tdStatus = document.createElement("td");
                     tdStatus.textContent = func.ativo === 1 ? "Ativo" :
-                                           func.ativo === 0 ? "Inativo" : "Pendente";
+                        func.ativo === 0 ? "Inativo" : "Pendente";
 
                     if (func.ativo === 0) {
                         tdStatus.classList.add("alerta_crit");
@@ -262,20 +269,52 @@
         let navbar = document.querySelector('.sidebar');
 
 
-        menu.onclick = () =>{
-	
-	        menu.classList.toggle('fa-times');
-	        navbar.classList.toggle('active');
+        menu.onclick = () => {
+
+            menu.classList.toggle('fa-times');
+            navbar.classList.toggle('active');
             menu.classList.add('fa-times');
-	
+
         }
-	
-        window.onscroll = () =>{
-	
-	        menu.classList.remove('fa-times');
-	        navbar.classList.remove('active');
-	
+
+        window.onscroll = () => {
+
+            menu.classList.remove('fa-times');
+            navbar.classList.remove('active');
+
         }
+
+
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            const menuBar = document.getElementById("menu-bar");
+            const sidebar = document.getElementById("side-bar");
+            const fundoPreto = document.getElementById("fundo-preto");
+
+            function toggleSidebar() {
+                const isVisible = sidebar.classList.contains("show");
+                if (!isVisible) {
+                    sidebar.style.display = "flex";
+                    fundoPreto.style.display = "block";
+                    void sidebar.offsetWidth;
+                    void fundoPreto.offsetWidth;
+                    sidebar.classList.add("show");
+                    fundoPreto.classList.add("show");
+                } else {
+                    sidebar.classList.remove("show");
+                    fundoPreto.classList.remove("show");
+                    setTimeout(() => {
+                        sidebar.style.display = "none";
+                        fundoPreto.style.display = "none";
+                    }, 300);
+                }
+            }
+            if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+            if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+
+        });
     </script>
 </body>
 

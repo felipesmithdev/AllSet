@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infra</title>
+  <link rel="stylesheet" href="../css/infra.css">
+  <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- <script src="../js/sessao.js"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AllSet</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <main class="conteudo-principal">
+     <div class="titulo">Dashboard visão operacional</div> 
+ <div class="filtro-container">
+  <label for="input_data">Filtrar:</label>
+  <input id="input_data" class="select-dash" type="date" />
+  <button class="botao" onclick="filtrarPorData()">Filtrar Data</button>
+</div>
+      
+    
+<div class="conteudo-kpi-graficos">
+    <div class="kpi-container">
+        <div class="kpi">Serviço com mais gasto</div>
+        <div class="kpi">Custo atual total</div>
+        <div class="kpi">Instância</div>
+        <div class="kpi">CPU (%) da EC2</div>
+        <div class="kpi">RAM (%) da EC2</div>
+    </div>
+
+    <div class="central-graficos">
+        <div class="botoes-graficos">
+            <button onclick="mostrarGrafico('EC2')">EC2</button>
+            <button onclick="mostrarGrafico('S3')">S3</button>
+            <button onclick="mostrarGrafico('Lambda')">Lambda</button>
+        </div>
+
+        <div id="EC2" class="grafico ativo">
+            <div class="kpi">Gráfico EC2</div>
+        </div>
+        <div id="S3" class="grafico">
+            <div class="kpi">Gráfico S3</div>
+        </div>
+        <div id="Lambda" class="grafico">
+            <div class="kpi">Gráfico Lambda</div>
+        </div>
+    </div>
+</div>
+   
+
+    </main>
+
+  </div>
+
+  <div id="side-bar" class="side-bar">
+    <div class="logo"><span>AllSet</span></div>
+    <div class="boas-vindas">
+      <img src="../assets/imgs/user.png" alt="">
+      <div class="textos-perfil">
+        <span>Bem Vindo</span>
+        <span id="b_usuario">Felipe</span>
+      </div>
+    </div>
+    <div class="opcoes-bar">
+      <a href="">Dashboard</a>
+      <a href="">Alertas</a>
+      <a href="">Sair</a>
+    </div>
+  </div>
+
+  <div id="fundo-preto" class="fundo-preto"></div>
+
+</body>
+
+</html>
+
+<script>
+
+  document.getElementById("menu-bar").addEventListener("click", function () {
+    const sidebar = document.querySelector(".side-bar");
+    const fundoPreto = document.querySelector(".fundo-preto");
+
+    const isVisible = sidebar.classList.contains("show");
+
+    if (!isVisible) {
+      sidebar.style.display = "flex";
+      fundoPreto.style.display = "block";
+
+      void sidebar.offsetWidth;
+      void fundoPreto.offsetWidth;
+
+      sidebar.classList.add("show");
+      fundoPreto.classList.add("show");
+    } else {
+      sidebar.classList.remove("show");
+      fundoPreto.classList.remove("show");
+
+      setTimeout(() => {
+        sidebar.style.display = "none";
+        fundoPreto.style.display = "none";
+      }, 300);
+    }
+  });
+
+
+  function mostrarGrafico(grafico) {
+  const graficos = ["EC2", "S3", "Lambda"];
+
+  graficos.forEach(id => {
+    document.getElementById(id).style.display = (id === grafico) ? "flex" : "none";
+  });
+}
+
+
+
+function filtrarPorData() {
+  const dataSelecionada = document.getElementById('input_data').value;
+
+  if (!dataSelecionada) {
+    alert('Por favor, selecione uma data.');
+    return;
+  }
+
+  // Aqui você chama as funções que puxam os dados da data selecionada
+  console.log('Buscando dados para a data:', dataSelecionada);
+  
+  pegarKPI(dataSelecionada);
+  mostrarGraficoData(dataSelecionada);
+}
+
+
+  
+
+</script>

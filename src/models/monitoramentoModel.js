@@ -78,7 +78,6 @@ function buscar_lotes(){
     return database.executar(instrucaoSql)
 }
 
-<<<<<<< Updated upstream
 function buscarDadosComponentes(){
     console.log("Estou no model de buscar os dados do grafico de componentes")
         var instrucaoSql = `
@@ -144,16 +143,10 @@ function buscar_lotes(){
     return database.executar(instrucaoSql)
 }
 
-
-=======
->>>>>>> Stashed changes
 module.exports = {
     buscar_carros,
     buscar_alertas,
     dados_tempo_real,
     buscar_lotes,
-<<<<<<< Updated upstream
     buscarDadosComponentes
-=======
->>>>>>> Stashed changes
 };

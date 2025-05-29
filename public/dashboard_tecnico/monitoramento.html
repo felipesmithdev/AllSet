@@ -165,15 +165,15 @@ function trazerAtualizarLotes() {
     console.log(lotes)
     // Calcula a porcentagem e ordena
     const lotesOrdenados = lotes
-      .map(lote => {
-        const totalAlertas = lote.alertas;
-        const alertasGraves = lote.alertas_graves;
-        const porcentagem = totalAlertas > 0
-          ? (alertasGraves / totalAlertas) * 100
-          : 0;
-        return { ...lote, porcentagem_graves: porcentagem };
-      })
-      .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
+      // .map(lote => {
+      //   const totalAlertas = lote.alertas;
+      //   const alertasGraves = lote.alertas_graves;
+      //   const porcentagem = totalAlertas > 0
+      //     ? (alertasGraves / totalAlertas) * 100
+      //     : 0;
+      //   return { ...lote, porcentagem_graves: porcentagem };
+      // })
+      // .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
 
     const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
     tabelaCorpo.innerHTML = "";
@@ -211,12 +211,8 @@ function trazerAtualizarLotes() {
 function definirClasseStatus(total, graves) {
     let percentual_alerta = (graves / total) * 100
 
-    if (percentual_alerta >= 0 && percentual_alerta <= 30){
-      return "status_lote_normal"
-    } else if(percentual_alerta >= 31 && percentual_alerta <= 60){
-      return "status_lote_medio"
-    } else if(percentual_alerta >= 61 && percentual_alerta <= 100){
-      return "status_lote" // seria o grave no caso, esqueci de adicionar o final da classe no css
+    if (percentual_alerta > 0 && percentual_alerta <= 100){
+      return "status_lote"
     } else {
       return "status_lote_normal"
     }

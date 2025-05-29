@@ -7,106 +7,125 @@
     <title>AllSet - Dashboard de Chamados</title>
     <link rel="icon" type="image/png" href="../assets/img/logoAllSet.png" />
     <link rel="stylesheet" href="../css/dashboardsChamados.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-
-    </style>
 </head>
 
 <body>
-    <div class="dashboard">
-        <div class="header">
-            <div class="title">Dashboard de Chamados JIRA - Visão Global</div>
+    <div class="layout">
+        <div class="secao-side">
+            <div class="botao-side-bar">
+                <div class="logo"><span>AS</span></div>
+                <div id="menu-bar" class="fas fa-bars"></div>
+            </div>
         </div>
 
-        <div class="kpi-container">
-            <div class="kpi-card" id="card-tempo-medio">
-                <div class="kpi-title">Tempo médio de resolução</div>
-                <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-title">Total de chamados em aberto</div>
-                <div class="kpi-value" id="kpi-total-aberto">Carregando...</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-title">Finalizados nas últimas 24h</div>
-                <div class="kpi-value" id="kpi-resolvidos-24">Carregando...</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-title">Lote com mais chamados em aberto</div>
-                <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
-            </div>
-
-        </div>
-
-
-        <div class="table-container">
-            <div class="table-header">
-                <h3 class="table-title">Chamados em Aberto (Ordenados por Urgência)</h3>
-            </div>
-            <table class="chamados-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Lote</th>
-                        <th>Descrição</th>
-                        <th>Data de Criação</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="tabela-chamados">
-                    <tr>
-                        <td colspan="5" class="loading">Carregando chamados...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="filters">
-            <div class="filter-group">
-                <label for="lote">Filtrar por Lote:</label>
-                <select id="lote">
-                    <option value="">Carregando lotes...</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label>Período do Gráfico:</label>
-                <div class="periodo-buttons">
-                    <button class="periodo-btn active" data-dias="7">7 dias</button>
-                    <button class="periodo-btn" data-dias="15">15 dias</button>
-                    <button class="periodo-btn" data-dias="30">30 dias</button>
+        <div id="side-bar" class="side-bar">
+            <div class="logo"><span>AllSet</span></div>
+            <div class="boas-vindas">
+                <img src="../assets/imgs/user.png" alt="Usuário" />
+                <div class="textos-perfil">
+                    <span>Bem Vindo</span>
+                    <span id="b_usuario">Jordana</span>
                 </div>
             </div>
-
-            <button class="refresh-btn" onclick="atualizarTudo()"> Atualizar Dados</button>
-        </div>
-
-
-        <div class="chart-container">
-            <h3 id="chart-title">Gráfico de Chamados nos últimos 7 dias - Todos os lotes</h3>
-
-            <div class="metrics">
-                <div class="metric-card">
-                    <div class="metric-title">Chamados em aberto (filtro)</div>
-                    <div class="metric-value" id="metric-total-aberto">0</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Finalizados (filtro)</div>
-                    <div class="metric-value" id="metric-total-finalizados">0</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Índice de conclusão</div>
-                    <div class="metric-value" id="metric-indice-conclusao">0%</div>
-                </div>
-            </div>
-
-            <div class="chart-wrapper">
-                <canvas id="chamadosChart"></canvas>
+            <div class="opcoes-bar">
+                <a href="./dashGerenteIsa.html">Dashboard Geral</a>
+                <a href="../login.html">Sair</a>
             </div>
         </div>
+
+        <div id="fundo-preto" class="fundo-preto"></div>
+
+        <main class="conteudo-principal">
+            <div class="dashboard">
+                <div class="header">
+                    <div class="title">Dashboard de Chamados JIRA - Visão Global</div>
+                </div>
+
+                <div class="kpi-container">
+                    <div class="kpi-card" id="card-tempo-medio">
+                        <div class="kpi-title">Tempo médio de resolução</div>
+                        <div class="kpi-value" id="kpi-tempo-medio">Carregando...</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total de chamados em aberto</div>
+                        <div class="kpi-value" id="kpi-total-aberto">Carregando...</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Finalizados nas últimas 24h</div>
+                        <div class="kpi-value" id="kpi-resolvidos-24">Carregando...</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Lote com mais chamados em aberto</div>
+                        <div class="kpi-value" id="kpi-lote-mais-chamados">Carregando...</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Chamados em Aberto (Ordenados por Urgência)</h3>
+                    </div>
+                    <table class="chamados-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Lote</th>
+                                <th>Descrição</th>
+                                <th>Data de Criação</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-chamados">
+                            <tr>
+                                <td colspan="5" class="loading">Carregando chamados...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="lote">Filtrar por Lote:</label>
+                        <select id="lote">
+                            <option value="">Carregando lotes...</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Período do Gráfico:</label>
+                        <div class="periodo-buttons">
+                            <button class="periodo-btn active" data-dias="7">7 dias</button>
+                            <button class="periodo-btn" data-dias="15">15 dias</button>
+                            <button class="periodo-btn" data-dias="30">30 dias</button>
+                        </div>
+                    </div>
+                    <button class="refresh-btn" onclick="atualizarTudo()"> Atualizar Dados</button>
+                </div>
+
+                <div class="chart-container">
+                    <h3 id="chart-title">Gráfico de Chamados nos últimos 7 dias - Todos os lotes</h3>
+                    <div class="metrics">
+                        <div class="metric-card">
+                            <div class="metric-title">Chamados em aberto (filtro)</div>
+                            <div class="metric-value" id="metric-total-aberto">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Finalizados (filtro)</div>
+                            <div class="metric-value" id="metric-total-finalizados">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Índice de conclusão</div>
+                            <div class="metric-value" id="metric-indice-conclusao">0%</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chamadosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
@@ -115,112 +134,75 @@
         function formatarDataBR(dataISO) {
             try {
                 return new Date(dataISO).toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
+                    day: '2-digit', month: '2-digit', year: 'numeric'
                 });
-            } catch (error) {
-                return 'Data inválida';
-            }
+            } catch (error) { return 'Data inválida'; }
         }
 
         function obterClasseStatus(status) {
             const statusLower = status.toLowerCase();
-            if (statusLower.includes('progresso') || statusLower.includes('progress')) {
-                return 'status-em-progresso';
-            } else if (statusLower.includes('novo') || statusLower.includes('new')) {
-                return 'status-novo';
-            } else if (statusLower.includes('pendente') || statusLower.includes('pending')) {
-                return 'status-pendente';
-            }
+            if (statusLower.includes('progresso') || statusLower.includes('progress')) return 'status-em-progresso';
+            if (statusLower.includes('novo') || statusLower.includes('new')) return 'status-novo';
+            if (statusLower.includes('pendente') || statusLower.includes('pending')) return 'status-pendente';
             return 'status-default';
         }
 
         async function atualizarKPIsGlobais() {
             console.log('🔄 Buscando KPIs globais...');
-
             const kpiLoteMaisChamadosEl = document.getElementById('kpi-lote-mais-chamados');
             const kpiTotalAbertoEl = document.getElementById('kpi-total-aberto');
             const kpiResolvidos24El = document.getElementById('kpi-resolvidos-24');
             const kpiTempoMedioValueEl = document.getElementById('kpi-tempo-medio');
             const kpiTempoMedioCardEl = document.getElementById('card-tempo-medio');
-
             try {
                 const response = await axios.get('/jira/kpis-globais');
                 const kpis = response.data;
-
                 console.log('📊 KPIs globais recebidos:', kpis);
-
                 kpiLoteMaisChamadosEl.textContent = kpis.loteComMais || 'N/A';
                 kpiTotalAbertoEl.textContent = kpis.totalAbertos || '0';
-                kpiResolvidos24El.textContent = kpis.finalizadosUltimas24h || '0'; 
-
-                const tempoMedioString = kpis.tempoMedioResolucao; 
+                kpiResolvidos24El.textContent = kpis.finalizadosUltimas24h || '0';
+                const tempoMedioString = kpis.tempoMedioResolucao;
                 kpiTempoMedioValueEl.textContent = tempoMedioString || 'N/A';
-
                 if (kpiTempoMedioCardEl) {
-
                     kpiTempoMedioCardEl.classList.remove('warning', 'danger');
-
                     if (tempoMedioString && tempoMedioString !== 'N/A') {
-                        const tempoMedioHoras = parseFloat(tempoMedioString); 
-
+                        const tempoMedioHoras = parseFloat(tempoMedioString);
                         if (!isNaN(tempoMedioHoras)) {
-                            if (tempoMedioHoras > 12) {
-                                kpiTempoMedioCardEl.classList.add('danger'); // Acima de 12 horas: vermelho
-                            } else if (tempoMedioHoras > 8) {
-                                kpiTempoMedioCardEl.classList.add('warning'); // Acima de 8 horas (até 12h): amarelo
-                            }
+                            if (tempoMedioHoras > 12) kpiTempoMedioCardEl.classList.add('danger');
+                            else if (tempoMedioHoras > 8) kpiTempoMedioCardEl.classList.add('warning');
                         }
                     }
                 }
                 return kpis;
             } catch (error) {
                 console.error('❌ Erro ao buscar KPIs globais:', error);
-                kpiLoteMaisChamadosEl.textContent = 'Erro';
-                kpiTotalAbertoEl.textContent = 'Erro';
-                kpiResolvidos24El.textContent = 'Erro';
-                kpiTempoMedioValueEl.textContent = 'Erro';
-                if (kpiTempoMedioCardEl) {
-                    kpiTempoMedioCardEl.classList.remove('warning', 'danger');
-                }
+                kpiLoteMaisChamadosEl.textContent = 'Erro'; kpiTotalAbertoEl.textContent = 'Erro';
+                kpiResolvidos24El.textContent = 'Erro'; kpiTempoMedioValueEl.textContent = 'Erro';
+                if (kpiTempoMedioCardEl) kpiTempoMedioCardEl.classList.remove('warning', 'danger');
                 return {};
             }
         }
 
         async function atualizarTabelaChamados() {
             console.log('🔄 Buscando chamados globais...');
-
             const tabelaBody = document.getElementById('tabela-chamados');
             tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">Carregando chamados...</td></tr>';
-
             try {
                 const response = await axios.get('/jira/chamados-globais');
                 const chamados = response.data;
-
-
                 if (!chamados || chamados.length === 0) {
                     tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">📭 Nenhum chamado em aberto encontrado</td></tr>';
                     return [];
                 }
-
                 tabelaBody.innerHTML = '';
-                chamados.forEach((chamado, index) => {
+                chamados.forEach((chamado) => {
                     const statusClass = obterClasseStatus(chamado.status);
                     const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td><strong>#${chamado.id}</strong></td>
-                        <td>${chamado.lote || 'N/A'}</td>
-                        <td>${chamado.descricao || 'Sem descrição'}</td>
-                        <td>${formatarDataBR(chamado.data)}</td>
-                        <td><span class="status-badge ${statusClass}">${chamado.status}</span></td>
-                    `;
+                    row.innerHTML = `<td><strong>#${chamado.id}</strong></td><td>${chamado.lote || 'N/A'}</td><td>${chamado.descricao || 'Sem descrição'}</td><td>${formatarDataBR(chamado.data)}</td><td><span class="status-badge ${statusClass}">${chamado.status}</span></td>`;
                     tabelaBody.appendChild(row);
                 });
-
                 console.log('✅ Tabela atualizada com', chamados.length, 'chamados');
                 return chamados;
-
             } catch (error) {
                 console.error('❌ Erro ao buscar chamados globais:', error);
                 tabelaBody.innerHTML = '<tr><td colspan="5" class="error">❌ Erro ao carregar chamados. Verifique a conexão.</td></tr>';
@@ -228,147 +210,71 @@
             }
         }
 
+        async function carregarLotes() { }
+        async function atualizarGrafico() { }
+        async function atualizarTudo() { }
+
+
         async function carregarLotes() {
-            console.log('Carregando lotes...');
-
-            const select = document.getElementById('lote');
-
+            console.log('Carregando lotes...'); const select = document.getElementById('lote');
             try {
-                const response = await axios.get('/jira/lotes');
-                const lotes = response.data.lotes || [];
-
-                console.log('📦 Lotes carregados:', lotes);
-
+                const response = await axios.get('/jira/lotes'); const lotes = response.data.lotes || [];
                 select.innerHTML = '<option value="">📊 Todos os lotes</option>';
-
-                lotes.forEach(lote => {
-                    const option = document.createElement('option');
-                    option.value = lote;
-                    option.textContent = lote;
-                    select.appendChild(option);
-                });
-
-                console.log('✅ Select de lotes populado');
+                lotes.forEach(lote => { const option = document.createElement('option'); option.value = lote; option.textContent = lote; select.appendChild(option); });
                 return lotes;
-
-            } catch (error) {
-                console.error('❌ Erro ao carregar lotes:', error);
-                select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>';
-                return [];
-            }
+            } catch (error) { console.error('❌ Erro ao carregar lotes:', error); select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>'; return []; }
         }
-
         async function atualizarGrafico() {
-            const lote = document.getElementById('lote').value;
-            const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
-
-            console.log(`📈 Atualizando gráfico - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
-
+            const lote = document.getElementById('lote').value; const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
             try {
-                const responseGrafico = await axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
-                const dadosGrafico = responseGrafico.data;
-
-                const responseKPIs = await axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`);
-                const kpis = responseKPIs.data;
-
-                console.log('📊 Dados do gráfico:', dadosGrafico);
-                console.log('📊 KPIs do filtro:', kpis);
-
-                if (chamadosChart && dadosGrafico) {
-                    chamadosChart.data.labels = dadosGrafico.labels || [];
-                    chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
-                    chamadosChart.update();
-                }
-
-                document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
-                document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
-
-                const totalChamados = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0);
-                const indiceResolucao = totalChamados > 0
-                    ? Math.round(((kpis.totalFinalizados || 0) / totalChamados) * 100)
-                    : 0;
-                document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
-
-                const tituloLote = lote || 'Todos os lotes';
-                document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
-
-            } catch (error) {
-                console.error('Erro ao atualizar gráfico:', error);
-            }
+                const [responseGrafico, responseKPIs] = await Promise.all([axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`), axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`)]);
+                const dadosGrafico = responseGrafico.data; const kpis = responseKPIs.data;
+                if (chamadosChart && dadosGrafico) { chamadosChart.data.labels = dadosGrafico.labels || []; chamadosChart.data.datasets[0].data = dadosGrafico.data || []; chamadosChart.update(); }
+                document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0'; document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
+                const totalChamadosFiltro = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0); const indiceResolucao = totalChamadosFiltro > 0 ? Math.round(((kpis.totalFinalizados || 0) / totalChamadosFiltro) * 100) : 0;
+                document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`; document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${lote || 'Todos os lotes'}`;
+            } catch (error) { console.error('Erro ao atualizar gráfico:', error); }
         }
-
         async function atualizarTudo() {
-            console.log('🔄 Iniciando atualização completa...');
-
-            document.getElementById('kpi-lote-mais-chamados').textContent = 'Carregando...';
-            document.getElementById('kpi-total-aberto').textContent = 'Carregando...';
-            document.getElementById('kpi-resolvidos-24').textContent = 'Carregando...';
-            document.getElementById('kpi-tempo-medio').textContent = 'Carregando...';
-
+            ['kpi-lote-mais-chamados', 'kpi-total-aberto', 'kpi-resolvidos-24', 'kpi-tempo-medio'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = 'Carregando...'; });
             try {
-                await Promise.all([
-                    atualizarKPIsGlobais(),
-                    atualizarTabelaChamados(),
-                    atualizarGrafico()
-                ]);
-
-                console.log('✅ Atualização completa finalizada');
-            } catch (error) {
-                console.error('❌ Erro na atualização completa:', error);
-            }
+                await Promise.all([atualizarKPIsGlobais(), atualizarTabelaChamados(), atualizarGrafico()]);
+            } catch (error) { console.error('❌ Erro na atualização completa:', error); }
         }
+
 
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🚀 Inicializando dashboard...');
-
             const ctx = document.getElementById('chamadosChart').getContext('2d');
-            chamadosChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: 'Quantidade de chamados',
-                        data: [],
-                        borderColor: '#4eb5f1',
-                        backgroundColor: 'rgba(78, 181, 241, 0.2)',
-                        tension: 0.4,
-                        pointBackgroundColor: '#4eb5f1',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            }
-                        }
-                    }
-                }
-            });
-
-            document.querySelectorAll('.periodo-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    atualizarGrafico();
-                });
-            });
-
+            chamadosChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [{ label: 'Quantidade de chamados', data: [], borderColor: '#4eb5f1', backgroundColor: 'rgba(78, 181, 241, 0.2)', tension: 0.4, pointBackgroundColor: '#4eb5f1', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 6, pointHoverRadius: 8, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
+            document.querySelectorAll('.periodo-btn').forEach(btn => { btn.addEventListener('click', function () { document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); atualizarGrafico(); }); });
             document.getElementById('lote').addEventListener('change', atualizarGrafico);
+
+            // --- JAVASCRIPT DA SIDEBAR ---
+            const menuBar = document.getElementById("menu-bar");
+            const sidebar = document.getElementById("side-bar");
+            const fundoPreto = document.getElementById("fundo-preto");
+
+            function toggleSidebar() {
+                const isVisible = sidebar.classList.contains("show");
+                if (!isVisible) {
+                    sidebar.style.display = "flex";
+                    fundoPreto.style.display = "block";
+                    void sidebar.offsetWidth;
+                    void fundoPreto.offsetWidth;
+                    sidebar.classList.add("show");
+                    fundoPreto.classList.add("show");
+                } else {
+                    sidebar.classList.remove("show");
+                    fundoPreto.classList.remove("show");
+                    setTimeout(() => {
+                        sidebar.style.display = "none";
+                        fundoPreto.style.display = "none";
+                    }, 300);
+                }
+            }
+            if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+            if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
 
             try {
                 await carregarLotes();
@@ -377,9 +283,8 @@
             } catch (error) {
                 console.error('❌ Erro na inicialização:', error);
             }
-
             setInterval(() => {
-                console.log('🔄 Auto-refresh executado');
+                console.log('🔄 Auto-refresh KPIs e Tabela Chamados');
                 atualizarKPIsGlobais();
                 atualizarTabelaChamados();
             }, 5 * 60 * 1000);

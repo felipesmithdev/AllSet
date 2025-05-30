@@ -21,6 +21,7 @@ function lotesMaisOcorrencia(req, res) {
 function datasRegistroAlertas(req, res) {
     let { idAgencia, dias } = req.body;
 
+
     if (!idAgencia || !dias) {
         return res.status(400).json({ erro: "idAgencia e dias são obrigatórios" });
     }

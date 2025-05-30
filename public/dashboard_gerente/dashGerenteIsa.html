@@ -31,9 +31,9 @@
                     <div class="card_filtragem" id="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
                         <div class="botoes_filtragem">
-                        <button onclick="filtrar('7d'); buscarLotes(7)">7 dias</button>
-                        <button onclick="filtrar('15d'); buscarLotes(15)">15 dias</button>
-                        <button onclick="filtrar('30d'); buscarLotes(30)">30 dias</button>
+                        <button onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
+                        <button onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
+                        <button onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
                     </div>
                         <p>Quantidade de lotes com problema:</p>
                         <span id="quantidade"></span>
@@ -63,8 +63,8 @@
                     </div>
 
                     <div class="card_kpi">
-                        <h3>50%</h3>
-                        <p>Média entre as filtragens</p>
+                        <h3></h3>
+                        <p>Crescimento de Ocorrências (%)</p>
                     </div>
                 </div>
 
@@ -155,7 +155,7 @@ function lotesMaisOcorrencias30(){
 
 /* colocando nos graficos */
 function datasRegistroAlertas() {
-     fetch("/gerente/lotesMaisOcorrencias", {
+     fetch("/gerente/dataRegistroAlertas", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ idAgencia: 1, dias: 7 }) 
@@ -163,7 +163,7 @@ function datasRegistroAlertas() {
 }
 
 function datasRegistroAlertas() {
-     fetch("/gerente/lotesMaisOcorrencias", {
+     fetch("/gerente/dataRegistroAlertas", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ idAgencia: 1, dias: 15 }) 
@@ -171,7 +171,7 @@ function datasRegistroAlertas() {
 }
 
 function datasRegistroAlertas() {
-     fetch("/gerente/lotesMaisOcorrencias", {
+     fetch("/gerente/dataRegistroAlertas", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
@@ -202,7 +202,7 @@ function buscarLotes(dias) {
                 <tr>
                     <td>${item.lote}</td>
                     <td>${item.ocorrencias}</td>
-                    <td>${item.ocorrencias > 10 ? 'Crítico' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
+                    <td>${item.ocorrencias > 10 ? '<span style="color: red;"> Crítico <span/>' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
                 </tr>
             `;
         });
@@ -211,6 +211,7 @@ function buscarLotes(dias) {
             document.getElementById("quantidade").style.color="red"
             document.getElementById("card_filtragem").style.backgroundColor="red"
         }
+
 
         document.getElementById("quantidade").textContent = dados.length;
     })
@@ -221,65 +222,101 @@ function buscarLotes(dias) {
 
 
 
-    const dados = {
-        '7d': {
-            quantidade: 2,
-            lotes: [['Lote 1', 5, 'Crítico'], ['Lote 2', 3, 'Crítico']],
-            grafico: [1, 2, 3, 4, 3, 2, 1]
-        },
-        '15d': {
-            quantidade: 4,
-            lotes: [['Lote 3 ', 12, 'Crítico'], ['Lote 4', 9, 'Crítico']],
-            grafico: [10, 20, 15, 18, 13, 25, 22]
-        },
-        '30d': {
-            quantidade: 10,
-            lotes: [
-                ['Lote 5', 30, 'Crítico'], ['Lote 9', 25, 'Crítico'], ['Lote 13', 18, 'Moderado'],
-                ['Lote 6', 15, 'Moderado'], ['Lote 10', 14, 'Crítico'],
-                ['Lote 7', 13, 'Moderado'], ['Lote 11', 12, 'Crítico'], ['Lote 14', 11, 'Moderado'],
-                ['Lote 8', 10, 'Crítico'], ['Lote 12', 9, 'Crítico']
-            ],
-            grafico: [30, 40, 35, 45, 50, 38, 42, 30, 28, 35, 39, 33]
-        }
-    };
+    async function graficoData (dias) {
+        const idAgencia = sessionStorage.getItem("fk_agencia")
 
+        const request  = await fetch("/gerente/datasRegistroAlertas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: idAgencia, dias: dias })
+        });
+
+        const data = await request.json();
+
+        return data;
+    }
+
+
+
+    // const dados = {
+    //     '7d': {
+    //         quantidade: 2,
+    //         lotes: [['Lote 1', 5, 'Crítico'], ['Lote 2', 3, 'Crítico']],
+    //         grafico: [1, 2, 3, 4, 3, 2, 1]
+    //     },
+    //     '15d': {
+    //         quantidade: 4,
+    //         lotes: [['Lote 3 ', 12, 'Crítico'], ['Lote 4', 9, 'Crítico']],
+    //         grafico: [10, 20, 15, 18, 13, 25, 22]
+    //     },
+    //     '30d': {
+    //         quantidade: 10,
+    //         lotes: [
+    //             ['Lote 5', 30, 'Crítico'], ['Lote 9', 25, 'Crítico'], ['Lote 13', 18, 'Moderado'],
+    //             ['Lote 6', 15, 'Moderado'], ['Lote 10', 14, 'Crítico'],
+    //             ['Lote 7', 13, 'Moderado'], ['Lote 11', 12, 'Crítico'], ['Lote 14', 11, 'Moderado'],
+    //             ['Lote 8', 10, 'Crítico'], ['Lote 12', 9, 'Crítico']
+    //         ],
+    //         grafico: [30, 40, 35, 45, 50, 38, 42, 30, 28, 35, 39, 33]
+    //     }
+    // };
+
+
+    
     let chart;
 
-    function filtrar(periodo) {
-        document.getElementById('quantidade').textContent = dados[periodo].quantidade;
+    async function filtrar(periodo) {
+        // document.getElementById('quantidade').textContent = dados[periodo].quantidade;
 
         const tabela = document.getElementById('tabelaLotes');
         tabela.innerHTML = '';
 
-        const lotesOrdenados = dados[periodo].lotes.sort((a, b) => {
-            if (a[2] === 'Crítico' && b[2] !== 'Crítico') return -1;
-            if (a[2] !== 'Crítico' && b[2] === 'Crítico') return 1;
-            return b[1] - a[1];
-        });
+        // const lotesOrdenados = dados[periodo].lotes.sort((a, b) => {
+        //     if (a[2] === 'Crítico' && b[2] !== 'Crítico') return -1;
+        //     if (a[2] !== 'Crítico' && b[2] === 'Crítico') return 1;
+        //     return b[1] - a[1];
+        // });
 
-        const top5 = lotesOrdenados.slice(0, 5);
-        top5.forEach(l => {
-            tabela.innerHTML += `<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td></tr>`;
-        });
+        // const top5 = lotesOrdenados.slice(0, 5);
+        // top5.forEach(l => {
+        //     tabela.innerHTML += `<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td></tr>`;
+        // });
 
         if (chart) chart.destroy();
         const ctx = document.getElementById('grafico').getContext('2d');
+        const dados = await graficoData(periodo)
+
+        const pctAumento = ((dados[dados.length -1].ocorrencias - dados[0].ocorrencias) / dados[0].ocorrencias) * 100;
+
+        const cardKpi = document.querySelector(".card_kpi h3");
+
+        cardKpi.innerHTML = pctAumento.toFixed(0) + "%"
+
+
+        if(pctAumento > 0) {
+            cardKpi.style.color = "red"
+        } else if (pctAumento < 0) {
+            cardKpi.style.color = "green"
+        }
+
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: dados[periodo].grafico.map((_, i) => i + 1),
+                labels: dados.map(v => new Date(v.dia).toLocaleDateString("pt-BR", {dateStyle: "short"})),
                 datasets: [{
                     label: 'Ocorrências',
-                    data: dados[periodo].grafico,
+                    data: dados.map(v => v.ocorrencias),
                     borderColor: 'blue',
                     backgroundColor: 'rgba(0,123,255,0.2)',
                     fill: true
                 }]
             }
         });
+    
+
     }
 
-    document.addEventListener('DOMContentLoaded', () => filtrar('7d'));
+    document.addEventListener('DOMContentLoaded', () => filtrar('7'));
 
+    
 </script>

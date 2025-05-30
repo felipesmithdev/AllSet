@@ -29,7 +29,7 @@ function datasRegistroAlertas(idAgencia, dias) {
         JOIN carro c ON a.fk_carro_macadress = c.macadress
         JOIN lote l ON c.fk_lote = l.id_lote
         WHERE l.fk_agencia_lote = ${idAgencia}
-        AND a.dt_registro >= NOW() - INTERVAL ${dias} DAY
+        AND a.dt_registro >= NOW() - INTERVAL ${dias.replace("d", "")} DAY
         GROUP BY dia
         ORDER BY dia;
 

@@ -112,6 +112,18 @@ CREATE TABLE historicoQtdPorCategoria (
     lote INT
 );
 
+INSERT INTO historicoQtdPorCategoria (tipo, critico, moderado, normal, data, lote) VALUES
+('cpu', 50, 40, 10,'2025-05-30', 1),
+('ram', 80, 15, 5,'2025-05-30', 1),
+('cpu', 70, 20, 10,'2025-05-30', 1);
+
+SELECT * FROM historicoQtdPorCategoria;
+
+CREATE VIEW kpi2 AS
+SELECT 
+    TRUNCATE(SUM(critico) / (SUM(critico) + SUM(moderado) + SUM(normal)) * 100, 0) AS porcentagem
+FROM historicoQtdPorCategoria
+WHERE lote = 1;
 
 -- Inserting data into the empresa table
 INSERT INTO empresa (nome, cnpj, dt_cadastro) VALUES 

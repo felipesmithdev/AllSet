@@ -102,6 +102,15 @@ create table captura(
     dt_captura datetime
 );
 
+CREATE TABLE historicoQtdPorCategoria (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	tipo INT,
+	critico INT,
+	moderado INT,
+    normal INT,
+    data DATE
+);
+
 
 -- Inserting data into the empresa table
 INSERT INTO empresa (nome, cnpj, dt_cadastro) VALUES 

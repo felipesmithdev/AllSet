@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body onload="filtrar('7'); buscarLotes(7)">
     <div class="layout">
         <div class="secao-side">
             <div class="botao-side-bar">
@@ -58,7 +58,7 @@
                 <button class="periodo-btn active" data-dias="7" onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
                 <button class="periodo-btn" data-dias="15" onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
                 <button class="periodo-btn" data-dias="30" onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
-            </div>
+                </div>
             </div>
 
                         <p>Quantidade de lotes com problema:</p>
@@ -289,6 +289,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => filtrar('7'));
+    document.querySelectorAll('.periodo-btn').forEach(btn => { btn.addEventListener('click', function () { document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); atualizarGrafico(); }); });
+
+
 
 
 </script>

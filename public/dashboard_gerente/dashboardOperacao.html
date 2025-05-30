@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,26 +23,26 @@
             </div>
         </div>
 
-         <div id="side-bar" class="side-bar">
-        <div class="logo"><span>AllSet</span></div>
-        <div class="boas-vindas">
-            <img src="../assets/imgs/user.png" alt="">
-            <div class="textos-perfil">
-                <span>Bem Vindo</span>
-                <span id="b_usuario">Marcos</span>
+        <div id="side-bar" class="side-bar">
+            <div class="logo"><span>AllSet</span></div>
+            <div class="boas-vindas">
+                <img src="../assets/imgs/user.png" alt="">
+                <div class="textos-perfil">
+                    <span>Bem Vindo</span>
+                    <span id="b_usuario">Marcos</span>
+                </div>
+            </div>
+            <div class="opcoes-bar">
+                <a href="../dashboard_gerente/dashboardChamados.html">Dashboard de Chamados</a>
+                <a href="../dashboard_gerente/funcionarios.html">Funcionários</a>
+                <a href="../login.html">Sair</a>
             </div>
         </div>
-        <div class="opcoes-bar">
-            <a href="../dashboard_gerente/dashboardChamados.html">Dashboard de Chamados</a>
-            <a href="../dashboard_gerente/funcionarios.html">Funcionários</a>
-            <a href="../login.html">Sair</a>
-        </div>
-        </div>
 
-            <div id="fundo-preto" class="fundo-preto"></div>
+        <div id="fundo-preto" class="fundo-preto"></div>
 
         <main class="conteudo-principal">
-                  <div class="titulo_dash"> <span>Visão Geral da Operação</span></div>
+            <div class="titulo_dash"> <span>Visão Geral da Operação</span></div>
 
 
             <div class="container">
@@ -50,10 +51,10 @@
                     <div class="card_filtragem" id="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
                         <div class="botoes_filtragem">
-                        <button onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
-                        <button onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
-                        <button onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
-                    </div>
+                            <button onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
+                            <button onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
+                            <button onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
+                        </div>
                         <p>Quantidade de lotes com problema:</p>
                         <span id="quantidade"></span>
                     </div>
@@ -96,139 +97,137 @@
 
     </div>
 
-   
+
 </body>
 
 </html>
 
 <script>
 
-    document.getElementById("menu-bar").addEventListener("click", function () {
-        const sidebar = document.querySelector(".side-bar");
-        const fundoPreto = document.querySelector(".fundo-preto");
-        const botao = document.querySelector("#menu-bar")
+    const menuBar = document.getElementById("menu-bar");
+    const sidebar = document.getElementById("side-bar");
+    const fundoPreto = document.getElementById("fundo-preto");
 
+    function toggleSidebar() {
         const isVisible = sidebar.classList.contains("show");
-
         if (!isVisible) {
             sidebar.style.display = "flex";
             fundoPreto.style.display = "block";
-
             void sidebar.offsetWidth;
             void fundoPreto.offsetWidth;
-
             sidebar.classList.add("show");
             fundoPreto.classList.add("show");
         } else {
             sidebar.classList.remove("show");
             fundoPreto.classList.remove("show");
-
             setTimeout(() => {
                 sidebar.style.display = "none";
                 fundoPreto.style.display = "none";
             }, 300);
         }
-    });
-    
-/* lotes com mais ocorrencias */
+    }
+    if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+    if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+
+    /* lotes com mais ocorrencias */
     function lotesMaisOcorrencias7() {
-     fetch("/gerente/lotesMaisOcorrencias", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 7 }) 
-})
-}
+        fetch("/gerente/lotesMaisOcorrencias", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 7 })
+        })
+    }
 
-    function lotesMaisOcorrencias15(){
-    fetch("/gerente/lotesMaisOcorrencias", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 15 }) 
-})
-}
+    function lotesMaisOcorrencias15() {
+        fetch("/gerente/lotesMaisOcorrencias", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 15 })
+        })
+    }
 
-function lotesMaisOcorrencias30(){
-    fetch("/gerente/lotesMaisOcorrencias", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
-})
-}
+    function lotesMaisOcorrencias30() {
+        fetch("/gerente/lotesMaisOcorrencias", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 30 })
+        })
+    }
 
-/* colocando nos graficos */
-function datasRegistroAlertas() {
-     fetch("/gerente/dataRegistroAlertas", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 7 }) 
-})
-}
+    /* colocando nos graficos */
+    function datasRegistroAlertas() {
+        fetch("/gerente/dataRegistroAlertas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 7 })
+        })
+    }
 
-function datasRegistroAlertas() {
-     fetch("/gerente/dataRegistroAlertas", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 15 }) 
-})
-}
+    function datasRegistroAlertas() {
+        fetch("/gerente/dataRegistroAlertas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 15 })
+        })
+    }
 
-function datasRegistroAlertas() {
-     fetch("/gerente/dataRegistroAlertas", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idAgencia: 1, dias: 30 }) 
-})
-}
+    function datasRegistroAlertas() {
+        fetch("/gerente/dataRegistroAlertas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: 1, dias: 30 })
+        })
+    }
 
 
-var quantidadeLotesComOcorrencias = 0
+    var quantidadeLotesComOcorrencias = 0
 
-function buscarLotes(dias) {
-    const idAgencia = sessionStorage.getItem("fk_agencia");
+    function buscarLotes(dias) {
+        const idAgencia = sessionStorage.getItem("fk_agencia");
 
-    fetch("/gerente/lotesMaisOcorrencias", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idAgencia: idAgencia, dias: dias })
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Erro na requisição");
-        return response.json();
-    })
-    .then(dados => {
-        const tabela = document.getElementById("tabelaLotes");
-        tabela.innerHTML = "";
+        fetch("/gerente/lotesMaisOcorrencias", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idAgencia: idAgencia, dias: dias })
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Erro na requisição");
+                return response.json();
+            })
+            .then(dados => {
+                const tabela = document.getElementById("tabelaLotes");
+                tabela.innerHTML = "";
 
-        dados.forEach(item => {
-            quantidadeLotesComOcorrencias++
-            tabela.innerHTML += `
+                dados.forEach(item => {
+                    quantidadeLotesComOcorrencias++
+                    tabela.innerHTML += `
                 <tr>
                     <td>${item.lote}</td>
                     <td>${item.ocorrencias}</td>
                     <td>${item.ocorrencias > 10 ? '<span style="color: #FD5E5E !important;"> Crítico <span/>' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
                 </tr>
             `;
-        });
-        
-        if (quantidadeLotesComOcorrencias > 0){
-            document.getElementById("quantidade").style.color="black"
-            document.getElementById("card_filtragem").style.backgroundColor="rgb(255, 0, 0)"
-        }
+                });
+
+                if (quantidadeLotesComOcorrencias > 0) {
+                    document.getElementById("quantidade").style.color = "black"
+                    document.getElementById("card_filtragem").style.backgroundColor = "rgb(255, 0, 0)"
+                }
 
 
-        document.getElementById("quantidade").textContent = dados.length;
-    })
-    .catch(error => {
-        console.error("Erro ao buscar lotes:", error);
-    });
-}
+                document.getElementById("quantidade").textContent = dados.length;
+            })
+            .catch(error => {
+                console.error("Erro ao buscar lotes:", error);
+            });
+    }
 
 
 
-    async function graficoData (dias) {
+    async function graficoData(dias) {
         const idAgencia = sessionStorage.getItem("fk_agencia")
 
-        const request  = await fetch("/gerente/datasRegistroAlertas", {
+        const request = await fetch("/gerente/datasRegistroAlertas", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ idAgencia: idAgencia, dias: dias })
@@ -240,7 +239,7 @@ function buscarLotes(dias) {
     }
 
 
-    
+
     let chart;
 
     async function filtrar(periodo) {
@@ -253,14 +252,14 @@ function buscarLotes(dias) {
         const ctx = document.getElementById('grafico').getContext('2d');
         const dados = await graficoData(periodo)
 
-        const pctAumento = ((dados[dados.length -1].ocorrencias - dados[0].ocorrencias) / dados[0].ocorrencias) * 100;
+        const pctAumento = ((dados[dados.length - 1].ocorrencias - dados[0].ocorrencias) / dados[0].ocorrencias) * 100;
 
         const cardKpi = document.querySelector(".card_kpi h3");
 
         cardKpi.innerHTML = pctAumento.toFixed(0) + "%"
 
 
-        if(pctAumento > 0) {
+        if (pctAumento > 0) {
             cardKpi.style.color = "red"
         } else if (pctAumento < 0) {
             cardKpi.style.color = "green"
@@ -269,7 +268,7 @@ function buscarLotes(dias) {
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: dados.map(v => new Date(v.dia).toLocaleDateString("pt-BR", {dateStyle: "short"})),
+                labels: dados.map(v => new Date(v.dia).toLocaleDateString("pt-BR", { dateStyle: "short" })),
                 datasets: [{
                     label: 'Ocorrências',
                     data: dados.map(v => v.ocorrencias),
@@ -279,11 +278,11 @@ function buscarLotes(dias) {
                 }]
             }
         });
-    
+
 
     }
 
     document.addEventListener('DOMContentLoaded', () => filtrar('7'));
 
-    
+
 </script>

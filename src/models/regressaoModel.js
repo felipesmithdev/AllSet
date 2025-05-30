@@ -1,14 +1,16 @@
 let database = require("../database/config")
 
 function selecionarMeses() {
-    console.log("Model 'selecionarMeses' \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+  var instrucaoSql = `
+    select distinct lower(date_format(dt_captura, '%b-%Y')) as mes 
+    from captura 
+    order by dt_captura;
+  `;
 
-    var instrucaoSql = `
-    select distinct month(dt_captura) from captura;`
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
+
 
 function mediaDiariaCPU(mes) {
     console.log("Model 'mediaDiariaCPU' \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");

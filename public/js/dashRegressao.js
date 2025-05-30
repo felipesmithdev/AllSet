@@ -132,3 +132,63 @@ function mediaDiariaRAM() {
         })
         .catch(err => console.error("Erro ao buscar médias de CPU:", err));
 }
+
+document.getElementById("selectMeses").addEventListener("change", (e) => {
+  const mesSelecionado = e.target.value;
+  carregarDadosPorMes(mesSelecionado);
+});
+
+async function carregarDadosPorMes(mesSelecionado) {
+  const response = await fetch(`/s3/dados/${mesSelecionado}`);
+  const dados = await response.json();
+
+  const dadosChuva = dados.chuva;
+  const dadosTrafego = dados.trafego;
+
+  atualizarGrafico(dadosChuva, dadosTrafego);
+}
+
+function atualizarGrafico(dadosChuva, dadosTrafego) {
+  const labels = dadosChuva.map(item => item.componente);
+  const valoresChuva = dadosChuva.map(item => item.valor);
+  const valoresTrafego = dadosTrafego.map(item => item.valor);
+
+  let chuvaGraf = document.getElementById("chartChuva").getContext("2d");
+  chuvaBars = new Chart(chuvaGraf, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Chuva",
+          data: valoresChuva,
+          backgroundColor: "rgb(74, 45, 245)"
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+
+  let trafegoGraf = document.getElementById("chartTrafego").getContext("2d");
+  trafegoBars = new Chart(trafegoGraf, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Tráfego",
+          data: valoresTrafego,
+          backgroundColor: "rgb(254, 73, 78)"
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+}

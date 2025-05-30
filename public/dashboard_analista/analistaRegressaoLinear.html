@@ -29,38 +29,6 @@
 
       <section id="graficos">
 
-        <div id="kpiGraf">
-
-          <div class="kpi">
-              <h3>Lote com mais ocorrências</h3>
-              <div class="card">
-                <p>Valor ?</p>
-              </div>
-            </div>
-
-            <div class="kpi">
-              <h3>Métrica com mais ocorrências</h3>
-              <div class="card">
-                <p>Valor ?</p>
-              </div>
-            </div>
-
-            <div class="kpi">
-              <h3>Média de chuva</h3>
-              <div class="card">
-                <p>Valor ?</p>
-              </div>
-            </div>
-
-            <div class="kpi">
-              <h3>Média de tráfego</h3>
-              <div class="card">
-                <p>Valor ?</p>
-              </div>
-            </div>
-
-        </div>
-
         <div id="metricas">
 
           <div class="seletores">
@@ -68,11 +36,6 @@
             <select name="" id="selectMeses" onchange="mediaDiariaCPU(); mediaDiariaRAM();">
             </select>
 
-            <select name="" id="">
-              <option value="" selected disabled>Lote</option>
-              <option value="">Lote X</option>
-              <option value="">Lote Y</option>
-            </select>
           </div>
 
           <div class="grafLine">
@@ -109,7 +72,6 @@
               <option value="" selected disabled>Métrica (Eixo Y)</option>
               <option value="">CPU</option>
               <option value="">RAM</option>
-              <option value="">Disco</option>
             </select>
 
             <select name="" id="">
@@ -121,7 +83,6 @@
 
           <div id="indicadores">
             <b>Mês</b>
-            <b>Lote</b>
           </div>
 
         </div>
@@ -133,6 +94,13 @@
           </div>
 
           <div id="kpisReg">
+
+            <div class="kpi">
+              <h3>Força da correlação - R²</h3>
+              <div class="card">
+                <p>Valor ?</p>
+              </div>
+            </div>
 
             <div class="kpi">
               <h3>Pico métrica</h3>
@@ -150,13 +118,6 @@
 
             <div class="kpi">
               <h3>Vale métrica</h3>
-              <div class="card">
-                <p>Valor ?</p>
-              </div>
-            </div>
-
-            <div class="kpi">
-              <h3>Força da correlação - R²</h3>
               <div class="card">
                 <p>Valor ?</p>
               </div>

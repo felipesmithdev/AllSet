@@ -228,7 +228,7 @@ span {
         }
 
         #metricas {
-            width: 40%;
+            width: 45%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -253,7 +253,7 @@ span {
 
             .grafLine {
                 width: 100%;
-                height: 35%;
+                height: 40%;
                 background-color: white;
                 box-shadow:  2px 2px 6px 2px #b3b3b3;
                 border-radius: 20px;
@@ -270,7 +270,7 @@ span {
         }
 
         #dadosExternos {
-            width: 40%;
+            width: 45%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -315,14 +315,13 @@ span {
             padding-right: 35px;
             align-items: center;
             justify-content: space-between;
-            flex-direction: row-reverse;
 
             .seletores {
                 display: flex;
                 width: 70%;
                 height: 100%;
                 align-items: center;
-                justify-content: flex-end;
+                justify-content: flex-start;
                 gap: 50px;
 
                 select {
@@ -336,7 +335,7 @@ span {
             #indicadores {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: flex-end;
                 gap: 30px;
                 width: 15%;
             }
@@ -348,7 +347,6 @@ span {
             width: 100%;
             display: flex;
             justify-content: space-evenly;
-            flex-direction: row-reverse;
 
             #grafReg {
                 height: 98%;

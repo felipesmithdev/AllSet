@@ -24,6 +24,7 @@ var enderecoRouter = require("./src/routes/enderecos");
 var segurancaRouter = require("./src/routes/seguranca");
 var gerenteRouter = require("./src/routes/gerente");
 var jiraRouter = require("./src/routes/chamados");
+var regressaoRouter = require("./src/routes/regressao");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use("/enderecos", enderecoRouter);
 app.use("/seguranca", segurancaRouter);
 app.use("/gerente", gerenteRouter);
 app.use("/jira", jiraRouter);
+app.use("/regressao", regressaoRouter);
 
 
 app.listen(PORTA_APP, function () {

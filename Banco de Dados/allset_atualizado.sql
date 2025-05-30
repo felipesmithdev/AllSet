@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS pessoa (
   constraint fkAgenciaPessoa foreign key (fk_agencia) references agencia(id_agencia)
   );
   
+  
+  
   CREATE TABLE IF NOT EXISTS lote(
 	id_lote int primary key auto_increment,
     modelo varchar(45) not null,
@@ -409,12 +411,5 @@ INSERT INTO alerta (componente, valor, dt_registro, gravidade, status, fk_carro_
 ('Bateria', 32.0, NOW() - INTERVAL 30 DAY, 'High', 1, 'AA:BB:CC:DD:EE:02');
 
 
-SELECT dt_registro FROM alerta;
 
-SELECT a.dt_registro 
-FROM alerta a
-JOIN carro c ON a.fk_carro_macadress = c.macadress
-WHERE c.fk_agencia = 1
-  AND a.dt_registro >= NOW() - INTERVAL 7 DAY
-ORDER BY a.dt_registro DESC;
 

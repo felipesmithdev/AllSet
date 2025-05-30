@@ -50,7 +50,6 @@ print(mac)
 def inserirSelecionarLoteDoCarro(mac):
     conn = conectar(banco='relacional')
     cursor = conn.cursor()
-    # fazendo o select para ver se o carro ja existe em algum lote
     query1 = 'SELECT fk_lote FROM carro WHERE macadress = %s'
     cursor.execute(query1, (mac,))
     resultado = cursor.fetchone()
@@ -69,22 +68,22 @@ inserirSelecionarLoteDoCarro(mac)
 
 
 
-# jira = JIRA(
-#     server= JIRA_URL,
-#     basic_auth=(JIRA_USER, JIRA_TOKEN)
-# )
+jira = JIRA(
+    server= JIRA_URL,
+    basic_auth=(JIRA_USER, JIRA_TOKEN)
+)
 
-# def abrir_chamado(summary_jira, description, priority):
-#     issue_dict = {
-#         'project': {'key': 'AL'},
-#         'summary': f"Limite de {summary_jira} atingido", 
-#         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
-#         'issuetype': {'name': 'Tarefa'},
-#         'priority': {'name': priority},
-#         'customfield_10091': 'Lote 2025-1',
-#     }
-#     nova_issue = jira.create_issue(fields=issue_dict)
-#     print("Chamado aberto: ", [nova_issue.key])
+def abrir_chamado(summary_jira, description, priority):
+    issue_dict = {
+        'project': {'key': 'AL'},
+        'summary': f"Limite de {summary_jira} atingido", 
+        'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
+        'issuetype': {'name': 'General Request'},
+        'priority': {'name': priority},
+        'customfield_10091': 'Lote 1',
+    }
+    nova_issue = jira.create_issue(fields=issue_dict)
+    print("Chamado aberto: ", [nova_issue.key])
     # prioridade normal, instavel e grave (High, Medium, Low)
 
 
@@ -103,7 +102,7 @@ dados_monitoramento = []
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
-        # abrir_chamado(summary_jira, valor, prioridade)
+        abrir_chamado(summary_jira, valor, prioridade)
         banco = 'relacional'
         conn = conectar(banco)
         cursor = conn.cursor()

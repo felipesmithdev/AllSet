@@ -138,10 +138,10 @@
               <canvas id="graficoBarrasGeral" height="300"></canvas>
               <div class="selecao-todos-categoria">
                 <div class="categorias">
-                  <button class="todos-categoria" onclick="altTodosCategoria()">Todos</button>
-                  <button class="cpu-categoria" onclick="altCpuCategoria()">CPU</button>
-                  <button class="ram-categoria" onclick="altRamCategoria()">RAM</button>
-                  <button class="disco-categoria" onclick="altDiscoCategoria()">Disco</button>
+                  <button class="todos-categoria" id="todos-categoria" onclick="altTodosCategoria()">Todos</button>
+                  <button class="cpu-categoria" id="cpu-categoria" onclick="altCpuCategoria()">CPU</button>
+                  <button class="ram-categoria" id="ram-categoria" onclick="altRamCategoria()">RAM</button>
+                  <button class="disco-categoria" id="disco-categoria" onclick="altDiscoCategoria()">Disco</button>
                 </div>
               </div>
             </div>
@@ -206,66 +206,86 @@
     }
   });
 
-  function altBackground(todosBotoes, idParaMudar) {
+  function altBackgroundBotao(todosBotoes, idParaMudar) {
     todosBotoes.forEach(id => {
-      const button = document.getElementById(id) || document.querySelector(`.${id}`);
+      const button = document.getElementById(id)
       if (button) {
-        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#fff";
+        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#fff"
       }
     });
   }
 
+function altBackgroundGrafico(chart, cor, corLinha) {
+  if (chart && chart.data.datasets[0]) {
+    chart.data.datasets[0].backgroundColor = cor;
+    chart.data.datasets[0].borderColor = corLinha;
+    chart.data.datasets[0].pointBackgroundColor = corLinha;
+    chart.update();
+  }
+}
 
   function ultimosSeteDias() {
-    altBackground(['sete-dias', 'quinze-dias', 'trinta-dias'], 'sete-dias');
+    altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'sete-dias');
   }
 
   function ultimosQuinzeDias() {
-    altBackground(['sete-dias', 'quinze-dias', 'trinta-dias'], 'quinze-dias');
+    altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'quinze-dias');
   }
 
   function ultimosTrintaDias() {
-    altBackground(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
+    altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
   }
 
   function altCriticoCategoria1() {
-    altBackground(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'critico-categoria1');
+    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'critico-categoria1');
+    altBackgroundGrafico(chartCPU, 'rgba(255, 0, 0, 0.3)', '#FF0000');
+    chartCPU.update();
   }
 
   function altModeradoCategoria1() {
-    altBackground(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'moderado-categoria1');
+    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'moderado-categoria1');
+    altBackgroundGrafico(chartCPU, 'rgba(255, 255, 0, 0.3)', '#999900');
+    chartCPU.update();
   }
 
   function altNormalCategoria1() {
-    altBackground(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'normal-categoria1');
+    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'normal-categoria1');
+    altBackgroundGrafico(chartCPU, 'rgba(0, 255, 0, 0.3)', '#008000');
+    chartCPU.update();
   }
 
   function altCriticoCategoria2() {
-    altBackground(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'critico-categoria2');
+    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'critico-categoria2');
+    altBackgroundGrafico(chartRAM, 'rgba(255, 0, 0, 0.3)', '#FF0000');
+    chartRAM.update();
   }
 
   function altModeradoCategoria2() {
-    altBackground(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'moderado-categoria2');
+    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'moderado-categoria2');
+    altBackgroundGrafico(chartRAM, 'rgba(255, 255, 0, 0.3)', '#999900');
+    chartRAM.update();
   }
 
   function altNormalCategoria2() {
-    altBackground(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'normal-categoria2');
+    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'normal-categoria2');
+    altBackgroundGrafico(chartRAM, 'rgba(0, 255, 0, 0.3)', '#008000');
+    chartRAM.update();
   }
 
   function altTodosCategoria() {
-    altBackground(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'todos-categoria');
+    altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'todos-categoria');
   }
 
   function altCpuCategoria() {
-    altBackground(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'cpu-categoria');
+    altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'cpu-categoria');
   }
 
   function altRamCategoria() {
-    altBackground(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'ram-categoria');
+    altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'ram-categoria');
   }
 
   function altDiscoCategoria() {
-    altBackground(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'disco-categoria');
+    altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'disco-categoria');
   }
 
 

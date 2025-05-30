@@ -42,7 +42,9 @@
         <div id="fundo-preto" class="fundo-preto"></div>
 
         <main class="conteudo-principal">
-            <div class="titulo_dash"> <span>Visão Geral da Operação</span></div>
+            <div class="header">
+                    <div class="title">Dashboard de Operações - Visão Global</div>
+                </div>
 
 
             <div class="container">
@@ -50,17 +52,21 @@
                 <div class="row">
                     <div class="card_filtragem" id="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
-                        <div class="botoes_filtragem">
-                            <button onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
-                            <button onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
-                            <button onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
-                        </div>
+                       <div class="filter-group">
+                <label>Período do Gráfico:</label>
+                <div class="periodo-buttons">
+                <button class="periodo-btn active" data-dias="7" onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
+                <button class="periodo-btn" data-dias="15" onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
+                <button class="periodo-btn" data-dias="30" onclick="filtrar('30'); buscarLotes(30)">30 dias</button>
+            </div>
+            </div>
+
                         <p>Quantidade de lotes com problema:</p>
                         <span id="quantidade"></span>
                     </div>
 
                     <div class="card_tabela">
-                        <h3>Lotes com mais ocorrências</h3>
+                        <h3>5 Lotes com mais ocorrências</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -204,7 +210,7 @@
                 <tr>
                     <td>${item.lote}</td>
                     <td>${item.ocorrencias}</td>
-                    <td>${item.ocorrencias > 10 ? '<span style="color: #FD5E5E !important;"> Crítico <span/>' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
+                    <td>${item.ocorrencias > 10 ? '<span class="status-critico";> Crítico <span/>' : item.ocorrencias > 5 ? 'Moderado' : 'Normal'}</td>
                 </tr>
             `;
                 });

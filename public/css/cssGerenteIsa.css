@@ -166,7 +166,7 @@ span {
 .conteudo-principal {
     width: 94%;
     height: 100vh;
-    color: black;
+    color: rgb(5, 5, 5);
     background-color: #EBEBEB;
     overflow: hidden;
     display: flex;
@@ -253,21 +253,41 @@ span {
         font-size: 30px;
     }
 
-    .botoes_filtragem button{
-    background-color: white;
-    color: black;
-    padding: 1%;
+   .filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.periodo-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.periodo-btn {
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
     border-radius: 20px;
-    width: 80px;
-    height: 40px;
     font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    }
+.periodo-btn:hover {
+    background-color: #4eb5f1;
+}
 
-    .botoes_filtragem {
-        display: flex;
-        flex-direction: row;
-    }
+.periodo-btn.active {
+    background-color: #4eb5f1;
+}
+
 
     #quantidade {
         font-size: 36px;
@@ -360,4 +380,31 @@ span {
         height: 300px;
     }
 }
+
+.status-critico {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  background-color: rgba(255, 77, 79, 0.1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.header {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1B2559;
+    text-align: center;
+}
+
 

@@ -336,7 +336,7 @@ span {
 }
 
 table.tabela_lotes tbody tr.selecionado:hover td {
-  background-color: #6b7789 !important;
+  background-color: #386cb9 !important;
   color: #ffffff;
   border-radius: 0px !important;
 }
@@ -504,6 +504,8 @@ table.tabela_lotes tbody tr.selecionado:hover td {
 
 td.status_lote{
   background-color: #FD5E5E !important;
+  /* height: 20% !important; */
+  width: 2% !important;
   border-radius: 7px !important;
 }
 td.status_lote_medio{
@@ -550,4 +552,105 @@ td.status_lote_normal{
     font-size: 20px;
     font-weight: bold;
   }
+}
+
+
+.paizao{
+  width: 95%;
+  height: 100%;
+}
+
+
+.titulo_filtragem{
+  width: 100%;
+  height: 7%;
+    padding: 13px;
+
+  & span {
+    font-size: 20px;
+    color: #000000;
+    font-weight: 700;
+  }
+
+}
+.tabela_filtragem {
+  height: 80%;
+  width: 99%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-inline: 15px;
+  border-radius: 10px;
+}
+
+.tabela_carro {
+  width: 100%; 
+  border-spacing: 0 10px;
+  border-collapse: separate;
+  background-color: transparent;
+}
+
+.tabela_carro thead {
+  background-color: #583DFF;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0px 4px 6px -2px rgba(0,0,0,0.2);
+}
+
+.tabela_carro thead th {
+  color: #ffffff;
+  padding: 12px;
+  text-align: center;
+
+}
+
+.tabela_carro tbody tr td {
+  /* cursor: pointer; */
+  background-color: #FFFFFF;
+  color: #494949;
+  padding: 12px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 0px;
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #4e5d85;
+}
+
+/* Hover da linha: afeta apenas células que não sejam botão */
+table.tabela_carro tbody tr.selecionado_filtragem:hover td:not(.botao_solicitar) {
+  cursor: pointer;
+  background-color: #4b71b2 !important;
+  color: #ffffff !important;
+  border-radius: 0px !important;
+}
+
+/* Célula do botão */
+td.botao_solicitar {
+  width: 10%;
+  padding: 8px;
+}
+
+/* Estilização do botão em si */
+td.botao_solicitar span {
+  background-color: #583DFF !important;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px 1px #b1afaf;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+/* Hover do botão isolado */
+td.botao_solicitar span:hover {
+  background-color: #1d08a7 !important;
+  box-shadow: 2px 2px 5px #888;
+}
+
+
+table td,
+table th {
+  box-sizing: border-box;
 }

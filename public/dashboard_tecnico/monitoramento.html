@@ -49,10 +49,10 @@
                       <span>LOTE CRÍTICO</span>
                     </div>
                     <div class="meio_alerta">
-                      <span class="nome_lote">Lote 001</span>
-                      <span class="quantidade_alerta">7 ALERTAS GRAVES</span>
+                      <span class="nome_lote" id="id_lote_critico">Lote 001</span>
+                      <span class="quantidade_alerta" id="quantidade_alerta_lote_critico">7 ALERTAS GRAVES</span>
                       <span>Último alerta</span>
-                      <span class="data_alerta">2025-05-25 08:59</span>
+                      <span class="data_alerta" id="ultima_captura_alerta">2025-05-25 08:59</span>
                     </div>
                   </div>
                   <div class="bar_componentes">
@@ -136,6 +136,7 @@
     </div>
     <div class="opcoes-bar">
       <a href="">Dashboard</a>
+      <a href="fechar.html">Listagem</a>
       <a href="">Sair</a>
     </div>
   </div>
@@ -147,14 +148,17 @@
   let total_carro_kpi;
   let total_alertas_kpi;
   let valor_saude = 0;
+  const fk_agencia = 1;
 
   atualizarGrafico()
   buscarKpis()
   trazerAtualizarLotes()
+  atualizarGraficoComponentes()
+
 
   // buscar lotes
 function trazerAtualizarLotes() {
-  fetch("/seguranca/buscar_lotes", {
+  fetch(`/seguranca/buscar_lotes?fk_agencia=${fk_agencia}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -175,12 +179,23 @@ function trazerAtualizarLotes() {
       // })
       // .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
 
+
     const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
     tabelaCorpo.innerHTML = "";
 
+      // atualizando a kpi de lote critico (aquela kpi quadrada vermelha)
+    document.getElementById("id_lote_critico").innerHTML = `Lote: ${lotes[0].lote_id}`
+    document.getElementById("quantidade_alerta_lote_critico").innerHTML = `${lotes[0].alertas_graves} ALERTAS GRAVES`
+    document.getElementById("ultima_captura_alerta").innerHTML = `${lotes[0].ultimo_alerta}`
+
     lotesOrdenados.forEach(lote => {
+
       const linha = document.createElement("tr");
       linha.classList.add("selecionado");
+      linha.addEventListener('click', function(){
+        console.log(lote.lote_id)
+        window.location.href = `fechar.html?fk_lote=${lote.lote_id}`
+      })
 
       const tdLote = document.createElement("td");
       tdLote.textContent = `Lote ${lote.lote_id}`;
@@ -201,6 +216,7 @@ function trazerAtualizarLotes() {
       linha.appendChild(tdGraves);
 
       tabelaCorpo.appendChild(linha);
+
     });
   })
   .catch((erro) => console.error("Erro ao fazer o fetch:", erro));
@@ -220,24 +236,25 @@ function definirClasseStatus(total, graves) {
 
   // atualizar kpi total carro
 function buscarKpis(){
-      fetch("/seguranca/buscar_carros", {
+      fetch(`/seguranca/buscar_carros?fk_agencia=${fk_agencia}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json())
   .then((res) => {
-    total_carro_kpi = res[0]['COUNT(id_carro)'];
+    console.log(res)
+    total_carro_kpi = res[0].total_carro;
     document.getElementById("total_carro").innerHTML = total_carro_kpi
 
-    return fetch("/seguranca/buscar_alertas", {
+    return fetch(`/seguranca/buscar_alertas?fk_agencia=${fk_agencia}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json())
   .then((res) => {
-    total_alertas_kpi = res[0]['COUNT(id_alerta)'];
+    total_alertas_kpi = res[0].total_alerta;
     let porcentagem_alerta = (total_alertas_kpi / total_carro_kpi) * 100
     if (porcentagem_alerta >= 50){
       document.getElementById("valor_kpi_alerta").style.color = "red";
@@ -319,7 +336,7 @@ const fluxoChart = new Chart(ctx, {
 
 // aqui é para atualizar os dados do grafico (grafico em tempo real dos lotes)
 function atualizarGrafico() {
-    fetch('/seguranca/dados_tempo_real')
+    fetch(`/seguranca/dados_tempo_real?fk_agencia=${fk_agencia}`)
         .then(response => response.json())
         .then(data => {
             if (data && data.length > 0) {
@@ -357,14 +374,30 @@ function atualizarGrafico() {
 
 
 function atualizarGraficoComponentes(){
-  fetch("/seguranca/buscarDadosComponentes", {
+  fetch(`/seguranca/buscarDadosComponentes?fk_agencia=${fk_agencia}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     }
   }).then((res) => res.json())
   .then((res) => {
-    console.log("trazendo os dados do json, " + res)
+    // console.log(res)
+
+    const dados = res[0]
+      componentes_char.data.datasets[0].data = [
+        dados.cpu_medio,
+        dados.ram_medio,
+        dados.disco_medio
+      ];
+
+      componentes_char.data.datasets[1].data = [
+        dados.cpu_grave,
+        dados.ram_grave,
+        dados.disco_grave
+      ];
+
+      componentes_char.update();
+
   })
 }
 
@@ -374,7 +407,7 @@ function atualizarGraficoComponentes(){
 setInterval(atualizarGrafico, 15000); 
 setInterval(buscarKpis, 15000); 
 setInterval(trazerAtualizarLotes, 15000)
-
+setInterval(atualizarGraficoComponentes, 15000)
 
 // grafico de barra do comoponente por alerta
 const ctx2 = document.getElementById('componente_char').getContext('2d');
@@ -392,7 +425,7 @@ const componentes_char = new Chart(ctx2, {
         categoryPercentage: 0.5
       },
       {
-        label: 'alertas (críticos)',
+        label: 'alertas (graves)',
         data: [68, 51, 32],
         backgroundColor: 'purple',
         borderRadius: 6,
@@ -410,7 +443,7 @@ const componentes_char = new Chart(ctx2, {
       },
       title: {
         display: true,
-        text: 'Alertas por Componente (médio / crítico)\nSEMANAL'
+        text: 'Alertas por Componente (médio / grave)\nDIÁRIO'
       }
     },
     scales: {

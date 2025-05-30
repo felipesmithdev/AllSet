@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listagem</title>
+    <link rel="stylesheet" href="../css/monitoramento.css" />
+    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
+  <!-- parte do modal -->
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+<script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+</head>
+<body>
+  <div class="layout">
+    <!-- LADO ESQUERDO FIXO -->
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AS</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <main class="conteudo-principal">
+      <div class="titulo_dash"> <span>⚠️ CARROS EM ESTADO INSTÁVEL</span></div>
+      <div class="paizao">
+              <div class="titulo_filtragem">
+              <span>Visão Geral Dos Carros Ordenados Por "Estado Grave"</span>
+              </div>
+              <div id="basic-modal" title="My Modal">
+                Modal with no title content
+              </div>
+              <div class="tabela_filtragem">
+                <table class="tabela_carro">
+                  <thead>
+                      <tr>
+                      <th>Id do carro</th>
+                      <th>Marca</th>
+                      <th>Componente</th>
+                      <th>Gravidade</th>
+                      <th>Último Alerta</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                      </tr>
+                  </thead>
+                 <tbody>
+                      <tr class="selecionado_filtragem">
+                      <td>macadressdcsc</td>
+                     <td>bmw two one two</td>
+                     <td>CPU</td>
+                     <td class="status_lote">GRAVE</td>
+                     <td>2025-05-20 08:50</td>
+                     <td>enviado</td>
+                     <td class="botao_solicitar"><span>Solicitar Analise</span></td>
+                     </tr>
+                      <tr class="selecionado_filtragem">
+                      <td>macadressdcsc</td>
+                     <td>bmw two one two</td>
+                     <td>CPU</td>
+                     <td class="status_lote">GRAVE</td>
+                     <td>2025-05-20 08:50</td>
+                     <td>enviado</td>
+                     <td class="botao_solicitar">solicitar análise</td>
+                     </tr>
+                      <tr class="selecionado_filtragem">
+                      <td>macadressdcsc</td>
+                     <td>bmw two one two</td>
+                     <td>CPU</td>
+                     <td class="status_lote_medio">MEDIO</td>
+                     <td>2025-05-20 08:50</td>
+                     <td>enviado</td>
+                     <td class="botao_solicitar">solicitar análise</td>
+                     </tr>
+                      <tr class="selecionado_filtragem">
+                      <td>macadressdcsc</td>
+                     <td>bmw two one two</td>
+                     <td>CPU</td>
+                     <td class="status_lote">GRAVE</td>
+                     <td>2025-05-20 08:50</td>
+                     <td>enviado</td>
+                     <td class="botao_solicitar">solicitar análise</td>
+                     </tr>
+                     
+                  </tbody>
+             </table>
+             </div>
+             </div>
+            </div>
+         </div>
+        </div>
+
+    </main>
+  </div>
+
+  <div id="side-bar" class="side-bar">
+    <div class="logo"><span>AllSet</span></div>
+    <div class="boas-vindas">
+      <img src="../assets/imgs/user.png" alt="" />
+      <div class="textos-perfil">
+        <span>Bem Vindo</span>
+        <span id="b_usuario">Jordana</span>
+      </div>
+    </div>
+    <div class="opcoes-bar">
+      <a href="monitoramento.html">Dashboard</a>
+      <a href="">Listagem</a>
+      <a href="">Sair</a>
+    </div>
+  </div>
+
+  <!-- FUNDO ESCURO -->
+  <div id="fundo-preto" class="fundo-preto"></div>
+
+<script>
+  const params = new URLSearchParams(window.location.search)
+  let fk_lote = params.get('fk_lote')
+  console.log(fk_lote)
+
+  trazerCarros(fk_lote)
+  setInterval(() => trazerCarros(fk_lote), 10000);
+
+
+  // parte responsável por fazer o fetch dos carros com estado grave presentes no lote com id
+  function trazerCarros(fk_lote){
+    fetch(`/seguranca/trazerCarros?fk_lote=${fk_lote}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "Application/json"
+      },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res)
+
+    const tabelaCorpo = document.querySelector(".tabela_carro tbody");
+    tabelaCorpo.innerHTML = "";
+
+      // atualizando a kpi de lote critico (aquela kpi quadrada vermelha)
+    // document.getElementById("id_lote_critico").innerHTML = `Lote: ${lotes[0].lote_id}`
+    // document.getElementById("quantidade_alerta_lote_critico").innerHTML = `${lotes[0].alertas_graves} ALERTAS GRAVES`
+    // document.getElementById("ultima_captura_alerta").innerHTML = `${lotes[0].ultimo_alerta}`
+
+    res.forEach(resposta => {
+
+      const linha = document.createElement("tr");
+      linha.classList.add("selecionado_filtragem");
+
+      const tdCarro = document.createElement("td");
+      tdCarro.textContent = `${resposta.id_carro}`;
+
+      const tdMarca = document.createElement("td");
+      tdMarca.textContent = resposta.marca;
+
+      const tdComponente = document.createElement("td");
+      tdComponente.textContent = resposta.componente;
+
+      const tdGravidade = document.createElement("td");
+      tdGravidade.textContent = resposta.gravidade;
+      tdGravidade.classList.add(definirClasseStatus(resposta.gravidade));
+
+      const tdUltimo = document.createElement("td");
+      tdUltimo.textContent = resposta.ultimo_alerta;
+
+      const tdStatus = document.createElement("td");
+      tdStatus.textContent = "Enviado";
+
+      const tdAcao = document.createElement("td");
+      tdAcao.classList.add("botao_solicitar")
+      tdAcao.innerHTML = `<span>solicitar analise</span>`;
+      linha.appendChild(tdCarro);
+      linha.appendChild(tdMarca);
+      linha.appendChild(tdComponente);
+      linha.appendChild(tdGravidade);
+      linha.appendChild(tdUltimo);
+      linha.appendChild(tdStatus);
+      linha.appendChild(tdAcao);
+       
+      
+      tdAcao.addEventListener('click', function(){
+        fetch(`/seguranca/fecharAlerta?macadress=${resposta.id_carro}`, {
+         method: "POST",
+         headers: {
+          "Content-Type": "application/json"
+        }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("fechei os alertas")
+          trazerCarros(fk_lote)
+        })
+      })
+
+    const celulasModal = [tdCarro, tdMarca, tdComponente, tdGravidade, tdUltimo, tdStatus];
+    celulasModal.forEach(celula => {
+    celula.addEventListener("click", function() {
+      modal.open();
+    });
+    });
+
+      tabelaCorpo.appendChild(linha);
+
+    });
+  })
+  .catch((erro) => console.error("Erro ao fazer o fetch:", erro));
+}
+
+// aqui é para colocar cor na td (vermelho, amarelo ou verde)
+function definirClasseStatus(gravidade) {
+    if (gravidade == "Medium"){
+      return "status_lote_medio"
+    } else {
+      return "status_lote"
+    }
+}
+
+
+
+let modal = jSuites.modal(document.getElementById('basic-modal'), {
+    closed: true,
+    width: 600,
+    height: 480,
+    onopen: function(el, instance) {
+        console.log('Modal is open');
+    },
+    onclose: function(el, instance) {
+        console.log('Modal is closed');
+    }
+});
+
+
+
+    document.getElementById("menu-bar").addEventListener("click", function () {
+      const sidebar = document.querySelector(".side-bar");
+      const fundoPreto = document.querySelector(".fundo-preto");
+      const isVisible = sidebar.classList.contains("show");
+
+      if (!isVisible) {
+        sidebar.style.display = "flex";
+        fundoPreto.style.display = "block";
+        void sidebar.offsetWidth;
+        void fundoPreto.offsetWidth;
+        sidebar.classList.add("show");
+        fundoPreto.classList.add("show");
+      } else {
+        sidebar.classList.remove("show");
+        fundoPreto.classList.remove("show");
+        setTimeout(() => {
+          sidebar.style.display = "none";
+          fundoPreto.style.display = "none";
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>

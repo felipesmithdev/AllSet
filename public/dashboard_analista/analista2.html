@@ -40,9 +40,9 @@
         <span class="periodo" style="font-weight: 600;">Período</span>
 
         <div class="periodos">
-          <button class="sete-dias" onclick="ultimosSeteDias">Últimos 7 dias</button>
-          <button class="quinze-dias" onclick="ultimosQuinzeDias">Últimos 15 dias</button>
-          <button class="trinta-dias" onclick="ultimosTrintaDias">Últimos 30 dias</button>
+          <button class="sete-dias" onclick="ultimosSeteDias()">Últimos 7 dias</button>
+          <button class="quinze-dias" onclick="ultimosQuinzeDias()">Últimos 15 dias</button>
+          <button class="trinta-dias" onclick="ultimosTrintaDias()">Últimos 30 dias</button>
         </div>
 
         <div class="kpis">
@@ -82,16 +82,62 @@
         <div class="graficos">
           <div class="graficos-componentes">
             <div class="myChart">
-              <canvas id="graficoLinha1" width="1500" height="400"></canvas>
+              <div class="filtro-componente">
+                <div class="selecao-componente">
+                  <span>Componente:</span>
+                  <select name="" id="slt_componente">
+                    <option value="#">Selecione um</option>
+                    <option value="#">CPU</option>
+                    <option value="#">RAM</option>
+                    <option value="#">DISCO</option>
+                  </select>
+                </div>
+                <div class="selecao-categoria">
+                  <div class="categorias">
+                    <span>Categoria:</span>
+                    <button class="critico-categoria" onclick="ultimosSeteDias()">Crítico</button>
+                    <button class="moderado-categoria" onclick="ultimosQuinzeDias()">Moderado</button>
+                    <button class="normal-categoria" onclick="ultimosTrintaDias()">Normal</button>
+                  </div>
+                </div>
+              </div>
+              <canvas id="graficoLinha1" width="1500" height="320"></canvas>
             </div>
             <div class="myChart">
-              <canvas id="graficoLinha2" width="1500" height="400"></canvas>
+              <div class="filtro-componente">
+                <div class="selecao-componente">
+                  <span>Componente:</span>
+                  <select name="" id="slt_componente">
+                    <option value="#">Selecione um</option>
+                    <option value="#">CPU</option>
+                    <option value="#">RAM</option>
+                    <option value="#">DISCO</option>
+                  </select>
+                </div>
+                <div class="selecao-categoria">
+                  <div class="categorias">
+                    <span>Categoria:</span>
+                    <button class="critico-categoria" onclick="ultimosSeteDias()">Crítico</button>
+                    <button class="moderado-categoria" onclick="ultimosQuinzeDias()">Moderado</button>
+                    <button class="normal-categoria" onclick="ultimosTrintaDias()">Normal</button>
+                  </div>
+                </div>
+              </div>
+              <canvas id="graficoLinha2" width="1500" height="320"></canvas>
             </div>
           </div>
 
           <div class="grafico-geral">
             <div class="myChart2">
               <canvas id="graficoBarrasGeral" height="300"></canvas>
+              <div class="selecao-todos-categoria">
+                <div class="categorias">
+                  <button class="todos-categoria" onclick="ultimosSeteDias()">Todos</button>
+                  <button class="cpu-categoria" onclick="ultimosSeteDias()">CPU</button>
+                  <button class="ram-categoria" onclick="ultimosQuinzeDias()">RAM</button>
+                  <button class="disco-categoria" onclick="ultimosTrintaDias()">Disco</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -113,7 +159,7 @@
     </div>
     <div class="opcoes-bar">
       <a href="">Dashboard</a>
-      <a href="">Alertas</a>
+      <a href="">Lotes</a>
       <a href="">Sair</a>
     </div>
   </div>
@@ -124,9 +170,8 @@
     const dias30 = Array.from({ length: 30 }, (_, i) => (i + 1).toString());
 
     const capturasCriticasCPU = dias30.map(() => Math.floor(Math.random() * 6) + 5);
-    const capturasCriticasRAM = dias30.map(() => Math.floor(Math.random() * 4) + 3);
+    const capturasCriticasRAM = dias30.map(() => Math.floor(Math.random() * 6) + 5);
 
-    // Gráfico linha CPU
     const ctxCPU = document.getElementById('graficoLinha1');
     if (ctxCPU) {
       new Chart(ctxCPU, {
@@ -136,33 +181,82 @@
           datasets: [{
             label: 'CPU',
             data: capturasCriticasCPU,
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-            tension: 0.3,
-            fill: true
+            borderColor: '#FF3B3B',
+            backgroundColor: 'rgba(255, 59, 59, 0.15)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 9,
+            pointBackgroundColor: '#FF3B3B',
+            pointStyle: 'circle',
+            borderWidth: 2,
           }]
         },
         options: {
           responsive: true,
           plugins: {
-            title: {
-              display: true,
-              text: 'Capturas Críticas - CPU'
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: '#2c2c2c',
+              titleColor: '#fff',
+              bodyColor: '#ddd',
+              cornerRadius: 4,
+              padding: 10,
+              titleFont: {
+                weight: 'bold',
+                size: 14
+              },
+              bodyFont: {
+                size: 13
+              }
             }
           },
           scales: {
             x: {
+              title: {
+                display: true,
+                text: 'Dias',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                },
+                color: '#333'
+              },
               ticks: {
-                autoSkip: false,       // mostra todos os rótulos
-                maxRotation: 45,       // rotaciona os rótulos para 45 graus
-                minRotation: 45
+                color: '#333',
+                autoSkip: false,
+                font: {
+                  size: 15,
+                  weight: '500'
+                }
+              },
+              grid: {
+                display: false
               }
             },
             y: {
               beginAtZero: true,
+              suggestedMax: Math.max(...capturasCriticasCPU) + 2,
               title: {
                 display: true,
-                text: 'Capturas'
+                text: 'Quantidade',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                },
+                color: '#333'
+              },
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 12
+                },
+              },
+              grid: {
+                color: '#eee',
+                borderDash: [5, 5]
               }
             }
           }
@@ -170,7 +264,6 @@
       });
     }
 
-    // Gráfico linha RAM
     const ctxRAM = document.getElementById('graficoLinha2');
     if (ctxRAM) {
       new Chart(ctxRAM, {
@@ -180,26 +273,82 @@
           datasets: [{
             label: 'RAM',
             data: capturasCriticasRAM,
-            borderColor: 'blue',
-            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-            tension: 0.3,
-            fill: true
+            borderColor: '#0040FF',
+            backgroundColor: 'rgba(0, 64, 255, 0.1)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 9,
+            pointBackgroundColor: '#0040FF',
+            pointStyle: 'circle',
+            borderWidth: 2
           }]
         },
         options: {
           responsive: true,
           plugins: {
-            title: {
-              display: true,
-              text: 'Capturas Críticas - RAM'
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: '#2c2c2c',
+              titleColor: '#fff',
+              bodyColor: '#ddd',
+              cornerRadius: 4,
+              padding: 10,
+              titleFont: {
+                weight: 'bold',
+                size: 14
+              },
+              bodyFont: {
+                size: 13
+              }
             }
           },
           scales: {
-            y: {
-              beginAtZero: true,
+            x: {
               title: {
                 display: true,
-                text: 'Capturas'
+                text: 'Dias',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                },
+                color: '#333'
+              },
+              ticks: {
+                color: '#333',
+                autoSkip: false,
+                font: {
+                  size: 15,
+                  weight: '500'
+                }
+              },
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              beginAtZero: true,
+              suggestedMax: Math.max(...capturasCriticasRAM) + 2,
+              title: {
+                display: true,
+                text: 'Quantidade',
+                font: {
+                  size: 16,
+                  weight: 'bold'
+                },
+                color: '#333'
+              },
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 12
+                }
+              },
+              grid: {
+                color: '#eee',
+                borderDash: [5, 5]
               }
             }
           }
@@ -207,7 +356,7 @@
       });
     }
 
-    // Gráfico barras geral
+
     const somaCPU = capturasCriticasCPU.reduce((a, b) => a + b, 0);
     const somaRAM = capturasCriticasRAM.reduce((a, b) => a + b, 0);
     const somaDISCO = Math.floor(Math.random() * 60) + 60;
@@ -221,7 +370,10 @@
           datasets: [{
             label: 'Total de Capturas Críticas',
             data: [somaCPU, somaRAM, somaDISCO],
-            backgroundColor: ['red', 'blue', 'green']
+            backgroundColor: ['#FF3B3B', '#0040FF', '#0A944B'],
+            borderRadius: 15,
+            borderSkipped: false,
+            barThickness: 100,
           }]
         },
         options: {
@@ -229,24 +381,72 @@
           plugins: {
             title: {
               display: true,
-              text: 'Total de Capturas Críticas por Componente'
+              text: 'Total de Capturas Críticas por Componente',
+              font: {
+                size: 22,
+                weight: 'bold'
+              },
+              color: '#222'
             },
             legend: {
               display: false
+            },
+            tooltip: {
+              backgroundColor: '#2c2c2c',
+              titleColor: '#fff',
+              bodyColor: '#ddd',
+              cornerRadius: 4,
+              padding: 10,
+              titleFont: {
+                weight: 'bold',
+                size: 14
+              },
+              bodyFont: {
+                size: 13
+              }
             }
           },
           scales: {
+            x: {
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 18,
+                  weight: '500'
+                }
+              },
+              grid: {
+                display: false
+              }
+            },
             y: {
               beginAtZero: true,
+              suggestedMax: Math.max(somaCPU, somaRAM, somaDISCO) + 20,
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 12
+                }
+              },
               title: {
                 display: true,
-                text: 'Capturas'
+                text: 'Capturas',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                },
+                color: '#333'
+              },
+              grid: {
+                color: '#eee',
+                borderDash: [4, 4]
               }
             }
           }
         }
       });
     }
+
   </script>
 
 </body>

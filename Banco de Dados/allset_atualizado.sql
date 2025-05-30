@@ -104,11 +104,12 @@ create table captura(
 
 CREATE TABLE historicoQtdPorCategoria (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	tipo INT,
+	tipo VARCHAR(5),
 	critico INT,
 	moderado INT,
     normal INT,
-    data DATE
+    data DATE,
+    lote INT
 );
 
 

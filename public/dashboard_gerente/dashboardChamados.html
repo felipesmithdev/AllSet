@@ -108,6 +108,10 @@
                 <div class="chart-container">
                     <h3 id="chart-title">Gráfico de Chamados nos últimos 7 dias - Todos os lotes</h3>
                     <div class="metrics">
+                        <div class="metric-card" id="card-indice-conclusao">
+                            <div class="metric-title">Índice de conclusão</div>
+                            <div class="metric-value" id="metric-indice-conclusao">0%</div>
+                        </div>
                         <div class="metric-card">
                             <div class="metric-title">Chamados em aberto (filtro)</div>
                             <div class="metric-value" id="metric-total-aberto">0</div>
@@ -115,10 +119,6 @@
                         <div class="metric-card">
                             <div class="metric-title">Finalizados (filtro)</div>
                             <div class="metric-value" id="metric-total-finalizados">0</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-title">Índice de conclusão</div>
-                            <div class="metric-value" id="metric-indice-conclusao">0%</div>
                         </div>
                     </div>
                     <div class="chart-wrapper">
@@ -211,11 +211,6 @@
             }
         }
 
-        async function carregarLotes() { }
-        async function atualizarGrafico() { }
-        async function atualizarTudo() { }
-
-
         async function carregarLotes() {
             console.log('Carregando lotes...'); const select = document.getElementById('lote');
             try {
@@ -225,17 +220,59 @@
                 return lotes;
             } catch (error) { console.error('❌ Erro ao carregar lotes:', error); select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>'; return []; }
         }
-        async function atualizarGrafico() {
-            const lote = document.getElementById('lote').value; const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
-            try {
-                const [responseGrafico, responseKPIs] = await Promise.all([axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`), axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`)]);
-                const dadosGrafico = responseGrafico.data; const kpis = responseKPIs.data;
-                if (chamadosChart && dadosGrafico) { chamadosChart.data.labels = dadosGrafico.labels || []; chamadosChart.data.datasets[0].data = dadosGrafico.data || []; chamadosChart.update(); }
-                document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0'; document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
-                const totalChamadosFiltro = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0); const indiceResolucao = totalChamadosFiltro > 0 ? Math.round(((kpis.totalFinalizados || 0) / totalChamadosFiltro) * 100) : 0;
-                document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`; document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${lote || 'Todos os lotes'}`;
-            } catch (error) { console.error('Erro ao atualizar gráfico:', error); }
+
+async function atualizarGrafico() {
+    // Pega os valores dos filtros selecionados na página
+    const lote = document.getElementById('lote').value;
+    const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
+    console.log(`📈 Atualizando gráfico e métricas - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
+
+    try {
+        const [responseGrafico, responseKPIs] = await Promise.all([
+            axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`),
+            axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`)
+        ]);
+
+        const dadosGrafico = responseGrafico.data;
+        const kpis = responseKPIs.data;
+
+        if (chamadosChart && dadosGrafico) {
+            chamadosChart.data.labels = dadosGrafico.labels || [];
+            chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
+            chamadosChart.update();
         }
+
+        document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
+        document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
+
+        const totalChamadosFiltro = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0);
+        const indiceResolucao = totalChamadosFiltro > 0 ? Math.round(((kpis.totalFinalizados || 0) / totalChamadosFiltro) * 100) : 0;
+        document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
+
+
+        const indiceConclusaoCard = document.getElementById('card-indice-conclusao');
+
+        if (indiceConclusaoCard) {
+            indiceConclusaoCard.classList.remove('warning', 'danger');
+
+            if (indiceResolucao < 60) {
+                indiceConclusaoCard.classList.add('danger'); 
+            } else if (indiceResolucao < 80) {
+                indiceConclusaoCard.classList.add('warning'); 
+            }
+        }
+
+        const tituloLote = lote || 'Todos os lotes';
+        document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
+
+    } catch (error) {
+        console.error('Erro ao atualizar o gráfico e as métricas do filtro:', error);
+        document.getElementById('metric-total-aberto').textContent = '-';
+        document.getElementById('metric-total-finalizados').textContent = '-';
+        document.getElementById('metric-indice-conclusao').textContent = '-';
+    }
+}
+
         async function atualizarTudo() {
             ['kpi-lote-mais-chamados', 'kpi-total-aberto', 'kpi-resolvidos-24', 'kpi-tempo-medio'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = 'Carregando...'; });
             try {

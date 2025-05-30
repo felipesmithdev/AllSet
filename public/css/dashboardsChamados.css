@@ -327,7 +327,7 @@ body {
 
 #card-tempo-medio.warning {
     background-color: gold;
-    border-left-color: #FFD700; 
+    border-left-color: #FFD700;
 }
 
 #card-tempo-medio.warning .kpi-title,
@@ -340,10 +340,32 @@ body {
 
 #card-tempo-medio.danger {
     background-color: #DC3545;
-    border-left-color: #A71D2A; 
+    border-left-color: #A71D2A;
 }
 
 #card-tempo-medio.danger .kpi-title,
 #card-tempo-medio.danger .kpi-value {
     color: #FFFFFF !important;
+}
+
+
+
+#card-indice-conclusao.warning {
+    background-color: gold;
+    border-left-color: #b49e21;
+}
+
+#card-indice-conclusao.warning .metric-title,
+#card-indice-conclusao.warning .metric-value {
+    color: #333333;
+}
+
+#card-indice-conclusao.danger {
+    background-color: #DC3545;
+    border-left-color: #A71D2A;
+}
+
+#card-indice-conclusao.danger .metric-title,
+#card-indice-conclusao.danger .metric-value {
+    color: #FFFFFF;
 }

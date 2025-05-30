@@ -3,30 +3,18 @@ window.onload = function() {
 };
 
 function selectMeses() {
-    fetch("/regressao/selecionarMeses", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error("Erro ao buscar meses");
-        }
-        return res.json();
-    })
-    .then(data => {
-        console.log("Meses recebidos:", data);
-        let select = document.getElementById("selectMeses");
+    fetch("/regressao/selecionarMeses")
+    .then(res => res.json())
+    .then(meses => {
+    const select = document.getElementById("selectMeses");
+    select.innerHTML += ""
 
-
-        select.innerHTML = '<option value="" selected disabled>Mês</option>';
-
-        data.forEach(item => {
-            let mes = item["month(dt_captura)"];
-            let option = document.createElement("option");
-            option.value = mes;
-            option.textContent = mes;
-            select.appendChild(option);
-        });
+    meses.forEach(m => {
+      const option = document.createElement("option");
+      option.value = `${m.num_mes}-${m.ano}`; 
+      option.textContent = m.mes.toUpperCase(); 
+      select.appendChild(option);
+    });
     })
     .catch(error => {
         console.error("Erro:", error);
@@ -132,6 +120,8 @@ function mediaDiariaRAM() {
         })
         .catch(err => console.error("Erro ao buscar médias de CPU:", err));
 }
+
+// Chamada S3:
 
 document.getElementById("selectMeses").addEventListener("change", (e) => {
   const mesSelecionado = e.target.value;

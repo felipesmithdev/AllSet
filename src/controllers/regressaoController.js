@@ -14,9 +14,10 @@ function selecionarMeses(req, res) {
 }
 
 function mediaDiariaCPU(req, res) {
-    let mes = req.params.mes;
+    const mesAno = req.params.mesAno; 
+    const [mes, ano] = mesAno.split("-"); 
 
-    regressaoModel.mediaDiariaCPU(mes)
+    regressaoModel.mediaDiariaCPU(mes, ano)
     .then(resultado => {
         res.status(200).json(resultado);
     })
@@ -27,9 +28,10 @@ function mediaDiariaCPU(req, res) {
 }
 
 function mediaDiariaRAM(req, res) {
-    let mes = req.params.mes;
+    const mesAno = req.params.mesAno; 
+    const [mes, ano] = mesAno.split("-");
 
-    regressaoModel.mediaDiariaRAM(mes)
+    regressaoModel.mediaDiariaRAM(mes, ano)
     .then(resultado => {
         res.status(200).json(resultado);
     })

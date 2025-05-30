@@ -310,7 +310,7 @@ span {
 
 .taxa-falhas {
     color: red;
-    font-size: 90px;
+    font-size: 95px;
     font-weight: 700;
     line-height: 0.8;
     display: block;
@@ -319,7 +319,7 @@ span {
 .kpi-titulo {
     color: #0B1624;
     font-weight: 700;
-    font-size: 23px;
+    font-size: 26px;
     display: flex;
     justify-content: center;
 }
@@ -327,7 +327,7 @@ span {
 .kpi-titulo-componentes {
     color: #0B1624;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 21px;
     display: flex;
     justify-content: center;
 }
@@ -339,7 +339,7 @@ span {
     margin-top: 5px;
 }
 
-.kpi button {
+.kpi a {
     background-color: #61B0FF;
     padding: 10px;
     margin-top: 7px;
@@ -347,6 +347,10 @@ span {
     border: none;
     border-radius: 15px;
     font-weight: 700;
+    color: #0B1624;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .lotes {

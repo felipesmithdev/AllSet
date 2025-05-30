@@ -489,7 +489,7 @@ span {
     height: 80%;
 }
 
-.critico-categoria, .todos-categoria {
+.critico-categoria1, .critico-categoria2, .todos-categoria {
     background-color: #61B0FF;
     padding: 1%;
     border-radius: 15px;
@@ -499,7 +499,7 @@ span {
     border: none;
 }
 
-.moderado-categoria, .cpu-categoria, .ram-categoria, .disco-categoria {
+.moderado-categoria1, .moderado-categoria2, .cpu-categoria, .ram-categoria, .disco-categoria {
     background-color: #EBEBEB;
     padding: 1%;
     border-radius: 15px;
@@ -509,7 +509,7 @@ span {
     border: none;
 }
 
-.normal-categoria {
+.normal-categoria1, .normal-categoria2 {
     background-color: #EBEBEB;
     padding: 1%;
     border-radius: 15px;

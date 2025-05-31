@@ -123,6 +123,9 @@ function mediaDiariaRAM() {
 
 // Chamada S3:
 
+let chuvaBars = null;
+let trafegoBars = null;
+
 document.getElementById("selectMeses").addEventListener("change", (e) => {
   const mesSelecionado = e.target.value;
   carregarDadosPorMes(mesSelecionado);
@@ -139,9 +142,14 @@ async function carregarDadosPorMes(mesSelecionado) {
 }
 
 function atualizarGrafico(dadosChuva, dadosTrafego) {
-  const labels = dadosChuva.map(item => item.componente);
-  const valoresChuva = dadosChuva.map(item => item.valor);
-  const valoresTrafego = dadosTrafego.map(item => item.valor);
+  const labels = Object.keys(dadosChuva);
+  const valoresChuva = Object.values(dadosChuva);
+  const valoresTrafego = Object.values(dadosTrafego);
+
+  // Destroi gráfico anterior de chuva se existir
+  if (chuvaBars) {
+    chuvaBars.destroy();
+  }
 
   let chuvaGraf = document.getElementById("chartChuva").getContext("2d");
   chuvaBars = new Chart(chuvaGraf, {
@@ -162,6 +170,10 @@ function atualizarGrafico(dadosChuva, dadosTrafego) {
     }
   });
 
+  // Destroi gráfico anterior de tráfego se existir
+  if (trafegoBars) {
+    trafegoBars.destroy();
+  }
 
   let trafegoGraf = document.getElementById("chartTrafego").getContext("2d");
   trafegoBars = new Chart(trafegoGraf, {

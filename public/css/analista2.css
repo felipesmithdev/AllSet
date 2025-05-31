@@ -221,14 +221,21 @@ span {
     color: #0B1624;
 }
 
+.teste-periodo {
+    display: flex;
+    width: 38%;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .periodos {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 15px;
     background-color: #EBEBEB;
-    width: 33%;
-    height: 5vh;
+    width: 85%;
+    height: 4vh;
     margin-top: 5px;
 }
 
@@ -293,11 +300,13 @@ span {
     background-color: #EBEBEB;
     width: 33%;
     border-radius: 15px;
-    height: 16vh;
+    height: 18vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .kpi-alternativa {
@@ -310,7 +319,7 @@ span {
 
 .taxa-falhas {
     color: red;
-    font-size: 95px;
+    font-size: 5.5em;
     font-weight: 700;
     line-height: 0.8;
     display: block;
@@ -342,7 +351,7 @@ span {
 .kpi a {
     background-color: #61B0FF;
     padding: 10px;
-    margin-top: 2px;
+    margin-top: 10px;
     width: 80%;
     border: none;
     border-radius: 15px;
@@ -376,32 +385,77 @@ span {
 
 .componentes-maior {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     flex-direction: column;
-    height: 77%;
-    margin-top: 3px;
-    width: 80%;
+    gap: 6px;
+    margin-top: 6px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    align-items: center;
 }
 
 .componente {
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 8px;
+    border-left: 6px solid;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    width: 70%;
+    height: auto;
+    font-size: 0.85em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 4vh;
 }
 
-.componente span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 700;
-    background-color: red;
-    padding: 3px;
-    width: 100%;
+.componente:nth-child(1) { border-left-color: #D32F2F; }
+.componente:nth-child(2) { border-left-color: #FF9800; }
+.componente:nth-child(3) { border-left-color: #FBC02D; }
+
+.componente:nth-child(1) .incidentes {
+    color: #D32F2F;
 }
+.componente:nth-child(2) .incidentes {
+    color: #FF9800;
+}
+.componente:nth-child(3) .incidentes {
+    color: #FBC02D;
+}
+
+.componente .posicao {
+    font-weight: bold;
+    color: #333;
+    flex: 1;
+    min-width: 20px;
+}
+
+.componente .nome {
+    font-weight: 700;
+    color: #333;
+    flex: 2;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.4em;
+
+}
+
+.componente .incidentes {
+    font-weight: 700;
+    color: #333;
+    flex: 2;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    font-size: 1.4em;
+}
+
+
 
 .graficos {
     height: 67vh;
@@ -448,10 +502,12 @@ span {
 .filtro-componente {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    justify-content: center;
     color: #0B1624;
     font-weight: 700;
+    margin-left: 20px;
 }
 
 

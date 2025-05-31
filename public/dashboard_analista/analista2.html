@@ -37,12 +37,14 @@
 
       <div class="filtro-periodo">
 
-        <span class="periodo" style="font-weight: 600;">Período</span>
+        <div class="teste-periodo">
+          <span class="periodo" style="font-weight: 600;">Período:</span>
 
-        <div class="periodos">
-          <button class="sete-dias" id="sete-dias" onclick="ultimosSeteDias()">Últimos 7 dias</button>
-          <button class="quinze-dias" id="quinze-dias" onclick="ultimosQuinzeDias()">Últimos 15 dias</button>
-          <button class="trinta-dias" id="trinta-dias" onclick="ultimosTrintaDias()">Últimos 30 dias</button>
+          <div class="periodos">
+            <button class="sete-dias" id="sete-dias" onclick="ultimosSeteDias()">Últimos 7 dias</button>
+            <button class="quinze-dias" id="quinze-dias" onclick="ultimosQuinzeDias()">Últimos 15 dias</button>
+            <button class="trinta-dias" id="trinta-dias" onclick="ultimosTrintaDias()">Últimos 30 dias</button>
+          </div>
         </div>
 
         <div class="kpis">
@@ -68,42 +70,58 @@
             <span class="kpi-titulo-componentes">Ranking de componentes com mais incidências críticas</span>
             <div class="componentes-maior">
               <div class="componente">
-                <span>1° CPU 60 capturas</span>
+                <span class="posicao">1°</span>
+                <span class="nome" id="componente-1-critico">CPU</span>
+                <span class="incidentes">
+                  <span id="qtd-componente1">25</span> incidentes
+                </span>
               </div>
 
               <div class="componente">
-                <span style="background-color: red;">2° RAM 60 capturas</span>
+                <span class="posicao">2°</span>
+                <span class="nome" id="componente-2-critico">RAM</span>
+                <span class="incidentes">
+                  <span id="qtd-componente2">18</span> incidentes
+                </span>
               </div>
 
               <div class="componente">
-                <span style="background-color: red;">3° DISCO 60 capturas</span>
+                <span class="posicao">3°</span>
+                <span class="nome" id="componente-3-critico">Disco</span>
+                <span class="incidentes">
+                  <span id="qtd-componente3">10</span> incidentes
+                </span>
               </div>
             </div>
+
           </div>
 
         </div>
         <div class="graficos">
           <div class="graficos-componentes">
             <div class="myChart">
-              <div class="filtro-componente">
-                <div class="selecao-componente">
-                  <span>Componente:</span>
-                  <select name="" id="slt_componente">
-                    <option value="#">Selecione um</option>
-                    <option value="#">CPU</option>
-                    <option value="#">RAM</option>
-                    <option value="#">Disco</option>
-                  </select>
-                </div>
-                <div class="selecao-categoria">
-                  <div class="categorias">
-                    <span>Categoria:</span>
-                    <button class="critico-categoria1" id="critico-categoria1"
-                      onclick="altCriticoCategoria1()">Crítico</button>
-                    <button class="moderado-categoria1" id="moderado-categoria1"
-                      onclick="altModeradoCategoria1()">Moderado</button>
-                    <button class="normal-categoria1" id="normal-categoria1"
-                      onclick="altNormalCategoria1()">Normal</button>
+              <div class="header-grafico">
+                <div class="filtro-componente">
+                  <div class="selecao-componente">
+                    <span>Componente:</span>
+                    <select name="" id="slt_componente">
+                      <option value="#">Selecione um</option>
+                      <option value="#">CPU</option>
+                      <option value="#">RAM</option>
+                      <option value="#">Disco</option>
+                    </select>
+                  </div>
+                  <div class="selecao-categoria">
+                    <div class="categorias">
+                      <div class="separar-categoria">
+                        <label for="categoria-select">Categoria:</label>
+                        <select id="categoria-select" onchange="alterarCategoria(this.value)">
+                          <option value="critico">Crítico</option>
+                          <option value="moderado">Moderado</option>
+                          <option value="normal">Normal</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -122,13 +140,14 @@
                 </div>
                 <div class="selecao-categoria">
                   <div class="categorias">
-                    <span>Categoria:</span>
-                    <button class="critico-categoria2" id="critico-categoria2"
-                      onclick="altCriticoCategoria2()">Crítico</button>
-                    <button class="moderado-categoria2" id="moderado-categoria2"
-                      onclick="altModeradoCategoria2()">Moderado</button>
-                    <button class="normal-categoria2" id="normal-categoria2"
-                      onclick="altNormalCategoria2()">Normal</button>
+                    <div class="separar-categoria">
+                      <label for="categoria-select2">Categoria:</label>
+                      <select id="categoria-select2" onchange="alterarCategoria2(this.value)">
+                        <option value="critico2">Crítico</option>
+                        <option value="moderado2">Moderado</option>
+                        <option value="normal2">Normal</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,7 +201,10 @@
 
 <script>
 
-  window.onload = calcularKpi2()
+  window.onload = () => {
+    calcularKpi2();
+    calcularKpi3();
+  };
 
   document.getElementById("menu-bar").addEventListener("click", function () {
     const sidebar = document.querySelector(".side-bar");
@@ -241,39 +263,51 @@
     altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
   }
 
-  function altCriticoCategoria1() {
-    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'critico-categoria1');
-    altBackgroundGrafico(chartCPU, 'rgba(255, 0, 0, 0.3)', '#FF0000');
+  function alterarCategoria(valor) {
+    const botoesIds = ['critico-categoria1', 'moderado-categoria1', 'normal-categoria1', 'critico-categoria2', 'moderado-categoria2', 'normal-categoria2'];
+    let corFundo = '';
+    let corLinha = '';
+
+    switch (valor) {
+      case 'critico':
+        corFundo = 'rgba(255, 0, 0, 0.3)';
+        corLinha = '#FF0000';
+        break;
+      case 'moderado':
+        corFundo = 'rgba(255, 255, 0, 0.3)';
+        corLinha = '#999900';
+        break;
+      case 'normal':
+        corFundo = 'rgba(0, 255, 0, 0.3)';
+        corLinha = '#008000';
+        break;
+    }
+
+    altBackgroundGrafico(chartCPU, corFundo, corLinha);
     chartCPU.update();
   }
 
-  function altModeradoCategoria1() {
-    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'moderado-categoria1');
-    altBackgroundGrafico(chartCPU, 'rgba(255, 255, 0, 0.3)', '#999900');
-    chartCPU.update();
-  }
+  function alterarCategoria2(valor) {
+    const botoesIds = ['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'];
+    let corFundo = '';
+    let corLinha = '';
 
-  function altNormalCategoria1() {
-    altBackgroundBotao(['critico-categoria1', 'moderado-categoria1', 'normal-categoria1'], 'normal-categoria1');
-    altBackgroundGrafico(chartCPU, 'rgba(0, 255, 0, 0.3)', '#008000');
-    chartCPU.update();
-  }
+    switch (valor) {
+      case 'critico2':
+        corFundo = 'rgba(255, 0, 0, 0.3)';
+        corLinha = '#FF0000';
+        break;
+      case 'moderado2':
+        corFundo = 'rgba(255, 255, 0, 0.3)';
+        corLinha = '#999900';
+        break;
+      case 'normal2':
+        corFundo = 'rgba(0, 255, 0, 0.3)';
+        corLinha = '#008000';
+        break;
+    }
 
-  function altCriticoCategoria2() {
-    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'critico-categoria2');
-    altBackgroundGrafico(chartRAM, 'rgba(255, 0, 0, 0.3)', '#FF0000');
-    chartRAM.update();
-  }
-
-  function altModeradoCategoria2() {
-    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'moderado-categoria2');
-    altBackgroundGrafico(chartRAM, 'rgba(255, 255, 0, 0.3)', '#999900');
-    chartRAM.update();
-  }
-
-  function altNormalCategoria2() {
-    altBackgroundBotao(['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'], 'normal-categoria2');
-    altBackgroundGrafico(chartRAM, 'rgba(0, 255, 0, 0.3)', '#008000');
+    altBackgroundGrafico(chartRAM, corFundo, corLinha);
     chartRAM.update();
   }
 
@@ -308,6 +342,32 @@
         kpi2porcentagem.innerHTML = res[0][0].porcentagem + "%"
         kpi2criticos.innerHTML = res[1][0].criticos
         kpi2total.innerHTML = res[1][0].total
+        console.log(res)
+      }
+      )
+  }
+
+  function calcularKpi3() {
+    fetch(`/analistaLote/calcularKpi3`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        var kpi3primeiro = document.getElementById("componente-1-critico")
+        var kpi3segundo = document.getElementById("componente-2-critico")
+        var kpi3terceiro = document.getElementById("componente-3-critico")
+        var qtdKpi3primeiro = document.getElementById("qtd-componente1")
+        var qtdKpi3segundo = document.getElementById("qtd-componente2")
+        var qtdKpi3terceiro = document.getElementById("qtd-componente3")
+        kpi3primeiro.innerHTML = res[0].tipo.toUpperCase()
+        kpi3segundo.innerHTML = res[1].tipo.toUpperCase()
+        kpi3terceiro.innerHTML = res[2].tipo.toUpperCase()
+        qtdKpi3primeiro.innerHTML = res[0].totalCritico
+        qtdKpi3segundo.innerHTML = res[1].totalCritico
+        qtdKpi3terceiro.innerHTML = res[2].totalCritico
         console.log(res)
       }
       )

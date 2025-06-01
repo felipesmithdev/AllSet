@@ -455,8 +455,6 @@ span {
     font-size: 1.4em;
 }
 
-
-
 .graficos {
     height: 67vh;
     display: flex;
@@ -518,6 +516,12 @@ span {
     color: #0B1624;
     font-weight: 750;
     padding: 8px;
+}
+
+.titulo-grafico-unico {
+    width: 90%;
+    font-size: 25px;
+    margin-right: 60px;
 }
 
 .selecao-categoria {

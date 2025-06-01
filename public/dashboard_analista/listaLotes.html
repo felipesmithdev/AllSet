@@ -26,8 +26,6 @@
             <div class="titulo-dash">
                 <div class="titulo-dash-info"> <span class="nome-dash">Análise Histórica de Desempenho Operacional de
                         Lotes</span>
-                    <span class="subtitulo-dash">Situação geral de um lote específico, caso queira alterar o lote
-                        monitorado, <a href="" style="color: #61B0FF;">clique aqui</a>!</span>
                 </div>
                 <div class="titulo-dash-usuario">
                     <img src="../assets/imgs/user.png" alt="Ícone do usuário">
@@ -40,76 +38,84 @@
                 <span class="periodo" style="font-weight: 600;">Período</span>
 
                 <div class="periodos">
-                    <button class="sete-dias" onclick="ultimosSeteDias">Últimos 7 dias</button>
-                    <button class="quinze-dias" onclick="ultimosQuinzeDias">Últimos 15 dias</button>
-                    <button class="trinta-dias" onclick="ultimosTrintaDias">Últimos 30 dias</button>
+                    <button class="sete-dias" id="sete-dias" onclick="ultimosSeteDias()">Últimos 7 dias</button>
+                    <button class="quinze-dias" id="quinze-dias" onclick="ultimosQuinzeDias()">Últimos 15 dias</button>
+                    <button class="trinta-dias" id="trinta-dias" onclick="ultimosTrintaDias()">Últimos 30 dias</button>
                 </div>
 
             </div>
 
-            <div class="div-tabela">
+            <div class="container">
+                <div class="header">
+                    <span>Listagem de Lotes</span>
+                    <span class="subtitulo-dash">Selecione o lote que deseja visualizar a dashboard</span>
+                    <div class="filtro">
+                        <span>Ordenar por:</span>
+                        <select name="slt_categoria" id="">
+                            <option value="critico">Critico</option>
+                            <option value="moderado">Moderado</option>
+                            <option value="normal">Normal</option>
+                        </select>
+                    </div>
+                </div>
 
-                <table class="tabela">
-                    <thead class="cabecalho-tabela">
-                        <tr class="linha-dados">
-                            <th class="titulo-coluna">Lote</th>
-                            <th class="titulo-coluna">Críticos</th>
-                            <th class="titulo-coluna">Moderados</th>
-                            <th class="titulo-coluna">Normais</th>
-                            <th class="titulo-coluna">Dashboard</th>
-                        </tr>
-                    </thead>
-                    <tbody class="corpo-tabela">
-                        <tr class="linha-dados">
-                            <td class="celula-dados">1</td>
-                            <td class="celula-dados">10</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-                        </tr>
-                        <tr class="linha-dados">
-                            <td class="celula-dados">2</td>
-                            <td class="celula-dados">10</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-
-                        </tr>
-                        <tr class="linha-dados">
-                            <td class="celula-dados">3</td>
-                            <td class="celula-dados">10</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-
-                        </tr>
-                        <tr class="linha-dados">
-                            <td class="celula-dados">4</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-
-                        </tr>
-                        <tr class="linha-dados">
-                            <td class="celula-dados">5</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-
-                        </tr>
-                        <tr class="linha-dados">
-                            <td class="celula-dados">6</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">30</td>
-                            <td class="celula-dados">20</td>
-                            <td class="celula-dados">Abrir página</td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Lote</th>
+                                <th>Crítico</th>
+                                <th>Moderado</th>
+                                <th>Normal</th>
+                                <th>Dashboard</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="lote">Lote A1</td>
+                                <td class="status critico">15</td>
+                                <td class="status moderado">8</td>
+                                <td class="status normal">42</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="lote">Lote B2</td>
+                                <td class="status critico">3</td>
+                                <td class="status moderado">12</td>
+                                <td class="status normal">38</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="lote">Lote C3</td>
+                                <td class="status critico">0</td>
+                                <td class="status moderado">5</td>
+                                <td class="status normal">47</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="lote">Lote D4</td>
+                                <td class="status critico">22</td>
+                                <td class="status moderado">18</td>
+                                <td class="status normal">25</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="lote">Lote E5</td>
+                                <td class="status critico">1</td>
+                                <td class="status moderado">9</td>
+                                <td class="status normal">55</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                            <tr>
+                                <td class="lote">Lote F6</td>
+                                <td class="status critico">7</td>
+                                <td class="status moderado">14</td>
+                                <td class="status normal">33</td>
+                                <td><button class="dashboard-btn">Acessar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </main>
@@ -166,5 +172,32 @@
             }, 300);
         }
     });
+
+    function altBackgroundBotao(todosBotoes, idParaMudar) {
+        todosBotoes.forEach(id => {
+            const button = document.getElementById(id)
+            if (button) {
+                button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#EBEBEB"
+            }
+        });
+    }
+
+    function ultimosSeteDias() {
+        altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'sete-dias');
+        periodo = 7;
+
+    }
+
+    function ultimosQuinzeDias() {
+        altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'quinze-dias');
+        periodo = 15;
+
+    }
+
+    function ultimosTrintaDias() {
+        altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
+        periodo = 30;
+
+    }
 
 </script>

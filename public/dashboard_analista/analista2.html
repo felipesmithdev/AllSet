@@ -102,6 +102,7 @@
             <div class="myChart">
               <div class="header-grafico">
                 <div class="filtro-componente">
+                <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
                   <div class="selecao-componente">
                     <span>Componente:</span>
                     <select name="" id="slt_componente1" onchange="alterarComponente(this.value)">
@@ -128,6 +129,7 @@
             </div>
             <div class="myChart">
               <div class="filtro-componente">
+                <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
                 <div class="selecao-componente">
                   <span>Componente:</span>
                   <select name="" id="slt_componente2" onchange="alterarComponente2(this.value)">
@@ -246,7 +248,7 @@
     todosBotoes.forEach(id => {
       const button = document.getElementById(id)
       if (button) {
-        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#fff"
+        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#EBEBEB"
       }
     });
   }
@@ -526,59 +528,23 @@
       });
   }
 
-// Função plotarGrafico2 com debug completo
 function plotarGrafico2() {
-    // Debug: verificar os valores das variáveis
-    console.log("=== DEBUG GRÁFICO 2 ===");
-    console.log("categoria2:", categoria2);
-    console.log("componente2:", componente2);
-    console.log("lote:", lote);
-    console.log("periodo:", periodo);
-    
-    const url = `/analistaLote/plotarGrafico2?categoria2=${categoria2}&lote=${lote}&periodo=${periodo}&componente2=${componente2}`;
-    console.log("URL da requisição:", url);
-
-    fetch(url, {
+    fetch(`/analistaLote/plotarGrafico2?categoria2=${categoria2}&lote=${lote}&periodo=${periodo}&componente2=${componente2}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
     })
-    .then((response) => {
-        console.log("Status da resposta:", response.status);
-        console.log("Headers da resposta:", response.headers);
-        
-        // Verificar se a resposta é OK
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        // Verificar se há conteúdo na resposta
-        return response.text(); // Primeiro como texto para debug
-    })
-    .then((text) => {
-        console.log("Resposta como texto:", text);
-        
-        // Tentar fazer parse do JSON
-        if (!text || text.trim() === '') {
-            throw new Error("Resposta vazia do servidor");
-        }
-        
-        const data = JSON.parse(text);
-        console.log("Dados parseados:", data);
-        
-        // Verificar se há dados
-        if (!data || data.length === 0) {
-            console.warn("Nenhum dado retornado para o gráfico 2");
-            return;
-        }
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);       
 
         var datas = [];
         var criticos = [];
 
-        for (var i = 0; i < data.length; i++) {
-            datas.push(data[i].data);
-            criticos.push(data[i][categoria2]);
+        for (var i = 0; i < res.length; i++) {
+            datas.push(res[i].data);
+            criticos.push(res[i][categoria2]);
         }
 
         console.log("Datas processadas:", datas);
@@ -591,7 +557,6 @@ function plotarGrafico2() {
             return;
         }
 
-        // Destruir o gráfico anterior se existir
         if (chartRAM) {
             chartRAM.destroy();
         }
@@ -644,12 +609,9 @@ function plotarGrafico2() {
                 }
             }
         });
-        
-        console.log("Gráfico 2 criado com sucesso!");
     })
     .catch(error => {
-        console.error("Erro completo no gráfico 2:", error);
-        console.error("Stack trace:", error.stack);
+      console.error("Erro ao carregar dados do gráfico:", error);
     });
 }
 

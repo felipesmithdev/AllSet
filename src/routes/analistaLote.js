@@ -11,5 +11,9 @@ router.get("/calcularKpi3", function(req, res) {
     analistaLoteController.calcularKpi3(req, res);
 }); 
 
+router.get("/plotarGrafico1", function(req, res) {
+    analistaLoteController.plotarGrafico1(req, res);
+}); 
+
 module.exports = router;
 

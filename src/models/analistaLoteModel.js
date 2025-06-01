@@ -18,7 +18,21 @@ function calcularKpi3() {
     return database.executar(instrucaoSql);
 }
 
+function plotarGrafico1(categoria, lote, periodo) {
+    var instrucaoSql = `
+        SELECT ${categoria}, DATE_FORMAT(data, '%d/%m') AS data
+        FROM historicoQtdPorCategoria
+        WHERE tipo = 'cpu' AND lote = ${parseInt(lote)}
+        ORDER BY data DESC LIMIT ${parseInt(periodo)};
+    `;
+    
+    console.log("Ta dando certo caralho")
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     calcularKpi2,
-    calcularKpi3
+    calcularKpi3,
+    plotarGrafico1
 };

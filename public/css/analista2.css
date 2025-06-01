@@ -532,10 +532,10 @@ span {
 .categorias {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: flex-end; 
     border-radius: 15px;
     background-color: #EBEBEB;
-    width: 100%;
+    width: 90%;
     height: 5vh;
     margin-top: 5px;
 }

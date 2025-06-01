@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        
+
 
       </section>
 
@@ -68,18 +68,20 @@
         <div id="header">
 
           <div class="seletores">
-            <select name="" id="">
+            <select name="" id="selectMetrica" onchange="selecionarMetrica()">
               <option value="" selected disabled>Métrica (Eixo Y)</option>
-              <option value="">CPU</option>
-              <option value="">RAM</option>
+              <option value="1">CPU</option>
+              <option value="2">RAM</option>
             </select>
 
-            <select name="" id="">
+            <select name="" id="selectVariavel" onchange="selecionarVariavel()">
               <option value="" selected disabled>Variável Independente (Eixo X)</option>
-              <option value="">Chuva</option>
-              <option value="">Tráfego</option>
+              <option value="1">Chuva</option>
+              <option value="2">Tráfego</option>
             </select>
           </div>
+
+          <button onclick="gerarGrafico()">Gerar Gráfico</button>
 
           <div id="indicadores">
             <b>Mês</b>
@@ -181,135 +183,6 @@
         sidebar.style.display = "none";
         fundoPreto.style.display = "none";
       }, 300);
-    }
-  });
-
-
-  // Gráficos:
-
-  // const chuva = document.getElementById('chartChuva');
-
-  // new Chart(chuva, {
-  //   type: 'bar',
-  //   data: {
-  //     labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
-  //     datasets: [{
-  //       label: 'Chuva (mm)',
-  //       data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
-  //       borderWidth: 1
-  //     }]
-  //   },
-  //   options: {
-  //     plugins: {
-  //       title: {
-  //         display: true,
-  //         text: "Volumetria de chuva diária",
-  //         align: 'start'
-  //       }
-  //     },
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true
-  //       }
-  //     }
-  //   }
-  // });
-
-  // const trafego = document.getElementById('chartTrafego');
-
-  // new Chart(trafego, {
-  //   type: 'bar',
-  //   data: {
-  //     labels: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01', '13/01', '14/01', '15/01', '16/01', '17/01', '18/01', '19/01', '20/01', '21/01', '22/01', '23/01', '24/01', '25/01', '26/01', '27/01', '28/01', '29/01', '30/01', '31/01'],
-  //     datasets: [{
-  //       label: 'Tráfego',
-  //       data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
-  //       borderWidth: 1
-  //     }]
-  //   },
-  //   options: {
-  //     plugins: {
-  //       title: {
-  //         display: true,
-  //         text: "Volumetria de tráfego diária",
-  //         align: 'start'
-  //       }
-  //     },
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true
-  //       }
-  //     }
-  //   }
-  // });
-
-  const dadosX = [1, 2, 3, 4, 5];
-  const dadosY = [2, 4, 5, 4, 5];
-
-
-  function calcularRegressaoLinear(x, y) {
-    const n = x.length;
-    const mediaX = x.reduce((a, b) => a + b, 0) / n;
-    const mediaY = y.reduce((a, b) => a + b, 0) / n;
-
-    let somaXY = 0;
-    let somaX2 = 0;
-    for (let i = 0; i < n; i++) {
-      somaXY += x[i] * y[i];
-      somaX2 += x[i] * x[i];
-    }
-
-    const m = (somaXY - n * mediaX * mediaY) / (somaX2 - n * mediaX * mediaX);
-    const b = mediaY - m * mediaX;
-
-    return { m, b };
-  }
-
-  const regressao = calcularRegressaoLinear(dadosX, dadosY);
-
-  const dadosLinha = {
-    label: 'Regressão Linear',
-    data: [
-      { x: dadosX[0], y: regressao.m * dadosX[0] + regressao.b },
-      { x: dadosX[dadosX.length - 1], y: regressao.m * dadosX[dadosX.length - 1] + regressao.b }
-    ],
-    type: 'line',
-    borderColor: '#34495e',
-    backgroundColor: '#34495e',
-    fill: false
-  };
-
-  const regLinear = document.getElementById('chartRegressao').getContext('2d');
-
-  const myChart = new Chart(regLinear, {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        label: 'Dados',
-        data: dadosX.map((x, i) => ({ x: x, y: dadosY[i] })),
-        borderColor: '#61B0FF',
-        backgroundColor: '#61B0FF',
-        pointRadius: 5
-      }, dadosLinha],
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Correlação de variáveis",
-          align: 'start'
-        }
-      },
-      scales: {
-        x: {
-          type: 'linear',
-          title: 'X'
-        },
-        y: {
-          type: 'linear',
-          title: 'Y'
-        }
-      }
     }
   });
 

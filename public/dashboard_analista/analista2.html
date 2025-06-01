@@ -104,10 +104,10 @@
                 <div class="filtro-componente">
                   <div class="selecao-componente">
                     <span>Componente:</span>
-                    <select name="" id="slt_componente">
-                      <option value="#">CPU</option>
-                      <option value="#">RAM</option>
-                      <option value="#">Disco</option>
+                    <select name="" id="slt_componente1" onchange="alterarComponente(this.value)">
+                      <option value="cpu">CPU</option>
+                      <option value="ram">RAM</option>
+                      <option value="disco">Disco</option>
                     </select>
                   </div>
                   <div class="selecao-categoria">
@@ -130,10 +130,10 @@
               <div class="filtro-componente">
                 <div class="selecao-componente">
                   <span>Componente:</span>
-                  <select name="" id="slt_componente">
-                    <option value="#">CPU</option>
-                    <option value="#">RAM</option>
-                    <option value="#">DISCO</option>
+                  <select name="" id="slt_componente2" onchange="alterarComponente2(this.value)">
+                    <option value="cpu">CPU</option>
+                    <option value="ram">RAM</option>
+                    <option value="disco">DISCO</option>
                   </select>
                 </div>
                 <div class="selecao-categoria">
@@ -141,9 +141,9 @@
                     <div class="separar-categoria">
                       <label for="categoria-select2">Categoria:</label>
                       <select id="categoria-select2" onchange="alterarCategoria2(this.value)">
-                        <option value="critico2">Crítico</option>
-                        <option value="moderado2">Moderado</option>
-                        <option value="normal2">Normal</option>
+                        <option value="critico">Crítico</option>
+                        <option value="moderado">Moderado</option>
+                        <option value="normal">Normal</option>
                       </select>
                     </div>
                   </div>
@@ -198,15 +198,21 @@
 </html>
 
 <script>
+  let chartCPU;
+  let chartRAM;
 
- var categoriaGrafico = document.getElementById("categoria-select").value;
- var lote = 1;
- var periodo = 30;
+  var lote = 1
+  var periodo = 7
+  var categoria = document.getElementById("categoria-select").value
+  var componente = document.getElementById("slt_componente1").value
+  var categoria2 = document.getElementById("categoria-select2").value
+  var componente2 = document.getElementById("slt_componente2").value
 
   window.onload = () => {
     calcularKpi2();
     calcularKpi3();
-    plotarGrafico1(categoriaGrafico, 1, 7);
+    plotarGrafico1(categoria, lote, periodo, componente);
+    plotarGrafico2(categoria2, lote, periodo, componente2)
   };
 
   document.getElementById("menu-bar").addEventListener("click", function () {
@@ -256,18 +262,26 @@
 
   function ultimosSeteDias() {
     altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'sete-dias');
+    periodo = 7;
+    plotarGrafico1(categoria, lote, periodo, componente)
+    plotarGrafico2(categoria2, lote, periodo, componente2)
   }
 
   function ultimosQuinzeDias() {
     altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'quinze-dias');
+    periodo = 15;
+    plotarGrafico1(categoria, lote, periodo, componente)
+    plotarGrafico2(categoria2, lote, periodo, componente2)
   }
 
   function ultimosTrintaDias() {
     altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
+    periodo = 30;
+    plotarGrafico1(categoria, lote, periodo, componente)
+    plotarGrafico2(categoria2, lote, periodo, componente2)
   }
 
   function alterarCategoria(valor) {
-    const botoesIds = ['critico-categoria1', 'moderado-categoria1', 'normal-categoria1', 'critico-categoria2', 'moderado-categoria2', 'normal-categoria2'];
     let corFundo = '';
     let corLinha = '';
 
@@ -275,43 +289,102 @@
       case 'critico':
         corFundo = 'rgba(255, 0, 0, 0.3)';
         corLinha = '#FF0000';
+        categoria = 'critico'
+        plotarGrafico1(categoria, lote, periodo, componente)
         break;
       case 'moderado':
         corFundo = 'rgba(255, 255, 0, 0.3)';
         corLinha = '#999900';
+        categoria = 'moderado'
+        plotarGrafico1(categoria, lote, periodo, componente)
         break;
       case 'normal':
         corFundo = 'rgba(0, 255, 0, 0.3)';
         corLinha = '#008000';
+        categoria = 'normal'
+        plotarGrafico1(categoria, lote, periodo, componente)
         break;
     }
 
-    altBackgroundGrafico(chartCPU, corFundo, corLinha);
-    chartCPU.update();
+    plotarGrafico1(categoria, lote, periodo, componente);
+
+    setTimeout(() => {
+      altBackgroundGrafico(chartCPU, corFundo, corLinha);
+    }, 100);
   }
 
   function alterarCategoria2(valor) {
-    const botoesIds = ['critico-categoria2', 'moderado-categoria2', 'normal-categoria2'];
     let corFundo = '';
     let corLinha = '';
 
     switch (valor) {
-      case 'critico2':
+      case 'critico':
         corFundo = 'rgba(255, 0, 0, 0.3)';
         corLinha = '#FF0000';
+        categoria2 = 'critico'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
-      case 'moderado2':
+      case 'moderado':
         corFundo = 'rgba(255, 255, 0, 0.3)';
         corLinha = '#999900';
+        categoria2 = 'moderado'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
-      case 'normal2':
+      case 'normal':
         corFundo = 'rgba(0, 255, 0, 0.3)';
         corLinha = '#008000';
+        categoria2 = 'normal'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
     }
 
-    altBackgroundGrafico(chartRAM, corFundo, corLinha);
-    chartRAM.update();
+    plotarGrafico2(categoria2, lote, periodo, componente2)
+
+    setTimeout(() => {
+      altBackgroundGrafico(chartRAM, corFundo, corLinha);
+    }, 100);
+  }
+
+  function alterarComponente(valor) {
+    const botoesIdsComponente = ['cpu', 'ram', 'disco']
+
+    switch (valor) {
+      case 'cpu':
+        componente = 'cpu'
+        plotarGrafico1(categoria, lote, periodo, componente)
+        break;
+      case 'ram':
+        componente = 'ram'
+        plotarGrafico1(categoria, lote, periodo, componente)
+        break;
+      case 'disco':
+        componente = 'disco'
+        plotarGrafico1(categoria, lote, periodo, componente)
+        break;
+    }
+
+    plotarGrafico1(categoria, lote, periodo, componente)
+  }
+
+  function alterarComponente2(valor) {
+    const botoesIdsComponente = ['cpu2', 'ram2', 'disco2']
+
+    switch (valor) {
+      case 'cpu':
+        componente2 = 'cpu'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
+        break;
+      case 'ram':
+        componente2 = 'ram'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
+        break;
+      case 'disco':
+        componente2 = 'disco'
+        plotarGrafico2(categoria2, lote, periodo, componente2)
+        break;
+    }
+
+    plotarGrafico2(categoria2, lote, periodo, componente2)
   }
 
   function altTodosCategoria() {
@@ -373,5 +446,212 @@
       }
       )
   }
+
+  function plotarGrafico1() {
+    fetch(`/analistaLote/plotarGrafico1?categoria=${categoria}&lote=${lote}&periodo=${periodo}&componente=${componente}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+
+        var datas = [];
+        var criticos = [];
+
+        for (var i = 0; i < res.length; i++) {
+          datas.push(res[i].data);
+          criticos.push(res[i][categoria]);
+        }
+
+        const ctxCPU = document.getElementById('graficoLinha1');
+
+        if (chartCPU) {
+          chartCPU.destroy();
+        }
+
+        chartCPU = new Chart(ctxCPU, {
+          type: 'line',
+          data: {
+            labels: datas,
+            datasets: [{
+              label: 'CPU',
+              data: criticos,
+              borderColor: '#FF3B3B',
+              backgroundColor: 'rgba(255, 59, 59, 0.15)',
+              tension: 0.4,
+              fill: true,
+              pointRadius: 4,
+              pointHoverRadius: 9,
+              pointBackgroundColor: '#FF3B3B',
+              pointStyle: 'circle',
+              borderWidth: 5,
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#2c2c2c',
+                titleColor: '#fff',
+                bodyColor: '#ddd',
+                cornerRadius: 4,
+                padding: 10,
+                titleFont: { weight: 'bold', size: 14 },
+                bodyFont: { size: 13 }
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
+                ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
+                grid: { display: false }
+              },
+              y: {
+                beginAtZero: true,
+                suggestedMax: Math.max(...criticos) + 2,
+                title: { display: true, text: 'Quantidade', font: { size: 14, weight: 'bold' }, color: '#333' },
+                ticks: { color: '#333', font: { size: 12 } },
+                grid: { color: '#eee', borderDash: [5, 5] }
+              }
+            }
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Erro ao carregar dados do gráfico:", error);
+      });
+  }
+
+// Função plotarGrafico2 com debug completo
+function plotarGrafico2() {
+    // Debug: verificar os valores das variáveis
+    console.log("=== DEBUG GRÁFICO 2 ===");
+    console.log("categoria2:", categoria2);
+    console.log("componente2:", componente2);
+    console.log("lote:", lote);
+    console.log("periodo:", periodo);
+    
+    const url = `/analistaLote/plotarGrafico2?categoria2=${categoria2}&lote=${lote}&periodo=${periodo}&componente2=${componente2}`;
+    console.log("URL da requisição:", url);
+
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then((response) => {
+        console.log("Status da resposta:", response.status);
+        console.log("Headers da resposta:", response.headers);
+        
+        // Verificar se a resposta é OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // Verificar se há conteúdo na resposta
+        return response.text(); // Primeiro como texto para debug
+    })
+    .then((text) => {
+        console.log("Resposta como texto:", text);
+        
+        // Tentar fazer parse do JSON
+        if (!text || text.trim() === '') {
+            throw new Error("Resposta vazia do servidor");
+        }
+        
+        const data = JSON.parse(text);
+        console.log("Dados parseados:", data);
+        
+        // Verificar se há dados
+        if (!data || data.length === 0) {
+            console.warn("Nenhum dado retornado para o gráfico 2");
+            return;
+        }
+
+        var datas = [];
+        var criticos = [];
+
+        for (var i = 0; i < data.length; i++) {
+            datas.push(data[i].data);
+            criticos.push(data[i][categoria2]);
+        }
+
+        console.log("Datas processadas:", datas);
+        console.log("Valores processados:", criticos);
+
+        const ctxRAM = document.getElementById('graficoLinha2');
+        
+        if (!ctxRAM) {
+            console.error("Elemento 'graficoLinha2' não encontrado!");
+            return;
+        }
+
+        // Destruir o gráfico anterior se existir
+        if (chartRAM) {
+            chartRAM.destroy();
+        }
+
+        chartRAM = new Chart(ctxRAM, {
+            type: 'line',
+            data: {
+                labels: datas,
+                datasets: [{
+                    label: 'Gráfico 2',
+                    data: criticos,
+                    borderColor: '#FF3B3B',
+                    backgroundColor: 'rgba(255, 59, 59, 0.15)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 9,
+                    pointBackgroundColor: '#0040FF',
+                    pointStyle: 'circle',
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#2c2c2c',
+                        titleColor: '#fff',
+                        bodyColor: '#ddd',
+                        cornerRadius: 4,
+                        padding: 10,
+                        titleFont: { weight: 'bold', size: 14 },
+                        bodyFont: { size: 13 }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
+                        ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: Math.max(...criticos) + 2,
+                        title: { display: true, text: 'Quantidade', font: { size: 16, weight: 'bold' }, color: '#333' },
+                        ticks: { color: '#333', font: { size: 12 } },
+                        grid: { color: '#eee', borderDash: [5, 5] }
+                    }
+                }
+            }
+        });
+        
+        console.log("Gráfico 2 criado com sucesso!");
+    })
+    .catch(error => {
+        console.error("Erro completo no gráfico 2:", error);
+        console.error("Stack trace:", error.stack);
+    });
+}
+
 
 </script>

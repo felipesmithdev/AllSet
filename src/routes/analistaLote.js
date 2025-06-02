@@ -19,5 +19,9 @@ router.get("/plotarGrafico2", function(req, res) {
     analistaLoteController.plotarGrafico2(req, res);
 }); 
 
+router.get("/plotarGrafico3", function(req, res) {
+    analistaLoteController.plotarGrafico3(req, res);
+}); 
+
 module.exports = router;
 

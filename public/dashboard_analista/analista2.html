@@ -194,7 +194,6 @@
 
   <div id="fundo-preto" class="fundo-preto"></div>
 
-  <script src="./graficos.js"></script>
 </body>
 
 </html>
@@ -202,9 +201,11 @@
 <script>
   let chartCPU;
   let chartRAM;
+  let chartBarras;
 
   var lote = 1
   var periodo = 7
+  var tipo = 'todos'
   var categoria = document.getElementById("categoria-select").value
   var componente = document.getElementById("slt_componente1").value
   var categoria2 = document.getElementById("categoria-select2").value
@@ -214,7 +215,8 @@
     calcularKpi2(lote, periodo);
     calcularKpi3(lote, periodo);
     plotarGrafico1(categoria, lote, periodo, componente);
-    plotarGrafico2(categoria2, lote, periodo, componente2)
+    plotarGrafico2(categoria2, lote, periodo, componente2);
+    plotarGrafico3(lote, periodo, tipo);
   };
 
   document.getElementById("menu-bar").addEventListener("click", function () {
@@ -267,6 +269,7 @@
     periodo = 7;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    plotarGrafico3(lote, periodo, tipo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -276,6 +279,7 @@
     periodo = 15;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    plotarGrafico3(lote, periodo, tipo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -285,6 +289,7 @@
     periodo = 30;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    plotarGrafico3(lote, periodo, tipo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -397,18 +402,26 @@
 
   function altTodosCategoria() {
     altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'todos-categoria');
+    tipo = 'todos'
+    plotarGrafico3(lote, periodo, tipo)
   }
 
   function altCpuCategoria() {
     altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'cpu-categoria');
+    tipo = 'cpu'
+    plotarGrafico3(lote, periodo, tipo)
   }
 
   function altRamCategoria() {
     altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'ram-categoria');
+    tipo = 'ram'
+    plotarGrafico3(lote, periodo, tipo)
   }
 
   function altDiscoCategoria() {
     altBackgroundBotao(['todos-categoria', 'cpu-categoria', 'ram-categoria', 'disco-categoria'], 'disco-categoria');
+    tipo = 'disco'
+    plotarGrafico3(lote, periodo, tipo)
   }
 
   function calcularKpi2() {
@@ -552,9 +565,6 @@
           criticos.push(res[i][categoria2]);
         }
 
-        console.log("Datas processadas:", datas);
-        console.log("Valores processados:", criticos);
-
         const ctxRAM = document.getElementById('graficoLinha2');
 
         if (!ctxRAM) {
@@ -619,6 +629,85 @@
         console.error("Erro ao carregar dados do gráfico:", error);
       });
   }
+
+  function plotarGrafico3() {
+    fetch(`/analistaLote/plotarGrafico3?lote=${lote}&periodo=${periodo}&tipo=${tipo}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        const somaCritico = res[0].critico;
+        const somaModerado = res[0].moderado;
+        const somaNormal = res[0].normal;
+        console.log(somaCritico)
+
+        const ctxBarras = document.getElementById('graficoBarrasGeral');
+
+        if (chartBarras) {
+          chartBarras.destroy();
+        }
+
+        chartBarras = new Chart(ctxBarras, {
+            type: 'bar',
+            data: {
+              labels: ['Crítico', 'Moderado', 'Normal'],
+              datasets: [{
+                label: 'Total de Capturas por Categoria',
+                data: [somaCritico, somaModerado, somaNormal],
+                backgroundColor: ['#FF0000', 'rgba(255, 255, 0)', '#008000'],
+                borderRadius: 5,
+                borderSkipped: false,
+                barThickness: 140,
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Total de Capturas por Categoria',
+                  font: { size: 22, weight: 'bold' },
+                  color: '#222'
+                },
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: '#2c2c2c',
+                  titleColor: '#fff',
+                  bodyColor: '#ddd',
+                  cornerRadius: 4,
+                  padding: 10,
+                  titleFont: { weight: 'bold', size: 14 },
+                  bodyFont: { size: 13 }
+                }
+              },
+              scales: {
+                x: {
+                  ticks: { color: '#333', font: { size: 18, weight: '500' } },
+                  grid: { display: false }
+                },
+                y: {
+                  beginAtZero: true,
+                  suggestedMax: Math.max(somaCritico, somaModerado, somaNormal) + 20,
+                  ticks: { color: '#333', font: { size: 12 } },
+                  title: {
+                    display: true,
+                    text: 'Capturas',
+                    font: { size: 14, weight: 'bold' },
+                    color: '#333'
+                  },
+                  grid: { color: '#eee', borderDash: [4, 4] }
+                }
+              }
+            }
+          });
+        }
+      );
+  }
+
 
 
 </script>

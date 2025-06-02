@@ -64,9 +64,26 @@ function plotarGrafico2(req, res) {
     });
 }
 
+function plotarGrafico3(req, res) {
+    const { lote, periodo, tipo } = req.query;
+
+    analisaLoteModel.plotarGrafico3(lote, periodo, tipo).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o valor da segunda kpi: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     calcularKpi2,
     calcularKpi3,
     plotarGrafico1,
-    plotarGrafico2
+    plotarGrafico2,
+    plotarGrafico3
 };

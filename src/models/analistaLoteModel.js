@@ -1,5 +1,27 @@
 var database = require("../database/config");
 
+function calcularKpi1(periodo) {
+    var instrucaoSql = `
+    SELECT
+        CONCAT("Lote ", lote) AS lote
+        FROM historicoQtdPorCategoria
+        WHERE data IN (
+            SELECT data FROM (
+            SELECT DISTINCT data
+            FROM historicoQtdPorCategoria
+            ORDER BY data DESC
+            LIMIT ${periodo}
+        ) AS ultimosDias
+    )
+    GROUP BY lote
+    ORDER BY SUM(critico) DESC
+    LIMIT 3;
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function calcularKpi2(lote, periodo) {
     var instrucaoSql = `
         SELECT
@@ -135,6 +157,7 @@ function plotarLinha() {
 }
 
 module.exports = {
+    calcularKpi1,
     calcularKpi2,
     calcularKpi3,
     plotarGrafico1,

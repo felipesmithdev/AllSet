@@ -51,7 +51,7 @@
           <div class="kpi">
             <span class="kpi-titulo">Lotes com mais incidências críticas</span>
             <div class="lotes">
-              <span class="lote-um">Lote 001</span><span class="lote-um">Lote 002</span><span class="lote-um">Lote
+              <span class="lote-um" id="lote-um" >Lote 001</span><span class="lote-um" id="lote-dois" >Lote 002</span><span class="lote-um" id="lote-tres" >Lote
                 003</span>
             </div>
             <a href="./listaLotes.html" style="cursor: pointer;">Verificar situação geral</a>
@@ -212,6 +212,7 @@
   var componente2 = document.getElementById("slt_componente2").value
 
   window.onload = () => {
+    calcularKpi1(periodo);
     calcularKpi2(lote, periodo);
     calcularKpi3(lote, periodo);
     plotarGrafico1(categoria, lote, periodo, componente);
@@ -270,6 +271,7 @@
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
     plotarGrafico3(lote, periodo, tipo)
+    calcularKpi1(periodo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -280,6 +282,7 @@
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
     plotarGrafico3(lote, periodo, tipo)
+    calcularKpi1(periodo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -290,6 +293,7 @@
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
     plotarGrafico3(lote, periodo, tipo)
+    calcularKpi1(periodo)
     calcularKpi2(lote, periodo)
     calcularKpi3(lote, periodo)
   }
@@ -424,6 +428,29 @@
     plotarGrafico3(lote, periodo, tipo)
   }
 
+  function calcularKpi1() {
+      fetch(`/analistaLote/calcularKpi1?periodo=${periodo}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        console.log(res[0].lote)
+        console.log(res[1].lote)
+        console.log(res[2].lote)
+        var loteUm = document.getElementById("lote-um")
+        var loteDois = document.getElementById("lote-dois")
+        var loteTres = document.getElementById("lote-tres")
+        loteUm.innerHTML = res[0].lote
+        loteDois.innerHTML = res[1].lote
+        loteTres.innerHTML = res[2].lote
+      }
+      )
+  }
+
   function calcularKpi2() {
     fetch(`/analistaLote/calcularKpi2?lote=${lote}&periodo=${periodo}`, {
       method: "GET",
@@ -433,7 +460,6 @@
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
         var kpi2porcentagem = document.getElementById("taxa-falhas")
         var kpi2criticos = document.getElementById("criticos-kpi2")
         var kpi2total = document.getElementById("total-kpi2")
@@ -639,11 +665,9 @@
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
         const somaCritico = res[0].critico;
         const somaModerado = res[0].moderado;
         const somaNormal = res[0].normal;
-        console.log(somaCritico)
 
         const ctxBarras = document.getElementById('graficoBarrasGeral');
 

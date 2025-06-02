@@ -1,5 +1,21 @@
 var analisaLoteModel = require("../models/analistaLoteModel")
 
+function calcularKpi1(req, res) {
+    const { periodo } = req.query;
+
+    analisaLoteModel.calcularKpi1(periodo).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o valor da primeira kpi: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function calcularKpi2(req, res) {
     const { lote, periodo } = req.query;
 
@@ -81,6 +97,7 @@ function plotarGrafico3(req, res) {
 }
 
 module.exports = {
+    calcularKpi1,
     calcularKpi2,
     calcularKpi3,
     plotarGrafico1,

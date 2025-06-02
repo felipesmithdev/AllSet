@@ -3,6 +3,10 @@ var router = express.Router();
 
 var analistaLoteController = require("../controllers/analistaLoteController");
 
+router.get("/calcularKpi1", function(req, res) {
+    analistaLoteController.calcularKpi1(req, res);
+}); 
+
 router.get("/calcularKpi2", function(req, res) {
     analistaLoteController.calcularKpi2(req, res);
 }); 

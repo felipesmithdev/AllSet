@@ -24,7 +24,7 @@ df = pd.json_normalize(result['ResultsByTime'], sep='_')
 
 
 nome_arquivo = "custos_total.json"
-bucket = "bucket-raw-teste-captura"
+bucket = "raw-allset"
 caminho_s3 = f"custos/{nome_arquivo}"
 
 

@@ -201,7 +201,8 @@
   let chartRAM;
   let chartBarras;
 
-  var lote = 1
+  const parametroLote = new URLSearchParams(window.location.search)
+  var lote = parametroLote.get('lote')
   var periodo = 7
   var tipo = 'todos'
   var categoria = document.getElementById("categoria-select").value

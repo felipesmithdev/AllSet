@@ -27,5 +27,9 @@ router.get("/plotarGrafico3", function(req, res) {
     analistaLoteController.plotarGrafico3(req, res);
 }); 
 
+router.get("/plotarLinha", function(req, res) {
+    analistaLoteController.plotarLinha(req, res);
+}); 
+
 module.exports = router;
 

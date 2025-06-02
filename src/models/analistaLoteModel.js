@@ -148,8 +148,26 @@ function plotarGrafico3(lote, periodo, tipo) {
     return database.executar(instrucaoSql);
 }
 
-function plotarLinha() {
-    var instrucaoSql = ` SELECT * FROM listagemLote;`;
+function plotarLinha(periodo) {
+    var instrucaoSql = `
+    SELECT
+        CONCAT("Lote ", lote) AS lote,
+        SUM(critico) AS totalCritico,
+        SUM(moderado) AS totalModerado,
+        SUM(normal) AS totalNormal
+    FROM historicoQtdPorCategoria AS h
+    WHERE data IN (
+        SELECT data
+        FROM (
+            SELECT DISTINCT data
+            FROM historicoQtdPorCategoria
+            ORDER BY data DESC
+            LIMIT ${periodo}
+        ) AS ultimosDias
+    )
+    GROUP BY h.lote
+    ORDER BY h.lote;
+    `;
 
     console.log("Ta dando certo caralho")
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

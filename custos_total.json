@@ -7,80 +7,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"-0.0014900645",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "EC2 - Other"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0013629947",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Elastic Compute Cloud - Compute"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0001215775",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Simple Storage Service"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000001",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Virtual Private Cloud"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "AmazonCloudWatch"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0",
-                        "Unit":"USD"
-                    }
-                }
-            }
-        ],
-        "Estimated":false,
-        "TimePeriod_Start":"2025-05-20",
-        "TimePeriod_End":"2025-05-21"
-    },
-    {
-        "Groups":[
-            {
-                "Keys":[
-                    "AWS Data Transfer"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"-0.0008683846",
+                        "Amount":"-0.0000010728",
                         "Unit":"USD"
                     }
                 }
@@ -102,7 +29,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0007991961",
+                        "Amount":"-0.0000000012",
                         "Unit":"USD"
                     }
                 }
@@ -113,7 +40,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000659767",
+                        "Amount":"0.0000010725",
                         "Unit":"USD"
                     }
                 }
@@ -124,7 +51,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0000000002",
                         "Unit":"USD"
                     }
                 }
@@ -164,6 +91,35 @@
             }
         ],
         "Estimated":false,
+        "TimePeriod_Start":"2025-05-20",
+        "TimePeriod_End":"2025-05-21"
+    },
+    {
+        "Groups":[
+            {
+                "Keys":[
+                    "Amazon Simple Storage Service"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000000002",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            }
+        ],
+        "Estimated":false,
         "TimePeriod_Start":"2025-05-21",
         "TimePeriod_End":"2025-05-22"
     },
@@ -175,7 +131,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"-0.0001878589",
+                        "Amount":"-0.0006855639",
                         "Unit":"USD"
                     }
                 }
@@ -197,7 +153,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0001458605",
+                        "Amount":"0.0003277012",
                         "Unit":"USD"
                     }
                 }
@@ -208,7 +164,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000413858",
+                        "Amount":"0.0003510918",
                         "Unit":"USD"
                     }
                 }
@@ -219,7 +175,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000336",
+                        "Amount":"0.0000054443",
                         "Unit":"USD"
                     }
                 }
@@ -266,131 +222,11 @@
         "Groups":[
             {
                 "Keys":[
-                    "EC2 - Other"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000072",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Simple Storage Service"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000001",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "AmazonCloudWatch"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0",
-                        "Unit":"USD"
-                    }
-                }
-            }
-        ],
-        "Estimated":false,
-        "TimePeriod_Start":"2025-05-23",
-        "TimePeriod_End":"2025-05-24"
-    },
-    {
-        "Groups":[
-            {
-                "Keys":[
-                    "EC2 - Other"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000072",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Simple Storage Service"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000001",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "AmazonCloudWatch"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0",
-                        "Unit":"USD"
-                    }
-                }
-            }
-        ],
-        "Estimated":false,
-        "TimePeriod_Start":"2025-05-24",
-        "TimePeriod_End":"2025-05-25"
-    },
-    {
-        "Groups":[
-            {
-                "Keys":[
-                    "EC2 - Other"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000072",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "Amazon Simple Storage Service"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0.0000000001",
-                        "Unit":"USD"
-                    }
-                }
-            },
-            {
-                "Keys":[
-                    "AmazonCloudWatch"
-                ],
-                "Metrics":{
-                    "BlendedCost":{
-                        "Amount":"0",
-                        "Unit":"USD"
-                    }
-                }
-            }
-        ],
-        "Estimated":false,
-        "TimePeriod_Start":"2025-05-25",
-        "TimePeriod_End":"2025-05-26"
-    },
-    {
-        "Groups":[
-            {
-                "Keys":[
                     "AWS Data Transfer"
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"-0.0002529299",
+                        "Amount":"-0.0011219798",
                         "Unit":"USD"
                     }
                 }
@@ -412,7 +248,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0001418696",
+                        "Amount":"0.000976523",
                         "Unit":"USD"
                     }
                 }
@@ -423,7 +259,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0001104974",
+                        "Amount":"0.0000199002",
                         "Unit":"USD"
                     }
                 }
@@ -434,7 +270,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0001216077",
                         "Unit":"USD"
                     }
                 }
@@ -474,6 +310,126 @@
             }
         ],
         "Estimated":false,
+        "TimePeriod_Start":"2025-05-23",
+        "TimePeriod_End":"2025-05-24"
+    },
+    {
+        "Groups":[
+            {
+                "Keys":[
+                    "EC2 - Other"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0000000024",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Simple Storage Service"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000000001",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            }
+        ],
+        "Estimated":false,
+        "TimePeriod_Start":"2025-05-24",
+        "TimePeriod_End":"2025-05-25"
+    },
+    {
+        "Groups":[
+            {
+                "Keys":[
+                    "EC2 - Other"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0000000024",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Simple Storage Service"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000000001",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            }
+        ],
+        "Estimated":false,
+        "TimePeriod_Start":"2025-05-25",
+        "TimePeriod_End":"2025-05-26"
+    },
+    {
+        "Groups":[
+            {
+                "Keys":[
+                    "EC2 - Other"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0000000024",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Simple Storage Service"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000000001",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            }
+        ],
+        "Estimated":false,
         "TimePeriod_Start":"2025-05-26",
         "TimePeriod_End":"2025-05-27"
     },
@@ -485,7 +441,7 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000072",
+                        "Amount":"-0.0000000024",
                         "Unit":"USD"
                     }
                 }
@@ -521,11 +477,44 @@
         "Groups":[
             {
                 "Keys":[
+                    "AWS Data Transfer"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0000235507",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AWS Lambda"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
                     "EC2 - Other"
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000072",
+                        "Amount":"0.000000088",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Elastic Compute Cloud - Compute"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000064179",
                         "Unit":"USD"
                     }
                 }
@@ -536,7 +525,18 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0000170412",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Virtual Private Cloud"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
                         "Unit":"USD"
                     }
                 }
@@ -544,6 +544,17 @@
             {
                 "Keys":[
                     "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "CloudWatch Events"
                 ],
                 "Metrics":{
                     "BlendedCost":{
@@ -561,11 +572,44 @@
         "Groups":[
             {
                 "Keys":[
+                    "AWS Data Transfer"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0000114087",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AWS Lambda"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
                     "EC2 - Other"
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000072",
+                        "Amount":"0.0000000006",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Elastic Compute Cloud - Compute"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0000049772",
                         "Unit":"USD"
                     }
                 }
@@ -576,7 +620,18 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0000064281",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Virtual Private Cloud"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
                         "Unit":"USD"
                     }
                 }
@@ -584,6 +639,17 @@
             {
                 "Keys":[
                     "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "CloudWatch Events"
                 ],
                 "Metrics":{
                     "BlendedCost":{
@@ -601,11 +667,44 @@
         "Groups":[
             {
                 "Keys":[
+                    "AWS Data Transfer"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0004441017",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AWS Lambda"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
                     "EC2 - Other"
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000072",
+                        "Amount":"0.0001963085",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Elastic Compute Cloud - Compute"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0002403815",
                         "Unit":"USD"
                     }
                 }
@@ -616,7 +715,18 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0000066202",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Virtual Private Cloud"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
                         "Unit":"USD"
                     }
                 }
@@ -624,6 +734,17 @@
             {
                 "Keys":[
                     "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "CloudWatch Events"
                 ],
                 "Metrics":{
                     "BlendedCost":{
@@ -641,11 +762,44 @@
         "Groups":[
             {
                 "Keys":[
+                    "AWS Data Transfer"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"-0.0002943589",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "AWS Lambda"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
                     "EC2 - Other"
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000072",
+                        "Amount":"0.0000288887",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Elastic Compute Cloud - Compute"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0.0002653009",
                         "Unit":"USD"
                     }
                 }
@@ -656,7 +810,18 @@
                 ],
                 "Metrics":{
                     "BlendedCost":{
-                        "Amount":"0.0000000001",
+                        "Amount":"0.0000000491",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "Amazon Virtual Private Cloud"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
                         "Unit":"USD"
                     }
                 }
@@ -664,6 +829,17 @@
             {
                 "Keys":[
                     "AmazonCloudWatch"
+                ],
+                "Metrics":{
+                    "BlendedCost":{
+                        "Amount":"0",
+                        "Unit":"USD"
+                    }
+                }
+            },
+            {
+                "Keys":[
+                    "CloudWatch Events"
                 ],
                 "Metrics":{
                     "BlendedCost":{

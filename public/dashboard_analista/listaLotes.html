@@ -51,11 +51,11 @@
                     <span class="subtitulo-dash">Selecione o lote que deseja visualizar a dashboard</span>
                     <div class="filtro">
                         <span>Ordenar por:</span>
-                        <select name="slt_categoria" id="">
+                        <select name="slt_categoria" id="slt_categoria">
                             <option value="critico">Critico</option>
                             <option value="moderado">Moderado</option>
                             <option value="normal">Normal</option>
-                            <option value="id">Lote</option>
+                            <option value="todos">Lote</option>
                         </select>
                     </div>
                 </div>
@@ -147,6 +147,12 @@
 
 <script>
 
+    var periodo = 7
+
+    window.onload = () => {
+        plotarLinha(periodo);
+    };
+
     document.getElementById("menu-bar").addEventListener("click", function () {
         const sidebar = document.querySelector(".side-bar");
         const fundoPreto = document.querySelector(".fundo-preto");
@@ -186,20 +192,62 @@
     function ultimosSeteDias() {
         altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'sete-dias');
         periodo = 7;
+        plotarLinha(periodo)
     }
 
     function ultimosQuinzeDias() {
         altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'quinze-dias');
         periodo = 15;
+        plotarLinha(periodo)
+
     }
 
     function ultimosTrintaDias() {
         altBackgroundBotao(['sete-dias', 'quinze-dias', 'trinta-dias'], 'trinta-dias');
         periodo = 30;
+        plotarLinha(periodo)
+
     }
 
-    function plotarLinha() {
-        
+    document.getElementById("slt_categoria").addEventListener("change", () => {
+        plotarLinha(periodo);
+    });
+
+    function plotarLinha(periodo) {
+        fetch(`/analistaLote/plotarLinha?periodo=${periodo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+
+                const ordenarPor = document.getElementById("slt_categoria").value;
+                const key = `total${ordenarPor.charAt(0).toUpperCase() + ordenarPor.slice(1)}`;
+
+                res.sort((a, b) => b[key] - a[key]);
+
+                const tbody = document.querySelector(".table-container table tbody");
+                tbody.innerHTML = "";
+                res.forEach(item => {
+                    const numeroLote = item.lote.replace(/\D/g, '');
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td class="lote">${item.lote}</td>
+                        <td class="status critico">${item.totalCritico}</td>
+                        <td class="status moderado">${item.totalModerado}</td>
+                        <td class="status normal">${item.totalNormal}</td>
+                        <td><a href="analista2.html?lote=${numeroLote}" class="dashboard-btn">Acessar</a></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar dados:", error);
+            });
     }
 
 </script>

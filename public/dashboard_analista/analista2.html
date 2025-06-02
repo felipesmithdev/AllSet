@@ -55,7 +55,7 @@
             <a href="./listaLotes.html" style="cursor: pointer;">Verificar situação geral</a>
           </div>
 
-          <div class="kpi kpi-alternativa">
+          <div class="kpi kpi-alternativa" id="kpi-alternativa">
             <span class="kpi-titulo">Taxa de incidentes críticos</span>
             <span class="taxa-falhas" id="taxa-falhas">80%</span>
             <span class="descricao-kpi">
@@ -463,6 +463,18 @@
         var kpi2porcentagem = document.getElementById("taxa-falhas")
         var kpi2criticos = document.getElementById("criticos-kpi2")
         var kpi2total = document.getElementById("total-kpi2")
+        var corKpi = document.getElementById("kpi-alternativa")
+
+        if(res[0][0].porcentagem <= 30) {
+          corKpi.style.backgroundColor = "#008000"
+          corKpi.style.color = "#fff"
+        } else if (res[0][0].porcentagem <= 80) {
+          corKpi.style.backgroundColor = "gold"
+        } else {
+          corKpi.style.backgroundColor = "#FF0000"
+          corKpi.style.color = "#fff"
+        }
+
         kpi2porcentagem.innerHTML = res[0][0].porcentagem + "%"
         kpi2criticos.innerHTML = res[1][0].criticos
         kpi2total.innerHTML = res[1][0].total

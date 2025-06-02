@@ -28,38 +28,44 @@
 
       <section id="graficos">
 
-        <div id="metricas">
-
-          <div class="seletores">
-
-            <select name="" id="selectMeses" onchange="mediaDiariaCPU(); mediaDiariaRAM();">
-              <option value="" disabled selected>Mês</option>
-            </select>
-
-          </div>
-
-          <div class="grafLine">
-            <canvas id="chartCPU"></canvas>
-          </div>
-
-          <div class="grafLine">
-            <canvas id="chartRAM"></canvas>
-          </div>
+        <div class="seletores">
+          <h3>Selecione um mês:</h3>
+          <select name="" id="selectMeses" onchange="resetDados(); mediaDiariaCPU(); mediaDiariaRAM();">
+            <option value="" disabled selected>Mês</option>
+          </select>
 
         </div>
 
-        <div id="dadosExternos">
+        <div id="graficosDados">
 
-          <div class="grafBar">
-            <canvas id="chartChuva"></canvas>
+          <div id="metricas">
+
+            <div class="grafLine">
+              <h3>Média diária uso CPU</h3>
+              <canvas id="chartCPU"></canvas>
+            </div>
+
+            <div class="grafLine">
+              <h3>Média diária uso RAM</h3>
+              <canvas id="chartRAM"></canvas>
+            </div>
+
           </div>
 
-          <div class="grafBar">
-            <canvas id="chartTrafego"></canvas>
+          <div id="dadosExternos">
+
+            <div class="grafBar">
+              <h3>Índice de chuva</h3>
+              <canvas id="chartChuva"></canvas>
+            </div>
+
+            <div class="grafBar">
+              <h3>Volumetria de tráfego</h3>
+              <canvas id="chartTrafego"></canvas>
+            </div>
           </div>
+
         </div>
-
-
 
       </section>
 
@@ -68,12 +74,14 @@
         <div id="header">
 
           <div class="seletores">
+            <h3>Selecione uma métrica:</h3>
             <select name="" id="selectMetrica" onchange="selecionarMetrica()">
               <option value="" selected disabled>Métrica (Eixo Y)</option>
               <option value="1">CPU</option>
               <option value="2">RAM</option>
             </select>
 
+            <h3>Selecione uma variável:</h3>
             <select name="" id="selectVariavel" onchange="selecionarVariavel()">
               <option value="" selected disabled>Variável Independente (Eixo X)</option>
               <option value="1">Chuva</option>
@@ -84,7 +92,7 @@
           <button onclick="gerarGrafico()">Gerar Gráfico</button>
 
           <div id="indicadores">
-            <b>Mês</b>
+            <b id="indicadorMes">Mês</b>
           </div>
 
         </div>
@@ -92,6 +100,7 @@
         <div id="visualizacao">
 
           <div id="grafReg">
+            <h3>Regressão Linear</h3>
             <canvas id="chartRegressao"></canvas>
           </div>
 
@@ -100,28 +109,28 @@
             <div class="kpi">
               <h3>Força da correlação - R²</h3>
               <div class="card">
-                <p>Valor ?</p>
+                <p id="kpiCorrelacao">Valor ?</p>
               </div>
             </div>
 
             <div class="kpi">
               <h3>Pico métrica</h3>
               <div class="card">
-                <p>Valor ?</p>
+                <p id="kpiPico">Valor ?</p>
               </div>
             </div>
 
             <div class="kpi">
               <h3>Média métrica</h3>
               <div class="card">
-                <p>Valor ?</p>
+                <p id="kpiMedia">Valor ?</p>
               </div>
             </div>
 
             <div class="kpi">
               <h3>Vale métrica</h3>
               <div class="card">
-                <p>Valor ?</p>
+                <p id="kpiVale">Valor ?</p>
               </div>
             </div>
 

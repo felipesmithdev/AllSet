@@ -1,5 +1,7 @@
 // Puxando os meses do banco de dados:
 
+// const { MediaStore } = require("aws-sdk");
+
 window.onload = function () {
   selectMeses();
 };
@@ -25,7 +27,31 @@ function selectMeses() {
 
 
 // Função que puxa a média diária de CPU conforme o select acima:
-let graficoCPU = null;
+let ctx = document.getElementById("chartCPU").getContext("2d");
+let graficoCPU = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: null,
+    datasets: [{
+      label: 'Média de Uso CPU (%)',
+      data: null,
+      borderColor: '#61B0FF',
+      backgroundColor: '#61B0FF',
+      borderWidth: 2,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100
+      }
+    },
+    maintainAspectRatio: false,
+  }
+});
 
 function mediaDiariaCPU() {
   let select = document.getElementById("selectMeses");
@@ -55,8 +81,8 @@ function mediaDiariaCPU() {
           datasets: [{
             label: 'Média de Uso CPU (%)',
             data: medias,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: '#61B0FF',
+            backgroundColor: '#61B0FF',
             borderWidth: 2,
             tension: 0.3
           }]
@@ -68,7 +94,8 @@ function mediaDiariaCPU() {
               beginAtZero: true,
               max: 100
             }
-          }
+          },
+          maintainAspectRatio: false,
         }
       });
     })
@@ -76,7 +103,31 @@ function mediaDiariaCPU() {
 }
 
 // Função que puxa a média diária de RAM conforme o select acima:
-let graficoRAM = null;
+let ctx2 = document.getElementById("chartRAM").getContext("2d");
+let graficoRAM = new Chart(ctx2, {
+  type: 'line',
+  data: {
+    labels: null,
+    datasets: [{
+      label: 'Média de Uso RAM (%)',
+      data: null,
+      borderColor: '#61B0FF',
+      backgroundColor: '#61B0FF',
+      borderWidth: 2,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100
+      }
+    },
+    maintainAspectRatio: false,
+  }
+});
 
 function mediaDiariaRAM() {
   let select = document.getElementById("selectMeses");
@@ -98,16 +149,16 @@ function mediaDiariaRAM() {
         graficoRAM.destroy();
       }
 
-      let ctx = document.getElementById("chartRAM").getContext("2d");
-      graficoRAM = new Chart(ctx, {
+      let ctx2 = document.getElementById("chartRAM").getContext("2d");
+      graficoRAM = new Chart(ctx2, {
         type: 'line',
         data: {
           labels: dias,
           datasets: [{
             label: 'Média de Uso RAM (%)',
             data: medias,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: '#61B0FF',
+            backgroundColor: '#61B0FF',
             borderWidth: 2,
             tension: 0.3
           }]
@@ -119,7 +170,8 @@ function mediaDiariaRAM() {
               beginAtZero: true,
               max: 100
             }
-          }
+          },
+          maintainAspectRatio: false,
         }
       });
     })
@@ -128,8 +180,45 @@ function mediaDiariaRAM() {
 
 
 // Gráficos das bases externas e chamada das funções do S3:
-let chuvaBars = null;
-let trafegoBars = null;
+let chuvaGraf = document.getElementById("chartChuva").getContext("2d");
+let chuvaBars = new Chart(chuvaGraf, {
+  type: 'bar',
+  data: {
+    labels: null,
+    datasets: [
+      {
+        label: "Chuva",
+        data: null,
+        backgroundColor: "#34495e"
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true } },
+    maintainAspectRatio: false,
+  }
+});
+
+let trafegoGraf = document.getElementById("chartTrafego").getContext("2d");
+let trafegoBars = new Chart(trafegoGraf, {
+  type: 'bar',
+  data: {
+    labels: null,
+    datasets: [
+      {
+        label: "Tráfego",
+        data: null,
+        backgroundColor: "#34495e"
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true } },
+    maintainAspectRatio: false,
+  }
+});
 
 document.getElementById("selectMeses").addEventListener("change", (e) => {
   const mesSelecionado = e.target.value;
@@ -164,13 +253,14 @@ function atualizarGrafico(dadosChuva, dadosTrafego) {
         {
           label: "Chuva",
           data: valoresChuva,
-          backgroundColor: "rgb(74, 45, 245)"
+          backgroundColor: "#34495e"
         }
       ]
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: true } }
+      scales: { y: { beginAtZero: true } },
+      maintainAspectRatio: false,
     }
   });
 
@@ -187,13 +277,14 @@ function atualizarGrafico(dadosChuva, dadosTrafego) {
         {
           label: "Tráfego",
           data: valoresTrafego,
-          backgroundColor: "rgb(254, 73, 78)"
+          backgroundColor: "#34495e"
         }
       ]
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: true } }
+      scales: { y: { beginAtZero: true } },
+      maintainAspectRatio: false,
     }
   });
 
@@ -255,11 +346,85 @@ function calcularRegressaoLinear(x, y) {
   return { m, b };
 }
 
-let graficoRegressao = null;
+function calcularCorrelacao(x, y) {
+  const n = x.length;
+  const mediaX = x.reduce((a, b) => a + b, 0) / n;
+  const mediaY = y.reduce((a, b) => a + b, 0) / n;
+
+  let numerador = 0;
+  let somaX2 = 0;
+  let somaY2 = 0;
+
+  for (let i = 0; i < n; i++) {
+    const dx = x[i] - mediaX;
+    const dy = y[i] - mediaY;
+    numerador += dx * dy;
+    somaX2 += dx * dx;
+    somaY2 += dy * dy;
+  }
+
+  const denominador = Math.sqrt(somaX2 * somaY2);
+  const r = numerador / denominador;
+  return r;
+}
+
+
+let regLinear = document.getElementById('chartRegressao').getContext('2d');
+let graficoRegressao = new Chart(regLinear, {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'Dados',
+      data: null,
+      borderColor: '#61B0FF',
+      backgroundColor: '#61B0FF',
+      pointRadius: 5
+    },],
+  },
+  options: {
+    plugins: {
+      title: {
+        display: true,
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        title: 'X'
+      },
+      y: {
+        type: 'linear',
+        title: 'Y'
+      }
+    },
+    maintainAspectRatio: false,
+  }
+});
 
 function gerarGrafico() {
 
   let regressao = calcularRegressaoLinear(dadosX, dadosY);
+  let r = calcularCorrelacao(dadosX, dadosY);
+
+  let forcaCorrelacao = document.getElementById("kpiCorrelacao");
+  forcaCorrelacao.innerHTML = r.toFixed(2);
+
+  let pico = document.getElementById("kpiPico")
+  let kpiMax = Math.max(...dadosY);
+  pico.innerHTML = kpiMax
+
+  let media = document.getElementById("kpiMedia")
+  let soma = 0;
+
+  for (i = 0; i < dadosY.length; i++) {
+    soma += dadosY[i];
+  }
+
+  media.innerHTML = (soma / dadosY.length).toFixed(2)
+
+  let vale = document.getElementById("kpiVale")
+  let kpiMin = Math.min(...dadosY);
+  vale.innerHTML = kpiMin
 
   let minX = Math.min(...dadosX);
   let maxX = Math.max(...dadosX);
@@ -298,8 +463,6 @@ function gerarGrafico() {
       plugins: {
         title: {
           display: true,
-          text: "Correlação de variáveis",
-          align: 'start'
         }
       },
       scales: {
@@ -311,9 +474,66 @@ function gerarGrafico() {
           type: 'linear',
           title: 'Y'
         }
-      }
+      },
+      maintainAspectRatio: false,
     }
   });
 }
 
+function resetDados() {
+  if (graficoRegressao) {
+    graficoRegressao.destroy();
 
+    regLinear = document.getElementById('chartRegressao').getContext('2d');
+    graficoRegressao = new Chart(regLinear, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Dados',
+          data: null,
+          borderColor: '#61B0FF',
+          backgroundColor: '#61B0FF',
+          pointRadius: 5
+        },],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            title: 'X'
+          },
+          y: {
+            type: 'linear',
+            title: 'Y'
+          }
+        },
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  dadosX = []
+  dadosY = []
+
+  let correlacao = document.getElementById("kpiCorrelacao")
+  correlacao.innerHTML = "Valor ?"
+
+  let pico = document.getElementById("kpiPico")
+  pico.innerHTML = "Valor ?"
+
+  let media = document.getElementById("kpiMedia")
+  media.innerHTML = "Valor ?"
+
+  let vale = document.getElementById("kpiVale")
+  vale.innerHTML = "Valor ?"
+
+  const select = document.getElementById("selectMeses");
+
+  let indicadorMes = document.getElementById("indicadorMes")
+  indicadorMes.innerHTML = select.value
+}

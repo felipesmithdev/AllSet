@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AllSet - Análise de Regressão Linear</title>
+  <link rel="stylesheet" href="../css/regressaoLinear.css">
+  <link rel="icon" type="image/png" href="../assets/img/logoAllSet.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <div class="secao-side">
+      <div class="botao-side-bar">
+        <div class="logo"><span>AS</span></div>
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </div>
+    </div>
+
+    <div id="side-bar" class="side-bar">
+      <div class="logo"><span>AllSet</span></div>
+      <div class="boas-vindas">
+        <img src="../assets/imgs/user.png" alt="Usuário">
+        <div class="textos-perfil">
+          <span>Bem Vindo</span>
+          <span id="b_usuario">Felipe</span>
+        </div>
+      </div>
+      <div class="opcoes-bar">
+        <a href="./dashboardOperacao.html">Dashboard Geral</a>
+        <a href="./dashboardChamados.html">Dashboard Chamados</a>
+        <a href="../login.html">Sair</a>
+      </div>
+    </div>
+
+    <div id="fundo-preto" class="fundo-preto"></div>
+
+    <main class="conteudo-principal">
+      <div class="dashboard">
+
+        <!-- Seção de Métricas -->
+        <section id="graficos" class="section-container">
+          <div class="header">
+            <div class="title">Análise de Métricas - Visão Temporal</div>
+          </div>
+
+          <div class="filters">
+            <div class="filter-group">
+              <label for="selectMeses">Selecionar Mês:</label>
+              <select name="" id="selectMeses" onchange="mediaDiariaCPU(); mediaDiariaRAM();">
+                <option value="" disabled selected>Selecione um mês</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-container">
+              <h3>Utilização de CPU</h3>
+              <div class="chart-wrapper">
+                <canvas id="chartCPU"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <h3>Utilização de RAM</h3>
+              <div class="chart-wrapper">
+                <canvas id="chartRAM"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <h3>Índice de Chuva</h3>
+              <div class="chart-wrapper">
+                <canvas id="chartChuva"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <h3>Volume de Tráfego</h3>
+              <div class="chart-wrapper">
+                <canvas id="chartTrafego"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção de Regressão -->
+        <section id="regressao" class="section-container">
+          <div class="header">
+            <div class="title">Análise de Regressão Linear</div>
+          </div>
+
+          <div class="filters">
+            <div class="filter-group">
+              <label for="selectMetrica">Métrica (Eixo Y):</label>
+              <select name="" id="selectMetrica" onchange="selecionarMetrica()">
+                <option value="" selected disabled>Selecione uma métrica</option>
+                <option value="1">CPU</option>
+                <option value="2">RAM</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="selectVariavel">Variável Independente (Eixo X):</label>
+              <select name="" id="selectVariavel" onchange="selecionarVariavel()">
+                <option value="" selected disabled>Selecione uma variável</option>
+                <option value="1">Chuva</option>
+                <option value="2">Tráfego</option>
+              </select>
+            </div>
+
+            <button class="refresh-btn" onclick="gerarGrafico()">Gerar Gráfico</button>
+
+            <div class="filter-group">
+              <div id="indicadores">
+                <b>Período Selecionado</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="regression-content">
+            <div class="chart-container regression-chart">
+              <h3>Gráfico de Regressão Linear</h3>
+              <div class="chart-wrapper">
+                <canvas id="chartRegressao"></canvas>
+              </div>
+            </div>
+
+            <div class="kpi-container">
+              <div class="kpi-card">
+                <div class="kpi-title">Força da correlação - R²</div>
+                <div class="kpi-value">Valor ?</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-title">Pico da métrica</div>
+                <div class="kpi-value">Valor ?</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-title">Média da métrica</div>
+                <div class="kpi-value">Valor ?</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-title">Vale da métrica</div>
+                <div class="kpi-value">Valor ?</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/dashRegressao.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBar = document.getElementById("menu-bar");
+      const sidebar = document.getElementById("side-bar");
+      const fundoPreto = document.getElementById("fundo-preto");
+
+      function toggleSidebar() {
+        const isVisible = sidebar.classList.contains("show");
+        
+        if (!isVisible) {
+          sidebar.style.display = "flex";
+          fundoPreto.style.display = "block";
+          void sidebar.offsetWidth;
+          void fundoPreto.offsetWidth;
+          sidebar.classList.add("show");
+          fundoPreto.classList.add("show");
+        } else {
+          sidebar.classList.remove("show");
+          fundoPreto.classList.remove("show");
+          setTimeout(() => {
+            sidebar.style.display = "none";
+            fundoPreto.style.display = "none";
+          }, 300);
+        }
+      }
+
+      if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+      if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+    });
+  </script>
+
+</body>
+</html>

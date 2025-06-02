@@ -149,7 +149,6 @@
         }
 
         async function atualizarKPIsGlobais() {
-            console.log('🔄 Buscando KPIs globais...');
             const kpiLoteMaisChamadosEl = document.getElementById('kpi-lote-mais-chamados');
             const kpiTotalAbertoEl = document.getElementById('kpi-total-aberto');
             const kpiResolvidos24El = document.getElementById('kpi-resolvidos-24');
@@ -158,7 +157,7 @@
             try {
                 const response = await axios.get('/jira/kpis-globais');
                 const kpis = response.data;
-                console.log('📊 KPIs globais recebidos:', kpis);
+                console.log('Recebeu kpis:', kpis);
                 kpiLoteMaisChamadosEl.textContent = kpis.loteComMais || 'N/A';
                 kpiTotalAbertoEl.textContent = kpis.totalAbertos || '0';
                 kpiResolvidos24El.textContent = kpis.finalizadosUltimas24h || '0';
@@ -176,7 +175,7 @@
                 }
                 return kpis;
             } catch (error) {
-                console.error('❌ Erro ao buscar KPIs globais:', error);
+                console.error('Não achou kpis:', error);
                 kpiLoteMaisChamadosEl.textContent = 'Erro'; kpiTotalAbertoEl.textContent = 'Erro';
                 kpiResolvidos24El.textContent = 'Erro'; kpiTempoMedioValueEl.textContent = 'Erro';
                 if (kpiTempoMedioCardEl) kpiTempoMedioCardEl.classList.remove('warning', 'danger');
@@ -185,7 +184,6 @@
         }
 
         async function atualizarTabelaChamados() {
-            console.log('🔄 Buscando chamados globais...');
             const tabelaBody = document.getElementById('tabela-chamados');
             tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">Carregando chamados...</td></tr>';
             try {
@@ -202,10 +200,9 @@
                     row.innerHTML = `<td><strong>#${chamado.id}</strong></td><td>${chamado.lote || 'N/A'}</td><td>${chamado.descricao || 'Sem descrição'}</td><td>${formatarDataBR(chamado.data)}</td><td><span class="status-badge ${statusClass}">${chamado.status}</span></td>`;
                     tabelaBody.appendChild(row);
                 });
-                console.log('✅ Tabela atualizada com', chamados.length, 'chamados');
                 return chamados;
             } catch (error) {
-                console.error('❌ Erro ao buscar chamados globais:', error);
+                console.error('Erro ao buscar chamados globais:', error);
                 tabelaBody.innerHTML = '<tr><td colspan="5" class="error">❌ Erro ao carregar chamados. Verifique a conexão.</td></tr>';
                 return [];
             }
@@ -218,14 +215,14 @@
                 select.innerHTML = '<option value="">📊 Todos os lotes</option>';
                 lotes.forEach(lote => { const option = document.createElement('option'); option.value = lote; option.textContent = lote; select.appendChild(option); });
                 return lotes;
-            } catch (error) { console.error('❌ Erro ao carregar lotes:', error); select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>'; return []; }
+            } catch (error) { console.error('Erro ao carregar lotes:', error); select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>'; return []; }
         }
 
 async function atualizarGrafico() {
     // Pega os valores dos filtros selecionados na página
     const lote = document.getElementById('lote').value;
     const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
-    console.log(`📈 Atualizando gráfico e métricas - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
+    console.log(`Atualizando gráfico e métricas - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
 
     try {
         const [responseGrafico, responseKPIs] = await Promise.all([
@@ -282,7 +279,6 @@ async function atualizarGrafico() {
 
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Inicializando dashboard...');
             const ctx = document.getElementById('chamadosChart').getContext('2d');
             chamadosChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [{ label: 'Quantidade de chamados', data: [], borderColor: '#4eb5f1', backgroundColor: 'rgba(78, 181, 241, 0.2)', tension: 0.4, pointBackgroundColor: '#4eb5f1', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 6, pointHoverRadius: 8, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
             document.querySelectorAll('.periodo-btn').forEach(btn => { btn.addEventListener('click', function () { document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); atualizarGrafico(); }); });
@@ -317,9 +313,8 @@ async function atualizarGrafico() {
             try {
                 await carregarLotes();
                 await atualizarTudo();
-                console.log('✅ Dashboard inicializado com sucesso!');
             } catch (error) {
-                console.error('❌ Erro na inicialização:', error);
+                console.error('Erro na inicialização:', error);
             }
             setInterval(() => {
                 console.log('🔄 Auto-refresh KPIs e Tabela Chamados');

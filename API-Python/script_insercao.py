@@ -70,41 +70,41 @@ inserirSelecionarLoteDoCarro(mac)
 
 
 
-# jira = JIRA(
-#     server= JIRA_URL,
-#     basic_auth=(JIRA_USER, JIRA_TOKEN)
-# )
+jira = JIRA(
+    server= JIRA_URL,
+    basic_auth=(JIRA_USER, JIRA_TOKEN)
+)
 
-# def abrir_chamado(summary_jira, description, priority):
-#     issue_dict = {
-#         'project': {'key': 'AL'},
-#         'summary': f"Limite de {summary_jira} atingido", 
-#         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
-#         'issuetype': {'name': 'General Request'},
-#         'priority': {'name': priority},
-#         'customfield_10091': 'Lote 1',
-#     }
-#     nova_issue = jira.create_issue(fields=issue_dict)
-#     print("Chamado aberto: ", [nova_issue.key])
+def abrir_chamado(summary_jira, description, priority):
+    issue_dict = {
+        'project': {'key': 'AL'},
+        'summary': f"Limite de {summary_jira} atingido", 
+        'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
+        'issuetype': {'name': 'General Request'},
+        'priority': {'name': priority}, 
+        'customfield_10091': 'Lote 1',
+    }
+    nova_issue = jira.create_issue(fields=issue_dict)
+    print("Chamado aberto: ", [nova_issue.key])
     # prioridade normal, instavel e grave (High, Medium, Low)
 
 
 #estou criando uma lista vazia, assim consigo armazenar as info.
 dados_monitoramento = []
 
-#configurando o boto3
-# s3 = boto3.client(
-# 's3',
-# aws_access_key_id = f'{AWS_KEY_ID}',
-# aws_secret_access_key= f'{AWS_SECRET_KEY}',
-# aws_session_token= f'{AWS_TOKEN}',
-# region_name='us-east-1'  
-# )
+# configurando o boto3
+s3 = boto3.client(
+'s3',
+aws_access_key_id = f'{AWS_KEY_ID}',
+aws_secret_access_key= f'{AWS_SECRET_KEY}',
+aws_session_token= f'{AWS_TOKEN}',
+region_name='us-east-1'  
+)
 
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
-        # abrir_chamado(summary_jira, valor, prioridade)
+        abrir_chamado(summary_jira, valor, prioridade)
         banco = 'relacional'
         conn = conectar(banco)
         cursor = conn.cursor()

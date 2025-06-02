@@ -63,7 +63,7 @@ def inserirSelecionarLoteDoCarro(mac):
         query = 'INSERT IGNORE INTO carro(marca, ano, sistema_operacional, macadress, fk_lote) VALUES' \
             '(%s,%s,%s,%s,%s)'
         cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 6))
-        print("Carro cadastrado com sucesso, Lote: 1")
+        print("Carro cadastrado com sucesso, Lote: 6")
     conn.commit()
     conn.close()
 
@@ -94,27 +94,27 @@ def abrir_chamado(summary_jira, description, priority):
 dados_monitoramento = []
 
 # configurando o boto3
-s3 = boto3.client(
-'s3',
-aws_access_key_id = f'{AWS_KEY_ID}',
-aws_secret_access_key= f'{AWS_SECRET_KEY}',
-aws_session_token= f'{AWS_TOKEN}',
-region_name='us-east-1'  
-)
+# s3 = boto3.client(
+# 's3',
+# aws_access_key_id = f'{AWS_KEY_ID}',
+# aws_secret_access_key= f'{AWS_SECRET_KEY}',
+# aws_session_token= f'{AWS_TOKEN}',
+# region_name='us-east-1'  
+# )
 
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
-        abrir_chamado(summary_jira, valor, prioridade)
-        banco = 'relacional'
-        conn = conectar(banco)
-        cursor = conn.cursor()
-        query = "INSERT INTO alerta (componente, valor, dt_registro, gravidade, status, fk_carro_macadress) VALUES (%s, %s, now(), %s, 1,  %s)"
-        cursor.execute(query, (summary_jira, valor, prioridade, mac))
-        
-        conn.commit()
-        cursor.close()
-        conn.close()
+    abrir_chamado(summary_jira, valor, prioridade)
+    banco = 'relacional'
+    conn = conectar(banco)
+    cursor = conn.cursor()
+    query = "INSERT INTO alerta (componente, valor, dt_registro, gravidade, status, fk_carro_macadress) VALUES (%s, %s, now(), %s, 1,  %s)"
+    cursor.execute(query, (summary_jira, valor, prioridade, mac))
+    
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 # Dicionário para armazenar o horário do último alerta por componente
 ultimo_alerta_por_componente = {
@@ -128,8 +128,8 @@ def pode_enviar_alerta(componente):
     ultimo_alerta = ultimo_alerta_por_componente[componente]
 
     if ultimo_alerta is None:
-        return True  # Nunca foi enviado
-    elif agora - ultimo_alerta >= timedelta(minutes=3):  # Espera de 1 minuto
+        return True
+    elif agora - ultimo_alerta >= timedelta(minutes=1):  # Espera de 1 minuto
         return True
     return False
 
@@ -144,12 +144,12 @@ while True:
     ramUso = psutil.virtual_memory().used
     porcentagemRam = psutil.virtual_memory().percent
     hrCaptura = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    
     for processos in psutil.process_iter(['name']):
         if 'python' in processos.name().lower():
-            print('Processo encontrado:',processos.name())
+            print('Processo encontrado:', processos.name())
 
-
-# abrir chamado CPU
+    # ALERTAS CPU
     if 70 <= porcentagemCpu <= 84:
         summary_jira = "cpu"
         priority = "Medium"
@@ -159,31 +159,39 @@ while True:
     elif 85 <= porcentagemCpu <= 100:
         summary_jira = "cpu"
         priority = "High"
-        registrarChamado(summary_jira, porcentagemCpu, priority)
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemCpu, priority)
+            atualizar_tempo_alerta(summary_jira)
 
-# abrir chamado RAM
+    # ALERTAS RAM
     if 70 <= porcentagemRam <= 84:
         summary_jira = "ram"
         priority = "Medium"
-        registrarChamado(summary_jira, porcentagemRam, priority)
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemRam, priority)
+            atualizar_tempo_alerta(summary_jira)
     elif 85 <= porcentagemRam <= 100:
         summary_jira = "ram"
         priority = "High"
-        registrarChamado(summary_jira, porcentagemRam, priority)
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemRam, priority)
+            atualizar_tempo_alerta(summary_jira)
 
-# abrir chamado DISCO
+    # ALERTAS DISCO
     if 70 <= porcentagemDisco <= 84:
         summary_jira = "disco"
         priority = "Medium"
-        registrarChamado(summary_jira, porcentagemDisco, priority)
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemDisco, priority)
+            atualizar_tempo_alerta(summary_jira)
     elif 85 <= porcentagemDisco <= 100:
         summary_jira = "disco"
         priority = "High"
-        registrarChamado(summary_jira, porcentagemDisco, priority)
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemDisco, priority)
+            atualizar_tempo_alerta(summary_jira)
 
-
-    #agora vou adicionar um dicionário com os dados coletados na lista que eu criei no começo do codigo
-    #ele não esta retornando nada, só modificando a lista original e acumulando os dados
+    # Adicionar dados de monitoramento à lista
     dados_monitoramento.append({
         "discoUso": discoUso,
         "porcentagemDisco": porcentagemDisco,
@@ -195,16 +203,17 @@ while True:
         "Lote": lote
     })
 
-    # dados para mandar em tempo real para a requisição do node
+    # Dados para mandar em tempo real para a requisição do node
     dados = {
-    "macadress": mac,
-    "dadosCaptura": {
-        "percentual_disco": porcentagemDisco,
-        "percentual_cpu": porcentagemCpu,
-        "percentual_ram": porcentagemRam,
-        "dataHora": hrCaptura
+        "macadress": mac,
+        "dadosCaptura": {
+            "percentual_disco": porcentagemDisco,
+            "percentual_cpu": porcentagemCpu,
+            "percentual_ram": porcentagemRam,
+            "dataHora": hrCaptura
+        }
     }
-}
+
 
     try:
         res = requests.post(

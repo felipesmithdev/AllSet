@@ -4,5 +4,7 @@ package-lock.json
 Dockerfile
 docker-compose.yaml
 allset-infra.pem
+.env
+.env.dev
 
 .github

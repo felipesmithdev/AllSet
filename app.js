@@ -28,10 +28,14 @@ var regressaoRouter = require("./src/routes/regressao");
 var s3Router = require("./src/routes/s3");
 var slackRouter = require("./src/routes/slack");
 var analistaLoteRouter = require("./src/routes/analistaLote")
+var custosRoutes = require("./src/routes/custos");
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use(cors());
 
@@ -47,6 +51,7 @@ app.use("/regressao", regressaoRouter);
 app.use("/s3", s3Router);
 app.use("/slack", slackRouter); 
 app.use("/analistaLote", analistaLoteRouter)
+app.use("/custos", custosRoutes);
 
 
 app.listen(PORTA_APP, function () {

@@ -426,3 +426,374 @@ span {
         }
     }
 }
+
+/* Media Queries para Responsividade */
+
+/* Tablets e telas médias (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .conteudo-principal #graficos .seletores select {
+        width: 15%;
+        min-width: 120px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header .seletores select {
+        width: 25%;
+        min-width: 150px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header button {
+        width: 12%;
+        min-width: 120px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
+        width: 75%;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg {
+        width: 20%;
+    }
+}
+
+/* Smartphones e telas pequenas (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    /* Correção do layout principal e scroll */
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
+    .layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .secao-side {
+        width: 100%;
+        height: 60px;
+        z-index: 1200;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #0B1624;
+    }
+    
+    .conteudo-principal {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        margin-top: 60px;
+        padding-top: 20px;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+    
+    /* Ajustes da sidebar */
+    .side-bar {
+        width: 70%;
+        max-width: 300px;
+    }
+    
+    .side-bar span {
+        font-size: 3.5vh;
+    }
+    
+    .boas-vindas span {
+        font-size: 2.2vh;
+    }
+    
+    .opcoes-bar a {
+        font-size: 1.8vh;
+        padding: 6px 15px;
+    }
+    
+    /* Seção de gráficos - Corrigindo scroll */
+    .conteudo-principal #graficos {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 10px 40px 10px;
+        gap: 30px;
+        scroll-snap-align: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .conteudo-principal #graficos h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .conteudo-principal #graficos .seletores {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        gap: 15px;
+        margin-left: 0;
+        padding: 0 20px;
+        margin-bottom: 20px;
+    }
+    
+    .conteudo-principal #graficos .seletores h3 {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .conteudo-principal #graficos .seletores select {
+        width: 250px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        gap: 30px;
+        padding: 0 15px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #metricas {
+        width: 100%;
+        height: auto;
+        gap: 25px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #metricas .grafLine {
+        height: 280px;
+        min-height: 280px;
+        margin-bottom: 10px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #dadosExternos {
+        width: 100%;
+        height: auto;
+        gap: 25px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
+        height: 280px;
+        min-height: 280px;
+        margin-bottom: 10px;
+    }
+    
+    /* Seção de regressão - Corrigindo scroll */
+    .conteudo-principal #regressao:nth-child(2) {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 10px 40px 10px;
+        gap: 25px;
+        scroll-snap-align: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        gap: 20px;
+        padding: 15px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header .seletores {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header .seletores h3 {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header .seletores select {
+        width: 250px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header button {
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header #indicadores {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
+        width: 100%;
+        height: 350px;
+        min-height: 350px;
+        order: 1;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        order: 2;
+        margin-top: 20px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
+        width: calc(50% - 10px);
+        height: 120px;
+        min-width: 140px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
+        height: 90px;
+        padding: 8px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
+        font-size: 18px;
+        line-height: 1;
+    }
+}
+
+/* Smartphones muito pequenos (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .side-bar {
+        width: 85%;
+        max-width: 280px;
+    }
+    
+    .side-bar span {
+        font-size: 3vh;
+    }
+    
+    .boas-vindas span {
+        font-size: 2vh;
+    }
+    
+    .opcoes-bar a {
+        font-size: 1.6vh;
+        padding: 5px 12px;
+    }
+    
+    /* Ajustes específicos para telas muito pequenas */
+    .conteudo-principal #graficos h1,
+    .conteudo-principal #regressao:nth-child(2) h1 {
+        font-size: 20px;
+        padding: 0 15px;
+    }
+    
+    .conteudo-principal #graficos .seletores select,
+    .conteudo-principal #regressao:nth-child(2) #header .seletores select {
+        width: 100%;
+        max-width: 280px;
+        font-size: 14px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #header button {
+        width: 100%;
+        max-width: 200px;
+        font-size: 14px;
+    }
+    
+    /* KPIs em coluna única para telas muito pequenas */
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
+        font-size: 11px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
+        font-size: 16px;
+    }
+    
+    /* Ajuste nos gráficos para telas pequenas */
+    .conteudo-principal #graficos #graficosDados #metricas .grafLine,
+    .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
+        height: 250px;
+        min-height: 250px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
+        height: 300px;
+        min-height: 300px;
+    }
+}
+
+/* Ajustes para orientação landscape em dispositivos móveis */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .secao-side {
+        height: 50px;
+    }
+    
+    .conteudo-principal {
+        margin-top: 50px;
+        min-height: 100vh;
+        overflow: visible;
+    }
+    
+    .conteudo-principal #graficos {
+        min-height: 100vh;
+        padding: 15px 10px 30px 10px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #metricas .grafLine,
+    .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
+        height: 220px;
+        min-height: 220px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) {
+        min-height: 100vh;
+        padding: 15px 10px 30px 10px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
+        height: 280px;
+        min-height: 280px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
+        height: 100px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
+        height: 75px;
+    }
+}

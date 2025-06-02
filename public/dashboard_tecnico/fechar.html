@@ -31,13 +31,10 @@
     </div>
 
     <main class="conteudo-principal">
-      <div class="titulo_dash"> <span>⚠️ CARROS EM ESTADO INSTÁVEL</span></div>
+      <div class="titulo_dash"> <span>⚠️ CARROS EM ESTADO INSTÁVEL - Lote </span><span id="numero_lote"></span></div>
       <div class="paizao">
               <div class="titulo_filtragem">
               <span>Visão Geral Dos Carros Ordenados Por "Estado Grave"</span>
-              </div>
-              <div id="basic-modal" title="My Modal">
-                Modal with no title content
               </div>
               <div class="tabela_filtragem">
                 <table class="tabela_carro">
@@ -92,6 +89,26 @@
                      
                   </tbody>
              </table>
+              <div id="basic-modal" title="Monitoramento em Tempo Real">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Monitoramento do Carro</h3>
+                    </div>
+                    
+                    <div class="graficos-container">
+                        <div class="grafico-item">
+                            <div class="grafico-titulo">📊 Uso de CPU (%)</div>
+                            <canvas id="grafico-cpu" class="grafico-canvas"></canvas>
+                        </div>
+                        
+                        <div class="grafico-item">
+                            <div class="grafico-titulo">💾 Uso de RAM (%)</div>
+                            <canvas id="grafico-ram" class="grafico-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+             </div>
+              </div>
              </div>
              </div>
             </div>
@@ -124,6 +141,7 @@
   const params = new URLSearchParams(window.location.search)
   let fk_lote = params.get('fk_lote')
   console.log(fk_lote)
+  document.getElementById("numero_lote").innerHTML = fk_lote
 
   trazerCarros(fk_lote)
   setInterval(() => trazerCarros(fk_lote), 10000);
@@ -196,17 +214,34 @@
         .then((res) => {
           console.log("fechei os alertas")
           trazerCarros(fk_lote)
+
+          solicitarAnaliseComToken({
+            id_carro: resposta.id_carro,
+            marca: resposta.marca,
+            componente: resposta.componente,
+            gravidade: resposta.gravidade
+          });
+        })
+        .catch(error => {
+          console.log("Error: ", error);
+          // mesmo com o erro, vou tentar mandar outra mensagem
+          solicitarAnaliseComToken({
+            id_carro: resposta.id_carro,
+            marca: resposta.marca,
+            componente: resposta.componente,
+            gravidade: resposta.gravidade
+          });
         })
       })
 
-    const celulasModal = [tdCarro, tdMarca, tdComponente, tdGravidade, tdUltimo, tdStatus];
+      tabelaCorpo.appendChild(linha);
+       const celulasModal = [tdCarro, tdMarca, tdComponente, tdGravidade, tdUltimo, tdStatus];
     celulasModal.forEach(celula => {
     celula.addEventListener("click", function() {
       modal.open();
+      carregarTempoReal(resposta.id_carro)
     });
     });
-
-      tabelaCorpo.appendChild(linha);
 
     });
   })
@@ -233,6 +268,7 @@ let modal = jSuites.modal(document.getElementById('basic-modal'), {
     },
     onclose: function(el, instance) {
         console.log('Modal is closed');
+        clearInterval(intervaloMonitoramento)
     }
 });
 
@@ -259,6 +295,242 @@ let modal = jSuites.modal(document.getElementById('basic-modal'), {
         }, 300);
       }
     });
-  </script>
+
+
+// parte do modal, os graficos em tempo real etc
+
+let graficoCPU = null;
+let graficoRAM = null;
+let intervaloMonitoramento = null;
+
+function criarGraficoCPU() {
+    const ctx = document.getElementById('grafico-cpu').getContext('2d');
+    
+    if (graficoCPU) {
+        graficoCPU.destroy();
+    }
+    
+    graficoCPU = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'CPU %',
+                data: [],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+function criarGraficoRAM() {
+    const ctx = document.getElementById('grafico-ram').getContext('2d');
+    
+    if (graficoRAM) {
+        graficoRAM.destroy();
+    }
+    
+    graficoRAM = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'RAM %',
+                data: [],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+// carregar dados em tempo real
+function carregarTempoReal(macadress) {
+    console.log('vai dar certo em nome de jesus');
+    
+    if (intervaloMonitoramento) {
+        clearInterval(intervaloMonitoramento);
+    }
+    criarGraficoCPU();
+    criarGraficoRAM();
+    
+    // buscar dados
+    function buscarDados() {
+        fetch(`/seguranca/coletar/dados/${macadress}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(dados => {
+                // console.log(dados);
+                
+                // processar os dados pra popular
+                if (dados && dados.length > 0) {
+                    const dadoMaisRecente = dados[dados.length - 1];
+                    console.log('ultima captura', dadoMaisRecente.dadosCaptura);
+                    
+                    // chamando a funçao de atualizar os chart
+                    atualizarInterface(dadoMaisRecente.dadosCaptura);
+                    
+                    // popula gráfico com todos os dados históricos
+                    if (graficoCPU.data.labels.length === 0) {
+                        popularGraficosComHistorico(dados);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados:', error);
+            });
+    }
+    
+    // chamando a funçao de buscar os dados (buscar da api do python)
+    buscarDados();
+    
+    // set interval pra caso o usuario fique com o modal aberto ele nao parar de atualizar as requisicoes
+    intervaloMonitoramento = setInterval(buscarDados, 5000);
+}
+
+// aqui é pra iniciar os plot (primeira carga)
+function popularGraficosComHistorico(dados) {
+    // zerando todos os dados anteriores (que ja tinham)
+    graficoCPU.data.labels = [];
+    graficoCPU.data.datasets[0].data = [];
+    graficoRAM.data.labels = [];
+    graficoRAM.data.datasets[0].data = [];
+    
+    dados.forEach(item => {
+        const dadosCaptura = item.dadosCaptura;
+        const horario = formatarHorario(dadosCaptura.dataHora);
+        
+        // valores de cpu
+        graficoCPU.data.labels.push(horario);
+        graficoCPU.data.datasets[0].data.push(dadosCaptura.percentual_cpu);
+        
+        // valores da ram
+        graficoRAM.data.labels.push(horario);
+        graficoRAM.data.datasets[0].data.push(dadosCaptura.percentual_ram);
+    });
+    
+    graficoCPU.update('none');
+    graficoRAM.update('none');
+}
+
+function atualizarInterface(dadosCaptura) {
+    console.log("tamo atualizando tamo atualizando")
+
+    const horario = formatarHorario(dadosCaptura.dataHora);
+
+    const ultimoLabel = graficoCPU.data.labels[graficoCPU.data.labels.length - 1];
+    
+    if (ultimoLabel !== horario) {
+        adicionarPontoGrafico(graficoCPU, horario, dadosCaptura.percentual_cpu);
+        adicionarPontoGrafico(graficoRAM, horario, dadosCaptura.percentual_ram);
+    }
+}
+
+// Função para adicionar ponto ao gráfico
+function adicionarPontoGrafico(grafico, label, valor, limiteMaximo = 6) {
+    grafico.data.labels.push(label);
+    grafico.data.datasets[0].data.push(valor);
+
+    if (grafico.data.labels.length > limiteMaximo) {
+        grafico.data.labels.shift();
+        grafico.data.datasets[0].data.shift(); 
+    }
+
+    grafico.update('default');
+}
+
+// essa função serve pra tirar a data do horario, deixando so hora e minuto (levando em consideração que nossas capturas serao de 30 em 30 min)
+function formatarHorario(dataHora) {
+    const partes = dataHora.split(' ');
+    if (partes.length > 1) {
+        return partes[1]; // retorna apenas "14:54:30"
+    }
+    return dataHora;
+}
+
+
+// função pra enviar mensagem no slack (assim que surgir uma nova solicitação de análise)
+async function solicitarAnaliseComToken(carroData = {}) {
+    try {
+        const response = await fetch('/slack/solicitarAnalise', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                carroId: carroData.id_carro,
+                marca: carroData.marca,
+                componente: carroData.componente,
+                gravidade: carroData.gravidade,
+                dashboardUrl: window.location.href
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            alert(data.message);
+        } else {
+            throw new Error(data.error);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao solicitar análise: ' + error.message);
+    }
+}
+
+
+</script>
 </body>
 </html>

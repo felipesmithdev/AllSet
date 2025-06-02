@@ -3,6 +3,8 @@ import mysql.connector
 import time
 from datetime import datetime
 import pandas as pd
+import requests
+import json
 import boto3
 from jira import JIRA
 from config import JIRA_URL, JIRA_TOKEN, JIRA_USER
@@ -43,7 +45,7 @@ def getEnderecoMAC():
     
     return 'NadaEncontrado'
 
-lote = 1
+lote = 6
 mac = getEnderecoMAC()
 print(mac)
 
@@ -59,7 +61,7 @@ def inserirSelecionarLoteDoCarro(mac):
     else:
         query = 'INSERT IGNORE INTO carro(marca, ano, sistema_operacional, macadress, fk_lote) VALUES' \
             '(%s,%s,%s,%s,%s)'
-        cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 1))
+        cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 6))
         print("Carro cadastrado com sucesso, Lote: 1")
     conn.commit()
     conn.close()
@@ -68,22 +70,22 @@ inserirSelecionarLoteDoCarro(mac)
 
 
 
-jira = JIRA(
-    server= JIRA_URL,
-    basic_auth=(JIRA_USER, JIRA_TOKEN)
-)
+# jira = JIRA(
+#     server= JIRA_URL,
+#     basic_auth=(JIRA_USER, JIRA_TOKEN)
+# )
 
-def abrir_chamado(summary_jira, description, priority):
-    issue_dict = {
-        'project': {'key': 'AL'},
-        'summary': f"Limite de {summary_jira} atingido", 
-        'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
-        'issuetype': {'name': 'General Request'},
-        'priority': {'name': priority},
-        'customfield_10091': 'Lote 1',
-    }
-    nova_issue = jira.create_issue(fields=issue_dict)
-    print("Chamado aberto: ", [nova_issue.key])
+# def abrir_chamado(summary_jira, description, priority):
+#     issue_dict = {
+#         'project': {'key': 'AL'},
+#         'summary': f"Limite de {summary_jira} atingido", 
+#         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
+#         'issuetype': {'name': 'General Request'},
+#         'priority': {'name': priority},
+#         'customfield_10091': 'Lote 1',
+#     }
+#     nova_issue = jira.create_issue(fields=issue_dict)
+#     print("Chamado aberto: ", [nova_issue.key])
     # prioridade normal, instavel e grave (High, Medium, Low)
 
 
@@ -102,7 +104,7 @@ dados_monitoramento = []
 nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
-        abrir_chamado(summary_jira, valor, prioridade)
+        # abrir_chamado(summary_jira, valor, prioridade)
         banco = 'relacional'
         conn = conectar(banco)
         cursor = conn.cursor()
@@ -157,6 +159,9 @@ while True:
         registrarChamado(summary_jira, porcentagemDisco, priority)
 
 
+
+
+
 # ENVIANDO PARA O BANCO DE CAPTURAS (BANCO QUE O JOÃO IRÁ USAR)
     # try:
     #     banco = 'capturas'
@@ -188,7 +193,31 @@ while True:
         "macAdress": mac,
         "Lote": lote
     })
-   
+
+    # dados para mandar em tempo real para a requisição do node
+    dados = {
+    "macadress": mac,
+    "dadosCaptura": {
+        "percentual_disco": porcentagemDisco,
+        "percentual_cpu": porcentagemCpu,
+        "percentual_ram": porcentagemRam,
+        "dataHora": hrCaptura
+    }
+}
+
+    try:
+        res = requests.post(
+            f"http://localhost:8080/seguranca/cadastrar/dados/{mac}",
+            data=json.dumps(dados),
+            headers={'Content-Type': 'application/json'}
+        )
+        print("Status:", res.status_code)
+        # print("Resposta:", res.text)
+    except Exception as e:
+        print("Erro ao enviar dados:", e)
+
+
+
     print("\n", "Percentual do disco: ", porcentagemDisco, "\n", 
           "Percentual da cpu: ", porcentagemCpu, "\n", 
           "Percentual da ram: ", porcentagemRam, "\n", 

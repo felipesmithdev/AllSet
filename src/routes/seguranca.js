@@ -41,4 +41,12 @@ router.post("/fecharAlerta", function(req, res) {
     monitoramentoController.fecharAlerta(req, res)
 })
 
+router.post(`/cadastrar/dados/:macadress`, function(req, res) {
+    monitoramentoController.cadastrarDados(req, res)
+})
+
+router.get(`/coletar/dados/:macadress`, function (req, res) {
+    monitoramentoController.getCapturas(req, res)
+})
+
 module.exports = router;

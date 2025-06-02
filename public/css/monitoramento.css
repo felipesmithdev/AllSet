@@ -654,3 +654,103 @@ table td,
 table th {
   box-sizing: border-box;
 }
+
+
+
+/* CSS específico do modal */
+#basic-modal {
+    display: none;
+}
+
+.modal-content {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    /* margin-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px; */
+    flex-shrink: 0;
+}
+
+.modal-header h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.info-carro {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+#info-carro-texto {
+    color: #414141;
+    font-style: italic;
+}
+
+.graficos-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+.grafico-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.grafico-titulo {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #8e949a;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.grafico-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #fff;
+    border-radius: 4px;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Estilos para quando o modal estiver aberto (jSuites) */
+.jsuites-modal {
+    z-index: 9999;
+}
+
+.jsuites-modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jsuites-modal-content {
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 900px !important;
+    height: 600px !important;
+    max-width: 90vw;
+    max-height: 90vh;
+}

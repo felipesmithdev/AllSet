@@ -26,6 +26,7 @@ var gerenteRouter = require("./src/routes/gerente");
 var jiraRouter = require("./src/routes/chamados");
 var regressaoRouter = require("./src/routes/regressao");
 var s3Router = require("./src/routes/s3");
+var slackRouter = require("./src/routes/slack");
 var analistaLoteRouter = require("./src/routes/analistaLote")
 
 app.use(express.json());
@@ -44,6 +45,7 @@ app.use("/gerente", gerenteRouter);
 app.use("/jira", jiraRouter);
 app.use("/regressao", regressaoRouter);
 app.use("/s3", s3Router);
+app.use("/slack", slackRouter); 
 app.use("/analistaLote", analistaLoteRouter)
 
 

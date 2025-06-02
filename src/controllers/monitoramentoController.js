@@ -1,5 +1,7 @@
 var monitoramentoModel = require('../models/monitoramentoModel');
 
+monitoramento = {};
+
 function buscar_carros(req, res){
     const fk_agencia = req.query.fk_agencia
     monitoramentoModel.buscar_carros(fk_agencia).then((resultado) => {
@@ -142,6 +144,49 @@ function fecharAlerta(req, res) {
         res.status(200).json({ mensagem: "Alertas fechados com sucesso." });
     })
 }
+
+// Controller modificado para manter apenas 6 elementos
+function cadastrarDados(req, res){
+    const dados = req.body
+    
+    if(dados.dadosCaptura != undefined){
+        // Inicializa o array se não existir
+        if(monitoramento[dados.macadress] == undefined){
+            monitoramento[dados.macadress] = []
+        }
+
+        if(monitoramento[dados.macadress].length == 6){
+            monitoramento[dados.macadress].shift()
+        }
+        
+        // Adiciona o novo dado no final
+        monitoramento[dados.macadress].push(dados)
+
+        return res.status(200).json(monitoramento[dados.macadress])
+    }
+
+    return res.status(400).json({ "mensagem": "Dados da captura não encontrados" })
+}
+
+// pegar os dados no front
+function getCapturas(req, res){
+    const macadress = req.params.macadress;
+
+    if (macadress == undefined) {
+        return res.status(400).json({ "mensagem": "macadress indefinido" });
+    }
+
+    if (monitoramento[macadress] == undefined) {
+        return res.status(404).json({ "mensagem": "Dados do macadress não encontrado" });
+    }
+
+    console.log("monitoramento", monitoramento);
+
+    let dadosServidor = monitoramento[`${macadress}`];
+
+    return res.status(200).json(dadosServidor);
+}
+
 module.exports = {
     buscar_carros,
     buscar_alertas,
@@ -149,5 +194,7 @@ module.exports = {
     buscar_lotes,
     buscarDadosComponentes,
     trazerCarros,
-    fecharAlerta
+    fecharAlerta,
+    cadastrarDados,
+    getCapturas
 };

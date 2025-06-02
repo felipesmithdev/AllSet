@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listagem</title>
     <link rel="stylesheet" href="../css/monitoramento.css" />
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/sessao.js"></script>
@@ -204,7 +205,7 @@
        
       
       tdAcao.addEventListener('click', function(){
-        fetch(`/seguranca/fecharAlerta?macadress=${resposta.id_carro}`, {
+        fetch(`/seguranca/fecharAlerta?macadress=${resposta.id_carro}&componente=${resposta.componente}&gravidade=${resposta.gravidade}`, {
          method: "POST",
          headers: {
           "Content-Type": "application/json"
@@ -273,28 +274,32 @@ let modal = jSuites.modal(document.getElementById('basic-modal'), {
 });
 
 
+// referente a sidebar
 
-    document.getElementById("menu-bar").addEventListener("click", function () {
-      const sidebar = document.querySelector(".side-bar");
-      const fundoPreto = document.querySelector(".fundo-preto");
-      const isVisible = sidebar.classList.contains("show");
+            const menuBar = document.getElementById("menu-bar");
+            const sidebar = document.getElementById("side-bar");
+            const fundoPreto = document.getElementById("fundo-preto");
 
-      if (!isVisible) {
-        sidebar.style.display = "flex";
-        fundoPreto.style.display = "block";
-        void sidebar.offsetWidth;
-        void fundoPreto.offsetWidth;
-        sidebar.classList.add("show");
-        fundoPreto.classList.add("show");
-      } else {
-        sidebar.classList.remove("show");
-        fundoPreto.classList.remove("show");
-        setTimeout(() => {
-          sidebar.style.display = "none";
-          fundoPreto.style.display = "none";
-        }, 300);
-      }
-    });
+            function toggleSidebar() {
+                const isVisible = sidebar.classList.contains("show");
+                if (!isVisible) {
+                    sidebar.style.display = "flex";
+                    fundoPreto.style.display = "block";
+                    void sidebar.offsetWidth;
+                    void fundoPreto.offsetWidth;
+                    sidebar.classList.add("show");
+                    fundoPreto.classList.add("show");
+                } else {
+                    sidebar.classList.remove("show");
+                    fundoPreto.classList.remove("show");
+                    setTimeout(() => {
+                        sidebar.style.display = "none";
+                        fundoPreto.style.display = "none";
+                    }, 300);
+                }
+            }
+            if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+            if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
 
 
 // parte do modal, os graficos em tempo real etc

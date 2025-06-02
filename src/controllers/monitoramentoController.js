@@ -137,12 +137,24 @@ function trazerCarros(req, res) {  //
 
 
 function fecharAlerta(req, res) {
-    console.log("estou no controller")
+    console.log("Estou no controller");
+
     const macadress = req.query.macadress || req.params.macadress;
-    monitoramentoModel.fecharAlerta(macadress)
-    .then(() => {
-        res.status(200).json({ mensagem: "Alertas fechados com sucesso." });
-    })
+    const componente = req.query.componente;
+    const gravidade = req.query.gravidade;
+
+    if (!macadress || !componente || !gravidade) {
+        return res.status(400).json({ erro: "Parâmetros ausentes: macadress, componente ou gravidade." });
+    }
+
+    monitoramentoModel.fecharAlerta(macadress, componente, gravidade)
+        .then(() => {
+            res.status(200).json({ mensagem: "Alertas fechados com sucesso." });
+        })
+        .catch(erro => {
+            console.error("Erro ao fechar alerta:", erro);
+            res.status(500).json({ erro: "Erro ao fechar alerta." });
+        });
 }
 
 // Controller modificado para manter apenas 6 elementos

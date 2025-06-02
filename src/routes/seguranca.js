@@ -37,9 +37,9 @@ router.get("/trazerCarros", function(req,res) {
 })
 
 router.post("/fecharAlerta", function(req, res) {
-    console.log("estou na rota", req.query.macadress)
-    monitoramentoController.fecharAlerta(req, res)
-})
+    console.log("Rota de fechar alerta:", req.query);
+    monitoramentoController.fecharAlerta(req, res);
+});
 
 router.post(`/cadastrar/dados/:macadress`, function(req, res) {
     monitoramentoController.cadastrarDados(req, res)

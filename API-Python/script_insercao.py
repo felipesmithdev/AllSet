@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import json
 import boto3
+from datetime import timedelta
 from jira import JIRA
 from config import JIRA_URL, JIRA_TOKEN, JIRA_USER
 from config import BANCO_RELACIONAL, BANCO_CAPTURAS
@@ -81,8 +82,8 @@ def abrir_chamado(summary_jira, description, priority):
         'summary': f"Limite de {summary_jira} atingido", 
         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
         'issuetype': {'name': 'General Request'},
-        'priority': {'name': priority}, 
-        'customfield_10091': 'Lote 1',
+        'priority': {'name': priority},
+        'customfield_10091': f"Lote {lote}",
     }
     nova_issue = jira.create_issue(fields=issue_dict)
     print("Chamado aberto: ", [nova_issue.key])
@@ -115,6 +116,26 @@ def registrarChamado(summary_jira, valor, prioridade):
         cursor.close()
         conn.close()
 
+# Dicionário para armazenar o horário do último alerta por componente
+ultimo_alerta_por_componente = {
+    "cpu": None,
+    "ram": None,
+    "disco": None
+}
+
+def pode_enviar_alerta(componente):
+    agora = datetime.now()
+    ultimo_alerta = ultimo_alerta_por_componente[componente]
+
+    if ultimo_alerta is None:
+        return True  # Nunca foi enviado
+    elif agora - ultimo_alerta >= timedelta(minutes=3):  # Espera de 1 minuto
+        return True
+    return False
+
+def atualizar_tempo_alerta(componente):
+    ultimo_alerta_por_componente[componente] = datetime.now()
+
 i = 0
 while True:
     discoUso = psutil.disk_usage("/").used
@@ -127,59 +148,39 @@ while True:
         if 'python' in processos.name().lower():
             print('Processo encontrado:',processos.name())
 
-# abrir chamado cpu
-    if porcentagemCpu >= 70 and porcentagemCpu <= 84:
+
+# abrir chamado CPU
+    if 70 <= porcentagemCpu <= 84:
         summary_jira = "cpu"
         priority = "Medium"
-        registrarChamado(summary_jira, porcentagemCpu, priority)
-    elif porcentagemCpu >= 85 and porcentagemCpu <= 100:
+        if pode_enviar_alerta(summary_jira):
+            registrarChamado(summary_jira, porcentagemCpu, priority)
+            atualizar_tempo_alerta(summary_jira)
+    elif 85 <= porcentagemCpu <= 100:
         summary_jira = "cpu"
         priority = "High"
         registrarChamado(summary_jira, porcentagemCpu, priority)
-    
-# abrir chamado ram
-    if porcentagemRam >= 70 and porcentagemRam <= 84:
+
+# abrir chamado RAM
+    if 70 <= porcentagemRam <= 84:
         summary_jira = "ram"
         priority = "Medium"
         registrarChamado(summary_jira, porcentagemRam, priority)
-    elif porcentagemRam >= 85 and porcentagemRam <= 100:
+    elif 85 <= porcentagemRam <= 100:
         summary_jira = "ram"
         priority = "High"
         registrarChamado(summary_jira, porcentagemRam, priority)
 
-
-# abrir chamado disco
-    if porcentagemDisco >= 70 and porcentagemDisco <= 84:
+# abrir chamado DISCO
+    if 70 <= porcentagemDisco <= 84:
         summary_jira = "disco"
         priority = "Medium"
         registrarChamado(summary_jira, porcentagemDisco, priority)
-    elif porcentagemDisco >= 85 and porcentagemDisco <= 100:
+    elif 85 <= porcentagemDisco <= 100:
         summary_jira = "disco"
         priority = "High"
         registrarChamado(summary_jira, porcentagemDisco, priority)
 
-
-
-
-
-# ENVIANDO PARA O BANCO DE CAPTURAS (BANCO QUE O JOÃO IRÁ USAR)
-    # try:
-    #     banco = 'capturas'
-    #     conn = conectar(banco)
-    #     cursor = conn.cursor()
-    #     query = (
-    #         "INSERT INTO captura (lote, componente, valor, dt_captura) VALUES "
-    #         "(1, 'cpu', %s, NOW()), "
-    #         "(1, 'ram', %s, NOW()), "
-    #         "(1, 'disco', %s, NOW())"
-    #     )
-    #     cursor.execute(query, (porcentagemCpu, porcentagemRam, porcentagemDisco))
-    #     conn.commit()
-    #     cursor.close()
-    #     conn.close()
-    #     print("ENVIANDO PARA O BANCO DE CAPTURA (pelo amor de deus funciona agora)")
-    # except Exception as e:
-    #     print(f"Erro ao inserir no banco: {e}")
 
     #agora vou adicionar um dicionário com os dados coletados na lista que eu criei no começo do codigo
     #ele não esta retornando nada, só modificando a lista original e acumulando os dados
@@ -240,5 +241,5 @@ while True:
     #     break
             
 
-    time.sleep(30)
+    time.sleep(10)
     i += 1

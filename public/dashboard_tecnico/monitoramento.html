@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerente de Segurança</title>
+    <title>Técnico de Desempenho</title>
     <link rel="stylesheet" href="../css/monitoramento.css" />
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
      <script src="../js/sessao.js"></script>
@@ -404,10 +405,10 @@ function atualizarGraficoComponentes(){
 
 
 // definindo o tempo em que os dados irão ser atualizados (dando get no banco)
-setInterval(atualizarGrafico, 15000); 
-setInterval(buscarKpis, 15000); 
-setInterval(trazerAtualizarLotes, 15000)
-setInterval(atualizarGraficoComponentes, 15000)
+setInterval(atualizarGrafico, 5000); 
+setInterval(buscarKpis, 5000); 
+setInterval(trazerAtualizarLotes, 1000)
+setInterval(atualizarGraficoComponentes, 5000)
 
 // grafico de barra do comoponente por alerta
 const ctx2 = document.getElementById('componente_char').getContext('2d');
@@ -472,27 +473,30 @@ const componentes_char = new Chart(ctx2, {
 });
 
 
-    document.getElementById("menu-bar").addEventListener("click", function () {
-      const sidebar = document.querySelector(".side-bar");
-      const fundoPreto = document.querySelector(".fundo-preto");
-      const isVisible = sidebar.classList.contains("show");
+            const menuBar = document.getElementById("menu-bar");
+            const sidebar = document.getElementById("side-bar");
+            const fundoPreto = document.getElementById("fundo-preto");
 
-      if (!isVisible) {
-        sidebar.style.display = "flex";
-        fundoPreto.style.display = "block";
-        void sidebar.offsetWidth;
-        void fundoPreto.offsetWidth;
-        sidebar.classList.add("show");
-        fundoPreto.classList.add("show");
-      } else {
-        sidebar.classList.remove("show");
-        fundoPreto.classList.remove("show");
-        setTimeout(() => {
-          sidebar.style.display = "none";
-          fundoPreto.style.display = "none";
-        }, 300);
-      }
-    });
+            function toggleSidebar() {
+                const isVisible = sidebar.classList.contains("show");
+                if (!isVisible) {
+                    sidebar.style.display = "flex";
+                    fundoPreto.style.display = "block";
+                    void sidebar.offsetWidth;
+                    void fundoPreto.offsetWidth;
+                    sidebar.classList.add("show");
+                    fundoPreto.classList.add("show");
+                } else {
+                    sidebar.classList.remove("show");
+                    fundoPreto.classList.remove("show");
+                    setTimeout(() => {
+                        sidebar.style.display = "none";
+                        fundoPreto.style.display = "none";
+                    }, 300);
+                }
+            }
+            if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+            if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
   </script>
 </body>
 </html>

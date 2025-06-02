@@ -186,14 +186,17 @@ function trazerCarros(fk_lote){
     return database.executar(instrucaoSql)
 }
 
-function fecharAlerta(macadress) {
+function fecharAlerta(macadress, componente, gravidade) {
+    console.log("Fechando alerta do componente:", componente, "com gravidade:", gravidade);
 
-    console.log("Estou no model do fechar alerta")
     const instrucaoSql = `
         UPDATE alerta
         SET status = 0
-        WHERE fk_carro_macadress = '${macadress}';
+        WHERE fk_carro_macadress = '${macadress}'
+        AND componente = '${componente}'
+        AND gravidade = '${gravidade}';
     `;
+    
     return database.executar(instrucaoSql);
 }
 

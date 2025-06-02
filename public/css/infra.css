@@ -13,7 +13,7 @@ body {
     height: 100%;
     width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fff;
+    background-color: #1B2559;
     overflow-x: hidden;
 }
 
@@ -54,7 +54,7 @@ span {
 }
 
 #menu-bar {
-    color: #0B1624;
+    color: #fff;
     font-size: 25px;
     transform: scaleX(-1.7);
     padding: 5px;
@@ -166,7 +166,7 @@ span {
     height: 100vh;
     color: black;
     padding: 20px;
-    background-color: #dad8d8;
+    background-color: #EBEBEB;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -176,6 +176,8 @@ span {
 .titulo {
     font-size: 32px;
     margin-bottom: 10px;
+    font-weight: bold;
+    color: #1B2559;
 }
 
 .conteudo-kpi-graficos {
@@ -192,6 +194,7 @@ span {
     flex-direction: column;
     gap: 30px;
     width: 250px; 
+    margin-right: 100px;
     
 }
 
@@ -200,25 +203,33 @@ span {
     color: black;
     font-size: 18px;
     /* border: solid 1px black; */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100px;
     text-align: center;
     padding: 22px;
     display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     border-radius: 10px;
     background-color: white;
 }
 
+.kpi p {
+  margin-top: 8px; 
+  font-weight: bold;
+  color: white;
+}
+
 
 
 .central-graficos {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
-    flex: 1; 
+  
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
 }
 
 .botoes-graficos {
@@ -228,8 +239,10 @@ span {
     background-color: #fff;
     border-radius: 15px;
     border: 1px solid #ccc;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     width: fit-content;
     padding: 5px;
+    gap: 5px;
 }
 
 .botoes-graficos button {
@@ -240,18 +253,12 @@ span {
     padding: 8px 16px;
     background-color: white;
     border-radius: 15px;
+    transition: background-color 0.3s;
 }
 
-.botoes-graficos .ec2 {
+.botoes-graficos button.ativo {
     background-color: #61B0FF;
-}
-
-.botoes-graficos .s3 {
-    background-color: white;
-}
-
-.botoes-graficos .lambda {
-    background-color: white;
+    color: white;
 }
 
 
@@ -263,8 +270,8 @@ span {
     padding: 20px;
     border-radius: 10px;
     /* border: 2px solid #ddd; */
-    width: 600px;
-    min-height: 300px;
+    width: 850px;
+    min-height: 400px;
     justify-content: center;
     align-items: center;
 }
@@ -286,29 +293,139 @@ span {
     right: 30px;     
 }
 
-.filtro {
-  font-size: 32px;
-  color: black;
-   white-space: nowrap; 
-   
+.filtro-container .botao {
+    background-color: #61B0FF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-weight: 600;
+    
+    transition: background-color 0.3s;
 }
 
-.dias-filtro {
-  display: flex;
-  gap: 12px;
+.filtro-container .botao:hover {
+    background-color: #4596e5;
+    
 }
 
-.dias-filtro button {
-  background-color: #61B0FF;
+
+.filtro-container input[type="date"] {
+    background-color: white;
+    border-radius: 15px;
+    padding: 8px 12px;
+}
+
+.topo-grafico {
+    display: flex;
+    align-items: center;
+    gap: 50px; 
+    margin-bottom: 20px;
+}
+
+.kpi-info {
+    background-color: white;
+    
+    border-radius: 15px;
+    padding: 15px 25px;
+    text-align: center;
+    color: white;
+    min-width: 150px;
+}
+
+.kpi-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: black;
+    font-weight: 600;
+}
+
+.kpi-info p{
+      margin-top: 8px; 
+  font-weight: bold;
   color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
 }
 
-.dias-filtro button:hover {
-  background-color: #4a90d9;
+canvas {
+  width: 100% ;
+  height: 100% ;
+}
+
+
+
+.kpi.kpi-verde {
+  background-color: limegreen;
+  color: white;
+}
+
+.kpi.kpi-amarelo {
+  background-color: gold;
+  color: black;
+}
+
+.kpi.kpi-vermelho {
+  background-color: red;
+  color: white;
+}
+
+.kpi.kpi-verde p{
+  background-color: limegreen;
+  color: white;
+}
+
+.kpi.kpi-amarelo p {
+  background-color: gold;
+  color: black;
+}
+
+.kpi.kpi-vermelho p {
+  background-color: red;
+  color: white;
+}
+
+.kpi-info.kpi-verde {
+  background-color: limegreen;
+  color: white;
+}
+
+.kpi-info.kpi-amarelo {
+  background-color: gold;
+  color: black;
+}
+
+.kpi-info.kpi-vermelho {
+  background-color: red;
+  color: white;
+}
+
+
+.kpi-info.kpi-verde h3 {
+  background-color: limegreen;
+  color: white;
+}
+
+.kpi-info.kpi-amarelo h3 {
+  background-color: gold;
+  color: black;
+}
+
+.kpi-info.kpi-vermelho h3 {
+  background-color: red;
+  color: white;
+}
+
+
+.kpi-info.kpi-verde p {
+  background-color: limegreen;
+  color: white;
+}
+
+.kpi-info.kpi-amarelo p {
+  background-color: gold;
+  color: black;
+}
+
+.kpi-info.kpi-vermelho p {
+  background-color: red;
+  color: white;
 }

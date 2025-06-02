@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/infra.css">
   <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <!-- <script src="../js/sessao.js"></script> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
@@ -23,40 +24,60 @@
 
     <main class="conteudo-principal">
      <div class="titulo">Dashboard visão operacional</div> 
- <div class="filtro-container">
-  <label for="input_data">Filtrar:</label>
-  <input id="input_data" class="select-dash" type="date" />
-  <button class="botao" onclick="filtrarPorData()">Filtrar Data</button>
+<div class="filtro-container">
+  <label for="data_inicio">De:</label>
+  <input id="data_inicio" class="select-dash" type="date" />
+
+  <label for="data_fim">Até:</label>
+  <input id="data_fim" class="select-dash" type="date" />
+
+  <button class="botao" onclick="filtrarPorData()">Filtrar</button>
 </div>
       
     
 <div class="conteudo-kpi-graficos">
     <div class="kpi-container">
-        <div class="kpi">Serviço com mais gasto</div>
-        <div class="kpi">Custo atual total</div>
+        <div class="kpi">Serviço com mais gasto
+       <p id="kpi-servico-mais-gasto"></p>
+    </div>
+
+   <div class="kpi">Custo total
+     <p id="kpi-custo-total"></p>
+      </div>
         <div class="kpi">Instância</div>
         <div class="kpi">CPU (%) da EC2</div>
         <div class="kpi">RAM (%) da EC2</div>
     </div>
 
     <div class="central-graficos">
+      <div class="topo-grafico">
         <div class="botoes-graficos">
-            <button onclick="mostrarGrafico('EC2')">EC2</button>
+            <button class="ativo" onclick="mostrarGrafico('EC2')">EC2</button>
             <button onclick="mostrarGrafico('S3')">S3</button>
             <button onclick="mostrarGrafico('Lambda')">Lambda</button>
+            
         </div>
 
-        <div id="EC2" class="grafico ativo">
-            <div class="kpi">Gráfico EC2</div>
-        </div>
-        <div id="S3" class="grafico">
-            <div class="kpi">Gráfico S3</div>
-        </div>
-        <div id="Lambda" class="grafico">
-            <div class="kpi">Gráfico Lambda</div>
+          <div class="kpi-info" id="kpi-info"> 
+         <h3>Custo total do Serviço</h3>
+           <p id="kpi-custo-servico"></p>
         </div>
     </div>
-</div>
+
+    <div id="EC2" class="grafico ativo">
+     <canvas id="graficoEc2Canvas"></canvas>
+    </div>
+    <div id="S3" class="grafico">
+     <canvas id="graficoS3Canvas"></canvas>
+     </div>
+     <div id="Lambda" class="grafico">
+    <canvas id="graficoLambdaCanvas"></canvas>
+     </div>
+
+        </div>
+    </div>
+
+
    
 
     </main>
@@ -113,33 +134,206 @@
     }
   });
 
-
-  function mostrarGrafico(grafico) {
+    function mostrarGrafico(grafico) {
   const graficos = ["EC2", "S3", "Lambda"];
 
   graficos.forEach(id => {
     document.getElementById(id).style.display = (id === grafico) ? "flex" : "none";
   });
+
+  const custo = window.totalPorServico?.[grafico] || 0;
+
+  
+  const kpiInfo = document.getElementById('kpi-info');
+  kpiInfo.innerHTML = `
+    <h3>Custo total do Serviço</h3>
+    <p>$${custo.toFixed(2)}</p>
+  `;
+
+ 
+  kpiInfo.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
+
+  
+  if (custo >= 100) {
+    kpiInfo.classList.add("kpi-vermelho");
+  } else if (custo >= 50) {
+    kpiInfo.classList.add("kpi-amarelo");
+  } else {
+    kpiInfo.classList.add("kpi-verde");
+  }
 }
 
 
 
-function filtrarPorData() {
-  const dataSelecionada = document.getElementById('input_data').value;
+     function filtrarPorData() {
+  fetch("/custos/infra")
+    .then((res) => res.json())
+    .then((dados) => {
+      const registros = dados[0];
+      console.log("DADOS ORIGINAIS:", dados);
+      console.log("Tipo de item:", typeof dados[0]);
+      console.log("Item exemplo:", dados[0]);
 
-  if (!dataSelecionada) {
-    alert('Por favor, selecione uma data.');
-    return;
+      const dataInicio = document.getElementById("data_inicio").value;
+      const dataFim = document.getElementById("data_fim").value;
+
+      console.log("Data início:", dataInicio);
+      console.log("Data fim:", dataFim);
+
+      if (!dataInicio || !dataFim) {
+        alert("Selecione ambas as datas para filtrar.");
+        return;
+      }
+
+      const dadosFiltrados = [];
+
+for (const item of registros) {
+  if (item.data >= dataInicio && item.data <= dataFim) {
+    dadosFiltrados.push(item);
+  }
+}
+
+if (dadosFiltrados.length === 0) {
+  alert("Nenhum dado encontrado para o intervalo selecionado.");
+  return;
+}
+
+      plotarGraficoDeCustos(dadosFiltrados);
+atualizarKPIs(dadosFiltrados);
+
+
+const ativo = document.querySelector('.botoes-graficos button.ativo').textContent;
+const custo = window.totalPorServico?.[ativo] || 0;
+document.getElementById('kpi-info').innerHTML = `
+  <h3>Custo total do Serviço</h3>
+  <p>$${custo.toFixed(2)}</p>
+`;
+    });
+}
+
+
+
+  document.querySelector('.botoes-graficos').addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON') {
+      document.querySelectorAll('.botoes-graficos button')
+        .forEach(btn => btn.classList.remove('ativo'));
+      e.target.classList.add('ativo');
+    }
+  });
+
+
+  let graficoEC2, graficoS3, graficoLambda; 
+
+function plotarGraficoDeCustos(dados) {
+ const datas = dados.map(item => item.data);
+  const valoresEC2 = dados.map(item => item.ec2_custo || 0);
+  const valoresS3 = dados.map(item => item.s3_custo || 0);
+  const valoresLambda = dados.map(item => item.lambda_custo || 0);
+
+  const configBase = (labels, data, label, color) => ({
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label,
+        data,
+        borderColor: color,
+        backgroundColor: `${color}11`,
+        tension: 0.3,
+        fill: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  
+  if (graficoEC2) graficoEC2.destroy();
+  if (graficoS3) graficoS3.destroy();
+  if (graficoLambda) graficoLambda.destroy();
+
+ 
+  graficoEC2 = new Chart(
+    document.getElementById('graficoEc2Canvas'),
+    configBase(datas, valoresEC2, 'Custo EC2', 'rgba(75, 192, 192, 1)')
+  );
+
+  graficoS3 = new Chart(
+    document.getElementById('graficoS3Canvas'),
+    configBase(datas, valoresS3, 'Custo S3', 'rgba(255, 206, 86, 1)')
+  );
+
+  graficoLambda = new Chart(
+    document.getElementById('graficoLambdaCanvas'),
+    configBase(datas, valoresLambda, 'Custo Lambda', 'rgba(153, 102, 255, 1)')
+  );
+}
+
+function atualizarKPIs(dadosFiltrados) {
+  let totalEC2 = 0;
+  let totalS3 = 0;
+  let totalLambda = 0;
+
+  for (let i = 0; i < dadosFiltrados.length; i++) {
+    totalEC2 += dadosFiltrados[i].ec2_custo || 0;
+    totalS3 += dadosFiltrados[i].s3_custo || 0;
+    totalLambda += dadosFiltrados[i].lambda_custo || 0;
   }
 
-  // Aqui você chama as funções que puxam os dados da data selecionada
-  console.log('Buscando dados para a data:', dataSelecionada);
+  let maiorNome = 'EC2';
+  let maiorValor = totalEC2;
+
+  if (totalS3 > maiorValor) {
+    maiorNome = 'S3';
+    maiorValor = totalS3;
+  }
+
+  if (totalLambda > maiorValor) {
+    maiorNome = 'Lambda';
+    maiorValor = totalLambda;
+  }
+
+  const totalGeral = totalEC2 + totalS3 + totalLambda;
+
   
-  pegarKPI(dataSelecionada);
-  mostrarGraficoData(dataSelecionada);
+document.getElementById("kpi-servico-mais-gasto").innerText = `${maiorNome} ($${maiorValor.toFixed(2)})`;
+document.getElementById("kpi-custo-total").innerText = `$${totalGeral.toFixed(2)}`;
+
+
+const kpiGasto = document.getElementById("kpi-servico-mais-gasto").parentElement;
+const kpiTotal = document.getElementById("kpi-custo-total").parentElement;
+
+
+[kpiGasto, kpiTotal].forEach(el => {
+  el.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
+});
+
+
+function definirCor(custo) {
+  if (custo >= 100) return "kpi-vermelho";
+  if (custo >= 50) return "kpi-amarelo";
+  return "kpi-verde";
 }
 
+kpiGasto.classList.add(definirCor(maiorValor));
+kpiTotal.classList.add(definirCor(totalGeral));
 
-  
 
-</script>
+
+ 
+  window.totalPorServico = {
+    EC2: totalEC2,
+    S3: totalS3,
+    Lambda: totalLambda
+  };
+}
+
+  </script>
+
+

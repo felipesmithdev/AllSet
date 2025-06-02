@@ -7,6 +7,7 @@
   <title>Analista</title>
   <link rel="stylesheet" href="../css/analista2.css">
   <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+  <link rel="stylesheet" href="../css/sidebar.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../js/sessao.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -29,10 +30,6 @@
           <span class="subtitulo-dash">Situação geral de um lote específico, caso queira alterar o lote monitorado, <a
               href="./listaLotes.html" style="color: #61B0FF;">clique aqui</a>!</span>
         </div>
-        <div class="titulo-dash-usuario">
-          <img src="../assets/imgs/user.png" alt="Ícone do usuário">
-          <span id="b_usuario" style="color: #0B1624;">Felipe</span>
-        </div>
       </div>
 
       <div class="filtro-periodo">
@@ -51,7 +48,8 @@
           <div class="kpi">
             <span class="kpi-titulo">Lotes com mais incidências críticas</span>
             <div class="lotes">
-              <span class="lote-um" id="lote-um" >Lote 001</span><span class="lote-um" id="lote-dois" >Lote 002</span><span class="lote-um" id="lote-tres" >Lote
+              <span class="lote-um" id="lote-um">Lote 001</span><span class="lote-um" id="lote-dois">Lote
+                002</span><span class="lote-um" id="lote-tres">Lote
                 003</span>
             </div>
             <a href="./listaLotes.html" style="cursor: pointer;">Verificar situação geral</a>
@@ -220,38 +218,39 @@
     plotarGrafico3(lote, periodo, tipo);
   };
 
-  document.getElementById("menu-bar").addEventListener("click", function () {
-    const sidebar = document.querySelector(".side-bar");
-    const fundoPreto = document.querySelector(".fundo-preto");
-    const botao = document.querySelector("#menu-bar")
+  document.addEventListener('DOMContentLoaded', async () => {
+    const menuBar = document.getElementById("menu-bar");
+    const sidebar = document.getElementById("side-bar");
+    const fundoPreto = document.getElementById("fundo-preto");
 
-    const isVisible = sidebar.classList.contains("show");
-
-    if (!isVisible) {
-      sidebar.style.display = "flex";
-      fundoPreto.style.display = "block";
-
-      void sidebar.offsetWidth;
-      void fundoPreto.offsetWidth;
-
-      sidebar.classList.add("show");
-      fundoPreto.classList.add("show");
-    } else {
-      sidebar.classList.remove("show");
-      fundoPreto.classList.remove("show");
-
-      setTimeout(() => {
-        sidebar.style.display = "none";
-        fundoPreto.style.display = "none";
-      }, 300);
+    function toggleSidebar() {
+      const isVisible = sidebar.classList.contains("show");
+      if (!isVisible) {
+        sidebar.style.display = "flex";
+        fundoPreto.style.display = "block";
+        void sidebar.offsetWidth;
+        void fundoPreto.offsetWidth;
+        sidebar.classList.add("show");
+        fundoPreto.classList.add("show");
+      } else {
+        sidebar.classList.remove("show");
+        fundoPreto.classList.remove("show");
+        setTimeout(() => {
+          sidebar.style.display = "none";
+          fundoPreto.style.display = "none";
+        }, 300);
+      }
     }
+    if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+    if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+
   });
 
   function altBackgroundBotao(todosBotoes, idParaMudar) {
     todosBotoes.forEach(id => {
       const button = document.getElementById(id)
       if (button) {
-        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#EBEBEB"
+        button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#fff"
       }
     });
   }
@@ -429,7 +428,7 @@
   }
 
   function calcularKpi1() {
-      fetch(`/analistaLote/calcularKpi1?periodo=${periodo}`, {
+    fetch(`/analistaLote/calcularKpi1?periodo=${periodo}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -527,14 +526,14 @@
               label: 'CPU',
               data: criticos,
               borderColor: '#FF3B3B',
-              backgroundColor: 'rgba(255, 59, 59, 0.15)',
+              backgroundColor: 'rgba(255, 59, 59, 0.3)',
               tension: 0.4,
               fill: true,
               pointRadius: 4,
               pointHoverRadius: 9,
               pointBackgroundColor: '#FF3B3B',
               pointStyle: 'circle',
-              borderWidth: 5,
+              borderWidth: 3,
             }]
           },
           options: {
@@ -555,7 +554,7 @@
               x: {
                 title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
                 ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
-                grid: { display: false }
+                grid: { display: true }
               },
               y: {
                 beginAtZero: true,
@@ -610,14 +609,14 @@
               label: 'Gráfico 2',
               data: criticos,
               borderColor: '#FF3B3B',
-              backgroundColor: 'rgba(255, 59, 59, 0.15)',
+              backgroundColor: 'rgba(255, 59, 59, 0.3)',
               tension: 0.4,
               fill: true,
               pointRadius: 4,
               pointHoverRadius: 9,
               pointBackgroundColor: '#FF3B3B',
               pointStyle: 'circle',
-              borderWidth: 5
+              borderWidth: 3
             }]
           },
           options: {
@@ -638,7 +637,7 @@
               x: {
                 title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
                 ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
-                grid: { display: false }
+                grid: { display: true }
               },
               y: {
                 beginAtZero: true,
@@ -676,59 +675,59 @@
         }
 
         chartBarras = new Chart(ctxBarras, {
-            type: 'bar',
-            data: {
-              labels: ['Crítico', 'Moderado', 'Normal'],
-              datasets: [{
-                label: 'Total de Capturas por Categoria',
-                data: [somaCritico, somaModerado, somaNormal],
-                backgroundColor: ['#FF0000', 'rgba(255, 255, 0)', '#008000'],
-                borderRadius: 5,
-                borderSkipped: false,
-                barThickness: 140,
-              }]
+          type: 'bar',
+          data: {
+            labels: ['Crítico', 'Moderado', 'Normal'],
+            datasets: [{
+              label: 'Total de Capturas por Categoria',
+              data: [somaCritico, somaModerado, somaNormal],
+              backgroundColor: ['#FF0000', 'gold', '#008000'],
+              borderRadius: 5,
+              borderSkipped: false,
+              barThickness: 140,
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Total de Capturas por Categoria',
+                font: { size: 22, weight: 'bold' },
+                color: '#222'
+              },
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#2c2c2c',
+                titleColor: '#fff',
+                bodyColor: '#ddd',
+                cornerRadius: 4,
+                padding: 10,
+                titleFont: { weight: 'bold', size: 14 },
+                bodyFont: { size: 13 }
+              }
             },
-            options: {
-              responsive: true,
-              plugins: {
+            scales: {
+              x: {
+                ticks: { color: '#333', font: { size: 18, weight: '500' } },
+                grid: { display: false }
+              },
+              y: {
+                beginAtZero: true,
+                suggestedMax: Math.max(somaCritico, somaModerado, somaNormal) + 20,
+                ticks: { color: '#333', font: { size: 12 } },
                 title: {
                   display: true,
-                  text: 'Total de Capturas por Categoria',
-                  font: { size: 22, weight: 'bold' },
-                  color: '#222'
+                  text: 'Capturas',
+                  font: { size: 14, weight: 'bold' },
+                  color: '#333'
                 },
-                legend: { display: false },
-                tooltip: {
-                  backgroundColor: '#2c2c2c',
-                  titleColor: '#fff',
-                  bodyColor: '#ddd',
-                  cornerRadius: 4,
-                  padding: 10,
-                  titleFont: { weight: 'bold', size: 14 },
-                  bodyFont: { size: 13 }
-                }
-              },
-              scales: {
-                x: {
-                  ticks: { color: '#333', font: { size: 18, weight: '500' } },
-                  grid: { display: false }
-                },
-                y: {
-                  beginAtZero: true,
-                  suggestedMax: Math.max(somaCritico, somaModerado, somaNormal) + 20,
-                  ticks: { color: '#333', font: { size: 12 } },
-                  title: {
-                    display: true,
-                    text: 'Capturas',
-                    font: { size: 14, weight: 'bold' },
-                    color: '#333'
-                  },
-                  grid: { color: '#eee', borderDash: [4, 4] }
-                }
+                grid: { color: '#eee', borderDash: [4, 4] }
               }
             }
-          });
-        }
+          }
+        });
+      }
       );
   }
 

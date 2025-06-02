@@ -517,6 +517,12 @@ function resetDados() {
     });
   }
 
+  let select1 = document.getElementById("selectMetrica")
+  let select2 = document.getElementById("selectVariavel")
+
+  select1.value = "padrao"
+  select2.value = "padrao"
+
   dadosX = []
   dadosY = []
 

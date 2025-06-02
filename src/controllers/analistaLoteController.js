@@ -1,7 +1,9 @@
 var analisaLoteModel = require("../models/analistaLoteModel")
 
 function calcularKpi2(req, res) {
-    analisaLoteModel.calcularKpi2().then(function (resultado) {
+    const { lote, periodo } = req.query;
+
+    analisaLoteModel.calcularKpi2(lote, periodo).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -15,7 +17,9 @@ function calcularKpi2(req, res) {
 }
 
 function calcularKpi3(req, res) {
-    analisaLoteModel.calcularKpi3().then(function (resultado) {
+    const { lote, periodo } = req.query;
+
+    analisaLoteModel.calcularKpi3(lote, periodo).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

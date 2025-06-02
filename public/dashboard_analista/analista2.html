@@ -102,7 +102,7 @@
             <div class="myChart">
               <div class="header-grafico">
                 <div class="filtro-componente">
-                <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
+                  <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
                   <div class="selecao-componente">
                     <span>Componente:</span>
                     <select name="" id="slt_componente1" onchange="alterarComponente(this.value)">
@@ -211,8 +211,8 @@
   var componente2 = document.getElementById("slt_componente2").value
 
   window.onload = () => {
-    calcularKpi2();
-    calcularKpi3();
+    calcularKpi2(lote, periodo);
+    calcularKpi3(lote, periodo);
     plotarGrafico1(categoria, lote, periodo, componente);
     plotarGrafico2(categoria2, lote, periodo, componente2)
   };
@@ -267,6 +267,8 @@
     periodo = 7;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    calcularKpi2(lote, periodo)
+    calcularKpi3(lote, periodo)
   }
 
   function ultimosQuinzeDias() {
@@ -274,6 +276,8 @@
     periodo = 15;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    calcularKpi2(lote, periodo)
+    calcularKpi3(lote, periodo)
   }
 
   function ultimosTrintaDias() {
@@ -281,6 +285,8 @@
     periodo = 30;
     plotarGrafico1(categoria, lote, periodo, componente)
     plotarGrafico2(categoria2, lote, periodo, componente2)
+    calcularKpi2(lote, periodo)
+    calcularKpi3(lote, periodo)
   }
 
   function alterarCategoria(valor) {
@@ -406,7 +412,7 @@
   }
 
   function calcularKpi2() {
-    fetch(`/analistaLote/calcularKpi2`, {
+    fetch(`/analistaLote/calcularKpi2?lote=${lote}&periodo=${periodo}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -414,6 +420,7 @@
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res)
         var kpi2porcentagem = document.getElementById("taxa-falhas")
         var kpi2criticos = document.getElementById("criticos-kpi2")
         var kpi2total = document.getElementById("total-kpi2")
@@ -425,7 +432,7 @@
   }
 
   function calcularKpi3() {
-    fetch(`/analistaLote/calcularKpi3`, {
+    fetch(`/analistaLote/calcularKpi3?lote=${lote}&periodo=${periodo}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -458,7 +465,6 @@
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
 
         var datas = [];
         var criticos = [];
@@ -528,92 +534,91 @@
       });
   }
 
-function plotarGrafico2() {
+  function plotarGrafico2() {
     fetch(`/analistaLote/plotarGrafico2?categoria2=${categoria2}&lote=${lote}&periodo=${periodo}&componente2=${componente2}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);       
 
         var datas = [];
         var criticos = [];
 
         for (var i = 0; i < res.length; i++) {
-            datas.push(res[i].data);
-            criticos.push(res[i][categoria2]);
+          datas.push(res[i].data);
+          criticos.push(res[i][categoria2]);
         }
 
         console.log("Datas processadas:", datas);
         console.log("Valores processados:", criticos);
 
         const ctxRAM = document.getElementById('graficoLinha2');
-        
+
         if (!ctxRAM) {
-            console.error("Elemento 'graficoLinha2' não encontrado!");
-            return;
+          console.error("Elemento 'graficoLinha2' não encontrado!");
+          return;
         }
 
         if (chartRAM) {
-            chartRAM.destroy();
+          chartRAM.destroy();
         }
 
         chartRAM = new Chart(ctxRAM, {
-            type: 'line',
-            data: {
-                labels: datas,
-                datasets: [{
-                    label: 'Gráfico 2',
-                    data: criticos,
-                    borderColor: '#FF3B3B',
-                    backgroundColor: 'rgba(255, 59, 59, 0.15)',
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 4,
-                    pointHoverRadius: 9,
-                    pointBackgroundColor: '#0040FF',
-                    pointStyle: 'circle',
-                    borderWidth: 5
-                }]
+          type: 'line',
+          data: {
+            labels: datas,
+            datasets: [{
+              label: 'Gráfico 2',
+              data: criticos,
+              borderColor: '#FF3B3B',
+              backgroundColor: 'rgba(255, 59, 59, 0.15)',
+              tension: 0.4,
+              fill: true,
+              pointRadius: 4,
+              pointHoverRadius: 9,
+              pointBackgroundColor: '#FF3B3B',
+              pointStyle: 'circle',
+              borderWidth: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#2c2c2c',
+                titleColor: '#fff',
+                bodyColor: '#ddd',
+                cornerRadius: 4,
+                padding: 10,
+                titleFont: { weight: 'bold', size: 14 },
+                bodyFont: { size: 13 }
+              }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#2c2c2c',
-                        titleColor: '#fff',
-                        bodyColor: '#ddd',
-                        cornerRadius: 4,
-                        padding: 10,
-                        titleFont: { weight: 'bold', size: 14 },
-                        bodyFont: { size: 13 }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
-                        ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
-                        grid: { display: false }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        suggestedMax: Math.max(...criticos) + 2,
-                        title: { display: true, text: 'Quantidade', font: { size: 16, weight: 'bold' }, color: '#333' },
-                        ticks: { color: '#333', font: { size: 12 } },
-                        grid: { color: '#eee', borderDash: [5, 5] }
-                    }
-                }
+            scales: {
+              x: {
+                title: { display: true, text: 'Dias', font: { size: 14, weight: 'bold' }, color: '#333' },
+                ticks: { color: '#333', autoSkip: false, font: { size: 15, weight: '500' } },
+                grid: { display: false }
+              },
+              y: {
+                beginAtZero: true,
+                suggestedMax: Math.max(...criticos) + 2,
+                title: { display: true, text: 'Quantidade', font: { size: 16, weight: 'bold' }, color: '#333' },
+                ticks: { color: '#333', font: { size: 12 } },
+                grid: { color: '#eee', borderDash: [5, 5] }
+              }
             }
+          }
         });
-    })
-    .catch(error => {
-      console.error("Erro ao carregar dados do gráfico:", error);
-    });
-}
+      })
+      .catch(error => {
+        console.error("Erro ao carregar dados do gráfico:", error);
+      });
+  }
 
 
 </script>

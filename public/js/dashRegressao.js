@@ -1,7 +1,5 @@
 // Puxando os meses do banco de dados:
 
-// const { MediaStore } = require("aws-sdk");
-
 window.onload = function () {
   selectMeses();
 };
@@ -91,13 +89,61 @@ function mediaDiariaCPU() {
           responsive: true,
           scales: {
             y: {
+              title: {
+                display: true,
+                text: "Uso CPU %",
+              },
               beginAtZero: true,
               max: 100
+            },
+            x: {
+              title: {
+                display: true,
+                text: "Dias"
+              }
             }
           },
           maintainAspectRatio: false,
+          plugins: {
+            annotation: {
+              annotations: {
+                linha80: {
+                  type: 'line',
+                  yMin: 80,
+                  yMax: 80,
+                  borderColor: 'red',
+                  borderWidth: 2,
+                  borderDash: [6, 6],
+                  label: {
+                    display: true,
+                    content: 'Limite 80%',
+                    position: 'start',
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    color: 'white'
+                  }
+                },
+                linha20: {
+                  type: 'line',
+                  yMin: 20,
+                  yMax: 20,
+                  borderColor: 'red',
+                  borderWidth: 2,
+                  borderDash: [6, 6],
+                  label: {
+                    display: true,
+                    content: 'Limite 20%',
+                    position: 'start',
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    color: 'white'
+                  }
+                }
+              }
+            }
+          }
         }
       });
+
+
     })
     .catch(err => console.error("Erro ao buscar médias de CPU:", err));
 }
@@ -151,29 +197,76 @@ function mediaDiariaRAM() {
 
       let ctx2 = document.getElementById("chartRAM").getContext("2d");
       graficoRAM = new Chart(ctx2, {
-        type: 'line',
-        data: {
-          labels: dias,
-          datasets: [{
-            label: 'Média de Uso RAM (%)',
-            data: medias,
-            borderColor: '#61B0FF',
-            backgroundColor: '#61B0FF',
+  type: 'line',
+  data: {
+    labels: dias,
+    datasets: [{
+      label: 'Média de Uso RAM (%)',
+      data: medias,
+      borderColor: '#61B0FF',
+      backgroundColor: '#61B0FF',
+      borderWidth: 2,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: "Uso RAM %"
+        }
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Dias"
+        }
+      }
+    },
+    maintainAspectRatio: false,
+    plugins: {
+      annotation: {
+        annotations: {
+          linha80: {
+            type: 'line',
+            yMin: 80,
+            yMax: 80,
+            borderColor: 'red',
             borderWidth: 2,
-            tension: 0.3
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100
+            borderDash: [6, 6],
+            label: {
+              display: true,
+              content: 'Limite 80%',
+              position: 'start',
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              color: 'white'
             }
           },
-          maintainAspectRatio: false,
+          linha20: {
+            type: 'line',
+            yMin: 20,
+            yMax: 20,
+            borderColor: 'red',
+            borderWidth: 2,
+            borderDash: [6, 6],
+            label: {
+              display: true,
+              content: 'Limite 20%',
+              position: 'start',
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              color: 'white'
+            }
+          }
         }
-      });
+      }
+    }
+  }
+});
+
     })
     .catch(err => console.error("Erro ao buscar médias de CPU:", err));
 }
@@ -189,7 +282,7 @@ let chuvaBars = new Chart(chuvaGraf, {
       {
         label: "Chuva",
         data: null,
-        backgroundColor: "#34495e"
+        backgroundColor: "#61B0FF"
       }
     ]
   },
@@ -209,7 +302,7 @@ let trafegoBars = new Chart(trafegoGraf, {
       {
         label: "Tráfego",
         data: null,
-        backgroundColor: "#34495e"
+        backgroundColor: "#61B0FF"
       }
     ]
   },
@@ -253,13 +346,25 @@ function atualizarGrafico(dadosChuva, dadosTrafego) {
         {
           label: "Chuva",
           data: valoresChuva,
-          backgroundColor: "#34495e"
+          backgroundColor: "#61B0FF"
         }
       ]
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: true } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "mm Chuva"
+          }
+        },
+        x: {
+          display: true,
+          text: "Dias"
+        },
+      },
       maintainAspectRatio: false,
     }
   });
@@ -277,13 +382,21 @@ function atualizarGrafico(dadosChuva, dadosTrafego) {
         {
           label: "Tráfego",
           data: valoresTrafego,
-          backgroundColor: "#34495e"
+          backgroundColor: "#61B0FF"
         }
       ]
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: true } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            text: "Quantidade Carros",
+            display: true
+          }
+        }
+      },
       maintainAspectRatio: false,
     }
   });
@@ -467,12 +580,16 @@ function gerarGrafico() {
       },
       scales: {
         x: {
-          type: 'linear',
-          title: 'X'
+          title: {
+            text: "Variável",
+            display: true
+          }
         },
         y: {
-          type: 'linear',
-          title: 'Y'
+          title: {
+            display: true,
+            text: "Métrica"
+          }
         }
       },
       maintainAspectRatio: false,

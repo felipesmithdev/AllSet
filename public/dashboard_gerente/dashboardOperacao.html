@@ -53,7 +53,9 @@
                     <div class="card_filtragem" id="card_filtragem">
                         <h3>Filtragem de Tempo</h3>
                        <div class="filter-group">
-                <label>Período do Gráfico:</label>
+                        <div class="periodo-grafico">
+                        <label>Período do Gráfico:</label>
+                        </div>
                 <div class="periodo-buttons">
                 <button class="periodo-btn active" data-dias="7" onclick="filtrar('7'); buscarLotes(7)">7 dias</button>
                 <button class="periodo-btn" data-dias="15" onclick="filtrar('15'); buscarLotes(15)">15 dias</button>
@@ -216,7 +218,7 @@
                 });
 
                 if (quantidadeLotesComOcorrencias > 0) {
-                    document.getElementById("quantidade").style.color = "black"
+                    document.getElementById("quantidade").style.color = "white"
                     document.getElementById("card_filtragem").style.backgroundColor = "rgb(255, 0, 0)"
                 }
 
@@ -261,14 +263,18 @@
         const pctAumento = ((dados[dados.length - 1].ocorrencias - dados[0].ocorrencias) / dados[0].ocorrencias) * 100;
 
         const cardKpi = document.querySelector(".card_kpi h3");
+        const cardKpiBorda = document.querySelector(".card_kpi");
 
         cardKpi.innerHTML = pctAumento.toFixed(0) + "%"
 
 
         if (pctAumento > 0) {
             cardKpi.style.color = "red"
+            cardKpiBorda.style.border = "solid 2px red"
         } else if (pctAumento < 0) {
             cardKpi.style.color = "green"
+            cardKpiBorda.style.border = "solid 2px green"
+
         }
 
         chart = new Chart(ctx, {
@@ -290,8 +296,6 @@
 
     document.addEventListener('DOMContentLoaded', () => filtrar('7'));
     document.querySelectorAll('.periodo-btn').forEach(btn => { btn.addEventListener('click', function () { document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); atualizarGrafico(); }); });
-
-
 
 
 </script>

@@ -251,6 +251,8 @@ span {
 
     .card_filtragem h3 {
         font-size: 30px;
+        color: #ffffff;
+        
     }
 
    .filter-group {
@@ -290,15 +292,26 @@ span {
 
 
     #quantidade {
-        font-size: 36px;
-        color: #060607;
+        font-size: 40px;
         font-weight: 600;
+        color: #ffffff;
+        font-weight: bold;
+
     }
 
     .card_filtragem p {
         font-size: 20px;
         font-weight: 600;
         text-align: center;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .periodo-grafico {
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+
     }
 
     .card_tabela{
@@ -319,7 +332,7 @@ span {
     }
 
     .card_tabela th {
-        font-size: 20px;
+        font-size: 22px;
         background-color: #583DFF;
         color: white;
     }
@@ -398,6 +411,8 @@ span {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    
+  
 }
 
 .title {

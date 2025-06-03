@@ -9,6 +9,7 @@ function lotesMaisOcorrencia(req, res) {
 
     gerenteModel.lotesMaisOcorrencia(idAgencia, dias)
         .then((resultado) => {
+            console.log("passou aqui")
             res.status(200).json(resultado);
         })
         .catch((err) => {

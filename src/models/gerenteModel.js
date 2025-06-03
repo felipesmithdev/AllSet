@@ -1,22 +1,27 @@
 var database = require("../database/config");
 
-function lotesMaisOcorrencia(fkAgencia, dias) {
-    let filtroData = '';
-    if (dias) {
-        filtroData = `AND a.dt_registro >= NOW() - INTERVAL ${dias} DAY`;
-    }
+function lotesMaisOcorrencia(idAgencia, dias) {
+    // let filtroData = '';
+    // if (dias) {
+    //     filtroData = `AND a.dt_registro >= NOW() - INTERVAL ${dias} DAY`;
+    // }
 
     let query = `
-        SELECT l.id_lote AS lote, COUNT(a.id_alerta) AS ocorrencias
-        FROM lote AS l
-        JOIN carro AS c ON c.fk_lote = l.id_lote
-        JOIN alerta AS a ON a.fk_carro_macadress = c.macadress
-        WHERE l.fk_agencia_lote = ${fkAgencia}
-        ${filtroData}
-        GROUP BY l.id_lote
+        SELECT
+            lote, sum(critico) AS ocorrencias
+            FROM historicoQtdPorCategoria
+            WHERE data IN (
+                SELECT data FROM (
+                SELECT DISTINCT data
+                FROM historicoQtdPorCategoria
+                ORDER BY data DESC
+                LIMIT ${dias}
+            ) AS ultimosDias
+        )
+        GROUP BY lote
         ORDER BY ocorrencias DESC
         LIMIT 5;
-    `;
+        `;
 
     return database.executar(query);
 }
@@ -24,14 +29,13 @@ function lotesMaisOcorrencia(fkAgencia, dias) {
 
 function datasRegistroAlertas(idAgencia, dias) {
     const instrucao = `
-        SELECT DATE(a.dt_registro) AS dia, COUNT(*) AS ocorrencias
-        FROM alerta a
-        JOIN carro c ON a.fk_carro_macadress = c.macadress
-        JOIN lote l ON c.fk_lote = l.id_lote
-        WHERE l.fk_agencia_lote = ${idAgencia}
-        AND a.dt_registro >= NOW() - INTERVAL ${dias.replace("d", "")} DAY
+        SELECT 
+            DATE_FORMAT(data, '%d/%m') AS dia,
+            SUM(critico) AS ocorrencias
+        FROM historicoQtdPorCategoria
         GROUP BY dia
-        ORDER BY dia;
+        ORDER BY STR_TO_DATE(dia, '%d/%m') DESC
+        LIMIT ${dias};
 
     `;
     return database.executar(instrucao);

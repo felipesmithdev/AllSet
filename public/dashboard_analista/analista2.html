@@ -534,10 +534,10 @@
         chartCPU = new Chart(ctxCPU, {
           type: 'line',
           data: {
-            labels: datas,
+            labels: datas.reverse(),
             datasets: [{
               label: 'CPU',
-              data: criticos,
+              data: criticos.reverse(),
               borderColor: '#FF3B3B',
               backgroundColor: 'rgba(255, 59, 59, 0.3)',
               tension: 0.4,
@@ -617,10 +617,10 @@
         chartRAM = new Chart(ctxRAM, {
           type: 'line',
           data: {
-            labels: datas,
+            labels: datas.reverse(),
             datasets: [{
               label: 'Gráfico 2',
-              data: criticos,
+              data: criticos.reverse(),
               borderColor: '#FF3B3B',
               backgroundColor: 'rgba(255, 59, 59, 0.3)',
               tension: 0.4,

@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Técnico de Desempenho</title>
-    <link rel="stylesheet" href="../css/monitoramento.css" />
-    <link rel="stylesheet" href="../css/sidebar.css">
-    <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <script src="../js/sessao.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Técnico de Desempenho</title>
+  <link rel="stylesheet" href="../css/monitoramento.css" />
+  <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
   <!-- parte do modal -->
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- 
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
+
 <body>
   <div class="layout">
     <!-- LADO ESQUERDO FIXO -->
@@ -31,97 +30,97 @@
       <div class="titulo_dash"> <span>Visão Geral dos Lotes</span></div>
       <div class="pai_container">
         <div class="filho_container">
-            <div class="kpi_saude">
-              <span class="titulo_saude">Carros operando normalmente (Todos os Lotes)</span>
-              <span id="valor_saude" class="valor_saude"></span>
+          <div class="kpi_saude">
+            <span class="titulo_saude">Carros operando normalmente (Todos os Lotes)</span>
+            <span id="valor_saude" class="valor_saude"></span>
+          </div>
+          <div class="carros_container">
+            <div class="irmao_carro">
+              <div class="titulo_grafico_bar">
+                <h2 style="text-align:center; color:#1f3c88;">Fluxos dos carros nos lotes</h2>
+              </div>
+              <div class="div_grafico_tempo_real">
+                <canvas id="fluxoChart"></canvas>
+              </div>
             </div>
-            <div class="carros_container">
-                <div class="irmao_carro">
-                  <div class="titulo_grafico_bar">
-                    <h2 style="text-align:center; color:#1f3c88;">Fluxos dos carros nos lotes</h2>
-                  </div>
-                    <div class="div_grafico_tempo_real">
-                      <canvas id="fluxoChart"></canvas>
-                    </div>
+            <div class="irmao_carro_baixo">
+              <div class="pop_alerta">
+                <div class="topo_alerta">
+                  <span>LOTE CRÍTICO</span>
                 </div>
-                <div class="irmao_carro_baixo">
-                  <div class="pop_alerta">
-                    <div class="topo_alerta">
-                      <span>LOTE CRÍTICO</span>
-                    </div>
-                    <div class="meio_alerta">
-                      <span class="nome_lote" id="id_lote_critico">Lote 001</span>
-                      <span class="quantidade_alerta" id="quantidade_alerta_lote_critico">7 ALERTAS GRAVES</span>
-                      <span>Último alerta</span>
-                      <span class="data_alerta" id="ultima_captura_alerta">2025-05-25 08:59</span>
-                    </div>
-                  </div>
-                  <div class="bar_componentes">
-                    <div class="div_grafico_componentes">
-                      <canvas id="componente_char"></canvas>
-                    </div>
-                  </div>
+                <div class="meio_alerta">
+                  <span class="nome_lote" id="id_lote_critico">Lote 001</span>
+                  <span class="quantidade_alerta" id="quantidade_alerta_lote_critico">7 ALERTAS GRAVES</span>
+                  <span>Último alerta</span>
+                  <span class="data_alerta" id="ultima_captura_alerta">2025-05-25 08:59</span>
                 </div>
+              </div>
+              <div class="bar_componentes">
+                <div class="div_grafico_componentes">
+                  <canvas id="componente_char"></canvas>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         <div class="irmao_container">
           <div class="content_irmao">
             <div class="kpi_container">
-                <div class="kpi_1">
-                    <div class="kpi_top"><span>Total de Carros dos Lotes</span></div>
-                    <div class="kpi_mid"><span id="total_carro"></span></div>
-                </div>
-                <div class="kpi_1">
-                    <div class="kpi_top"><span>Total de Alertas dos Lotes</span></div>
-                    <div class="kpi_mid"><span id="valor_kpi_alerta"></span></div>
-                </div>
+              <div class="kpi_1">
+                <div class="kpi_top"><span>Total de Carros dos Lotes</span></div>
+                <div class="kpi_mid"><span id="total_carro"></span></div>
+              </div>
+              <div class="kpi_1">
+                <div class="kpi_top"><span>Total de Alertas dos Lotes</span></div>
+                <div class="kpi_mid"><span id="valor_kpi_alerta"></span></div>
+              </div>
             </div>
             <div class="content_lotes">
               <div class="titulo_lotes">
-              <span>SELECIONAR LOTE</span>
+                <span>SELECIONAR LOTE</span>
               </div>
               <div class="tabela_container">
                 <table class="tabela_lotes">
                   <thead>
-                      <tr>
+                    <tr>
                       <th>Lote</th>
                       <th>Carros</th>
                       <th>Alertas</th>
                       <th>Alertas Graves</th>
-                      </tr>
+                    </tr>
                   </thead>
-                 <tbody>
-                      <tr class="selecionado">
+                  <tbody>
+                    <tr class="selecionado">
                       <td>Lote 001</td>
-                     <td>50</td>
-                     <td>8</td>
-                     <td class="status_lote">7</td>
-                     </tr>
-                     <tr class="selecionado">
-                     <td>Lote 002</td>
-                     <td>20</td>
-                     <td>6</td>
-                     <td class="status_lote">5</td>
-                     </tr>
-                     <tr class="selecionado">
-                     <td>Lote 003</td>
-                     <td>50</td>
-                     <td>3</td>
-                     <td class="status_lote_medio">1</td>
-                     </tr>
-                     <tr class="selecionado">
-                     <td>Lote 004</td>
-                     <td>20</td>
-                     <td>2</td>
-                     <td class="status_lote_normal">0</td>
-                     </tr>
+                      <td>50</td>
+                      <td>8</td>
+                      <td class="status_lote">7</td>
+                    </tr>
+                    <tr class="selecionado">
+                      <td>Lote 002</td>
+                      <td>20</td>
+                      <td>6</td>
+                      <td class="status_lote">5</td>
+                    </tr>
+                    <tr class="selecionado">
+                      <td>Lote 003</td>
+                      <td>50</td>
+                      <td>3</td>
+                      <td class="status_lote_medio">1</td>
+                    </tr>
+                    <tr class="selecionado">
+                      <td>Lote 004</td>
+                      <td>20</td>
+                      <td>2</td>
+                      <td class="status_lote_normal">0</td>
+                    </tr>
                   </tbody>
-             </table>
-             </div>
-             </div>
+                </table>
+              </div>
             </div>
-         </div>
+          </div>
         </div>
+      </div>
 
     </main>
   </div>
@@ -145,358 +144,359 @@
   <!-- FUNDO ESCURO -->
   <div id="fundo-preto" class="fundo-preto"></div>
 
-<script>
-  let total_carro_kpi;
-  let total_alertas_kpi;
-  let valor_saude = 0;
-  const fk_agencia = 1;
+  <script>
+    let total_carro_kpi;
+    let total_alertas_kpi;
+    let valor_saude = 0;
+    const fk_agencia = 1;
 
-  atualizarGrafico()
-  buscarKpis()
-  trazerAtualizarLotes()
-  atualizarGraficoComponentes()
-
-
-  // buscar lotes
-function trazerAtualizarLotes() {
-  fetch(`/seguranca/buscar_lotes?fk_agencia=${fk_agencia}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-  .then((res) => res.json())
-  .then((lotes) => {
-    console.log(lotes)
-    // Calcula a porcentagem e ordena
-    const lotesOrdenados = lotes
-      // .map(lote => {
-      //   const totalAlertas = lote.alertas;
-      //   const alertasGraves = lote.alertas_graves;
-      //   const porcentagem = totalAlertas > 0
-      //     ? (alertasGraves / totalAlertas) * 100
-      //     : 0;
-      //   return { ...lote, porcentagem_graves: porcentagem };
-      // })
-      // .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
+    atualizarGrafico()
+    buscarKpis()
+    trazerAtualizarLotes()
+    atualizarGraficoComponentes()
 
 
-    const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
-    tabelaCorpo.innerHTML = "";
-
-      // atualizando a kpi de lote critico (aquela kpi quadrada vermelha)
-    document.getElementById("id_lote_critico").innerHTML = `Lote: ${lotes[0].lote_id}`
-    document.getElementById("quantidade_alerta_lote_critico").innerHTML = `${lotes[0].alertas_graves} ALERTAS GRAVES`
-    document.getElementById("ultima_captura_alerta").innerHTML = `${lotes[0].ultimo_alerta}`
-
-    lotesOrdenados.forEach(lote => {
-
-      const linha = document.createElement("tr");
-      linha.classList.add("selecionado");
-      linha.addEventListener('click', function(){
-        console.log(lote.lote_id)
-        window.location.href = `fechar.html?fk_lote=${lote.lote_id}`
-      })
-
-      const tdLote = document.createElement("td");
-      tdLote.textContent = `Lote ${lote.lote_id}`;
-
-      const tdCarros = document.createElement("td");
-      tdCarros.textContent = lote.carros;
-
-      const tdAlertas = document.createElement("td");
-      tdAlertas.textContent = lote.alertas;
-
-      const tdGraves = document.createElement("td");
-      tdGraves.textContent = lote.alertas_graves;
-      tdGraves.classList.add(definirClasseStatus(lote.alertas, lote.alertas_graves));
-
-      linha.appendChild(tdLote);
-      linha.appendChild(tdCarros);
-      linha.appendChild(tdAlertas);
-      linha.appendChild(tdGraves);
-
-      tabelaCorpo.appendChild(linha);
-
-    });
-  })
-  .catch((erro) => console.error("Erro ao fazer o fetch:", erro));
-}
-
-
-// aqui é para colocar cor na td (vermelho, amarelo ou verde)
-function definirClasseStatus(total, graves) {
-    let percentual_alerta = (graves / total) * 100
-
-    if (percentual_alerta > 0 && percentual_alerta <= 100){
-      return "status_lote"
-    } else {
-      return "status_lote_normal"
-    }
-}
-
-  // atualizar kpi total carro
-function buscarKpis(){
-      fetch(`/seguranca/buscar_carros?fk_agencia=${fk_agencia}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json())
-  .then((res) => {
-    console.log(res)
-    total_carro_kpi = res[0].total_carro;
-    document.getElementById("total_carro").innerHTML = total_carro_kpi
-
-    return fetch(`/seguranca/buscar_alertas?fk_agencia=${fk_agencia}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json())
-  .then((res) => {
-    total_alertas_kpi = res[0].total_alerta;
-    let porcentagem_alerta = (total_alertas_kpi / total_carro_kpi) * 100
-    if (porcentagem_alerta >= 50){
-      document.getElementById("valor_kpi_alerta").style.color = "red";
-    } else {
-      document.getElementById("valor_kpi_alerta").style.color = "green";
-    }
-    document.getElementById("valor_kpi_alerta").innerHTML = total_alertas_kpi
-  }) 
-  }) 
-  .catch((erro) => {
-    console.log("deu ruim buceta caralho")
-  })
-  }
-
-
-  // grafico em tempo real
-const ctx = document.getElementById('fluxoChart').getContext('2d');
-
-const fluxoData = {
-  labels: [],
-  datasets: [
-    {
-      label: 'Carros sem alertas',
-      backgroundColor: 'limegreen',
-      data: [],
-      barPercentage: 0.7,
-      borderRadius: 6,
-    },
-    {
-      label: 'Carros com alerta medio',
-      backgroundColor: 'gold',
-      data: [],
-      barPercentage: 0.7,
-      borderRadius: 6
-    },
-    {
-      label: 'Carros com alerta grave',
-      backgroundColor: 'red',
-      data: [],
-      barPercentage: 0.7,
-      borderRadius: 6
-    }
-  ]
-};
-
-const fluxoChart = new Chart(ctx, {
-  type: 'bar',
-  data: fluxoData,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      x: {
-        stacked: false,
-        grid: {
-          display: false
+    // buscar lotes
+    function trazerAtualizarLotes() {
+      fetch(`/seguranca/buscar_lotes?fk_agencia=${fk_agencia}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
-        ticks: {
-          autoSkip: false,
-          maxRotation: 45,
-          minRotation: 45
-        }
-      },
-      y: {
-        beginAtZero: true,
-        stacked: false,
-        grid: {
-          display: false
-        }
+      })
+        .then((res) => res.json())
+        .then((lotes) => {
+          console.log(lotes)
+          // Calcula a porcentagem e ordena
+          const lotesOrdenados = lotes
+          // .map(lote => {
+          //   const totalAlertas = lote.alertas;
+          //   const alertasGraves = lote.alertas_graves;
+          //   const porcentagem = totalAlertas > 0
+          //     ? (alertasGraves / totalAlertas) * 100
+          //     : 0;
+          //   return { ...lote, porcentagem_graves: porcentagem };
+          // })
+          // .sort((a, b) => b.porcentagem_graves - a.porcentagem_graves);
+
+
+          const tabelaCorpo = document.querySelector(".tabela_lotes tbody");
+          tabelaCorpo.innerHTML = "";
+
+          // atualizando a kpi de lote critico (aquela kpi quadrada vermelha)
+          document.getElementById("id_lote_critico").innerHTML = `Lote: ${lotes[0].lote_id}`
+          document.getElementById("quantidade_alerta_lote_critico").innerHTML = `${lotes[0].alertas_graves} ALERTAS GRAVES`
+          document.getElementById("ultima_captura_alerta").innerHTML = `${lotes[0].ultimo_alerta}`
+
+          lotesOrdenados.forEach(lote => {
+
+            const linha = document.createElement("tr");
+            linha.classList.add("selecionado");
+            linha.addEventListener('click', function () {
+              console.log(lote.lote_id)
+              window.location.href = `fechar.html?fk_lote=${lote.lote_id}`
+            })
+
+            const tdLote = document.createElement("td");
+            tdLote.textContent = `Lote ${lote.lote_id}`;
+
+            const tdCarros = document.createElement("td");
+            tdCarros.textContent = lote.carros;
+
+            const tdAlertas = document.createElement("td");
+            tdAlertas.textContent = lote.alertas;
+
+            const tdGraves = document.createElement("td");
+            tdGraves.textContent = lote.alertas_graves;
+            tdGraves.classList.add(definirClasseStatus(lote.alertas, lote.alertas_graves));
+
+            linha.appendChild(tdLote);
+            linha.appendChild(tdCarros);
+            linha.appendChild(tdAlertas);
+            linha.appendChild(tdGraves);
+
+            tabelaCorpo.appendChild(linha);
+
+          });
+        })
+        .catch((erro) => console.error("Erro ao fazer o fetch:", erro));
+    }
+
+
+    // aqui é para colocar cor na td (vermelho, amarelo ou verde)
+    function definirClasseStatus(total, graves) {
+      let percentual_alerta = (graves / total) * 100
+
+      if (percentual_alerta > 0 && percentual_alerta <= 100) {
+        return "status_lote"
+      } else {
+        return "status_lote_normal"
       }
     }
-  }
-});
 
-// aqui é para atualizar os dados do grafico (grafico em tempo real dos lotes)
-function atualizarGrafico() {
-    fetch(`/seguranca/dados_tempo_real?fk_agencia=${fk_agencia}`)
+    // atualizar kpi total carro
+    function buscarKpis() {
+      fetch(`/seguranca/buscar_carros?fk_agencia=${fk_agencia}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => res.json())
+        .then((res) => {
+          console.log(res)
+          total_carro_kpi = res[0].total_carro;
+          document.getElementById("total_carro").innerHTML = total_carro_kpi
+
+          return fetch(`/seguranca/buscar_alertas?fk_agencia=${fk_agencia}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }).then((res) => res.json())
+            .then((res) => {
+              total_alertas_kpi = res[0].total_alerta;
+              let porcentagem_alerta = (total_alertas_kpi / total_carro_kpi) * 100
+              if (porcentagem_alerta >= 50) {
+                document.getElementById("valor_kpi_alerta").style.color = "red";
+              } else {
+                document.getElementById("valor_kpi_alerta").style.color = "green";
+              }
+              document.getElementById("valor_kpi_alerta").innerHTML = total_alertas_kpi
+            })
+        })
+        .catch((erro) => {
+          console.log("deu ruim buceta caralho")
+        })
+    }
+
+
+    // grafico em tempo real
+    const ctx = document.getElementById('fluxoChart').getContext('2d');
+
+    const fluxoData = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Carros sem alertas',
+          backgroundColor: 'limegreen',
+          data: [],
+          barPercentage: 0.7,
+          borderRadius: 6,
+        },
+        {
+          label: 'Carros com alerta medio',
+          backgroundColor: 'gold',
+          data: [],
+          barPercentage: 0.7,
+          borderRadius: 6
+        },
+        {
+          label: 'Carros com alerta grave',
+          backgroundColor: 'red',
+          data: [],
+          barPercentage: 0.7,
+          borderRadius: 6
+        }
+      ]
+    };
+
+    const fluxoChart = new Chart(ctx, {
+      type: 'bar',
+      data: fluxoData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          x: {
+            stacked: false,
+            grid: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false,
+              maxRotation: 45,
+              minRotation: 45
+            }
+          },
+          y: {
+            beginAtZero: true,
+            stacked: false,
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+
+    // aqui é para atualizar os dados do grafico (grafico em tempo real dos lotes)
+    function atualizarGrafico() {
+      fetch(`/seguranca/dados_tempo_real?fk_agencia=${fk_agencia}`)
         .then(response => response.json())
         .then(data => {
-            if (data && data.length > 0) {
-                const ponto = data[0];
+          if (data && data.length > 0) {
+            const ponto = data[0];
 
-                if (fluxoChart.data.labels.length >= 6) {
-                    fluxoChart.data.labels.shift();
-                    fluxoChart.data.datasets[0].data.shift();
-                    fluxoChart.data.datasets[1].data.shift();
-                    fluxoChart.data.datasets[2].data.shift();
-                }
-
-                fluxoChart.data.labels.push(ponto.horario);
-                fluxoChart.data.datasets[0].data.push(ponto.carros_sem_alertas);
-                fluxoChart.data.datasets[1].data.push(ponto.alertas_medios);
-                fluxoChart.data.datasets[2].data.push(ponto.alertas_graves);
-
-                fluxoChart.update();
-
-
-                  valor_saude = (ponto.carros_sem_alertas / total_carro_kpi) * 100
-                  document.getElementById("valor_saude").innerHTML = valor_saude.toFixed(1) + '%'
-                 if (valor_saude <= 50){
-                    document.getElementById("valor_saude").style.color = "red"
-                  } else if (valor_saude <= 75){
-                    document.getElementById("valor_saude").style.color = "gold"
-                  } else {
-                    document.getElementById("valor_saude").style.color = "limegreen"
-                  }
-                
+            if (fluxoChart.data.labels.length >= 6) {
+              fluxoChart.data.labels.shift();
+              fluxoChart.data.datasets[0].data.shift();
+              fluxoChart.data.datasets[1].data.shift();
+              fluxoChart.data.datasets[2].data.shift();
             }
+
+            fluxoChart.data.labels.push(ponto.horario);
+            fluxoChart.data.datasets[0].data.push(ponto.carros_sem_alertas);
+            fluxoChart.data.datasets[1].data.push(ponto.alertas_medios);
+            fluxoChart.data.datasets[2].data.push(ponto.alertas_graves);
+
+            fluxoChart.update();
+
+
+            valor_saude = (ponto.carros_sem_alertas / total_carro_kpi) * 100
+            document.getElementById("valor_saude").innerHTML = valor_saude.toFixed(1) + '%'
+            if (valor_saude <= 50) {
+              document.getElementById("valor_saude").style.color = "red"
+            } else if (valor_saude <= 75) {
+              document.getElementById("valor_saude").style.color = "gold"
+            } else {
+              document.getElementById("valor_saude").style.color = "limegreen"
+            }
+
+          }
         })
         .catch(error => console.error('Erro ao buscar dados:', error));
-}
-
-
-function atualizarGraficoComponentes(){
-  fetch(`/seguranca/buscarDadosComponentes?fk_agencia=${fk_agencia}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
     }
-  }).then((res) => res.json())
-  .then((res) => {
-    // console.log(res)
-
-    const dados = res[0]
-      componentes_char.data.datasets[0].data = [
-        dados.cpu_medio,
-        dados.ram_medio,
-        dados.disco_medio
-      ];
-
-      componentes_char.data.datasets[1].data = [
-        dados.cpu_grave,
-        dados.ram_grave,
-        dados.disco_grave
-      ];
-
-      componentes_char.update();
-
-  })
-}
 
 
-
-// definindo o tempo em que os dados irão ser atualizados (dando get no banco)
-setInterval(atualizarGrafico, 5000); 
-setInterval(buscarKpis, 5000); 
-setInterval(trazerAtualizarLotes, 1000)
-setInterval(atualizarGraficoComponentes, 5000)
-
-// grafico de barra do comoponente por alerta
-const ctx2 = document.getElementById('componente_char').getContext('2d');
-const componentes_char = new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ['cpu', 'ram', 'disco'],
-    datasets: [
-      {
-        label: 'alertas (médios)',
-        data: [54, 43, 30],
-        backgroundColor: 'gold',
-        borderRadius: 6,
-        barPercentage: 0.9,
-        categoryPercentage: 0.5
-      },
-      {
-        label: 'alertas (graves)',
-        data: [68, 51, 32],
-        backgroundColor: 'purple',
-        borderRadius: 6,
-        barPercentage: 0.9,
-        categoryPercentage: 0.5
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top'
-      },
-      title: {
-        display: true,
-        text: 'Alertas por Componente (médio / grave)\nDIÁRIO'
-      }
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false
-        },
-        title: {
-          display: true,
-          text: 'componente'
+    function atualizarGraficoComponentes() {
+      fetch(`/seguranca/buscarDadosComponentes?fk_agencia=${fk_agencia}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         }
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Valor'
-        },
-        grid: {
-          display: false,
-          color: '#e0e0e0'
-        }
-      }
+      }).then((res) => res.json())
+        .then((res) => {
+          // console.log(res)
+
+          const dados = res[0]
+          componentes_char.data.datasets[0].data = [
+            dados.cpu_medio,
+            dados.ram_medio,
+            dados.disco_medio
+          ];
+
+          componentes_char.data.datasets[1].data = [
+            dados.cpu_grave,
+            dados.ram_grave,
+            dados.disco_grave
+          ];
+
+          componentes_char.update();
+
+        })
     }
-  }
-});
 
 
-            const menuBar = document.getElementById("menu-bar");
-            const sidebar = document.getElementById("side-bar");
-            const fundoPreto = document.getElementById("fundo-preto");
 
-            function toggleSidebar() {
-                const isVisible = sidebar.classList.contains("show");
-                if (!isVisible) {
-                    sidebar.style.display = "flex";
-                    fundoPreto.style.display = "block";
-                    void sidebar.offsetWidth;
-                    void fundoPreto.offsetWidth;
-                    sidebar.classList.add("show");
-                    fundoPreto.classList.add("show");
-                } else {
-                    sidebar.classList.remove("show");
-                    fundoPreto.classList.remove("show");
-                    setTimeout(() => {
-                        sidebar.style.display = "none";
-                        fundoPreto.style.display = "none";
-                    }, 300);
-                }
+    // definindo o tempo em que os dados irão ser atualizados (dando get no banco)
+    setInterval(atualizarGrafico, 5000);
+    setInterval(buscarKpis, 5000);
+    setInterval(trazerAtualizarLotes, 1000)
+    setInterval(atualizarGraficoComponentes, 5000)
+
+    // grafico de barra do comoponente por alerta
+    const ctx2 = document.getElementById('componente_char').getContext('2d');
+    const componentes_char = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['cpu', 'ram', 'disco'],
+        datasets: [
+          {
+            label: 'alertas (médios)',
+            data: [54, 43, 30],
+            backgroundColor: 'gold',
+            borderRadius: 6,
+            barPercentage: 0.9,
+            categoryPercentage: 0.5
+          },
+          {
+            label: 'alertas (graves)',
+            data: [68, 51, 32],
+            backgroundColor: 'purple',
+            borderRadius: 6,
+            barPercentage: 0.9,
+            categoryPercentage: 0.5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Alertas por Componente (médio / grave)\nDIÁRIO'
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'componente'
             }
-            if (menuBar) menuBar.addEventListener("click", toggleSidebar);
-            if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Valor'
+            },
+            grid: {
+              display: false,
+              color: '#e0e0e0'
+            }
+          }
+        }
+      }
+    });
+
+
+    const menuBar = document.getElementById("menu-bar");
+    const sidebar = document.getElementById("side-bar");
+    const fundoPreto = document.getElementById("fundo-preto");
+
+    function toggleSidebar() {
+      const isVisible = sidebar.classList.contains("show");
+      if (!isVisible) {
+        sidebar.style.display = "flex";
+        fundoPreto.style.display = "block";
+        void sidebar.offsetWidth;
+        void fundoPreto.offsetWidth;
+        sidebar.classList.add("show");
+        fundoPreto.classList.add("show");
+      } else {
+        sidebar.classList.remove("show");
+        fundoPreto.classList.remove("show");
+        setTimeout(() => {
+          sidebar.style.display = "none";
+          fundoPreto.style.display = "none";
+        }, 300);
+      }
+    }
+    if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+    if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
   </script>
 </body>
+
 </html>

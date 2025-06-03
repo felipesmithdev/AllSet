@@ -613,10 +613,10 @@ INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia)
 -- Inserting data into the lote table
 INSERT INTO lote (modelo, dt_registro, fk_agencia_lote) VALUES 
 ('Sedan Autônomo X1', '2024-06-10', 1),
-('SUV Conectado Y2', '2024-06-15', 2),
-('Hatchback Smart Z3', '2024-06-20', 3),
-('Pickup Inteligente W4', '2024-06-25', 4),
-('Minivan Conectada V5', '2024-06-30', 5);
+('SUV Conectado Y2', '2024-06-15', 1),
+('Hatchback Smart Z3', '2024-06-20', 1),
+('Pickup Inteligente W4', '2024-06-25', 1),
+('Minivan Conectada V5', '2024-06-30', 1);
 
 -- Inserting data into the carro table
 INSERT INTO carro (marca, ano, sistema_operacional, macadress, fk_lote) VALUES 

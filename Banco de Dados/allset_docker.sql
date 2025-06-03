@@ -127,9 +127,9 @@ INSERT INTO agencia (cep, numero, complemento, fk_empresa, fk_endereco) VALUES
 
 INSERT INTO pessoa (nome, cpf, email, senha, nivel_permissao, ativo, fk_agencia) VALUES 
 ('Felipe Silva', '12345678901', 'felipe@email.com', 'senha123', 3, 1, 1),
-('Jordana Oliveira', '23456789012', 'jordana@email.com', 'senha123', 2, 1, 2),
-('Marcos Santos', '34567890123', 'marcos@email.com', 'senha123', 1, 1, 3),
-('Carlos Souza', '56789012345', 'carlos.souza@email.com', 'senha345', 0, 1, 5);
+('Jordana Oliveira', '23456789012', 'jordana@email.com', 'senha123', 2, 1, 1),
+('Marcos Santos', '34567890123', 'marcos@email.com', 'senha123', 1, 1, 1),
+('Carlos Souza', '56789012345', 'carlos.souza@email.com', 'senha345', 0, 1, 1);
 
 INSERT INTO lote (modelo, dt_registro, fk_agencia_lote) VALUES 
 ('Sedan Autônomo X1', '2024-06-10', 1),

@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Infra</title>
   <link rel="stylesheet" href="../css/infra.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
   <link rel="website icon" type="png" href="../assets/img/logoAllSet.png" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- <script src="../js/sessao.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
+
+  <script src="../js/sessao.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
@@ -44,9 +46,11 @@
    <div class="kpi">Custo total
      <p id="kpi-custo-total"></p>
       </div>
-        <div class="kpi">Instância</div>
-        <div class="kpi">CPU (%) da EC2</div>
-        <div class="kpi">RAM (%) da EC2</div>
+        <div class="kpi">Instância
+          <p id="kpi-instancia-status"></p>
+        </div>
+        <!-- <div class="kpi">CPU (%) da EC2</div>
+        <div class="kpi">RAM (%) da EC2</div> -->
     </div>
 
     <div class="central-graficos">
@@ -90,12 +94,12 @@
       <img src="../assets/imgs/user.png" alt="">
       <div class="textos-perfil">
         <span>Bem Vindo</span>
-        <span id="b_usuario">Felipe</span>
+        <span id="b_usuario">Carlos</span>
       </div>
     </div>
     <div class="opcoes-bar">
-      <a href="">Dashboard</a>
-      <a href="">Alertas</a>
+      <!-- <a href="">Dashboard</a>
+      <a href="">Alertas</a> -->
       <a href="">Sair</a>
     </div>
   </div>
@@ -108,33 +112,43 @@
 
 <script>
 
-  document.getElementById("menu-bar").addEventListener("click", function () {
-    const sidebar = document.querySelector(".side-bar");
-    const fundoPreto = document.querySelector(".fundo-preto");
+   document.addEventListener('DOMContentLoaded', async () => {
+    const menuBar = document.getElementById("menu-bar");
+    const sidebar = document.getElementById("side-bar");
+    const fundoPreto = document.getElementById("fundo-preto");
 
-    const isVisible = sidebar.classList.contains("show");
-
-    if (!isVisible) {
-      sidebar.style.display = "flex";
-      fundoPreto.style.display = "block";
-
-      void sidebar.offsetWidth;
-      void fundoPreto.offsetWidth;
-
-      sidebar.classList.add("show");
-      fundoPreto.classList.add("show");
-    } else {
-      sidebar.classList.remove("show");
-      fundoPreto.classList.remove("show");
-
-      setTimeout(() => {
-        sidebar.style.display = "none";
-        fundoPreto.style.display = "none";
-      }, 300);
+    function toggleSidebar() {
+      const isVisible = sidebar.classList.contains("show");
+      if (!isVisible) {
+        sidebar.style.display = "flex";
+        fundoPreto.style.display = "block";
+        void sidebar.offsetWidth;
+        void fundoPreto.offsetWidth;
+        sidebar.classList.add("show");
+        fundoPreto.classList.add("show");
+      } else {
+        sidebar.classList.remove("show");
+        fundoPreto.classList.remove("show");
+        setTimeout(() => {
+          sidebar.style.display = "none";
+          fundoPreto.style.display = "none";
+        }, 300);
+      }
     }
+    if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+    if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
+
   });
 
-    function mostrarGrafico(grafico) {
+
+  
+
+   function definirCor(custo, limite) {
+  if (custo >= limite * 2) return "kpi-vermelho";
+  if (custo >= limite * 0.6) return "kpi-amarelo";
+  return "kpi-verde";
+}
+  function mostrarGrafico(grafico) {
   const graficos = ["EC2", "S3", "Lambda"];
 
   graficos.forEach(id => {
@@ -142,27 +156,68 @@
   });
 
   const custo = window.totalPorServico?.[grafico] || 0;
+  const limite = window.limitesPorServico?.[grafico] || 1; 
 
-  
   const kpiInfo = document.getElementById('kpi-info');
   kpiInfo.innerHTML = `
     <h3>Custo total do Serviço</h3>
     <p>$${custo.toFixed(2)}</p>
   `;
 
- 
-  kpiInfo.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
+   kpiInfo.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
+   kpiInfo.classList.add(definirCor(custo, limite));
 
-  
-  if (custo >= 100) {
-    kpiInfo.classList.add("kpi-vermelho");
-  } else if (custo >= 50) {
-    kpiInfo.classList.add("kpi-amarelo");
-  } else {
-    kpiInfo.classList.add("kpi-verde");
-  }
 }
 
+ function PegarDados() {
+  fetch("/custos/infra/ultimo-instance-id")
+    .then(res => res.json())
+    .then(data => {
+      if (!data.INSTANCE_ID) {
+        console.error("INSTANCE_ID não encontrado");
+        document.getElementById("kpi-instancia-status").innerText = "Sem dados";
+        return;
+      }
+
+      fetch(`/custos/infra/coletar/status/${data.INSTANCE_ID}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Erro na resposta do servidor");
+          return res.json();
+        })
+        .then(dados => {
+          console.log("Dados recebidos:", dados);
+
+          if (!dados || dados.length === 0) {
+            document.getElementById("kpi-instancia-status").innerText = "Sem dados";
+            return;
+          }
+
+          
+          const ultimoDado = dados[dados.length - 1];
+          const status = ultimoDado.dadosCaptura.status || "Status não disponível";
+
+          
+          document.getElementById("kpi-instancia-status").innerText = status;
+        })
+        .catch(err => {
+          console.error("Erro ao buscar dados da instância:", err);
+          document.getElementById("kpi-instancia-status").innerText = "Erro ao buscar dados";
+        });
+    })
+    .catch(err => {
+      console.error("Erro ao buscar último INSTANCE_ID:", err);
+      document.getElementById("kpi-instancia-status").innerText = "Erro ao buscar ID";
+    });
+}
+
+
+  document.querySelector('.botoes-graficos').addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON') {
+      document.querySelectorAll('.botoes-graficos button')
+        .forEach(btn => btn.classList.remove('ativo'));
+      e.target.classList.add('ativo');
+    }
+  });
 
 
      function filtrarPorData() {
@@ -224,106 +279,152 @@ document.getElementById('kpi-info').innerHTML = `
 
   let graficoEC2, graficoS3, graficoLambda; 
 
-function plotarGraficoDeCustos(dados) {
- const datas = dados.map(item => item.data);
-  const valoresEC2 = dados.map(item => item.ec2_custo || 0);
-  const valoresS3 = dados.map(item => item.s3_custo || 0);
-  const valoresLambda = dados.map(item => item.lambda_custo || 0);
-
-  const configBase = (labels, data, label, color) => ({
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label,
-        data,
-        borderColor: color,
-        backgroundColor: `${color}11`,
-        tension: 0.3,
-        fill: false,
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+function plotarGraficoDeCustos(dadosFiltrados) {
+  
 
   
-  if (graficoEC2) graficoEC2.destroy();
-  if (graficoS3) graficoS3.destroy();
-  if (graficoLambda) graficoLambda.destroy();
+  fetch("/custos/infra")
+    .then(res => res.json())
+    .then(dadosCompletos => {
+      const registrosCompletos = dadosCompletos[0];
 
- 
-  graficoEC2 = new Chart(
-    document.getElementById('graficoEc2Canvas'),
-    configBase(datas, valoresEC2, 'Custo EC2', 'rgba(75, 192, 192, 1)')
-  );
+      
+      const valoresEC2Totais = registrosCompletos.map(item => item.ec2_custo || 0);
+      const valoresS3Totais = registrosCompletos.map(item => item.s3_custo || 0);
+      const valoresLambdaTotais = registrosCompletos.map(item => item.lambda_custo || 0);
 
-  graficoS3 = new Chart(
-    document.getElementById('graficoS3Canvas'),
-    configBase(datas, valoresS3, 'Custo S3', 'rgba(255, 206, 86, 1)')
-  );
+      const mediaEC2Total = valoresEC2Totais.reduce((a, b) => a + b, 0) / valoresEC2Totais.length;
+      const mediaS3Total = valoresS3Totais.reduce((a, b) => a + b, 0) / valoresS3Totais.length;
+      const mediaLambdaTotal = valoresLambdaTotais.reduce((a, b) => a + b, 0) / valoresLambdaTotais.length;
 
-  graficoLambda = new Chart(
-    document.getElementById('graficoLambdaCanvas'),
-    configBase(datas, valoresLambda, 'Custo Lambda', 'rgba(153, 102, 255, 1)')
-  );
+      
+      const limiteFixadoEC2 = mediaEC2Total * 1.8;
+      const limiteFixadoS3 = mediaS3Total * 1.8;
+      const limiteFixadoLambda = mediaLambdaTotal * 1.8;
+
+      
+      const datas = dadosFiltrados.map(item => item.data);
+      const valoresEC2 = dadosFiltrados.map(item => item.ec2_custo || 0);
+      const valoresS3 = dadosFiltrados.map(item => item.s3_custo || 0);
+      const valoresLambda = dadosFiltrados.map(item => item.lambda_custo || 0);
+
+      
+      const gerarLinhaLimite = (limite) => Array(datas.length).fill(limite);
+
+      const configBase = (labels, data, label, color, limite) => ({
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label,
+              data,
+              borderColor: color,
+              backgroundColor: `${color}11`,
+              tension: 0.3,
+              fill: false,
+            },
+            {
+              label: 'Limite (180%)',
+              data: gerarLinhaLimite(limite),
+              borderColor: 'red',
+              borderDash: [10, 5],
+              pointRadius: 0,
+              borderWidth: 2,
+              tension: 0,
+              fill: false,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { labels: { color: '#333' } }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+
+      if (graficoEC2) graficoEC2.destroy();
+      if (graficoS3) graficoS3.destroy();
+      if (graficoLambda) graficoLambda.destroy();
+
+      graficoEC2 = new Chart(
+        document.getElementById('graficoEc2Canvas'),
+        configBase(datas, valoresEC2, 'Custo EC2', 'rgba(75, 192, 192, 1)', limiteFixadoEC2)
+      );
+
+      graficoS3 = new Chart(
+        document.getElementById('graficoS3Canvas'),
+        configBase(datas, valoresS3, 'Custo S3', 'rgba(255, 206, 86, 1)', limiteFixadoS3)
+      );
+
+      graficoLambda = new Chart(
+        document.getElementById('graficoLambdaCanvas'),
+        configBase(datas, valoresLambda, 'Custo Lambda', 'rgba(153, 102, 255, 1)', limiteFixadoLambda)
+      );
+    })
+    .catch(err => {
+      console.error("Erro ao buscar dados completos:", err);
+      alert("Falha ao calcular o limite fixo do gráfico.");
+    });
 }
+
+
 
 function atualizarKPIs(dadosFiltrados) {
   let totalEC2 = 0;
   let totalS3 = 0;
   let totalLambda = 0;
 
-  for (let i = 0; i < dadosFiltrados.length; i++) {
-    totalEC2 += dadosFiltrados[i].ec2_custo || 0;
-    totalS3 += dadosFiltrados[i].s3_custo || 0;
-    totalLambda += dadosFiltrados[i].lambda_custo || 0;
-  }
+  const qtdRegistros = dadosFiltrados.length;
 
-  let maiorNome = 'EC2';
-  let maiorValor = totalEC2;
+  dadosFiltrados.forEach(item => {
+    totalEC2 += item.ec2_custo || 0;
+    totalS3 += item.s3_custo || 0;
+    totalLambda += item.lambda_custo || 0;
+  });
 
-  if (totalS3 > maiorValor) {
-    maiorNome = 'S3';
-    maiorValor = totalS3;
-  }
+  const mediaEC2 = totalEC2 / qtdRegistros;
+  const mediaS3 = totalS3 / qtdRegistros;
+  const mediaLambda = totalLambda / qtdRegistros;
 
-  if (totalLambda > maiorValor) {
-    maiorNome = 'Lambda';
-    maiorValor = totalLambda;
-  }
+ const limiteEC2 = mediaEC2 * 1.8; 
+const limiteS3 = mediaS3 * 1.8;
+const limiteLambda = mediaLambda * 1.8; 
 
   const totalGeral = totalEC2 + totalS3 + totalLambda;
 
+ 
+  const servicos = [
+    { nome: "EC2", valor: totalEC2, limite: limiteEC2 },
+    { nome: "S3", valor: totalS3, limite: limiteS3 },
+    { nome: "Lambda", valor: totalLambda, limite: limiteLambda }
+  ];
+
+  const maior = servicos.reduce((a, b) => (a.valor > b.valor ? a : b));
+
   
-document.getElementById("kpi-servico-mais-gasto").innerText = `${maiorNome} ($${maiorValor.toFixed(2)})`;
-document.getElementById("kpi-custo-total").innerText = `$${totalGeral.toFixed(2)}`;
+  document.getElementById("kpi-servico-mais-gasto").innerText =
+    `${maior.nome} ($${maior.valor.toFixed(2)})`;
 
+ 
+  document.getElementById("kpi-custo-total").innerText =
+    `$${totalGeral.toFixed(2)}`;
 
-const kpiGasto = document.getElementById("kpi-servico-mais-gasto").parentElement;
-const kpiTotal = document.getElementById("kpi-custo-total").parentElement;
+  const kpiGasto = document.getElementById("kpi-servico-mais-gasto").parentElement;
+  const kpiTotal = document.getElementById("kpi-custo-total").parentElement;
 
+  
+  [kpiGasto, kpiTotal].forEach(el => {
+    el.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
+  });
 
-[kpiGasto, kpiTotal].forEach(el => {
-  el.classList.remove("kpi-verde", "kpi-amarelo", "kpi-vermelho");
-});
-
-
-function definirCor(custo) {
-  if (custo >= 100) return "kpi-vermelho";
-  if (custo >= 50) return "kpi-amarelo";
-  return "kpi-verde";
-}
-
-kpiGasto.classList.add(definirCor(maiorValor));
-kpiTotal.classList.add(definirCor(totalGeral));
-
+  
+  kpiGasto.classList.add(definirCor(maior.valor, maior.limite));
+  kpiTotal.classList.add(definirCor(totalGeral, (mediaEC2 + mediaS3 + mediaLambda) * 0.10));
 
 
  
@@ -332,7 +433,19 @@ kpiTotal.classList.add(definirCor(totalGeral));
     S3: totalS3,
     Lambda: totalLambda
   };
+
+  window.limitesPorServico = {
+  EC2: limiteEC2,
+  S3: limiteS3,
+  Lambda: limiteLambda
+};
 }
+
+  PegarDados();
+
+
+  setInterval(PegarDados, 15000);
+
 
   </script>
 

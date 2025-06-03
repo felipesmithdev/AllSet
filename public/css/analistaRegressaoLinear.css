@@ -1,10 +1,178 @@
 :root {
     --blue: #61B0FF;
-    margin: 0;
 }
 
 * {
     box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    margin: 0; 
+}
+
+.layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.secao-side {
+    height: 100vh;
+    width: 65px; 
+    background-color: #1B2559; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    padding-top: 10px;
+    position: fixed; 
+    left: 0;
+    top: 0;
+    z-index: 1002; 
+}
+
+.botao-side-bar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.secao-side .logo {
+    padding: 18px 0;
+}
+
+.secao-side .logo span {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+#menu-bar { 
+    color: #ffffff;
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+.side-bar { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none; 
+    flex-direction: column;
+    background-color: #0B1624; 
+    padding: 20px;
+    width: 270px; 
+    height: 100vh;
+    gap: 25px;
+    box-sizing: border-box;
+    z-index: 1003;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-family: 'Barlow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #CCD6F6; 
+}
+
+.side-bar.show {
+    transform: translateX(0);
+    opacity: 1;
+    display: flex;
+}
+
+.side-bar .logo {
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #173A5E;
+}
+.side-bar .logo span {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--blue); 
+}
+
+.boas-vindas {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #173A5E;
+}
+
+.boas-vindas img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.textos-perfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.boas-vindas span {
+    font-size: 14px;
+    color: white;
+}
+
+#b_usuario { 
+    font-size: 17px; 
+    color: var(--blue); 
+    font-weight: 500; 
+}
+
+.opcoes-bar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.opcoes-bar a {
+    font-size: 15px;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(to right, var(--blue) 0%, var(--blue) 3%, #34495e 3%, #34495e 100%);
+    width: 100%;
+    padding: 10px 15px; 
+    border-radius: 8px;
+    font-weight: 600;
+    transition: filter 0.2s ease;
+}
+.opcoes-bar a:hover {
+    filter: brightness(1.2);
+}
+
+
+.fundo-preto { 
+    display: none; 
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fundo-preto.show {
+    display: block;
+    opacity: 1;
+}
+
+.conteudo-principal {
+    margin-left: 65px;
+    width: calc(100% - 65px); 
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #EBEBEB; 
 }
 
 body {
@@ -18,159 +186,16 @@ body {
     scroll-behavior: smooth;
 }
 
-span {
-    color: #ffffff;
-}
-
-.layout {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-}
-
-
-.secao-side {
-    height: 100vh;
-    width: 5%;
-}
-
-.botao-side-bar {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: auto;
-    height: auto;
-    cursor: pointer;
-    z-index: 1100;
-}
-
-
-.botao-side-bar span {
-    font-weight: 600;
-    color: var(--blue);
-}
-
-#menu-bar {
-    color: white;
-    font-size: 25px;
-    transform: scaleX(-1.7);
-    padding: 5px;
-}
-
-.side-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    background-color: #0B1624;
-    padding: 30px;
-    width: 25%;
-    height: 100vh;
-    gap: 20px;
-    box-sizing: border-box;
-    z-index: 1000;
-    transform: translateX(-100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.side-bar.show {
-    transform: translateX(0);
-    opacity: 1;
-    display: flex;
-}
-
-.side-bar span {
-    font-size: 5vh;
-    font-weight: 600;
-    color: var(--blue);
-}
-
-.boas-vindas {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 80%;
-}
-
-.boas-vindas img {
-    width: 30%;
-}
-
-.textos-perfil {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.boas-vindas span {
-    font-size: 3vh;
-    color: white;
-}
-
-#b_usuario {
-    color: var(--blue);
-}
-
-.opcoes-bar {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    flex-direction: column;
-    height: 20%;
-    width: 80%;
-    gap: 10px;
-    margin-bottom: 60%;
-}
-
-.opcoes-bar a {
-    font-size: 2.5vh;
-    text-decoration: none;
-    color: #ffffff;
-    background: linear-gradient(to right, var(--blue) 0%, var(--blue) 3%, #34495e 3%, #34495e 100%);
-    width: 100%;
-    padding: 8px;
-    padding-left: 20px;
-    border-radius: 12px;
-    font-weight: 600;
-}
-
-.fundo-preto {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.fundo-preto.show {
-    display: block;
-    opacity: 1;
-}
-
 .conteudo-principal {
-    width: 94%;
-    height: 200vh;
-    color: black;
-    background-color: #EBEBEB;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    scroll-snap-type: y mandatory;
+    width: 100% !important;
+    height: 200vh !important;
+    color: black !important;
+    background-color: #EBEBEB !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-evenly !important;
+    scroll-snap-type: y mandatory !important;
 }
 
 /* Dash regressao */
@@ -427,6 +452,7 @@ span {
     }
 }
 
+
 /* Media Queries para Responsividade */
 
 /* Tablets e telas médias (768px - 1024px) */
@@ -447,17 +473,17 @@ span {
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
-        width: 75%;
+        width: 72%;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg {
-        width: 20%;
+        width: 25%;
     }
 }
 
 /* Smartphones e telas pequenas (max-width: 768px) */
 @media screen and (max-width: 768px) {
-    /* Correção do layout principal e scroll */
+    /* Correção do layout principal */
     body {
         overflow-x: hidden;
         overflow-y: auto;
@@ -471,329 +497,424 @@ span {
     
     .secao-side {
         width: 100%;
-        height: 60px;
+        height: 70px;
         z-index: 1200;
         position: fixed;
         top: 0;
         left: 0;
         background-color: #0B1624;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+    
+    .botao-side-bar {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
     }
     
     .conteudo-principal {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        margin-top: 60px;
+        width: 100% !important;
+        height: auto !important;
+        min-height: calc(100vh - 70px) !important;
+        margin-left: 0 !important;
+        margin-top: 70px !important;
         padding-top: 20px;
-        overflow: visible;
-        scroll-snap-type: none;
+        overflow: visible !important;
+        scroll-snap-type: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
     }
     
     /* Ajustes da sidebar */
     .side-bar {
-        width: 70%;
-        max-width: 300px;
+        width: 75%;
+        max-width: 320px;
+        top: 70px;
+        height: calc(100vh - 70px);
     }
     
-    .side-bar span {
-        font-size: 3.5vh;
-    }
-    
-    .boas-vindas span {
-        font-size: 2.2vh;
-    }
-    
-    .opcoes-bar a {
-        font-size: 1.8vh;
-        padding: 6px 15px;
-    }
-    
-    /* Seção de gráficos - Corrigindo scroll */
+    /* Seção de gráficos */
     .conteudo-principal #graficos {
-        height: auto;
-        min-height: 100vh;
-        padding: 20px 10px 40px 10px;
-        gap: 30px;
+        height: auto !important;
+        min-height: calc(100vh - 90px) !important;
+        padding: 30px 15px 50px 15px;
+        gap: 25px;
         scroll-snap-align: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #graficos h1 {
-        font-size: 22px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin: 0 0 25px 0;
         text-align: center;
+        width: 100%;
     }
     
     .conteudo-principal #graficos .seletores {
         flex-direction: column;
         align-items: center;
-        height: auto;
+        height: auto !important;
         width: 100%;
         gap: 15px;
-        margin-left: 0;
-        padding: 0 20px;
-        margin-bottom: 20px;
+        margin-left: 0 !important;
+        padding: 0;
+        justify-content: center !important;
     }
     
     .conteudo-principal #graficos .seletores h3 {
         text-align: center;
-        margin-bottom: 8px;
+        margin: 0 0 10px 0 !important;
+        font-size: 16px;
     }
     
     .conteudo-principal #graficos .seletores select {
-        width: 250px;
-        height: 45px;
+        width: 280px !important;
+        max-width: 90vw;
+        height: 45px !important;
         font-size: 16px;
+        margin-right: 0 !important;
     }
     
     .conteudo-principal #graficos #graficosDados {
         flex-direction: column;
-        height: auto;
+        height: auto !important;
         width: 100%;
         gap: 30px;
-        padding: 0 15px;
+        padding: 0;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #graficos #graficosDados #metricas {
         width: 100%;
-        height: auto;
+        height: auto !important;
         gap: 25px;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #graficos #graficosDados #metricas .grafLine {
-        height: 280px;
-        min-height: 280px;
-        margin-bottom: 10px;
+        height: 300px !important;
+        min-height: 300px;
+        width: 100%;
     }
     
     .conteudo-principal #graficos #graficosDados #dadosExternos {
         width: 100%;
-        height: auto;
+        height: auto !important;
         gap: 25px;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
-        height: 280px;
-        min-height: 280px;
-        margin-bottom: 10px;
+        height: 300px !important;
+        min-height: 300px;
+        width: 100%;
     }
     
-    /* Seção de regressão - Corrigindo scroll */
+    /* Seção de regressão */
     .conteudo-principal #regressao:nth-child(2) {
-        height: auto;
-        min-height: 100vh;
-        padding: 20px 10px 40px 10px;
-        gap: 25px;
+        height: auto !important;
+        min-height: calc(100vh - 90px) !important;
+        padding: 30px 15px 50px 15px;
+        gap: 30px;
         scroll-snap-align: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) h1 {
-        font-size: 22px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin: 0 0 25px 0;
         text-align: center;
+        width: 100%;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header {
         flex-direction: column;
-        height: auto;
+        height: auto !important;
         width: 100%;
-        gap: 20px;
-        padding: 15px;
+        gap: 25px;
+        padding: 0;
         align-items: center;
-        margin-bottom: 20px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header .seletores {
-        width: 100%;
+        width: 100% !important;
         flex-direction: column;
         align-items: center;
         gap: 20px;
+        justify-content: center !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header .seletores h3 {
         text-align: center;
-        margin-bottom: 8px;
+        margin: 0 0 10px 0 !important;
+        font-size: 16px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header .seletores select {
-        width: 250px;
-        height: 45px;
+        width: 280px !important;
+        max-width: 90vw;
+        height: 45px !important;
         font-size: 16px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header button {
-        width: 200px;
-        height: 50px;
+        width: 220px !important;
+        max-width: 90vw;
+        height: 50px !important;
         font-size: 16px;
         font-weight: bold;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header #indicadores {
-        width: 100%;
+        width: 100% !important;
         justify-content: center;
+        gap: 15px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao {
         flex-direction: column;
-        height: auto;
+        height: auto !important;
         width: 100%;
-        gap: 25px;
-        padding: 0 15px;
+        gap: 30px;
+        padding: 0;
+        justify-content: flex-start !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
-        width: 100%;
-        height: 350px;
-        min-height: 350px;
+        width: 100% !important;
+        height: 400px !important;
+        min-height: 400px;
         order: 1;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg {
-        width: 100%;
-        height: auto;
+        width: 100% !important;
+        height: auto !important;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 20px;
         justify-content: center;
         order: 2;
-        margin-top: 20px;
+        align-items: stretch;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
-        width: calc(50% - 10px);
-        height: 120px;
-        min-width: 140px;
+        width: calc(50% - 10px) !important;
+        height: 140px !important;
+        min-width: 160px;
+        max-width: 200px;
+        flex: 0 1 auto;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
-        height: 90px;
-        padding: 8px;
+        height: 100px !important;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
-        font-size: 12px;
+        font-size: 13px !important;
         text-align: center;
-        line-height: 1.2;
-        margin-bottom: 5px;
+        line-height: 1.3;
+        margin: 0 0 8px 0 !important;
+        font-weight: 400 !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
-        font-size: 18px;
-        line-height: 1;
+        font-size: 20px !important;
+        line-height: 1.2;
+        margin: 0 !important;
     }
 }
 
-/* Smartphones muito pequenos (max-width: 480px) */
+/* Smartphones pequenos (max-width: 480px) */
 @media screen and (max-width: 480px) {
+    .secao-side {
+        height: 65px;
+        padding: 0 15px;
+    }
+    
+    .conteudo-principal {
+        margin-top: 65px !important;
+        min-height: calc(100vh - 65px) !important;
+    }
+    
     .side-bar {
         width: 85%;
-        max-width: 280px;
+        max-width: 300px;
+        top: 65px;
+        height: calc(100vh - 65px);
     }
     
-    .side-bar span {
-        font-size: 3vh;
+    /* Ajustes específicos para telas pequenas */
+    .conteudo-principal #graficos,
+    .conteudo-principal #regressao:nth-child(2) {
+        padding: 25px 10px 40px 10px;
+        min-height: calc(100vh - 85px) !important;
     }
     
-    .boas-vindas span {
-        font-size: 2vh;
-    }
-    
-    .opcoes-bar a {
-        font-size: 1.6vh;
-        padding: 5px 12px;
-    }
-    
-    /* Ajustes específicos para telas muito pequenas */
     .conteudo-principal #graficos h1,
     .conteudo-principal #regressao:nth-child(2) h1 {
-        font-size: 20px;
-        padding: 0 15px;
+        font-size: 22px;
     }
     
     .conteudo-principal #graficos .seletores select,
     .conteudo-principal #regressao:nth-child(2) #header .seletores select {
-        width: 100%;
-        max-width: 280px;
-        font-size: 14px;
+        width: 100% !important;
+        max-width: 320px;
+        font-size: 15px;
+        height: 42px !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #header button {
-        width: 100%;
-        max-width: 200px;
-        font-size: 14px;
+        width: 100% !important;
+        max-width: 250px;
+        font-size: 15px;
+        height: 48px !important;
     }
     
-    /* KPIs em coluna única para telas muito pequenas */
+    /* KPIs em coluna única para telas pequenas */
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
-        width: 100%;
-        max-width: 280px;
+        width: 100% !important;
+        max-width: 320px;
         margin: 0 auto;
+        height: 130px !important;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
+        height: 90px !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
-        font-size: 11px;
+        font-size: 12px !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
-        font-size: 16px;
+        font-size: 18px !important;
     }
     
     /* Ajuste nos gráficos para telas pequenas */
     .conteudo-principal #graficos #graficosDados #metricas .grafLine,
     .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
-        height: 250px;
-        min-height: 250px;
+        height: 280px !important;
+        min-height: 280px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
-        height: 300px;
-        min-height: 300px;
+        height: 350px !important;
+        min-height: 350px;
     }
 }
 
-/* Ajustes para orientação landscape em dispositivos móveis */
-@media screen and (max-width: 768px) and (orientation: landscape) {
-    .secao-side {
-        height: 50px;
+/* Telas muito pequenas (max-width: 360px) */
+@media screen and (max-width: 360px) {
+    .conteudo-principal #graficos,
+    .conteudo-principal #regressao:nth-child(2) {
+        padding: 20px 8px 35px 8px;
     }
     
-    .conteudo-principal {
-        margin-top: 50px;
-        min-height: 100vh;
-        overflow: visible;
+    .conteudo-principal #graficos h1,
+    .conteudo-principal #regressao:nth-child(2) h1 {
+        font-size: 20px;
     }
     
-    .conteudo-principal #graficos {
-        min-height: 100vh;
-        padding: 15px 10px 30px 10px;
+    .conteudo-principal #graficos .seletores h3,
+    .conteudo-principal #regressao:nth-child(2) #header .seletores h3 {
+        font-size: 15px;
     }
     
     .conteudo-principal #graficos #graficosDados #metricas .grafLine,
     .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
-        height: 220px;
-        min-height: 220px;
-    }
-    
-    .conteudo-principal #regressao:nth-child(2) {
-        min-height: 100vh;
-        padding: 15px 10px 30px 10px;
+        height: 260px !important;
+        min-height: 260px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
-        height: 280px;
-        min-height: 280px;
+        height: 320px !important;
+        min-height: 320px;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
-        height: 100px;
+        height: 120px !important;
     }
     
     .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
-        height: 75px;
+        height: 80px !important;
+        padding: 8px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
+        font-size: 11px !important;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
+        font-size: 16px !important;
+    }
+}
+
+/* Ajustes para orientação landscape em dispositivos móveis */
+@media screen and (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .secao-side {
+        height: 55px;
+    }
+    
+    .conteudo-principal {
+        margin-top: 55px !important;
+        min-height: calc(100vh - 55px) !important;
+    }
+    
+    .side-bar {
+        top: 55px;
+        height: calc(100vh - 55px);
+    }
+    
+    .conteudo-principal #graficos,
+    .conteudo-principal #regressao:nth-child(2) {
+        padding: 15px 10px 25px 10px;
+        min-height: calc(100vh - 70px) !important;
+        gap: 20px;
+    }
+    
+    .conteudo-principal #graficos h1,
+    .conteudo-principal #regressao:nth-child(2) h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados #metricas .grafLine,
+    .conteudo-principal #graficos #graficosDados #dadosExternos .grafBar {
+        height: 200px !important;
+        min-height: 200px;
+    }
+    
+    .conteudo-principal #graficos #graficosDados {
+        gap: 20px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #grafReg {
+        height: 250px !important;
+        min-height: 250px;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi {
+        height: 100px !important;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card {
+        height: 70px !important;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card h3 {
+        font-size: 11px !important;
+    }
+    
+    .conteudo-principal #regressao:nth-child(2) #visualizacao #kpisReg .kpi .card p {
+        font-size: 16px !important;
     }
 }

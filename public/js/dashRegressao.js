@@ -109,14 +109,14 @@ function mediaDiariaCPU() {
               annotations: {
                 linha80: {
                   type: 'line',
-                  yMin: 80,
-                  yMax: 80,
+                  yMin: 70,
+                  yMax: 70,
                   borderColor: 'red',
                   borderWidth: 2,
                   borderDash: [6, 6],
                   label: {
                     display: true,
-                    content: 'Limite 80%',
+                    content: 'Limite 70%',
                     position: 'start',
                     backgroundColor: 'rgba(0,0,0,0.7)',
                     color: 'white'
@@ -233,14 +233,14 @@ function mediaDiariaRAM() {
         annotations: {
           linha80: {
             type: 'line',
-            yMin: 80,
-            yMax: 80,
+            yMin: 70,
+            yMax: 70,
             borderColor: 'red',
             borderWidth: 2,
             borderDash: [6, 6],
             label: {
               display: true,
-              content: 'Limite 80%',
+              content: 'Limite 70%',
               position: 'start',
               backgroundColor: 'rgba(0,0,0,0.7)',
               color: 'white'

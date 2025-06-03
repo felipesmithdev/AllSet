@@ -112,7 +112,7 @@
           <div id="kpisReg">
 
             <div class="kpi">
-              
+
               <div class="card">
                 <h3>Força da correlação - R²</h3>
                 <p id="kpiCorrelacao">Valor ?</p>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="kpi">
-              
+
               <div class="card">
                 <h3>Pico métrica</h3>
                 <p id="kpiPico">Valor ?</p>
@@ -128,7 +128,7 @@
             </div>
 
             <div class="kpi">
-              
+
               <div class="card">
                 <h3>Média métrica</h3>
                 <p id="kpiMedia">Valor ?</p>
@@ -136,7 +136,7 @@
             </div>
 
             <div class="kpi">
-              
+
               <div class="card">
                 <h3>Vale métrica</h3>
                 <p id="kpiVale">Valor ?</p>
@@ -178,30 +178,29 @@
 
 <script>
 
-  document.getElementById("menu-bar").addEventListener("click", function () {
-    const sidebar = document.querySelector(".side-bar");
-    const fundoPreto = document.querySelector(".fundo-preto");
+  const menuBar = document.getElementById("menu-bar");
+  const sidebar = document.getElementById("side-bar");
+  const fundoPreto = document.getElementById("fundo-preto");
 
+  function toggleSidebar() {
     const isVisible = sidebar.classList.contains("show");
-
     if (!isVisible) {
       sidebar.style.display = "flex";
       fundoPreto.style.display = "block";
-
       void sidebar.offsetWidth;
       void fundoPreto.offsetWidth;
-
       sidebar.classList.add("show");
       fundoPreto.classList.add("show");
     } else {
       sidebar.classList.remove("show");
       fundoPreto.classList.remove("show");
-
       setTimeout(() => {
         sidebar.style.display = "none";
         fundoPreto.style.display = "none";
       }, 300);
     }
-  });
+  }
+  if (menuBar) menuBar.addEventListener("click", toggleSidebar);
+  if (fundoPreto) fundoPreto.addEventListener("click", toggleSidebar);
 
 </script>

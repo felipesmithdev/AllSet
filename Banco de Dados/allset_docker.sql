@@ -144,8 +144,8 @@ INSERT INTO carro (marca, ano, sistema_operacional, macadress, fk_lote) VALUES
 ('Mercedes', '2024', 'MBUX AI 2.5', '22:3A:4B:5C:6D:7E', 3),
 ('Audi', '2024', 'AudiConnect 4.0', '33:4A:5B:6C:7D:8E', 4),
 ('Volvo', '2024', 'SenseOS 3.5', '44:5A:6B:7C:8D:9E', 5),
-('Hyundai', '2024', 'SmartDrive 1.0', 'AA:BB:CC:DD:EE:01', 6),
-('Kia', '2024', 'KiaConnect 2.0', 'AA:BB:CC:DD:EE:02', 6);
+('Hyundai', '2024', 'SmartDrive 1.0', 'AA:BB:CC:DD:EE:01', 5),
+('Kia', '2024', 'KiaConnect 2.0', 'AA:BB:CC:DD:EE:02', 5);
 
 INSERT INTO componente (tipo, metrica) VALUES 
 ('CPU', '%'),

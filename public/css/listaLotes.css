@@ -21,7 +21,7 @@ span {
     color: #0B1624;
 }
 
-.layout {
+/* .layout {
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -142,7 +142,7 @@ span {
     padding-left: 20px;
     border-radius: 12px;
     font-weight: 600;
-}
+} */
 
 .fundo-preto {
     display: none;

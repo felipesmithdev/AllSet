@@ -78,12 +78,12 @@ jira = JIRA(
 
 def abrir_chamado(summary_jira, description, priority):
     issue_dict = {
-        'project': {'key': 'AL'},
+        'project': {'key': 'AS'},
         'summary': f"Limite de {summary_jira} atingido", 
         'description': f"Limite de {summary_jira} atingido, valor da captura: {description}",
         'issuetype': {'name': 'General Request'},
         'priority': {'name': priority},
-        'customfield_10091': f"Lote {lote}",
+        'customfield_10056': f"Lote {lote}",
     }
     nova_issue = jira.create_issue(fields=issue_dict)
     print("Chamado aberto: ", [nova_issue.key])

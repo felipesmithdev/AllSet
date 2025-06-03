@@ -46,7 +46,7 @@ def getEnderecoMAC():
     
     return 'NadaEncontrado'
 
-lote = 6
+lote = 1
 mac = getEnderecoMAC()
 print(mac)
 
@@ -62,8 +62,8 @@ def inserirSelecionarLoteDoCarro(mac):
     else:
         query = 'INSERT IGNORE INTO carro(marca, ano, sistema_operacional, macadress, fk_lote) VALUES' \
             '(%s,%s,%s,%s,%s)'
-        cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 6))
-        print("Carro cadastrado com sucesso, Lote: 6")
+        cursor.execute(query, ("BMW", 2018, "Ubuntu", mac, 1))
+        print("Carro cadastrado com sucesso, Lote: 1")
     conn.commit()
     conn.close()
 

@@ -129,7 +129,7 @@ def pode_enviar_alerta(componente):
 
     if ultimo_alerta is None:
         return True
-    elif agora - ultimo_alerta >= timedelta(minutes=1):  # Espera de 1 minuto
+    elif agora - ultimo_alerta >= timedelta(minutes=0):  # Espera de 1 minuto
         return True
     return False
 

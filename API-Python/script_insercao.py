@@ -217,7 +217,7 @@ while True:
 
     try:
         res = requests.post(
-            f"http://BANCO_RELACIONAL['host']:8080/seguranca/cadastrar/dados/{mac}",
+            f"http://{BANCO_RELACIONAL['host']}:8080/seguranca/cadastrar/dados/{mac}",
             data=json.dumps(dados),
             headers={'Content-Type': 'application/json'}
         )

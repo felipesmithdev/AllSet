@@ -76,12 +76,13 @@
                                 <th>Lote</th>
                                 <th>Descrição</th>
                                 <th>Data de Criação</th>
+                                <th>Prioridade</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-chamados">
                             <tr>
-                                <td colspan="5" class="loading">Carregando chamados...</td>
+                                <td colspan="6" class="loading">Carregando chamados...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -111,6 +112,10 @@
                         <div class="metric-card" id="card-indice-conclusao">
                             <div class="metric-title">Índice de conclusão</div>
                             <div class="metric-value" id="metric-indice-conclusao">0%</div>
+                        </div>
+                        <div class="metric-card" id="card-tempo-medio-filtro">
+                            <div class="metric-title">Tempo Médio Resolução (Filtro)</div>
+                            <div class="metric-value" id="metric-tempo-medio-filtro">Carregando...</div>
                         </div>
                         <div class="metric-card">
                             <div class="metric-title">Chamados em aberto (filtro)</div>
@@ -185,27 +190,49 @@
 
         async function atualizarTabelaChamados() {
             const tabelaBody = document.getElementById('tabela-chamados');
-            tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">Carregando chamados...</td></tr>';
+            tabelaBody.innerHTML = '<tr><td colspan="6" class="loading">Carregando chamados...</td></tr>';
             try {
                 const response = await axios.get('/jira/chamados-globais');
                 const chamados = response.data;
+
                 if (!chamados || chamados.length === 0) {
-                    tabelaBody.innerHTML = '<tr><td colspan="5" class="loading">📭 Nenhum chamado em aberto encontrado</td></tr>';
+                    tabelaBody.innerHTML = '<tr><td colspan="6" class="loading">📭 Nenhum chamado em aberto encontrado</td></tr>';
                     return [];
                 }
+
                 tabelaBody.innerHTML = '';
                 chamados.forEach((chamado) => {
                     const statusClass = obterClasseStatus(chamado.status);
+
+                    const prioridadeClass = obterClassePrioridade(chamado.prioridade);
+
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td><strong>#${chamado.id}</strong></td><td>${chamado.lote || 'N/A'}</td><td>${chamado.descricao || 'Sem descrição'}</td><td>${formatarDataBR(chamado.data)}</td><td><span class="status-badge ${statusClass}">${chamado.status}</span></td>`;
+                    row.innerHTML = `
+                <td><strong>#${chamado.id}</strong></td>
+                <td>${chamado.lote || 'N/A'}</td>
+                <td>${chamado.descricao || 'Sem descrição'}</td>
+                <td>${formatarDataBR(chamado.data)}</td>
+                <td><span class="status-badge ${prioridadeClass}">${chamado.prioridade || 'N/A'}</span></td>
+                <td><span class="status-badge ${statusClass}">${chamado.status}</span></td>
+            `;
                     tabelaBody.appendChild(row);
                 });
-                return chamados;
+                return chamados; 
             } catch (error) {
                 console.error('Erro ao buscar chamados globais:', error);
-                tabelaBody.innerHTML = '<tr><td colspan="5" class="error">❌ Erro ao carregar chamados. Verifique a conexão.</td></tr>';
-                return [];
+                tabelaBody.innerHTML = '<tr><td colspan="6" class="error">❌ Erro ao carregar chamados. Verifique a conexão.</td></tr>';
+                return []; 
             }
+        }
+
+
+        function obterClassePrioridade(prioridade) {
+            if (!prioridade) return 'priority-default'; 
+            const prioridadeLower = prioridade.toLowerCase();
+            if (prioridadeLower === 'high' || prioridadeLower === 'alta') return 'priority-high';
+            if (prioridadeLower === 'medium' || prioridadeLower === 'média') return 'priority-medium';
+            if (prioridadeLower === 'low' || prioridadeLower === 'baixa') return 'priority-low';
+            return 'priority-default'; 
         }
 
         async function carregarLotes() {
@@ -218,57 +245,87 @@
             } catch (error) { console.error('Erro ao carregar lotes:', error); select.innerHTML = '<option value="">❌ Erro ao carregar lotes</option>'; return []; }
         }
 
-async function atualizarGrafico() {
-    // Pega os valores dos filtros selecionados na página
-    const lote = document.getElementById('lote').value;
-    const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
-    console.log(`Atualizando gráfico e métricas - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
 
-    try {
-        const [responseGrafico, responseKPIs] = await Promise.all([
-            axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`),
-            axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`)
-        ]);
+        async function atualizarGrafico() {
+            const lote = document.getElementById('lote').value;
+            const dias = parseInt(document.querySelector('.periodo-btn.active').dataset.dias);
+            console.log(`Atualizando gráfico e métricas - Lote: ${lote || 'Todos'}, Período: ${dias} dias`);
 
-        const dadosGrafico = responseGrafico.data;
-        const kpis = responseKPIs.data;
-
-        if (chamadosChart && dadosGrafico) {
-            chamadosChart.data.labels = dadosGrafico.labels || [];
-            chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
-            chamadosChart.update();
-        }
-
-        document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
-        document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
-
-        const totalChamadosFiltro = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0);
-        const indiceResolucao = totalChamadosFiltro > 0 ? Math.round(((kpis.totalFinalizados || 0) / totalChamadosFiltro) * 100) : 0;
-        document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
+            const kpiTempoMedioFiltradoValueEl = document.getElementById('metric-tempo-medio-filtro');
+            const kpiTempoMedioFiltradoCardEl = document.getElementById('card-tempo-medio-filtro');
 
 
-        const indiceConclusaoCard = document.getElementById('card-indice-conclusao');
+            try {
+                document.getElementById('metric-total-aberto').textContent = '...';
+                document.getElementById('metric-total-finalizados').textContent = '...';
+                document.getElementById('metric-indice-conclusao').textContent = '...';
+                if (kpiTempoMedioFiltradoValueEl) kpiTempoMedioFiltradoValueEl.textContent = '...';
 
-        if (indiceConclusaoCard) {
-            indiceConclusaoCard.classList.remove('warning', 'danger');
 
-            if (indiceResolucao < 60) {
-                indiceConclusaoCard.classList.add('danger'); 
-            } else if (indiceResolucao < 80) {
-                indiceConclusaoCard.classList.add('warning'); 
+                const [responseGrafico, responseKPIs] = await Promise.all([
+                    axios.get(`/jira/grafico?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`),
+                    axios.get(`/jira/kpis?lote=${encodeURIComponent(lote || '')}&periodo=${dias}`)
+                ]);
+
+                const dadosGrafico = responseGrafico.data;
+                const kpis = responseKPIs.data; 
+
+                if (chamadosChart && dadosGrafico) {
+                    chamadosChart.data.labels = dadosGrafico.labels || [];
+                    chamadosChart.data.datasets[0].data = dadosGrafico.data || [];
+                    chamadosChart.update();
+                }
+
+                document.getElementById('metric-total-aberto').textContent = kpis.totalAbertos || '0';
+                document.getElementById('metric-total-finalizados').textContent = kpis.totalFinalizados || '0';
+
+                const totalChamadosFiltro = (kpis.totalAbertos || 0) + (kpis.totalFinalizados || 0);
+                const indiceResolucao = totalChamadosFiltro > 0 ? Math.round(((kpis.totalFinalizados || 0) / totalChamadosFiltro) * 100) : 0;
+                document.getElementById('metric-indice-conclusao').textContent = `${indiceResolucao}%`;
+
+                const indiceConclusaoCard = document.getElementById('card-indice-conclusao');
+                if (indiceConclusaoCard) {
+                    indiceConclusaoCard.classList.remove('warning', 'danger', 'success'); 
+                    if (indiceResolucao < 60) {
+                        indiceConclusaoCard.classList.add('danger');
+                    } else if (indiceResolucao < 80) {
+                        indiceConclusaoCard.classList.add('warning');
+                    } else {
+                        
+                    }
+                }
+
+                if (kpiTempoMedioFiltradoValueEl) {
+                    kpiTempoMedioFiltradoValueEl.textContent = kpis.tempoMedioResolucaoFiltrado || 'N/A';
+                }
+
+
+                if (kpiTempoMedioFiltradoCardEl && kpis.tempoMedioResolucaoFiltrado && kpis.tempoMedioResolucaoFiltrado !== 'N/A') {
+                    kpiTempoMedioFiltradoCardEl.classList.remove('warning', 'danger', 'success');
+                    const tempoMedioHorasFiltro = parseFloat(kpis.tempoMedioResolucaoFiltrado.replace('h', ''));
+                    if (!isNaN(tempoMedioHorasFiltro)) {
+                        if (tempoMedioHorasFiltro > 12) { 
+                            kpiTempoMedioFiltradoCardEl.classList.add('danger');
+                        } else if (tempoMedioHorasFiltro > 8) { 
+                            kpiTempoMedioFiltradoCardEl.classList.add('warning');
+                        } else {
+                        }
+                    }
+                }
+
+
+                const tituloLote = lote || 'Todos os lotes';
+                document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
+
+            } catch (error) {
+                console.error('Erro ao atualizar o gráfico e as métricas do filtro:', error);
+                document.getElementById('metric-total-aberto').textContent = 'Erro';
+                document.getElementById('metric-total-finalizados').textContent = 'Erro';
+                document.getElementById('metric-indice-conclusao').textContent = 'Erro';
+                if (kpiTempoMedioFiltradoValueEl) kpiTempoMedioFiltradoValueEl.textContent = 'Erro';
             }
         }
 
-        const tituloLote = lote || 'Todos os lotes';
-        document.getElementById('chart-title').textContent = `Gráfico de Chamados nos últimos ${dias} dias - ${tituloLote}`;
-
-    } catch (error) {
-        console.error('Erro ao atualizar o gráfico e as métricas do filtro:', error);
-        document.getElementById('metric-total-aberto').textContent = '-';
-        document.getElementById('metric-total-finalizados').textContent = '-';
-        document.getElementById('metric-indice-conclusao').textContent = '-';
-    }
-}
 
         async function atualizarTudo() {
             ['kpi-lote-mais-chamados', 'kpi-total-aberto', 'kpi-resolvidos-24', 'kpi-tempo-medio'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = 'Carregando...'; });

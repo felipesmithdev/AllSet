@@ -12,7 +12,7 @@ body {
 }
 
 .dashboard {
-    max-width: 1400px;
+    max-width: 2200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -371,4 +371,16 @@ body {
 #card-indice-conclusao.danger .metric-title,
 #card-indice-conclusao.danger .metric-value {
     color: #FFFFFF;
+}
+
+.status-badge.priority-high {
+    background-color: #DC3545;
+    border-left-color: #A71D2A;
+    color: white;
+}
+
+.status-badge.priority-medium {
+    background-color: gold;
+    border-left-color: #b49e21;
+    color: #172B4D;
 }

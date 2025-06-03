@@ -2,7 +2,12 @@ const axios = require('axios');
 const dayjs = require('dayjs');
 require('dotenv').config();
 
-const { JIRA_BASE_URL, JIRA_EMAIL, JIRA_TOKEN, JIRA_PROJECT_KEY = 'AL' } = process.env;
+const {
+    JIRA_BASE_URL,
+    JIRA_EMAIL,
+    JIRA_TOKEN,
+    JIRA_PROJECT_KEY = 'AS' 
+} = process.env;
 
 const auth = {
     auth: {
@@ -15,14 +20,19 @@ const auth = {
     }
 };
 
+
 async function fetchChamados() {
-    const jql = `project=${JIRA_PROJECT_KEY} ORDER BY created DESC`;
+
+    const jql = `project="${JIRA_PROJECT_KEY}" ORDER BY created DESC`;
     let allIssues = [];
     let startAt = 0;
-    const maxResultsPerPage = 100;
+    const maxResultsPerPage = 100; 
     let totalIssues;
     let fetchedCount = 0;
 
+    if (!JIRA_BASE_URL || !JIRA_EMAIL || !JIRA_TOKEN) {
+        throw new Error('Configuração do Jira ausente. Verifique seu arquivo .env.');
+    }
 
     do {
         try {
@@ -34,7 +44,7 @@ async function fetchChamados() {
                         jql,
                         startAt,
                         maxResults: maxResultsPerPage,
-                        fields: 'summary,status,priority,created,resolutiondate,customfield_10091'
+                        fields: 'summary,status,priority,created,resolutiondate,customfield_10056'
                     }
                 }
             );
@@ -43,24 +53,33 @@ async function fetchChamados() {
             if (issues && issues.length > 0) {
                 allIssues = allIssues.concat(issues);
                 fetchedCount += issues.length;
+            } else {
+                console.log('Nenhum chamado retornado nesta página.');
             }
+            
             totalIssues = response.data.total;
             startAt += maxResultsPerPage;
 
-            if (issues && issues.length === 0 && fetchedCount < totalIssues) {
-
-            }
             if (!issues || issues.length < maxResultsPerPage) {
                 break;
             }
 
-
         } catch (error) {
-            console.error('❌ Erro detalhado ao buscar chamados (pagina atual):', error.response?.data || error.message);
-            throw new Error(`Erro ao buscar chamados na paginação: ${error.response?.status} - ${error.response?.statusText || error.message}`);
+            if (error.response) {
+                console.error('❌ Erro detalhado ao buscar chamados (página atual):', JSON.stringify(error.response.data, null, 2));
+                console.error(`Status: ${error.response.status}, Headers: ${JSON.stringify(error.response.headers, null, 2)}`);
+                throw new Error(`Erro ao buscar chamados na paginação: ${error.response.status} - ${error.response.data?.errorMessages?.join(', ') || error.response.statusText || error.message}`);
+            } else if (error.request) {
+                console.error('❌ Erro ao buscar chamados: Nenhuma resposta recebida do servidor.', error.request);
+                throw new Error('Erro de rede ou servidor não respondeu ao buscar chamados.');
+            } else {
+                console.error('❌ Erro ao configurar a requisição para buscar chamados:', error.message);
+                throw new Error(`Erro na configuração da requisição: ${error.message}`);
+            }
         }
     } while (fetchedCount < totalIssues);
 
+    console.log(`Total de ${allIssues.length} chamados recuperados.`);
     return allIssues;
 }
 
@@ -71,7 +90,7 @@ async function buscarChamados(lote, dias) {
     return todosChamados
         .filter(issue => {
             const criado = dayjs(issue.fields.created);
-            const matchLote = !lote || issue.fields.customfield_10091 === lote;
+            const matchLote = !lote || (issue.fields.customfield_10056 && issue.fields.customfield_10056 === lote);
             const matchPeriodo = criado.isAfter(filtroDias) || criado.isSame(filtroDias, 'day');
             return matchLote && matchPeriodo;
         })
@@ -81,12 +100,12 @@ async function buscarChamados(lote, dias) {
         })
         .map(issue => ({
             id: issue.key,
-            lote: issue.fields.customfield_10091,
+            lote: issue.fields.customfield_10056 || 'N/D', 
             descricao: issue.fields.summary,
             data: issue.fields.created,
             resolucao: issue.fields.resolutiondate,
             status: issue.fields.status.name,
-            prioridade: issue.fields.priority?.name
+            prioridade: issue.fields.priority?.name || 'Indefinida' 
         }));
 }
 
@@ -127,6 +146,7 @@ async function calcularKPIs(lote, dias) {
     };
 }
 
+
 async function calcularKPIsGlobais() {
     const chamados = await fetchChamados();
     const agora = dayjs();
@@ -138,7 +158,7 @@ async function calcularKPIsGlobais() {
     const statusFechados = ['concluído', 'done', 'resolved', 'closed', 'finalizado', 'resolvido', 'encerrado', 'completo', 'complete'];
 
     chamados.forEach(issue => {
-        const loteAtual = issue.fields.customfield_10091 || 'Não definido';
+        const loteAtual = issue.fields.customfield_10056 || 'Não definido';
         const status = issue.fields.status.name.toLowerCase();
         const resolvidoEm = issue.fields.resolutiondate ? dayjs(issue.fields.resolutiondate) : null;
         const criadoEm = dayjs(issue.fields.created);
@@ -161,8 +181,9 @@ async function calcularKPIsGlobais() {
         ? parseFloat((tempoTotalResolucao / totalResolvidosGeral).toFixed(1))
         : 0;
 
+    // Encontra o lote com mais chamados abertos
     const loteComMais = [...lotesContagem.entries()]
-        .sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
+        .sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A'; 
 
     return {
         loteComMais,
@@ -179,7 +200,7 @@ async function buscarChamadosGlobais() {
     const chamadosFiltrados = todosChamados
         .filter(issue => {
             const status = issue.fields.status.name.toLowerCase();
-            return !statusFechados.includes(status);
+            return !statusFechados.includes(status); 
         })
         .sort((a, b) => {
             const prioridades = { 'High': 3, 'Medium': 2, 'Low': 1 };
@@ -187,7 +208,7 @@ async function buscarChamadosGlobais() {
         })
         .map(issue => ({
             id: issue.key,
-            lote: issue.fields.customfield_10091 || 'N/A',
+            lote: issue.fields.customfield_10056 || 'N/A',
             descricao: issue.fields.summary,
             data: issue.fields.created,
             status: issue.fields.status.name,
@@ -196,9 +217,10 @@ async function buscarChamadosGlobais() {
     return chamadosFiltrados;
 }
 
+
 async function gerarDadosGrafico(lote, dias) {
-    const chamadosFiltrados = await buscarChamados(lote, dias);
-    const diasArray = [];
+    const chamadosFiltrados = await buscarChamados(lote, dias); 
+    const diasArray = []; 
     const hoje = dayjs();
 
     for (let i = dias - 1; i >= 0; i--) {
@@ -217,6 +239,7 @@ async function gerarDadosGrafico(lote, dias) {
     };
 }
 
+
 async function listarLotes() {
     try {
         const todosChamados = await fetchChamados();
@@ -224,18 +247,18 @@ async function listarLotes() {
 
         if (todosChamados && todosChamados.length > 0) {
             todosChamados.forEach(issue => {
-                const lote = issue.fields.customfield_10091;
+                const lote = issue.fields.customfield_10056;
                 if (lote) { 
                     lotes.add(lote);
                 }
             });
         }
-        const lotesArray = Array.from(lotes).sort();
+        const lotesArray = Array.from(lotes).sort(); 
         return lotesArray;
 
     } catch (error) {
         console.error('Erro ao listar lotes (usando fetchChamados):', error.message);
-        return [];
+        return []; 
     }
 }
 
@@ -246,5 +269,5 @@ module.exports = {
     calcularKPIsGlobais,
     gerarDadosGrafico,
     listarLotes,
-    fetchChamados
+    fetchChamados 
 };

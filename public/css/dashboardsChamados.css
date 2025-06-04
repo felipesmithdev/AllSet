@@ -15,6 +15,7 @@ body {
     max-width: 2200px;
     margin: 0 auto;
     padding: 20px;
+    background: rgb(190, 190, 190);
 }
 
 .header {

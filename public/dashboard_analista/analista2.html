@@ -470,8 +470,13 @@
           document.getElementById('taxa-falhas').style.color = 'white';
           document.getElementById('criticos-kpi2').style.color = 'white';
           document.getElementById('total-kpi2').style.color = 'white';
-        } else if (res[0][0].porcentagem <= 80) {
+        } else if (res[0][0].porcentagem <= 50) {
           corKpi.style.backgroundColor = "gold"
+          document.getElementById("cor-branca").style.color = 'black';
+          document.getElementById("descricao-kpi").style.color = 'black';
+          document.getElementById('taxa-falhas').style.color = 'black';
+          document.getElementById('criticos-kpi2').style.color = 'black';
+          document.getElementById('total-kpi2').style.color = 'black';
         } else {
           corKpi.style.backgroundColor = "#FF0000"
           document.getElementById("cor-branca").style.color = 'white';
@@ -577,7 +582,7 @@
               },
               y: {
                 beginAtZero: true,
-                suggestedMax: Math.max(...criticos) + 2,
+                suggestedMax: 50,
                 title: { display: true, text: 'Quantidade', font: { size: 14, weight: 'bold' }, color: '#333' },
                 ticks: { color: '#333', font: { size: 12 } },
                 grid: { color: '#eee', borderDash: [5, 5] }
@@ -660,7 +665,7 @@
               },
               y: {
                 beginAtZero: true,
-                suggestedMax: Math.max(...criticos) + 2,
+                suggestedMax: 50,
                 title: { display: true, text: 'Quantidade', font: { size: 16, weight: 'bold' }, color: '#333' },
                 ticks: { color: '#333', font: { size: 12 } },
                 grid: { color: '#eee', borderDash: [5, 5] }
@@ -733,7 +738,7 @@
               },
               y: {
                 beginAtZero: true,
-                suggestedMax: Math.max(somaCritico, somaModerado, somaNormal) + 20,
+                suggestedMax: 3000,
                 ticks: { color: '#333', font: { size: 12 } },
                 title: {
                   display: true,

@@ -111,7 +111,7 @@ function mediaDiariaCPU() {
                   type: 'line',
                   yMin: 70,
                   yMax: 70,
-                  borderColor: 'red',
+                  borderColor: 'yellow',
                   borderWidth: 2,
                   borderDash: [6, 6],
                   label: {
@@ -124,14 +124,14 @@ function mediaDiariaCPU() {
                 },
                 linha20: {
                   type: 'line',
-                  yMin: 20,
-                  yMax: 20,
+                  yMin: 85,
+                  yMax: 85,
                   borderColor: 'red',
                   borderWidth: 2,
                   borderDash: [6, 6],
                   label: {
                     display: true,
-                    content: 'Limite 20%',
+                    content: 'Limite 85%',
                     position: 'start',
                     backgroundColor: 'rgba(0,0,0,0.7)',
                     color: 'white'
@@ -235,7 +235,7 @@ function mediaDiariaRAM() {
             type: 'line',
             yMin: 70,
             yMax: 70,
-            borderColor: 'red',
+            borderColor: 'yellow',
             borderWidth: 2,
             borderDash: [6, 6],
             label: {
@@ -248,14 +248,14 @@ function mediaDiariaRAM() {
           },
           linha20: {
             type: 'line',
-            yMin: 20,
-            yMax: 20,
+            yMin: 85,
+            yMax: 85,
             borderColor: 'red',
             borderWidth: 2,
             borderDash: [6, 6],
             label: {
               display: true,
-              content: 'Limite 20%',
+              content: 'Limite 85%',
               position: 'start',
               backgroundColor: 'rgba(0,0,0,0.7)',
               color: 'white'

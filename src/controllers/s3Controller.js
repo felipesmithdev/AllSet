@@ -5,8 +5,8 @@ async function buscarDadosPorMes(req, res) {
   console.log("Mês recebido:", mes);
 
   try {
-    const dadosChuva = await buscarArquivo("allset-dados-client", `chuva/${mes}.json`);
-    const dadosTrafego = await buscarArquivo("allset-dados-client", `trafego/${mes}.json`);
+    const dadosChuva = await buscarArquivo("client-allset", `dadosExternos/chuva/${mes}.json`);
+    const dadosTrafego = await buscarArquivo("client-allset", `dadosExternos/trafego/${mes}.json`);
 
     console.log("Dados chuva:", dadosChuva);
     console.log("Dados tráfego:", dadosTrafego);

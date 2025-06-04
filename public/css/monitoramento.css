@@ -175,7 +175,7 @@ span {
   width: 97% !important;
   height: 100vh !important;
   color: white !important;
-  background-color: #EBEBEB !important;
+  background-color: rgb(190, 190, 190) !important;
   overflow: hidden !important;
   /* border: solid 0.2px black; */
   display: flex;
@@ -307,7 +307,7 @@ span {
 }
 
 .tabela_lotes thead {
-  background-color: #583DFF;
+  background-color: #1B2559;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -398,7 +398,7 @@ table.tabela_lotes tbody tr.selecionado:hover td {
 .bar_componentes{
   /* border: solid 1px black; */
   background-color: #FFFFFF;
-  width: 48%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -443,7 +443,7 @@ table.tabela_lotes tbody tr.selecionado:hover td {
 .div_grafico_componentes {
   width: 100%;
   display: flex;
-  position: relative;
+  /* position: relative; */
   /* align-items: center; */
   padding: 20px;
   align-items: center;
@@ -469,7 +469,7 @@ table.tabela_lotes tbody tr.selecionado:hover td {
   height: 13%;
   /* border: solid 1px green; */
   border-radius: 7px;
-  background-color: #583DFF;
+  background-color: #1B2559;
   box-shadow: 2px 3px 2px 0px #a5a5a6;
   display: flex;
   align-items: center;
@@ -589,7 +589,7 @@ td.status_lote_normal{
 }
 
 .tabela_carro thead {
-  background-color: #583DFF;
+  background-color: #1B2559;
   position: sticky;
   top: 0;
   z-index: 2;

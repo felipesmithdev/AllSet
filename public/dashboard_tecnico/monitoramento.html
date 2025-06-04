@@ -46,7 +46,7 @@
             <div class="irmao_carro_baixo">
               <div class="pop_alerta">
                 <div class="topo_alerta">
-                  <span>LOTE CRÍTICO</span>
+                  <span>LOTE GRAVE</span>
                 </div>
                 <div class="meio_alerta">
                   <span class="nome_lote" id="id_lote_critico">Lote 001</span>
@@ -137,7 +137,7 @@
     <div class="opcoes-bar">
       <a href="">Dashboard</a>
       <a href="fechar.html">Listagem</a>
-      <a href="">Sair</a>
+      <a href="../login.html">Sair</a>
     </div>
   </div>
 
@@ -271,68 +271,84 @@
 
 
     // grafico em tempo real
-    const ctx = document.getElementById('fluxoChart').getContext('2d');
+const ctx = document.getElementById('fluxoChart').getContext('2d');
 
-    const fluxoData = {
-      labels: [],
-      datasets: [
-        {
-          label: 'Carros sem alertas',
-          backgroundColor: 'limegreen',
-          data: [],
-          barPercentage: 0.7,
-          borderRadius: 6,
-        },
-        {
-          label: 'Carros com alerta medio',
-          backgroundColor: 'gold',
-          data: [],
-          barPercentage: 0.7,
-          borderRadius: 6
-        },
-        {
-          label: 'Carros com alerta grave',
-          backgroundColor: 'red',
-          data: [],
-          barPercentage: 0.7,
-          borderRadius: 6
-        }
-      ]
-    };
+const fluxoData = {
+  labels: [],
+  datasets: [
+    {
+      label: 'Carros sem alertas',
+      backgroundColor: 'limegreen',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6,
+    },
+    {
+      label: 'Carros com alerta medio',
+      backgroundColor: 'gold',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6
+    },
+    {
+      label: 'Carros com alerta grave',
+      backgroundColor: 'red',
+      data: [],
+      barPercentage: 0.7,
+      borderRadius: 6
+    }
+  ]
+};
 
-    const fluxoChart = new Chart(ctx, {
-      type: 'bar',
-      data: fluxoData,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top'
-          }
-        },
-        scales: {
-          x: {
-            stacked: false,
-            grid: {
-              display: false
-            },
-            ticks: {
-              autoSkip: false,
-              maxRotation: 45,
-              minRotation: 45
-            }
+const fluxoChart = new Chart(ctx, {
+  type: 'bar',
+  data: fluxoData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            size: 16,       // Tamanho da fonte das labels da legenda
+            weight: 'bold'  // Deixa em negrito (opcional)
           },
-          y: {
-            beginAtZero: true,
-            stacked: false,
-            grid: {
-              display: false
-            }
+          color: '#000'     // Cor do texto da legenda
+        }
+      }
+    },
+    scales: {
+      x: {
+        stacked: false,
+        grid: {
+          display: false
+        },
+        ticks: {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 45,
+          font: {
+            size: 14
+          }
+        }
+      },
+      y: {
+        beginAtZero: true,
+        stacked: false,
+        grid: {
+          display: false
+        },
+        ticks: {
+          font: {
+            size: 14
           }
         }
       }
-    });
+    }
+  }
+});
+
 
     // aqui é para atualizar os dados do grafico (grafico em tempo real dos lotes)
     function atualizarGrafico() {
@@ -411,65 +427,101 @@
 
     // grafico de barra do comoponente por alerta
     const ctx2 = document.getElementById('componente_char').getContext('2d');
-    const componentes_char = new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['cpu', 'ram', 'disco'],
-        datasets: [
-          {
-            label: 'alertas (médios)',
-            data: [54, 43, 30],
-            backgroundColor: 'gold',
-            borderRadius: 6,
-            barPercentage: 0.9,
-            categoryPercentage: 0.5
-          },
-          {
-            label: 'alertas (graves)',
-            data: [68, 51, 32],
-            backgroundColor: 'purple',
-            borderRadius: 6,
-            barPercentage: 0.9,
-            categoryPercentage: 0.5
-          }
-        ]
+const componentes_char = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['cpu', 'ram', 'disco'],
+    datasets: [
+      {
+        label: 'MEDIO',
+        data: [54, 43, 30],
+        backgroundColor: 'gold',
+        borderRadius: 6,
+        barPercentage: 0.9,
+        categoryPercentage: 0.7
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'Alertas por Componente (médio / grave)\nDIÁRIO'
-          }
-        },
-        scales: {
-          x: {
-            grid: {
-              display: false
-            },
-            title: {
-              display: true,
-              text: 'componente'
-            }
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Valor'
-            },
-            grid: {
-              display: false,
-              color: '#e0e0e0'
-            }
+      {
+        label: 'GRAVE',
+        data: [68, 51, 32],
+        backgroundColor: 'purple',
+        borderRadius: 6,
+        barPercentage: 0.9,
+        categoryPercentage: 0.7
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#00000',
+          font: {
+            size: 15,
+            weight: 'bold'
           }
         }
+      },
+      title: {
+        display: true,
+        text: 'ALERTAS POR COMPONENTE (MEDIO / GRAVE) DIARIO',
+        color: '#1f3c88',
+        font: {
+          size: 20,
+          weight: 'bold'
+        }
       }
-    });
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: 'componente',
+          font: {
+            size: 20,
+            weight: 'bold'  
+          },
+          color: '#333'
+        },
+        ticks: {
+          color: '#555',
+          font: {
+            size: 20,
+            weight: 'bold'  
+          }
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Valor',
+          font: {
+            size: 16,
+            weight: 'bold'
+          },
+          color: '#333'
+        },
+        ticks: {
+          color: '#555',
+          font: {
+            size: 14
+          }
+        },
+        grid: {
+          display: false,
+          color: '#e0e0e0'
+        }
+      }
+    }
+  }
+});
+
 
 
     const menuBar = document.getElementById("menu-bar");

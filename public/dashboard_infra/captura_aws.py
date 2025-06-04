@@ -1,15 +1,22 @@
 import boto3
 import pandas as pd
 import json
+from datetime import date, timedelta
 
 # Cliente Cost Explorer
 client = boto3.client('ce')
 
+start_date = '2025-05-20'
+data_atual = date.today()
+data_anterior = data_atual - timedelta(days=1)
+end_date = data_anterior.strftime('%Y-%m-%d')
+
+
 # Coleta dos custos
 result = client.get_cost_and_usage(
     TimePeriod={
-        'Start': '2025-05-20',
-        'End': '2025-06-01'
+        'Start': start_date,
+        'End': end_date
     },
     Granularity='DAILY',
     Metrics=['BlendedCost'],

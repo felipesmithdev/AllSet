@@ -4,10 +4,10 @@ monitoramento = {};
 
 async function buscarTodosJsonsDeCustos(req, res) {
   try {
-    var arquivos = await listarArquivosPorPrefixo("bucket-teste-trusted-captura", "custos/");
+    var arquivos = await listarArquivosPorPrefixo("trusted-allset", "custos/");
 
     var jsonPromises = arquivos.map(obj =>
-      buscarArquivo("bucket-teste-trusted-captura", obj.Key).then(conteudo => JSON.parse(conteudo))
+      buscarArquivo("trusted-allset", obj.Key).then(conteudo => JSON.parse(conteudo))
     );
 
     var todosOsCustos = await Promise.all(jsonPromises);

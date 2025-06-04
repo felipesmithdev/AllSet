@@ -172,5 +172,5 @@ body {
     width: calc(100% - 65px); 
     height: 100vh;
     overflow-y: auto;
-    background-color: #EBEBEB; 
+    background-color: rgb(190, 190, 190); 
 }

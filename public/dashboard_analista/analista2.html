@@ -56,9 +56,9 @@
           </div>
 
           <div class="kpi kpi-alternativa" id="kpi-alternativa">
-            <span class="kpi-titulo">Taxa de incidentes críticos</span>
+            <span class="kpi-titulo" id="cor-branca">Taxa de incidentes críticos</span>
             <span class="taxa-falhas" id="taxa-falhas">80%</span>
-            <span class="descricao-kpi">
+            <span class="descricao-kpi" id="descricao-kpi">
               <span id="criticos-kpi2"></span>&nbsp;de&nbsp;
               <span id="total-kpi2"></span>&nbsp;totais
             </span>
@@ -326,7 +326,7 @@
         plotarGrafico1(categoria, lote, periodo, componente)
         break;
     }
-    
+
     setTimeout(() => {
       altBackgroundGrafico(chartCPU, corFundo1, corLinha1);
     }, 100);
@@ -461,15 +461,24 @@
         var kpi2criticos = document.getElementById("criticos-kpi2")
         var kpi2total = document.getElementById("total-kpi2")
         var corKpi = document.getElementById("kpi-alternativa")
+        var corKpiBranca = document.getElementById("cor-branca")
 
-        if(res[0][0].porcentagem <= 30) {
+        if (res[0][0].porcentagem <= 30) {
           corKpi.style.backgroundColor = "#008000"
-          corKpi.style.color = "#fff"
+          document.getElementById("cor-branca").style.color = 'white';
+          document.getElementById("descricao-kpi").style.color = 'white';
+          document.getElementById('taxa-falhas').style.color = 'white';
+          document.getElementById('criticos-kpi2').style.color = 'white';
+          document.getElementById('total-kpi2').style.color = 'white';
         } else if (res[0][0].porcentagem <= 80) {
           corKpi.style.backgroundColor = "gold"
         } else {
           corKpi.style.backgroundColor = "#FF0000"
-          corKpi.style.color = "#fff"
+          document.getElementById("cor-branca").style.color = 'white';
+          document.getElementById("descricao-kpi").style.color = 'white';
+          document.getElementById('taxa-falhas').style.color = 'white';
+          document.getElementById('criticos-kpi2').style.color = 'white';
+          document.getElementById('total-kpi2').style.color = 'white';
         }
 
         kpi2porcentagem.innerHTML = res[0][0].porcentagem + "%"

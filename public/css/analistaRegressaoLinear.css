@@ -144,10 +144,10 @@ body {
     font-weight: 600;
     transition: filter 0.2s ease;
 }
+
 .opcoes-bar a:hover {
     filter: brightness(1.2);
 }
-
 
 .fundo-preto { 
     display: none; 
@@ -190,7 +190,7 @@ body {
     width: 100% !important;
     height: 200vh !important;
     color: black !important;
-    background-color: #EBEBEB !important;
+    background-color: rgb(190, 190, 190) !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;

@@ -46,7 +46,7 @@
 
         <div class="kpis">
           <div class="kpi">
-            <span class="kpi-titulo">Lotes com mais incidências críticas</span>
+            <span class="kpi-titulo">Lotes com mais ocorrências graves</span>
             <div class="lotes">
               <span class="lote-um" id="lote-um">Lote 001</span><span class="lote-um" id="lote-dois">Lote
                 002</span><span class="lote-um" id="lote-tres">Lote
@@ -56,7 +56,7 @@
           </div>
 
           <div class="kpi kpi-alternativa" id="kpi-alternativa">
-            <span class="kpi-titulo" id="cor-branca">Taxa de incidentes críticos</span>
+            <span class="kpi-titulo" id="cor-branca">Taxa de ocorrências graves</span>
             <span class="taxa-falhas" id="taxa-falhas">80%</span>
             <span class="descricao-kpi" id="descricao-kpi">
               <span id="criticos-kpi2"></span>&nbsp;de&nbsp;
@@ -65,7 +65,7 @@
           </div>
 
           <div class="kpi">
-            <span class="kpi-titulo-componentes">Ranking de componentes com mais incidências críticas</span>
+            <span class="kpi-titulo-componentes">Ranking de componentes com mais ocorrências graves</span>
             <div class="componentes-maior">
               <div class="componente">
                 <span class="posicao">1°</span>
@@ -100,7 +100,7 @@
             <div class="myChart">
               <div class="header-grafico">
                 <div class="filtro-componente">
-                  <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
+                  <span class="titulo-grafico-unico">Evolução das Ocorrências por Componente</span>
                   <div class="selecao-componente">
                     <span>Componente:</span>
                     <select name="" id="slt_componente1" onchange="alterarComponente(this.value)">
@@ -114,8 +114,8 @@
                       <div class="separar-categoria">
                         <label for="categoria-select">Categoria:</label>
                         <select id="categoria-select" onchange="alterarCategoria(this.value)">
-                          <option value="critico">Crítico</option>
-                          <option value="moderado">Moderado</option>
+                          <option value="critico">Grave</option>
+                          <option value="moderado">Médio</option>
                           <option value="normal">Normal</option>
                         </select>
                       </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="myChart">
               <div class="filtro-componente">
-                <span class="titulo-grafico-unico">Evolução das Incidências por Componente</span>
+                <span class="titulo-grafico-unico">Evolução das Ocorrências por Componente</span>
                 <div class="selecao-componente">
                   <span>Componente:</span>
                   <select name="" id="slt_componente2" onchange="alterarComponente2(this.value)">
@@ -141,8 +141,8 @@
                     <div class="separar-categoria">
                       <label for="categoria-select2">Categoria:</label>
                       <select id="categoria-select2" onchange="alterarCategoria2(this.value)">
-                        <option value="critico">Crítico</option>
-                        <option value="moderado">Moderado</option>
+                        <option value="critico">Grave</option>
+                        <option value="moderado">Médio</option>
                         <option value="normal">Normal</option>
                       </select>
                     </div>
@@ -696,7 +696,7 @@
         chartBarras = new Chart(ctxBarras, {
           type: 'bar',
           data: {
-            labels: ['Crítico', 'Moderado', 'Normal'],
+            labels: ['Grave', 'Moderado', 'Normal'],
             datasets: [{
               label: 'Total de Capturas por Categoria',
               data: [somaCritico, somaModerado, somaNormal],

@@ -51,8 +51,8 @@
                     <div class="filtro">
                         <span>Ordenar por:</span>
                         <select name="slt_categoria" id="slt_categoria">
-                            <option value="critico">Critico</option>
-                            <option value="moderado">Moderado</option>
+                            <option value="critico">Grave</option>
+                            <option value="moderado">Médio</option>
                             <option value="normal">Normal</option>
                             <option value="todos">Lote</option>
                         </select>
@@ -64,8 +64,8 @@
                         <thead>
                             <tr>
                                 <th>Lote</th>
-                                <th>Crítico</th>
-                                <th>Moderado</th>
+                                <th>Grave</th>
+                                <th>Médio</th>
                                 <th>Normal</th>
                                 <th>Dashboard</th>
                             </tr>
@@ -184,7 +184,7 @@
         todosBotoes.forEach(id => {
             const button = document.getElementById(id)
             if (button) {
-                button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#EBEBEB"
+                button.style.backgroundColor = (id === idParaMudar) ? "#61B0FF" : "#fff"
             }
         });
     }

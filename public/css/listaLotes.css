@@ -13,7 +13,7 @@ body {
     height: 100%;
     width: 100%;
     font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(215, 215, 215);
+    background-color: rgb(190, 190, 190);
     overflow-x: hidden;
 }
 
@@ -168,7 +168,7 @@ span {
     color: white;
     padding-top: 20px;
     padding-left: 10px;
-    background-color: rgb(215, 215, 215);
+    background-color: rgb(190, 190, 190) !important;
     overflow: hidden;
 }
 
@@ -227,7 +227,7 @@ span {
     align-items: center;
     justify-content: space-between;
     border-radius: 15px;
-    background-color: #EBEBEB;
+    background-color: #fff;
     width: 33%;
     height: 5vh;
     margin-top: 5px;

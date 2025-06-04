@@ -46,6 +46,7 @@ def getEnderecoMAC():
     
     return 'NadaEncontrado'
 
+s3 = boto3.client('s3')
 lote = 1
 mac = getEnderecoMAC()
 print(mac)
@@ -90,19 +91,9 @@ def abrir_chamado(summary_jira, description, priority):
     # prioridade normal, instavel e grave (High, Medium, Low)
 
 
-#estou criando uma lista vazia, assim consigo armazenar as info.
 dados_monitoramento = []
 
-# configurando o boto3
-# s3 = boto3.client(
-# 's3',
-# aws_access_key_id = f'{AWS_KEY_ID}',
-# aws_secret_access_key= f'{AWS_SECRET_KEY}',
-# aws_session_token= f'{AWS_TOKEN}',
-# region_name='us-east-1'  
-# )
-
-nome_do_json = f"monitoramento_{mac}_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
+nome_do_json = f"monitoramento_{mac}_lote_7_data_{datetime.now().strftime('%d-%m-%Y_%Hhrs%Mmin%Ss')}.json"
 
 def registrarChamado(summary_jira, valor, prioridade):
     abrir_chamado(summary_jira, valor, prioridade)

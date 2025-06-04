@@ -210,6 +210,12 @@
   var categoria2 = document.getElementById("categoria-select2").value
   var componente2 = document.getElementById("slt_componente2").value
 
+  var corFundo1 = 'rgba(255, 0, 0, 0.3)';
+  var corLinha1 = '#FF0000';
+
+  var corFundo2 = 'rgba(255, 0, 0, 0.3)';
+  var corLinha2 = '#FF0000';
+
   window.onload = () => {
     calcularKpi1(periodo);
     calcularKpi2(lote, periodo);
@@ -299,62 +305,58 @@
   }
 
   function alterarCategoria(valor) {
-    let corFundo = '';
-    let corLinha = '';
 
     switch (valor) {
       case 'critico':
-        corFundo = 'rgba(255, 0, 0, 0.3)';
-        corLinha = '#FF0000';
+        corFundo1 = 'rgba(255, 0, 0, 0.3)';
+        corLinha1 = '#FF0000';
         categoria = 'critico'
         plotarGrafico1(categoria, lote, periodo, componente)
         break;
       case 'moderado':
-        corFundo = 'rgba(255, 255, 0, 0.3)';
-        corLinha = '#999900';
+        corFundo1 = 'rgba(255, 255, 0, 0.3)';
+        corLinha1 = '#999900';
         categoria = 'moderado'
         plotarGrafico1(categoria, lote, periodo, componente)
         break;
       case 'normal':
-        corFundo = 'rgba(0, 255, 0, 0.3)';
-        corLinha = '#008000';
+        corFundo1 = 'rgba(0, 255, 0, 0.3)';
+        corLinha1 = '#008000';
         categoria = 'normal'
         plotarGrafico1(categoria, lote, periodo, componente)
         break;
     }
     
     setTimeout(() => {
-      altBackgroundGrafico(chartCPU, corFundo, corLinha);
+      altBackgroundGrafico(chartCPU, corFundo1, corLinha1);
     }, 100);
   }
 
   function alterarCategoria2(valor) {
-    let corFundo = '';
-    let corLinha = '';
 
     switch (valor) {
       case 'critico':
-        corFundo = 'rgba(255, 0, 0, 0.3)';
-        corLinha = '#FF0000';
+        corFundo2 = 'rgba(255, 0, 0, 0.3)';
+        corLinha2 = '#FF0000';
         categoria2 = 'critico'
         plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
       case 'moderado':
-        corFundo = 'rgba(255, 255, 0, 0.3)';
-        corLinha = '#999900';
+        corFundo2 = 'rgba(255, 255, 0, 0.3)';
+        corLinha2 = '#999900';
         categoria2 = 'moderado'
         plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
       case 'normal':
-        corFundo = 'rgba(0, 255, 0, 0.3)';
-        corLinha = '#008000';
+        corFundo2 = 'rgba(0, 255, 0, 0.3)';
+        corLinha2 = '#008000';
         categoria2 = 'normal'
         plotarGrafico2(categoria2, lote, periodo, componente2)
         break;
     }
 
     setTimeout(() => {
-      altBackgroundGrafico(chartRAM, corFundo, corLinha);
+      altBackgroundGrafico(chartRAM, corFundo2, corLinha2);
     }, 100);
   }
 
@@ -533,13 +535,13 @@
             datasets: [{
               label: 'CPU',
               data: criticos.reverse(),
-              borderColor: '#FF3B3B',
-              backgroundColor: 'rgba(255, 59, 59, 0.3)',
+              borderColor: corLinha1,
+              backgroundColor: corFundo1,
               tension: 0.4,
               fill: true,
               pointRadius: 4,
               pointHoverRadius: 9,
-              pointBackgroundColor: '#FF3B3B',
+              pointBackgroundColor: corLinha1,
               pointStyle: 'circle',
               borderWidth: 3,
             }]
@@ -616,13 +618,13 @@
             datasets: [{
               label: 'Gráfico 2',
               data: criticos.reverse(),
-              borderColor: '#FF3B3B',
-              backgroundColor: 'rgba(255, 59, 59, 0.3)',
+              borderColor: corLinha2,
+              backgroundColor: corFundo2,
               tension: 0.4,
               fill: true,
               pointRadius: 4,
               pointHoverRadius: 9,
-              pointBackgroundColor: '#FF3B3B',
+              pointBackgroundColor: corLinha2,
               pointStyle: 'circle',
               borderWidth: 3
             }]

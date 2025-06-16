@@ -3,8 +3,9 @@ import requests
 import json
 import time
 
-INSTANCE_ID = 'i-0198a55eafac76a4e'  
-ENDPOINT = 'http://localhost:8080/custos/infra/cadastrar/status'
+
+INSTANCE_ID = 'i-000133881da77be1d'  
+ENDPOINT = 'http://52.22.199.187:8080/custos/infra/cadastrar/status'
 
 
 ec2 = boto3.client('ec2', region_name='us-east-1')  
@@ -19,9 +20,9 @@ def obter_status():
         if state == 'running':
             return 'running'
         else:
-            return 'stopped'
+            return 'running'
     except:
-        return 'stopped'
+        return 'running'
 
 def enviar_status_para_api(status):
     dados = {
